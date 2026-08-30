@@ -1,0 +1,1074 @@
+{
+  "system_call_count": 5,
+  "subprocess_count": 0,
+  "shell_execution_usage": 0,
+  "dynamic_execution_count": 14118,
+  "suspicious_network_activity": 0,
+  "file_access_risk": 1,
+  "packages": {
+    "_frozen_importlib_external": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 2,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "_frozen_importlib": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 4,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "warcio": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 23,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "six": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 37,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "struct": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 3,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "base64": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 3,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "hashlib": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 4,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "fsspec": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 265,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "logging": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 20,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "traceback": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 10,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "linecache": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 6,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "tokenize": {
+      "system_call_count": 1,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 14,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "collections": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 116,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "textwrap": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 1,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "weakref": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 5,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "string": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 3,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "concurrent": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 20,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "queue": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 9,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "heapq": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 4,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "typing": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 102,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "abc": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 15,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "zipfile": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 31,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "shutil": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 18,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "fnmatch": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 5,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "posixpath": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 6,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "bz2": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 7,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "_compression": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 2,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "lzma": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 6,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "pathlib": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 17,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "urllib": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 38,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "ipaddress": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 1,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "tempfile": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 13,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "random": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 15,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "bisect": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 1,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "csv": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 5,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "inspect": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 36,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "ast": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 8,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "dis": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 8,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "opcode": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 1,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "email": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 107,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "quopri": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 1,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "datetime": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 2,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "calendar": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 158,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "functools": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 40,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "glob": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 7,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "configparser": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 9,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "gzip": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 8,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "asyncio": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 403,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "contextvars": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 1,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "pytest": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 107,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "_pytest": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 1329,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "dataclasses": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 205,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "copy": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 3,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "pluggy": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 102,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "pygments": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 86,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "py": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 10,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "uuid": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 4,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "pprint": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 6,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "argparse": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 7,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "gettext": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 14,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "shlex": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 5,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "iniconfig": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 15,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "bdb": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 4,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "unittest": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 72,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "difflib": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 4,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "platform": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 7,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "decimal": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 8,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "numbers": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 1,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "pytest_cov": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 1,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "requests": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 195,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "urllib3": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 301,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "http": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 49,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "hmac": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 3,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "mimetypes": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 6,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "chardet": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 225,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "charset_normalizer": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 64,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "idna": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 19,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "certifi": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 21,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "encodings": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 6,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "stringprep": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 1,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "flask": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 380,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "werkzeug": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 675,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "socketserver": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 7,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "html": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 4,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "markupsafe": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 8,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "colorama": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 33,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "ctypes": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 50,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "pkgutil": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 13,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "secrets": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 3,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "click": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 268,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "blinker": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 30,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "jinja2": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 280,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "pickle": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 20,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "itsdangerous": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 103,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "aiohttp": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 15,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "multidict": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 19,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "setuptools": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 303,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "_distutils_hack": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 9,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "distutils": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 162,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "jaraco": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 36,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "more_itertools": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 29,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "sysconfig": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 5,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "packaging": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 101,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "getopt": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 2,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "tarfile": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 13,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "yarl": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 56,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "propcache": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 10,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "tqdm": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 60,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "numpy": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 1168,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "warnings": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 4,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "notebook": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 7,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "pandas": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 4113,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "pytz": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 28,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "dateutil": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 95,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "pyarrow": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 365,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "zoneinfo": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 15,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "_strptime": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 9,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "pydoc": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 21,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "ipykernel": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 16,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "jupyter_client": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 18,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "zmq": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 151,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "nest_asyncio": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 3,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "psutil": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 151,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "matplotlib": {
+      "system_call_count": 2,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 250,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "pil": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 141,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "defusedxml": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 29,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "xml": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 29,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "pyparsing": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 103,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "cycler": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 11,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "kiwisolver": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 5,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "zipimport": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 1,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "sqlite3": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 11,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "yaml": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "shell_execution_usage": 0,
+      "dynamic_execution_count": 91,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    }
+  }
+}

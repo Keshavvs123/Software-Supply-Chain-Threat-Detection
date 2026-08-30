@@ -1,0 +1,29 @@
+# Virtual Environment
+venv/
+.venv/
+Env/
+ENV/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE configurations
+.idea/
+.vscode/
+.project
+.pydevproject
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Heavy dataset/caches
+outputs/nvd_cache/
+outputs/osv_cache/
+outputs/pypi_cache/
+outputs/osv_pypi_all.zip
+outputs/cyber_intel_db.sqlite
+outputs/scan_temp/
+outputs/dashboard.html
