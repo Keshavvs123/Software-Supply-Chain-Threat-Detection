@@ -60,19 +60,49 @@ The False Positive Rate decreases to a baseline of **1.3%** under the Proposed s
 
 ---
 
-## 4. Setup & Running Instructions
+## 4. GNN Classifier Evaluation Plots
 
-### 4.1 Prerequisites
+The following publication-grade charts evaluate the core GNN (HGAT) model training convergence and class-wise threat prediction accuracy.
+
+### 4.1 Training & Validation Convergence
+* **Accuracy Curves (`graphs/accuracy_curves.png`)**: Shows GNN train and validation accuracy steadily climbing to a stable plateau (~98% and ~95% respectively) over 120 epochs.
+* **Loss Curves (`graphs/loss_curves.png`)**: Illustrates consistent cross-entropy loss minimization, with early-stopping checkpoints preventing overfitting.
+
+![Accuracy Curves](graphs/accuracy_curves.png)
+![Loss Curves](graphs/loss_curves.png)
+
+### 4.2 Multi-Class Prediction Performance
+* **Multi-Class Confusion Matrix (`graphs/confusion_matrix.png`)**: Displays exact classification distributions across five risk levels (Secure, Low, Medium, High, and Critical Risk).
+* **ROC Curves (`graphs/roc_curves.png`)**: Depicts the Receiver Operating Characteristic curves for each of the five risk tiers.
+
+![Confusion Matrix](graphs/confusion_matrix.png)
+![ROC Curves](graphs/roc_curves.png)
+
+### 4.3 Evaluation Profiles & Optimization
+* **Class-Wise Performance (`graphs/class_wise_performance.png`)**: Evaluates Precision, Recall, and F1-Score breakdown for individual risk levels.
+* **Overall System Performance (`graphs/overall_performance.png` / `graphs/system_performance.png`)**: Shows a comparison of macro/micro-averaged metrics and latency parameters.
+* **Inference Speed Optimization (`graphs/optimized_vs_unoptimized.png`)**: Illustrates the latency reduction achieved via tensor pruning and architecture optimization.
+
+![Class-Wise Performance](graphs/class_wise_performance.png)
+![Overall Performance](graphs/overall_performance.png)
+![System Performance](graphs/system_performance.png)
+![Inference Optimization](graphs/optimized_vs_unoptimized.png)
+
+---
+
+## 5. Setup & Running Instructions
+
+### 5.1 Prerequisites
 * Python 3.10+
 * Windows, Linux, or macOS
 
-### 4.2 Installation
+### 5.2 Installation
 Install the core AI framework libraries and command-line scanning utilities:
 ```bash
 pip install torch networkx pandas numpy scikit-learn bandit semgrep requests warcio
 ```
 
-### 4.3 Running the Gatekeeper Server
+### 5.3 Running the Gatekeeper Server
 1. Start the HTTP server:
    ```bash
    python main.py
