@@ -31,7 +31,7 @@ ASCII_ART = """
  ___) |  _  || || |___| |___| |_| |
 |____/|_| |_|___|_________|____/ 
 
-                AI-DRIVEN THREAT DETECTION ENGINE
+                SOFTWARE SUPPLY-CHAIN THREAT DETECTION ENGINE
 ================================================================================
 """
 
