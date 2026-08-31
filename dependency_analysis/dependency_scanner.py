@@ -245,9 +245,9 @@ def run_dependency_scan(project_path, resolved_packages=None):
             total_vulns_count += len(all_vulns)
 
     # 3. Print the Dependency Tree in the Terminal
-    print("\n" + "="*50)
-    print("DEPENDENCY RISK TREE (TERMINAL VISUALIZATION)")
-    print("="*50)
+    print("\n" + "="*50, flush=True)
+    print("DEPENDENCY RISK TREE (TERMINAL VISUALIZATION)", flush=True)
+    print("="*50, flush=True)
     
     # Find root nodes (packages not depended on by any other package)
     all_deps = set()
@@ -259,7 +259,7 @@ def run_dependency_scan(project_path, resolved_packages=None):
     if not root_nodes:
         # If circular or everything is linked, just print all
         root_nodes = list(resolved_packages.keys())
-
+ 
     def print_tree(node_key, prefix="", is_last=True):
         pkg = resolved_packages.get(node_key)
         if not pkg:
@@ -282,7 +282,7 @@ def run_dependency_scan(project_path, resolved_packages=None):
             node_str += " [SECURE]"
             
         try:
-            print(node_str)
+            print(node_str, flush=True)
         except UnicodeEncodeError:
             # Fallback to pure ASCII formatting
             ascii_marker = "\\-- " if is_last else "+-- "
@@ -293,7 +293,7 @@ def run_dependency_scan(project_path, resolved_packages=None):
                 ascii_node_str += f" [VULNERABLE - Max CVSS: {max_cvss} - {cve_labels}]"
             else:
                 ascii_node_str += " [SECURE]"
-            print(ascii_node_str)
+            print(ascii_node_str, flush=True)
         
         new_prefix = prefix + ("    " if is_last else "│   ")
         deps = pkg["dependencies"]
@@ -301,10 +301,10 @@ def run_dependency_scan(project_path, resolved_packages=None):
             dep_key = dep.lower()
             if dep_key in resolved_packages:
                 print_tree(dep_key, new_prefix, i == len(deps) - 1)
-
+ 
     for i, root in enumerate(root_nodes):
         print_tree(root, is_last=(i == len(root_nodes)-1))
-    print("="*50 + "\n")
+    print("="*50 + "\n", flush=True)
 
     results = {
         "vulnerable_packages": vulnerable_packages_count,
