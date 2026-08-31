@@ -24,8 +24,8 @@ def set_cell_background(cell, hex_color):
     shd.set(qn('w:fill'), hex_color)
     tcPr.append(shd)
 
-def create_document():
-    print("Generating Project_Overview_Threat_Detection.docx...")
+def create_comprehensive_document():
+    print("Generating comprehensive Project_Overview_Threat_Detection.docx...")
     doc = docx.Document()
     
     # -------------------------------------------------------------
@@ -40,47 +40,47 @@ def create_document():
     # -------------------------------------------------------------
     # STYLES DEFINITION
     # -------------------------------------------------------------
-    # Set base font family
+    # Normal body text
     style_normal = doc.styles['Normal']
     font = style_normal.font
     font.name = 'Calibri'
     font.size = Pt(11)
     font.color.rgb = RGBColor(0x33, 0x41, 0x55) # Slate gray
     
-    # Title Style
+    # Title Page Paragraphs
     title_p = doc.add_paragraph()
     title_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    title_run = title_p.add_run("Software Supply-Chain Threat Detection Gatekeeper")
+    title_run = title_p.add_run("TECHNICAL OVERVIEW & HANDBOOK: SOFTWARE SUPPLY-CHAIN THREAT DETECTION GATEKEEPER")
     title_run.font.name = 'Calibri'
-    title_run.font.size = Pt(24)
+    title_run.font.size = Pt(22)
     title_run.font.bold = True
-    title_run.font.color.rgb = RGBColor(0x1e, 0x29, 0x3b) # Dark Navy
-    title_p.paragraph_format.space_after = Pt(6)
+    title_run.font.color.rgb = RGBColor(0x0f, 0x17, 0x2a) # Slate 900
+    title_p.paragraph_format.space_before = Pt(36)
+    title_p.paragraph_format.space_after = Pt(8)
     
     subtitle_p = doc.add_paragraph()
     subtitle_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    sub_run = subtitle_p.add_run("Chronological Multimodal AI (GNN + LSTM) Security Engine")
+    sub_run = subtitle_p.add_run("An AI-Driven Chronological Multimodal Framework (GNN + LSTM)")
     sub_run.font.name = 'Calibri'
     sub_run.font.size = Pt(14)
     sub_run.font.italic = True
     sub_run.font.color.rgb = RGBColor(0x47, 0x55, 0x69)
     subtitle_p.paragraph_format.space_after = Pt(24)
     
-    # Divider Line
     p_div = doc.add_paragraph()
     p_div.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_div.add_run("━" * 45).font.color.rgb = RGBColor(0xcb, 0xd5, 0xe1)
     p_div.paragraph_format.space_after = Pt(24)
     
-    # Helper to add section headers
+    # Helpers for headings & paragraphs
     def add_heading_1(text):
         p = doc.add_paragraph()
         run = p.add_run(text)
         run.font.name = 'Calibri'
-        run.font.size = Pt(18)
+        run.font.size = Pt(16)
         run.font.bold = True
         run.font.color.rgb = RGBColor(0x0f, 0x17, 0x2a) # Slate 900
-        p.paragraph_format.space_before = Pt(18)
+        p.paragraph_format.space_before = Pt(24)
         p.paragraph_format.space_after = Pt(8)
         p.paragraph_format.keep_with_next = True
         return p
@@ -89,11 +89,11 @@ def create_document():
         p = doc.add_paragraph()
         run = p.add_run(text)
         run.font.name = 'Calibri'
-        run.font.size = Pt(14)
+        run.font.size = Pt(13)
         run.font.bold = True
         run.font.color.rgb = RGBColor(0x1e, 0x3a, 0x8a) # Blue 900
-        p.paragraph_format.space_before = Pt(12)
-        p.paragraph_format.space_after = Pt(4)
+        p.paragraph_format.space_before = Pt(16)
+        p.paragraph_format.space_after = Pt(6)
         p.paragraph_format.keep_with_next = True
         return p
 
@@ -120,148 +120,158 @@ def create_document():
         p.add_run(text)
         return p
 
-    # -------------------------------------------------------------
-    # SECTION 1: INTRODUCTION
-    # -------------------------------------------------------------
-    add_heading_1("1. Introduction & Project Scope")
-    add_body_p(
-        "Modern software systems rely extensively on external libraries distributed through public repositories like PyPI. "
-        "However, attackers actively exploit these channels to execute supply-chain attacks, including typosquatting, dependency confusion, "
-        "and maintainer account compromises. When a developer runs a standard 'pip install' on a compromised package, arbitrary installation "
-        "scripts (such as those inside 'setup.py') run immediately on their host machine, leading to instant environment infection."
-    )
-    add_body_p(
-        "This project introduces an AI-driven, pre-installation security pipeline. It acts as a local security gateway: downloading packages "
-        "into a quarantined sandbox staging directory, extracting SBOM (Software Bill of Materials) manifests, running multi-modal classifiers, "
-        "and displaying risks in a centralized administration panel. Packages are only installed on the local system after manual verification."
-    )
-    
-    # -------------------------------------------------------------
-    # SECTION 2: FIVE ANALYSIS MODALITIES
-    # -------------------------------------------------------------
-    add_heading_1("2. Multimodal AI Analysis Engine")
-    add_body_p(
-        "Rather than relying on signature scanning, our framework fuses indicators across five analysis modalities to compute package risk:"
-    )
-    
-    add_bullet_p(
-        "Scans package script folders using Bandit (SAST analyzer) and Semgrep configuration rules. It also checks for code obfuscation using Shannon Entropy measurements (to detect high-randomness patterns like base64 payloads) and structural AST node parsing.",
-        bold_prefix="1. Source Code Modality (C): "
-    )
-    add_bullet_p(
-        "Monitors historical profiles: package creation date, download volumes, OpenSSF scorecard indices, and maintainer counts. Unusually new releases with low initial download frequency yield high metadata threat tags.",
-        bold_prefix="2. Package Metadata Modality (M): "
-    )
-    add_bullet_p(
-        "Models transitive dependencies as a heterogeneous dependency graph. It runs a Heterogeneous Graph Attention Network (HGAT) to trace how vulnerabilities or risks in transit nodes propagate up to main application entrypoints.",
-        bold_prefix="3. Dependency Graph Modality (G): "
-    )
-    add_bullet_p(
-        "Traces system operations during sandboxed execution, checking for subprocess spawning, suspicious socket operations (network activity), and unexpected system file write commands.",
-        bold_prefix="4. Behavioral Modality (B): "
-    )
-    add_bullet_p(
-        "Profiles package publication sequences over time using a Temporal LSTM. It flags anomalies like long periods of dormancy followed by sudden bursts of new releases, indicating maintainer credentials hijack.",
-        bold_prefix="5. Temporal Modality (T): "
-    )
+    def add_formula_p(formula_text):
+        p = doc.add_paragraph()
+        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        p.paragraph_format.space_before = Pt(8)
+        p.paragraph_format.space_after = Pt(8)
+        run = p.add_run(formula_text)
+        run.font.name = 'Courier New'
+        run.font.size = Pt(10.5)
+        run.font.bold = True
+        run.font.color.rgb = RGBColor(0x0f, 0x17, 0x2a)
+        # Add light gray background border shading visually by borders (handled in word default spacing)
+        return p
 
     # -------------------------------------------------------------
-    # SECTION 3: SYSTEM RUNTIME WORKFLOW
+    # SECTION 1: ARCHITECTURE AND FILE LAYOUT
     # -------------------------------------------------------------
-    add_heading_1("3. System Runtime Workflow")
+    add_heading_1("1. System Architecture & Path Resolutions")
     add_body_p(
-        "The application executes in a clean sequence of six processing steps:"
-    )
-    add_bullet_p("The developer uploads a requirements.txt file or enters package configurations in the browser dashboard.")
-    add_bullet_p("Generates structured CycloneDX and SPDX SBOM files for full transitive dependency resolution.")
-    add_bullet_p("Performs static code checks on quarantined packages and queries CVE records from NVD/OSV.dev databases.")
-    add_bullet_p("Executes HGAT GNN risk propagation and LSTM release drift models on the package network.")
-    add_bullet_p("Draws the dependency risk tree and outputs warning summaries to the dashboard interface.")
-    add_bullet_p("Saves outputs and awaits administrator approval to trigger host-level pip installation.")
-
-    # -------------------------------------------------------------
-    # SECTION 4: ABLATION RESULTS (TABLE)
-    # -------------------------------------------------------------
-    add_heading_1("4. Performance Metrics & Ablation Evaluation")
-    add_body_p(
-        "An ablation study evaluates the performance contributions of combining different modalities. The proposed full multimodal system "
-        "demonstrates the highest quality metrics, fastest detection speed, and lowest false alarm counts."
+        "To ensure stability under different run configurations, the system uses absolute directory anchoring. "
+        "The following table maps the core components, their file paths, and their specific technical functions in the codebase:"
     )
     
-    # Create Table
-    headers = ["Model Config", "F1-Score", "Accuracy", "ROC-AUC", "PR-AUC", "Mean TTD", "EDR@24h", "FPR"]
-    data = [
-        ["M1 (Code Only)", "0.802", "0.812", "0.851", "0.824", "52.4 hrs", "38.2%", "14.4%"],
-        ["M2 (Meta Only)", "0.744", "0.749", "0.793", "0.765", "64.8 hrs", "25.0%", "19.8%"],
-        ["M3 (Graph Only)", "0.856", "0.865", "0.912", "0.887", "46.2 hrs", "47.1%", "9.6%"],
-        ["M4 (Behavior Only)", "0.851", "0.861", "0.908", "0.891", "39.5 hrs", "58.8%", "7.7%"],
-        ["M5 (Code+Meta)", "0.861", "0.867", "0.905", "0.882", "41.0 hrs", "55.0%", "11.0%"],
-        ["M6 (C+M+G)", "0.923", "0.927", "0.962", "0.948", "31.6 hrs", "73.5%", "5.2%"],
-        ["M7 (C+M+G+B)", "0.951", "0.952", "0.984", "0.973", "24.1 hrs", "88.2%", "3.1%"],
-        ["Proposed Full", "0.971", "0.973", "0.999", "0.992", "18.5 hrs", "96.4%", "1.3%"]
+    # Codebase Paths Table
+    paths_headers = ["Component", "File Path", "Operational Description"]
+    paths_data = [
+        ["Main Controller", "main.py", "Acts as the central HTTP server handling REST endpoints. Initiates threat prediction pipelines, seeds sqlite tables, and triggers host installations."],
+        ["Dependency Scanner", "dependency_analysis/dependency_scanner.py", "Performs transit dependency resolution, queries OSV.dev APIs, checks NVD Excel databases, and logs ASCII risk trees to the console."],
+        ["GNN Classifier", "ml_engine/hgat_model.py", "Implements the Heterogeneous Graph Attention Network (HGAT) architecture in PyTorch."],
+        ["LSTM Model", "ml_engine/temporal_model.py", "Implements the Temporal LSTM classifier designed to identify sequential release anomalies."],
+        ["Training Engine", "ml_engine/trainer.py", "Handles separate Training split (<=2022) and Validation split (2023-2024) performance evaluations."],
+        ["Static Analyzer", "static_analysis/analyzer.py", "Checks files via AST analysis, measures obfuscation entropy, and executes Bandit/Semgrep CLI checks on quarantined sources."],
+        ["Dashboard template", "visualization/dashboard.py", "Dynamically generates the glassmorphic Security Dashboard HTML file, parsing JSON inputs and bypassing curly-brace formatting conflicts."]
     ]
     
-    table = doc.add_table(rows=1, cols=len(headers))
-    table.style = 'Light Shading Accent 1'
-    
-    # Headers
-    hdr_cells = table.rows[0].cells
-    for idx, header in enumerate(headers):
-        hdr_cells[idx].text = header
-        set_cell_background(hdr_cells[idx], "1E3A8A") # Navy Blue header
-        # Bold text
-        for p in hdr_cells[idx].paragraphs:
-            for run in p.runs:
-                run.font.bold = True
-                run.font.color.rgb = RGBColor(0xff, 0xff, 0xff)
-                
-    # Data Rows
-    for row_idx, row_data in enumerate(data):
-        row_cells = table.add_row().cells
-        is_proposed = (row_idx == len(data) - 1)
-        bg_color = "ECFDF5" if is_proposed else ("F8FAFC" if row_idx % 2 == 0 else "FFFFFF")
-        
-        for col_idx, cell_value in enumerate(row_data):
-            row_cells[col_idx].text = cell_value
-            set_cell_background(row_cells[col_idx], bg_color)
-            if is_proposed:
-                for p in row_cells[col_idx].paragraphs:
-                    for run in p.runs:
-                        run.font.bold = True
-                        run.font.color.rgb = RGBColor(0x06, 0x5f, 0x46) # dark green
-                        
+    t_paths = doc.add_table(rows=1, cols=3)
+    t_paths.style = 'Light Shading Accent 1'
+    hdr_cells = t_paths.rows[0].cells
+    for i, h in enumerate(paths_headers):
+        hdr_cells[i].text = h
+        set_cell_background(hdr_cells[i], "1F2937")
+        for r in hdr_cells[i].paragraphs[0].runs:
+            r.font.bold = True
+            r.font.color.rgb = RGBColor(0xff, 0xff, 0xff)
+            
+    for row_idx, r_data in enumerate(paths_data):
+        row_cells = t_paths.add_row().cells
+        bg_col = "F8FAFC" if row_idx % 2 == 0 else "FFFFFF"
+        for col_idx, text in enumerate(r_data):
+            row_cells[col_idx].text = text
+            set_cell_background(row_cells[col_idx], bg_col)
+            
     doc.add_paragraph().paragraph_format.space_after = Pt(12)
-    
+
     # -------------------------------------------------------------
-    # SECTION 5: HOW TO EXPLAIN THE GRAPHS
+    # SECTION 2: ENDPOINT ROUTING AND REST APIS
     # -------------------------------------------------------------
-    add_heading_1("5. Technical Explanation of the Performance Plots")
+    add_heading_1("2. REST API Specifications & Routing")
     add_body_p(
-        "When defending the project or explaining your results, refer to the following figures generated by the framework:"
+        "Communication between the glassmorphism frontend and Python backend is mediated via internal REST endpoints. "
+        "The following table details the HTTP methods, URI paths, and request-response parameters:"
     )
-    add_bullet_p(
-        "Illustrates the early warning capability. The proposed configuration blocks 96.4% of vulnerabilities within 24 hours of release, reaching 99.5% at 72 hours, proving its efficacy as a rapid interceptor.",
-        bold_prefix="Early Warning Area Plot (early_warning_metrics.png): "
+    
+    api_headers = ["Method", "Endpoint Path", "Request / Input", "Response / Output"]
+    api_data = [
+        ["POST", "/scan_requirements", "Plain-text requirements file body uploaded in dashboard.", "JSON redirect containing scan statuses, GNN risks, and dashboard.html locations."],
+        ["GET", "/list_outputs", "Triggered by 'Explore Output Artifacts' button.", "JSON list of whitelisted scan files (e.g. SBOM, Semgrep report, PNG plots) in outputs/ folder."],
+        ["GET", "/view_output?file={name}", "Passes whitelisted filename query parameter.", "Streams file contents back. Dynamically sets Content-Type (text/plain or image/png)."],
+        ["POST", "/install", "No body parameters. Installs requirements fromoutputs/last_requirements.txt.", "Streams live pip installation output logs. Returns 200 Success or 500 Stacktrace."],
+        ["POST", "/abort", "Triggered when user clicks 'Abort' or 'Close Viewer'.", "Cleans staging directories and returns success string."]
+    ]
+    
+    t_api = doc.add_table(rows=1, cols=4)
+    t_api.style = 'Light Shading Accent 1'
+    hdr_api = t_api.rows[0].cells
+    for i, h in enumerate(api_headers):
+        hdr_api[i].text = h
+        set_cell_background(hdr_api[i], "1F2937")
+        for r in hdr_api[i].paragraphs[0].runs:
+            r.font.bold = True
+            r.font.color.rgb = RGBColor(0xff, 0xff, 0xff)
+            
+    for row_idx, r_data in enumerate(api_data):
+        row_cells = t_api.add_row().cells
+        bg_col = "F8FAFC" if row_idx % 2 == 0 else "FFFFFF"
+        for col_idx, text in enumerate(r_data):
+            row_cells[col_idx].text = text
+            set_cell_background(row_cells[col_idx], bg_col)
+            
+    doc.add_paragraph().paragraph_format.space_after = Pt(12)
+
+    # -------------------------------------------------------------
+    # SECTION 3: MATHEMATICAL FORMULATIONS
+    # -------------------------------------------------------------
+    add_heading_1("3. Core Security Modalities & Mathematical Formulations")
+    add_body_p(
+        "Each of the five analysis modalities uses specific mathematical formulas or computational algorithms to model risk parameters."
     )
-    add_bullet_p(
-        "Proves that integrating code, metadata, graph topology, behavior, and temporal features drops the average Time-To-Detection (TTD) from 64.8 hours (Metadata only) down to 18.5 hours.",
-        bold_prefix="Time-To-Detection Bar Plot (detection_latency_ttd.png): "
+    
+    add_heading_2("3.1 Source Code Obfuscation (Shannon Entropy)")
+    add_body_p(
+        "During pre-install scanning, we calculate the Shannon Entropy of code literals. High character randomness indicates obfuscated scripts, "
+        "encrypted shellcode payloads, or packed malicious code blocks. The Shannon Entropy H(X) is defined as:"
     )
-    add_bullet_p(
-        "Highlights the performance metrics across ablated models, verifying that the proposed system secures the highest F1, Accuracy, ROC-AUC, and Matthews Correlation Coefficient (MCC).",
-        bold_prefix="Metrics Comparison Grouped Bar Chart (ablation_metrics_comparison.png): "
+    add_formula_p("H(X) = - sum_{i=1}^{n} P(x_i) * log_2 P(x_i)")
+    add_body_p(
+        "Where P(x_i) is the probability of occurrence of character x_i in the string sequence X, and n is the size of the unique character vocabulary. "
+        "Standard Python source files have a Shannon Entropy score of 3.5 to 4.8. Obfuscated base64 payload sequences typically exceed 5.8."
     )
-    add_bullet_p(
-        "Displays the reduction of false positive counts down to 1.3%, verifying that the multimodal integration effectively solves alert fatigue for software development teams.",
-        bold_prefix="False Positive Rate Reduction (fpr_metrics_comparison.png): "
+    
+    add_heading_2("3.2 Heterogeneous Graph Attention Network (HGAT)")
+    add_body_p(
+        "To model dependency risk propagation across transitive dependency trees, our HGAT GNN projects packages and CVE relationships "
+        "into a graph structure. The attention coefficients alpha_ij measure how strongly parent package i is affected by dependency node j:"
     )
+    add_formula_p("alpha_ij = exp( LeakyReLU( a^T * [ W * h_i || W * h_j ] ) ) / ( sum_{k in N_i} exp( LeakyReLU( a^T * [ W * h_i || W * h_k ] ) ) )")
+    add_body_p(
+        "Where h_i and h_j are feature representation vectors of nodes i and j, W is the shared parameter projection matrix, a is the weight vector "
+        "of the attention mechanism, || denotes the concatenation operator, and N_i is the neighbourhood set of node i. This ensures "
+        "that vulnerabilities located deep in transitive dependencies (e.g. urllib3) propagate risk attention weights up to application levels."
+    )
+    
+    add_heading_2("3.3 LSTM Sequence Anomaly Modeling")
+    add_body_p(
+        "A package account takeover is modeled as a temporal release interval anomaly. The LSTM inspects chronological release delay sequences "
+        "delta_t = t_k - t_{k-1}. The LSTM cell updates are governed by standard gating equations:"
+    )
+    add_formula_p(
+        "f_t = sigmoid( W_f * [h_{t-1}, x_t] + b_f )\n"
+        "i_t = sigmoid( W_i * [h_{t-1}, x_t] + b_i )\n"
+        "C_tilde_t = tanh( W_c * [h_{t-1}, x_t] + b_c )\n"
+        "C_t = f_t * C_{t-1} + i_t * C_tilde_t\n"
+        "o_t = sigmoid( W_o * [h_{t-1}, x_t] + b_o )\n"
+        "h_t = o_t * tanh( C_t )"
+    )
+    add_body_p(
+        "Where f_t, i_t, o_t represent the forget, input, and output gates respectively, C_t represents the hidden cell state accumulator, and h_t represents the output state."
+    )
+    
+    add_heading_2("3.4 Unified Risk Score Fusion")
+    add_body_p(
+        "To compile the final risk score for the project, the system performs a weighted linear combination of GNN topological risk predictions, "
+        "LSTM temporal anomalies, static analysis outputs, sandboxed run behaviors, and package historical health indexes:"
+    )
+    add_formula_p("Risk_unified = w_1 * Risk_GNN + w_2 * Risk_LSTM + w_3 * Risk_Static + w_4 * Risk_Behavior + w_5 * Risk_Metadata")
+    add_body_p("Where weights are configured such that sum_{i=1}^{5} w_i = 1.0. This guarantees a balanced, robust prediction outcome.")
 
     # Save
     out_dir = "outputs"
     os.makedirs(out_dir, exist_ok=True)
-    out_path = os.path.join(out_dir, "Project_Overview_Threat_Detection.docx")
+    out_path = os.path.join(out_dir, "Project_Overview_Threat_Detection_v2.docx")
     doc.save(out_path)
     print(f"[SUCCESS] Word document generated successfully at: {os.path.abspath(out_path)}")
 
 if __name__ == "__main__":
-    create_document()
+    create_comprehensive_document()
