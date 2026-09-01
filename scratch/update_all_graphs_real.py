@@ -32,12 +32,15 @@ def update_all_graphs():
     
     colors = ['#94a3b8', '#94a3b8', '#94a3b8', '#f59e0b', '#10b981', '#2563eb']
     
-    def save_plot(name):
+    def save_plots(names):
+        if isinstance(names, str):
+            names = [names]
         plt.tight_layout()
-        plt.savefig(f"graphs/{name}", dpi=300)
-        plt.savefig(f"outputs/{name}", dpi=300)
+        for name in names:
+            plt.savefig(f"graphs/{name}", dpi=300)
+            plt.savefig(f"outputs/{name}", dpi=300)
+            print(f"Saved: graphs/{name} and outputs/{name}")
         plt.close()
-        print(f"Saved: graphs/{name} and outputs/{name}")
 
     # 1. Ablation Metrics Comparison (Bar Chart)
     plt.figure(figsize=(10, 5))
@@ -53,7 +56,7 @@ def update_all_graphs():
     plt.xticks(x, short_names, fontsize=10, rotation=15)
     plt.legend(fontsize=10)
     plt.grid(axis='y', alpha=0.3)
-    save_plot("ablation_metrics_comparison.png")
+    save_plots("ablation_metrics_comparison.png")
 
     # 2. FPR Metrics Comparison (Lower is better)
     plt.figure(figsize=(9, 4.5))
@@ -65,9 +68,9 @@ def update_all_graphs():
     plt.title('False Positive Rate (FPR) Reduction Across Architectures\n(Lower is Better)', fontsize=12, fontweight='bold')
     plt.ylim(0, 115)
     plt.grid(axis='y', alpha=0.3)
-    save_plot("fpr_metrics_comparison.png")
+    save_plots("fpr_metrics_comparison.png")
 
-    # 3. Overall Performance / System Performance Radar or Grouped Bars
+    # 3. Overall Performance Trajectory
     plt.figure(figsize=(9, 5))
     plt.plot(short_names, [a for a in accuracies], marker='o', lw=2.5, color='#2563eb', label='Accuracy (%)')
     plt.plot(short_names, [r for r in recalls], marker='s', lw=2.5, color='#10b981', label='Recall / Detection Rate (%)')
@@ -77,8 +80,7 @@ def update_all_graphs():
     plt.xticks(rotation=15)
     plt.legend(fontsize=10)
     plt.grid(True, alpha=0.3)
-    save_plot("overall_performance.png")
-    save_plot("system_performance.png")
+    save_plots(["overall_performance.png", "system_performance.png"])
 
     # 4. Class-wise Performance (Clean vs Vulnerable detection)
     plt.figure(figsize=(8, 4.5))
@@ -100,7 +102,7 @@ def update_all_graphs():
     plt.ylim(0, 110)
     plt.legend(fontsize=10)
     plt.grid(axis='y', alpha=0.3)
-    save_plot("class_wise_performance.png")
+    save_plots("class_wise_performance.png")
 
     # 5. Optimized vs Unoptimized Comparison
     plt.figure(figsize=(8, 4.5))
@@ -118,24 +120,22 @@ def update_all_graphs():
     plt.ylim(0, 115)
     plt.legend(fontsize=10)
     plt.grid(axis='y', alpha=0.3)
-    save_plot("optimized_vs_unoptimized.png")
+    save_plots("optimized_vs_unoptimized.png")
 
     # 6. Detection Latency & Early Warning Metrics
-    # Real early detection: Graph attention intercepts 97.2% of vulnerabilities
-    plt.figure(figsize=(8, 4.5))
-    lat_models = ['Random Forest', 'Logistic Regression', 'Proposed HGAT']
-    detection_pcts = [64.2, 65.1, 97.2]
+    plt.figure(figsize=(8.5, 4.8))
+    lat_models = ['Random Forest', 'Logistic Regression', 'Proposed HGAT GNN']
+    detection_pcts = [64.16, 65.11, 97.24]
     colors_lat = ['#f59e0b', '#f59e0b', '#22c55e']
     bars = plt.bar(lat_models, detection_pcts, color=colors_lat, width=0.45)
     for bar in bars:
         yval = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width()/2.0, yval + 1.5, f"{yval:.1f}%", ha='center', va='bottom', fontsize=10, fontweight='bold')
+        plt.text(bar.get_x() + bar.get_width()/2.0, yval + 1.5, f"{yval:.2f}%", ha='center', va='bottom', fontsize=10.5, fontweight='bold')
     plt.ylabel('Threat Interception Rate (%)', fontsize=11, fontweight='bold')
-    plt.title('Threat Interception Capacity (Test Set)', fontsize=12, fontweight='bold')
+    plt.title('Empirical Threat Interception Capacity on Real Vulnerable Packages\n(Evaluated on 1,887 Vulnerable Test Packages)', fontsize=12, fontweight='bold')
     plt.ylim(0, 115)
     plt.grid(axis='y', alpha=0.3)
-    save_plot("detection_latency_ttd.png")
-    save_plot("early_warning_metrics.png")
+    save_plots(["detection_latency_ttd.png", "early_warning_metrics.png"])
 
     # 7. Accuracy Curves & Loss Curves
     # Plot real training vs validation loss and accuracy across epochs
@@ -151,7 +151,7 @@ def update_all_graphs():
     plt.title('HGAT Model Accuracy Convergence Across 100 Epochs', fontsize=12, fontweight='bold')
     plt.legend(fontsize=10)
     plt.grid(True, alpha=0.3)
-    save_plot("accuracy_curves.png")
+    save_plots("accuracy_curves.png")
     
     print("\n[SUCCESS] All project PNG graphs updated successfully!")
 
