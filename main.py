@@ -109,6 +109,7 @@ def save_scan_results_csv(predictions, resolved_packages, static_results, output
         except Exception:
             runtime_data = {}
 
+    scan_rows = []
     for key, pkg in resolved_packages.items():
         name = pkg["name"]
         ver = pkg["version"]
