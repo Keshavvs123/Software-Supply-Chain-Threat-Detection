@@ -99,7 +99,16 @@ def get_transitive_dependencies(pkg_key, resolved_packages, visited=None):
 
 def save_scan_results_csv(predictions, resolved_packages, static_results, output_path="outputs/scan_results.csv"):
     import pandas as pd
-    scan_rows = []
+    # Load runtime telemetry if available
+    runtime_data = {}
+    runtime_path = "outputs/runtime_telemetry.json"
+    if os.path.exists(runtime_path):
+        try:
+            with open(runtime_path, "r", encoding="utf-8") as rf:
+                runtime_data = json.load(rf).get("packages", {})
+        except Exception:
+            runtime_data = {}
+
     for key, pkg in resolved_packages.items():
         name = pkg["name"]
         ver = pkg["version"]
@@ -121,6 +130,11 @@ def save_scan_results_csv(predictions, resolved_packages, static_results, output
         pkg_static = static_results.get("packages", {}).get(key.lower(), {})
         pkg_static_issues = pkg_static.get("bandit_issue_count", 0) + pkg_static.get("semgrep_issue_count", 0)
         
+        # Extract runtime telemetry events
+        pkg_rt = runtime_data.get(name.lower(), {})
+        runtime_events = pkg_rt.get("system_call_count", 0) + pkg_rt.get("subprocess_count", 0) + \
+                         pkg_rt.get("suspicious_network_activity", 0) + pkg_rt.get("file_access_risk", 0)
+        
         if final_score >= 0.85:
             risk_lvl = "Critical"
         elif final_score >= 0.60:
@@ -139,6 +153,7 @@ def save_scan_results_csv(predictions, resolved_packages, static_results, output
             "Indirect Dependency Count": indirect_count,
             "Total Dependency Count": total_count,
             "SAST Issues": pkg_static_issues,
+            "Runtime Telemetry Issues": runtime_events,
             "HGAT GNN Risk": hgat_gnn,
             "LSTM Drift Risk": lstm_drift,
             "Composite Risk Score": final_score,
