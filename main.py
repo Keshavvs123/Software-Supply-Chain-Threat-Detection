@@ -133,8 +133,11 @@ def save_scan_results_csv(predictions, resolved_packages, static_results, output
         
         # Extract runtime telemetry events
         pkg_rt = runtime_data.get(name.lower(), {})
-        runtime_events = pkg_rt.get("system_call_count", 0) + pkg_rt.get("subprocess_count", 0) + \
-                         pkg_rt.get("suspicious_network_activity", 0) + pkg_rt.get("file_access_risk", 0)
+        runtime_events = pkg_rt.get("dynamic_execution_count", 0) + \
+                         pkg_rt.get("system_call_count", 0) + \
+                         pkg_rt.get("subprocess_count", 0) + \
+                         pkg_rt.get("suspicious_network_activity", 0) + \
+                         pkg_rt.get("file_access_risk", 0)
         
         if final_score >= 0.85:
             risk_lvl = "Critical"
@@ -273,15 +276,22 @@ class GatekeeperHandler(http.server.SimpleHTTPRequestHandler):
                 print("\n[STEP 2/6] Running static code scans...")
                 static_res = run_static_analysis("outputs/scan_temp", res_packages)
                 
-                # Mock telemetry for quarantine scan
-                runtime_res = {
-                    "system_call_count": 0,
-                    "subprocess_count": 0,
-                    "shell_execution_usage": 0,
-                    "dynamic_execution_count": 0,
-                    "suspicious_network_activity": 0,
-                    "file_access_risk": 0
-                }
+                print("\n[STEP 2.5/6] Executing behavioral runtime monitoring...")
+                entry_script = os.path.join("test_project", "app.py")
+                if not os.path.exists(entry_script):
+                    entry_script = os.path.join("outputs", "scan_temp", "app.py")
+                try:
+                    runtime_res = monitor_runtime(entry_script, list(res_packages.keys()), timeout=6)
+                except Exception as ex:
+                    print(f"Runtime monitoring note: {ex}")
+                    runtime_res = {
+                        "system_call_count": 0,
+                        "subprocess_count": 0,
+                        "shell_execution_usage": 0,
+                        "dynamic_execution_count": 0,
+                        "suspicious_network_activity": 0,
+                        "file_access_risk": 0
+                    }
                 
                 print("\n[STEP 3/6] Fetching dependency vulnerability intelligence...")
                 dep_res = run_dependency_scan("outputs/scan_temp", res_packages)
