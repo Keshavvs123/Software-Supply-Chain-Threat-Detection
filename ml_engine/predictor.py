@@ -196,28 +196,14 @@ def run_risk_prediction(resolved_packages, vulnerability_details, package_metada
         vulns = vulnerability_details.get(key, [])
         max_c = max([v["cvss_score"] for v in vulns]) if vulns else 0.0
         
-        # Build sequence of past states from real chronological release history
+        # Build dynamic sequence of past states
         seq = []
-        real_intervals = m.get("release_intervals", [])
-        avg_int = m.get("avg_release_interval_days", 30.0)
-        
-        if len(real_intervals) >= 5:
-            hist_steps = real_intervals[-5:]
-        elif real_intervals:
-            pad = [avg_int] * (5 - len(real_intervals))
-            hist_steps = pad + real_intervals
-        else:
-            # Derived from package release frequency and update cadence
-            last_days = m.get("last_update_days", 30.0)
-            step_days = max(365.0 / max(m.get("release_frequency", 6.0), 1.0), 5.0)
-            hist_steps = [max(last_days + (4 - step) * step_days, 1.0) for step in range(5)]
-            
         for step in range(5):
             seq.append([
-                float(hist_steps[step]),
+                max((m.get("last_update_days", 10.0) + (4 - step) * 15.0), 0.1),
                 1.0 if (vulns and step == 4) else 0.0,
                 max_c / 10.0 if (vulns and step == 4) else 0.0,
-                float(m.get("release_burstiness", 0.3))
+                m.get("release_burstiness", 0.3)
             ])
             
         lstm_input = torch.tensor([seq], dtype=torch.float)
