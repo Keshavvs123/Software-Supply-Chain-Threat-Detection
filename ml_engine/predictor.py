@@ -42,7 +42,12 @@ def run_risk_prediction(resolved_packages, vulnerability_details, package_metada
     
     # Extract static/runtime risks to embed
     static_risk = (static_results.get("bandit_issue_count", 0) + static_results.get("semgrep_issue_count", 0)) / 10.0
-    runtime_risk = (runtime_results.get("subprocess_calls", 0) + runtime_results.get("system_calls", 0)) / 10.0
+    runtime_risk = float(runtime_results.get("behavioral_risk", (
+        runtime_results.get("subprocess_count", 0) + 
+        runtime_results.get("system_call_count", 0) + 
+        runtime_results.get("suspicious_network_activity", 0) + 
+        runtime_results.get("file_access_risk", 0)
+    ) / 10.0))
     
     for idx, node in enumerate(G.nodes()):
         node_mapping[node] = idx
@@ -97,7 +102,8 @@ def run_risk_prediction(resolved_packages, vulnerability_details, package_metada
                     pkg_runtime.get("subprocess_count", 0) + 
                     pkg_runtime.get("system_call_count", 0) +
                     pkg_runtime.get("dynamic_execution_count", 0) +
-                    pkg_runtime.get("suspicious_network_activity", 0)
+                    pkg_runtime.get("suspicious_network_activity", 0) +
+                    pkg_runtime.get("file_access_risk", 0)
                 )
                 pkg_runtime_risk = total_calls / 10.0
             else:
@@ -190,14 +196,28 @@ def run_risk_prediction(resolved_packages, vulnerability_details, package_metada
         vulns = vulnerability_details.get(key, [])
         max_c = max([v["cvss_score"] for v in vulns]) if vulns else 0.0
         
-        # Build dynamic sequence of past states
+        # Build sequence of past states from real chronological release history
         seq = []
+        real_intervals = m.get("release_intervals", [])
+        avg_int = m.get("avg_release_interval_days", 30.0)
+        
+        if len(real_intervals) >= 5:
+            hist_steps = real_intervals[-5:]
+        elif real_intervals:
+            pad = [avg_int] * (5 - len(real_intervals))
+            hist_steps = pad + real_intervals
+        else:
+            # Derived from package release frequency and update cadence
+            last_days = m.get("last_update_days", 30.0)
+            step_days = max(365.0 / max(m.get("release_frequency", 6.0), 1.0), 5.0)
+            hist_steps = [max(last_days + (4 - step) * step_days, 1.0) for step in range(5)]
+            
         for step in range(5):
             seq.append([
-                max((m.get("last_update_days", 10.0) + (4 - step) * 15.0), 0.1),
+                float(hist_steps[step]),
                 1.0 if (vulns and step == 4) else 0.0,
                 max_c / 10.0 if (vulns and step == 4) else 0.0,
-                m.get("release_burstiness", 0.3)
+                float(m.get("release_burstiness", 0.3))
             ])
             
         lstm_input = torch.tensor([seq], dtype=torch.float)

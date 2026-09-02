@@ -178,18 +178,18 @@ def fetch_pypi_metadata(package_name):
                 # Frequency (releases per month)
                 release_frequency = len(release_dates) / max((age_days / 30.4), 0.1)
                 
-                # Release burstiness (Standard dev of intervals, normalized)
-                if len(release_dates) > 2:
-                    intervals = []
-                    for i in range(1, len(release_dates)):
-                        intervals.append((release_dates[i] - release_dates[i-1]).days)
-                    mean_interval = sum(intervals) / len(intervals)
-                    variance = sum((x - mean_interval)**2 for x in intervals) / len(intervals)
-                    sd_interval = variance**0.5
-                    # Burstiness coefficient
-                    release_burstiness = sd_interval / max(mean_interval, 1.0)
-                else:
-                    release_burstiness = 0.2
+            # Release burstiness and real chronological intervals
+            intervals = []
+            if len(release_dates) > 1:
+                for i in range(1, len(release_dates)):
+                    intervals.append(float((release_dates[i] - release_dates[i-1]).days))
+                mean_interval = sum(intervals) / len(intervals)
+                variance = sum((x - mean_interval)**2 for x in intervals) / len(intervals)
+                sd_interval = variance**0.5
+                release_burstiness = sd_interval / max(mean_interval, 1.0)
+            else:
+                mean_interval = 30.0
+                release_burstiness = 0.2
             
             # Extract maintainers / authors
             maintainer = info.get("maintainer") or info.get("author") or ""
@@ -209,6 +209,8 @@ def fetch_pypi_metadata(package_name):
                 "release_frequency": release_frequency,
                 "release_burstiness": release_burstiness,
                 "last_update_days": last_update_days,
+                "release_intervals": intervals[-5:] if intervals else [30.0],
+                "avg_release_interval_days": mean_interval,
                 "maintainer_count": maintainer_count,
                 "github_path": github_path,
                 "downloads": downloads,
