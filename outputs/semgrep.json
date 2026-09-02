@@ -3416,7 +3416,16 @@
       }
     }
   ],
-  "errors": [],
+  "errors": [
+    {
+      "code": 2,
+      "level": "warn",
+      "type": "Timeout",
+      "rule_id": "python.boto3.security.hardcoded-token.hardcoded-token",
+      "message": "Timeout when running python.boto3.security.hardcoded-token.hardcoded-token on C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\idna\\uts46data.py:\n ",
+      "path": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\idna\\uts46data.py"
+    }
+  ],
   "paths": {
     "scanned": [
       "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\downloads\\python-dotenv\\python_dotenv-1.2.2-py3-none-any.whl",
@@ -3818,12 +3827,12 @@
   },
   "time": {
     "rules": [],
-    "rules_parse_time": 1.9123070240020752,
+    "rules_parse_time": 2.2305867671966553,
     "profiling_times": {
-      "config_time": 3.0730578899383545,
-      "core_time": 127.06651377677917,
-      "ignores_time": 0.009109735488891602,
-      "total_time": 130.15703964233398
+      "config_time": 3.1699373722076416,
+      "core_time": 93.03166365623474,
+      "ignores_time": 0.0,
+      "total_time": 96.23042464256287
     },
     "parsing_time": {
       "total_time": 0.0,
@@ -3838,55 +3847,55 @@
       "very_slow_files": []
     },
     "scanning_time": {
-      "total_time": 293.944210767746,
+      "total_time": 239.29344582557678,
       "per_file_time": {
-        "mean": 0.25898168349581135,
-        "std_dev": 1.7168053044622547
+        "mean": 0.21083122980227018,
+        "std_dev": 0.4431956093488996
       },
       "very_slow_stats": {
-        "time_ratio": 0.6316909942477584,
-        "count_ratio": 0.04229074889867841
+        "time_ratio": 0.5194839669211933,
+        "count_ratio": 0.03524229074889868
       },
       "very_slow_files": [
         {
-          "fpath": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\flask\\cli.py",
-          "ftime": 4.145549058914185
-        },
-        {
-          "fpath": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\tqdm\\std.py",
-          "ftime": 4.630701780319214
+          "fpath": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\jinja2\\environment.py",
+          "ftime": 4.196173191070557
         },
         {
           "fpath": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\aiohttp\\client_reqrep.py",
-          "ftime": 4.895519256591797
+          "ftime": 4.398485898971558
+        },
+        {
+          "fpath": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\flask\\app.py",
+          "ftime": 4.723468542098999
         },
         {
           "fpath": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\aiohttp\\client.py",
-          "ftime": 5.222835540771484
-        },
-        {
-          "fpath": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\jinja2\\environment.py",
-          "ftime": 5.284986257553101
+          "ftime": 4.7412707805633545
         },
         {
           "fpath": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\fsspec\\implementations\\reference.py",
-          "ftime": 5.333812713623047
+          "ftime": 5.031108856201172
         },
         {
-          "fpath": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\fsspec\\spec.py",
-          "ftime": 6.513452768325806
-        },
-        {
-          "fpath": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\jinja2\\compiler.py",
-          "ftime": 6.653071165084839
+          "fpath": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\aiohttp\\connector.py",
+          "ftime": 5.0718560218811035
         },
         {
           "fpath": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\aiohttp\\web_urldispatcher.py",
-          "ftime": 7.712287902832031
+          "ftime": 5.7663328647613525
+        },
+        {
+          "fpath": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\fsspec\\spec.py",
+          "ftime": 6.451183319091797
+        },
+        {
+          "fpath": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\jinja2\\compiler.py",
+          "ftime": 6.630321264266968
         },
         {
           "fpath": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\idna\\uts46data.py",
-          "ftime": 37.15107297897339
+          "ftime": 6.9046056270599365
         }
       ]
     },
@@ -3918,42 +3927,6 @@
       {
         "error_type": "Fixpoint timeout",
         "severity": "warn",
-        "message": "Fixpoint timeout while performing taint analysis at C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\aiohttp\\_cookie_helpers.py:247:4 [rules: 1, first: python.boto3.security.hardcoded-token.hardcoded-token]",
-        "location": {
-          "path": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\aiohttp\\_cookie_helpers.py",
-          "start": {
-            "line": 247,
-            "col": 5,
-            "offset": 9566
-          },
-          "end": {
-            "line": 247,
-            "col": 29,
-            "offset": 9590
-          }
-        }
-      },
-      {
-        "error_type": "Fixpoint timeout",
-        "severity": "warn",
-        "message": "Fixpoint timeout while performing taint analysis at C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\aiohttp\\client.py:1001:14 [rules: 1, first: python.boto3.security.hardcoded-token.hardcoded-token]",
-        "location": {
-          "path": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\aiohttp\\client.py",
-          "start": {
-            "line": 1001,
-            "col": 15,
-            "offset": 38050
-          },
-          "end": {
-            "line": 1001,
-            "col": 26,
-            "offset": 38061
-          }
-        }
-      },
-      {
-        "error_type": "Fixpoint timeout",
-        "severity": "warn",
         "message": "Fixpoint timeout while performing taint analysis at C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\aiohttp\\client_middleware_digest_auth.py:211:14 [rules: 1, first: python.boto3.security.hardcoded-token.hardcoded-token]",
         "location": {
           "path": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\aiohttp\\client_middleware_digest_auth.py",
@@ -3972,18 +3945,18 @@
       {
         "error_type": "Fixpoint timeout",
         "severity": "warn",
-        "message": "Fixpoint timeout while performing taint analysis at C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\aiohttp\\web_urldispatcher.py:1037:14 [rules: 1, first: python.django.security.injection.raw-html-format.raw-html-format]",
+        "message": "Fixpoint timeout while performing taint analysis at C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\aiohttp\\http_parser.py:170:8 [rules: 1, first: python.boto3.security.hardcoded-token.hardcoded-token]",
         "location": {
-          "path": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\aiohttp\\web_urldispatcher.py",
+          "path": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\aiohttp\\http_parser.py",
           "start": {
-            "line": 1037,
-            "col": 15,
-            "offset": 34652
+            "line": 170,
+            "col": 9,
+            "offset": 4195
           },
           "end": {
-            "line": 1037,
+            "line": 170,
             "col": 22,
-            "offset": 34659
+            "offset": 4208
           }
         }
       },
@@ -4026,114 +3999,6 @@
       {
         "error_type": "Fixpoint timeout",
         "severity": "warn",
-        "message": "Fixpoint timeout while performing taint analysis at C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\flask\\cli.py:41:4 [rules: 1, first: python.boto3.security.hardcoded-token.hardcoded-token]",
-        "location": {
-          "path": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\flask\\cli.py",
-          "start": {
-            "line": 41,
-            "col": 5,
-            "offset": 901
-          },
-          "end": {
-            "line": 41,
-            "col": 18,
-            "offset": 914
-          }
-        }
-      },
-      {
-        "error_type": "Fixpoint timeout",
-        "severity": "warn",
-        "message": "Fixpoint timeout while performing taint analysis at C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\fsspec\\fuse.py:204:4 [rules: 1, first: python.boto3.security.hardcoded-token.hardcoded-token]",
-        "location": {
-          "path": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\fsspec\\fuse.py",
-          "start": {
-            "line": 204,
-            "col": 5,
-            "offset": 6351
-          },
-          "end": {
-            "line": 204,
-            "col": 9,
-            "offset": 6355
-          }
-        }
-      },
-      {
-        "error_type": "Fixpoint timeout",
-        "severity": "warn",
-        "message": "Fixpoint timeout while performing taint analysis at C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\fsspec\\implementations\\github.py:131:8 [rules: 1, first: python.boto3.security.hardcoded-token.hardcoded-token]",
-        "location": {
-          "path": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\fsspec\\implementations\\github.py",
-          "start": {
-            "line": 131,
-            "col": 9,
-            "offset": 4241
-          },
-          "end": {
-            "line": 131,
-            "col": 11,
-            "offset": 4243
-          }
-        }
-      },
-      {
-        "error_type": "Fixpoint timeout",
-        "severity": "warn",
-        "message": "Fixpoint timeout while performing taint analysis at C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\fsspec\\implementations\\http_sync.py:294:8 [rules: 1, first: python.lang.security.audit.insecure-transport.requests.request-session-with-http.request-session-with-http]",
-        "location": {
-          "path": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\fsspec\\implementations\\http_sync.py",
-          "start": {
-            "line": 294,
-            "col": 9,
-            "offset": 8424
-          },
-          "end": {
-            "line": 294,
-            "col": 17,
-            "offset": 8432
-          }
-        }
-      },
-      {
-        "error_type": "Fixpoint timeout",
-        "severity": "warn",
-        "message": "Fixpoint timeout while performing taint analysis at C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\fsspec\\implementations\\reference.py:429:8 [rules: 1, first: python.boto3.security.hardcoded-token.hardcoded-token]",
-        "location": {
-          "path": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\fsspec\\implementations\\reference.py",
-          "start": {
-            "line": 429,
-            "col": 9,
-            "offset": 14600
-          },
-          "end": {
-            "line": 429,
-            "col": 14,
-            "offset": 14605
-          }
-        }
-      },
-      {
-        "error_type": "Fixpoint timeout",
-        "severity": "warn",
-        "message": "Fixpoint timeout while performing taint analysis at C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\fsspec\\implementations\\reference.py:614:8 [rules: 1, first: python.django.security.injection.raw-html-format.raw-html-format]",
-        "location": {
-          "path": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\fsspec\\implementations\\reference.py",
-          "start": {
-            "line": 614,
-            "col": 9,
-            "offset": 21201
-          },
-          "end": {
-            "line": 614,
-            "col": 17,
-            "offset": 21209
-          }
-        }
-      },
-      {
-        "error_type": "Fixpoint timeout",
-        "severity": "warn",
         "message": "Fixpoint timeout while performing taint analysis at C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\fsspec\\spec.py:1607:8 [rules: 1, first: python.boto3.security.hardcoded-token.hardcoded-token]",
         "location": {
           "path": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\fsspec\\spec.py",
@@ -4152,24 +4017,6 @@
       {
         "error_type": "Fixpoint timeout",
         "severity": "warn",
-        "message": "Fixpoint timeout while performing taint analysis at C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\idna\\uts46data.py:1:0 [rules: 1, first: python.boto3.security.hardcoded-token.hardcoded-token]",
-        "location": {
-          "path": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\idna\\uts46data.py",
-          "start": {
-            "line": 1,
-            "col": 1,
-            "offset": 0
-          },
-          "end": {
-            "line": 1,
-            "col": 1,
-            "offset": 0
-          }
-        }
-      },
-      {
-        "error_type": "Fixpoint timeout",
-        "severity": "warn",
         "message": "Fixpoint timeout while performing taint analysis at C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\jinja2\\utils.py:221:4 [rules: 1, first: python.boto3.security.hardcoded-token.hardcoded-token]",
         "location": {
           "path": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\jinja2\\utils.py",
@@ -4182,6 +4029,42 @@
             "line": 221,
             "col": 11,
             "offset": 6198
+          }
+        }
+      },
+      {
+        "error_type": "Fixpoint timeout",
+        "severity": "warn",
+        "message": "Fixpoint timeout while performing taint analysis at C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\requests\\models.py:107:8 [rules: 1, first: python.boto3.security.hardcoded-token.hardcoded-token]",
+        "location": {
+          "path": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\requests\\models.py",
+          "start": {
+            "line": 107,
+            "col": 9,
+            "offset": 2534
+          },
+          "end": {
+            "line": 107,
+            "col": 23,
+            "offset": 2548
+          }
+        }
+      },
+      {
+        "error_type": "Fixpoint timeout",
+        "severity": "warn",
+        "message": "Fixpoint timeout while performing taint analysis at C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\requests\\models.py:137:8 [rules: 1, first: python.boto3.security.hardcoded-token.hardcoded-token]",
+        "location": {
+          "path": "C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\packages\\requests\\models.py",
+          "start": {
+            "line": 137,
+            "col": 9,
+            "offset": 3637
+          },
+          "end": {
+            "line": 137,
+            "col": 22,
+            "offset": 3650
           }
         }
       },
@@ -4268,7 +4151,7 @@
     },
     "targets": [],
     "total_bytes": 0,
-    "max_memory_bytes": 1968552512
+    "max_memory_bytes": 1836386688
   },
   "engine_requested": "OSS",
   "skipped_rules": [],
