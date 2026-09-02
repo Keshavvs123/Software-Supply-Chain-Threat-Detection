@@ -42,12 +42,14 @@ def run_risk_prediction(resolved_packages, vulnerability_details, package_metada
     
     # Extract static/runtime risks to embed
     static_risk = (static_results.get("bandit_issue_count", 0) + static_results.get("semgrep_issue_count", 0)) / 10.0
-    runtime_risk = float(runtime_results.get("behavioral_risk", (
+    runtime_risk = (
         runtime_results.get("subprocess_count", 0) + 
-        runtime_results.get("system_call_count", 0) + 
-        runtime_results.get("suspicious_network_activity", 0) + 
+        runtime_results.get("system_call_count", 0) +
+        runtime_results.get("suspicious_network_activity", 0) +
         runtime_results.get("file_access_risk", 0)
-    ) / 10.0))
+    ) / 10.0
+    if runtime_results.get("behavioral_risk"):
+        runtime_risk = max(runtime_risk, float(runtime_results["behavioral_risk"]) / 10.0)
     
     for idx, node in enumerate(G.nodes()):
         node_mapping[node] = idx
@@ -102,8 +104,7 @@ def run_risk_prediction(resolved_packages, vulnerability_details, package_metada
                     pkg_runtime.get("subprocess_count", 0) + 
                     pkg_runtime.get("system_call_count", 0) +
                     pkg_runtime.get("dynamic_execution_count", 0) +
-                    pkg_runtime.get("suspicious_network_activity", 0) +
-                    pkg_runtime.get("file_access_risk", 0)
+                    pkg_runtime.get("suspicious_network_activity", 0)
                 )
                 pkg_runtime_risk = total_calls / 10.0
             else:
