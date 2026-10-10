@@ -1,0 +1,63 @@
+name: Supply Chain Threat Detection Gatekeeper
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  supply-chain-security-scan:
+    name: Pre-Installation Supply Chain Threat Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+        cache: 'pip'
+
+    - name: Install Analysis Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install torch networkx pandas openpyxl bandit semgrep pipdeptree
+
+    - name: Run Supply Chain Threat Detection Scanner
+      run: |
+        python test_pipeline.py
+
+    - name: Verify Threat Gatekeeper Policy
+      run: |
+        python -c "
+        import json, os, sys
+        import pandas as pd
+        
+        csv_path = 'outputs/scan_results.csv'
+        if os.path.exists(csv_path):
+            df = pd.read_csv(csv_path)
+            critical_threats = df[df['Risk Level'] == 'Critical']
+            if len(critical_threats) > 0:
+                print(f'❌ Security Gatekeeper Blocked: Found {len(critical_threats)} Critical Supply Chain Threats:')
+                for _, row in critical_threats.iterrows():
+                    print(f'  - {row[\"Package\"]} (Score: {row[\"Composite Risk Score\"]}) -> Remediation: {row.get(\"Recommended Remediation\", \"None\")}')
+                # Exit with non-zero to protect the build pipeline
+                sys.exit(1)
+            else:
+                print('✅ Security Gatekeeper Passed: Zero Critical Supply Chain Threats Detected.')
+        "
+
+    - name: Upload Security Audit Artifacts
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: supply-chain-scan-artifacts
+        path: |
+          outputs/scan_results.csv
+          outputs/remediation_plan.json
+          outputs/sbom.json
+          outputs/sbom.spdx
+          graphs/

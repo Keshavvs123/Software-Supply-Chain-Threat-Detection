@@ -84,6 +84,17 @@ def print_console_summary(predictions, resolved_packages):
     print(f" Early Detection Rate (EDR):         {ew.get('early_detection_rate_percent', 100.0):.1f}%")
     print("==================================================")
 
+    remed_plan = predictions.get("remediation_plan", {})
+    if remed_plan and remed_plan.get("actions"):
+        print("\n==================================================")
+        print("    AUTOMATED REMEDIATION & SAFE UPGRADE RECIPES")
+        print("==================================================")
+        for act in remed_plan["actions"][:4]:
+            print(f" [REMEDY] {act['package']} ({act['current_version']}) -> >={act['recommended_version']}")
+            print(f"          Command: {act['upgrade_command']}")
+            print(f"          Resolves: {', '.join(act['cves_resolved'][:3])} (Max CVSS: {act['max_cvss']})")
+        print("==================================================")
+
     print("\n==================================================")
     print("     MODEL TESTING PERFORMANCE EVALUATION (HGAT GNN)")
     print("     (Evaluated on 3,700 Test Packages / 24,666 Total)")
@@ -123,6 +134,8 @@ def save_scan_results_csv(predictions, resolved_packages, static_results, output
         except Exception:
             runtime_data = {}
 
+    remediation_map = predictions.get("remediation_recommendations", {})
+
     scan_rows = []
     for key, pkg in resolved_packages.items():
         name = pkg["name"]
@@ -153,6 +166,8 @@ def save_scan_results_csv(predictions, resolved_packages, static_results, output
                          pkg_rt.get("suspicious_network_activity", 0) + \
                          pkg_rt.get("file_access_risk", 0)
         
+        rec_remed = remediation_map.get(name.lower(), "Safe / No remediation required")
+        
         if final_score >= 0.85:
             risk_lvl = "Critical"
         elif final_score >= 0.60:
@@ -176,7 +191,8 @@ def save_scan_results_csv(predictions, resolved_packages, static_results, output
             "LSTM Drift Risk": lstm_drift,
             "Composite Risk Score": final_score,
             "Confidence": conf,
-            "Risk Level": risk_lvl
+            "Risk Level": risk_lvl,
+            "Recommended Remediation": rec_remed
         })
     df = pd.DataFrame(scan_rows)
     df.to_csv(output_path, index=False)
@@ -353,6 +369,8 @@ class GatekeeperHandler(http.server.SimpleHTTPRequestHandler):
                     "early_warning_metrics": pred_res.get("early_warning_metrics", {}),
                     "package_threats": pred_res.get("package_threats", {}),
                     "attack_paths": pred_res["attack_paths"],
+                    "remediation_plan": dep_res.get("remediation_plan", {}),
+                    "remediation_recommendations": dep_res.get("remediation_plan", {}).get("recommendations_by_pkg", {}),
                     "explanations": {}
                 }
                 

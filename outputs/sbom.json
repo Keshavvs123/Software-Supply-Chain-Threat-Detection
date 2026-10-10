@@ -42,6 +42,31 @@
     },
     {
       "type": "library",
+      "name": "pyshorteners",
+      "version": "1.0.1",
+      "purl": "pkg:pypi/pyshorteners@1.0.1",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "22045c997c4283124768c165623a267cf9ba2a7d416101e2e5fccfc244d34544"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "name": "GPLv3"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "maintainer",
+          "value": "Ellison Le\u00e3o"
+        }
+      ]
+    },
+    {
+      "type": "library",
       "name": "six",
       "version": "1.16.0",
       "purl": "pkg:pypi/six@1.16.0",
