@@ -25,18 +25,6 @@ Relationship: SPDXRef-Package-warcio DEPENDS_ON SPDXRef-Package-fsspec
 Relationship: SPDXRef-Package-warcio DEPENDS_ON SPDXRef-Package-aiohttp
 Relationship: SPDXRef-Package-warcio DEPENDS_ON SPDXRef-Package-requests
 
-PackageName: pyshorteners
-SPDXID: SPDXRef-Package-pyshorteners
-PackageVersion: 1.0.1
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: GPLv3
-PackageLicenseDeclared: GPLv3
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-pyshorteners DEPENDS_ON SPDXRef-Package-requests
-
 PackageName: six
 SPDXID: SPDXRef-Package-six
 PackageVersion: 1.16.0
