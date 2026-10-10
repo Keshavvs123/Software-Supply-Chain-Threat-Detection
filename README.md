@@ -1,122 +1,178 @@
 # Temporal Multimodal Software Supply-Chain Threat Detection Engine
 
-An AI-driven security gatekeeper that monitors, evaluates, and intercepts supply-chain attacks (such as typosquatting, dependency confusion, malicious releases, and compromised maintainers) *pre-installation*.
+An AI-driven pre-installation security gatekeeper that intercepts, evaluates, and neutralizes software supply chain threats (typosquatting, dependency confusion, malicious releases, transitive vulnerability cascades, and compromised maintainers) before packages reach developer machines.
 
-The system leverages a heterogeneous **Heterogeneous Graph Attention Network (HGAT)** combined with a **Temporal Long Short-Term Memory (LSTM)** sequence classifier to evaluate transitive risk propagation and chronologically detect package drift.
-
----
-
-## 1. System Modalities & Architecture
-
-The framework analyzes supply chain components across 5 key dimensions (modalities) to form a unified risk score:
-1. **Source Code (C)**: AST structural metrics, Shannon entropy of obfuscation, and Bandit/Semgrep static code analyzer flags.
-2. **Metadata (M)**: Stars, downloads, forks, OpenSSF scorecard metrics, and maintainer churn statistics.
-3. **Graph Topology (G)**: HGAT GNN modeling transitive dependency trees and target-propagated risks.
-4. **Behavioral Telemetry (B)**: Local sandboxed quarantine run telemetry tracking subprocesses, file operations, and system calls.
-5. **Temporal Drift (T)**: LSTM modeling package release velocity, interval anomalies, and burstiness trends.
+The system combines a **Multi-Head Heterogeneous Graph Attention Network (HGAT GNN)** with a **Temporal Long Short-Term Memory (LSTM)** anomaly classifier to evaluate transitive risk propagation and chronologically detect package release drift.
 
 ---
 
-## 2. Multimodal Ablation Study Results
+## 👥 Project Team & Work Division
 
-Our systematic ablation study highlights the significance of fusing all five modalities (Proposed Full Multimodal System) to achieve optimal detection speed, immediate warning capacity, and lowest false alert rate.
-
-| Model Configuration | Code (C) | Metadata (M) | Graph (G) | Behavior (B) | Temporal (T) | PR-AUC | ROC-AUC | F1-Score | Accuracy | FPR (%) | Mean TTD | EDR@24h | EDR@72h |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| M1 (Code Only) | Y | - | - | - | - | 0.824 | 0.851 | 0.802 | 0.812 | 14.4% | 52.4h | 38.2% | 55.0% |
-| M2 (Metadata Only) | - | Y | - | - | - | 0.765 | 0.793 | 0.744 | 0.749 | 19.8% | 64.8h | 25.0% | 42.0% |
-| M3 (Graph Only) | - | - | Y | - | - | 0.887 | 0.912 | 0.856 | 0.865 | 9.6% | 46.2h | 47.1% | 68.5% |
-| M4 (Behavior Only) | - | - | - | Y | - | 0.891 | 0.908 | 0.851 | 0.861 | 7.7% | 39.5h | 58.8% | 75.0% |
-| M5 (Code+Metadata) | Y | Y | - | - | - | 0.882 | 0.905 | 0.861 | 0.867 | 11.0% | 41.0h | 55.0% | 78.2% |
-| M6 (C+M+G) | Y | Y | Y | - | - | 0.948 | 0.962 | 0.923 | 0.927 | 5.2% | 31.6h | 73.5% | 89.0% |
-| M7 (C+M+G+B) | Y | Y | Y | Y | - | 0.973 | 0.984 | 0.951 | 0.952 | 3.1% | 24.1h | 88.2% | 96.0% |
-| **Proposed Full System** | Y | Y | Y | Y | Y | **0.992** | **0.999** | **0.971** | **0.973** | **1.3%** | **18.5h** | **96.4%** | **99.5%** |
-
-*Note: Proposed system intercepts 96.4% of supply chain vulnerabilities within 24 hours of package publication.*
+* **Keshav (Lead)**: Pre-installation quarantine workflow, Multi-Head HGAT GNN modeling (`ml_engine/hgat_model.py`, `ml_engine/train_full_dataset.py`), Risk Fusion ($0.6\text{ GNN} + 0.4\text{ LSTM}$), RADV scoring, and HTTP Backend Server (`main.py`).
+* **Hamsa**: Dependency graph builder (`graph_intelligence/graph_builder.py`), NetworkX topological metrics (Blast Radius, PageRank), and Temporal LSTM anomaly detection (`ml_engine/temporal_model.py`).
+* **Moeen (Moen)**: Static code & AST visitor (`PyASTSecurityVisitor`), Shannon Entropy obfuscation detector ($H > 4.5$), and Bandit & Semgrep SAST integration.
+* **Tejas**: CycloneDX / SPDX SBOM pipeline (`sbom/generator.py`, `sbom/npm_generator.py`), Local SQLite CVE database (`dependency_analysis/cve_db.py`), Automated Remediation engine (`dependency_analysis/remediator.py`), and Glassmorphic Dashboard (`visualization/dashboard.py`).
 
 ---
 
-## 3. Early Warning Performance Graphs
+## 1. System Architecture & Multimodal Pipeline
 
-### 3.1 Early Interception Capacity (EDR Area Plot)
-The filled area plot illustrates EDR@24h (immediate interception) and EDR@72h across Configurations. The Proposed Full Multimodal configuration intercepts 99.5% of malicious packages within 72 hours.
+The framework analyzes software dependencies across 5 complementary security modalities:
 
-![Early Interception Capacity](outputs/early_warning_metrics.png)
+1. **Source Code (C)**: AST structural visitor (`eval`, `exec`, `os.system`), Shannon entropy obfuscation analysis ($H > 4.5$), and Bandit/Semgrep static analyzers.
+2. **Metadata & Reputation (M)**: Downloads, stars, OpenSSF scorecard, release intervals, and maintainer account churn.
+3. **Graph Topology (G)**: 4-Head HGAT GNN modeling transitive dependency trees across 79,741 edges and calculating reachability Blast Radius.
+4. **Behavioral Telemetry (B)**: Sandboxed quarantine tracing measuring dynamic function executions, system calls, subprocesses, and unauthorized network/file access.
+5. **Temporal Sequence (T)**: LSTM tracking historical release velocity, version cadence anomalies, and sudden burstiness flags.
 
-### 3.2 Time-To-Detection (TTD in Hours)
-As more modalities are added (culminating in the Proposed System), the mean time-to-detection of supply-chain compromises drops from 64.8 hours to **18.5 hours**.
-
-![Mean Time-To-Detection](outputs/detection_latency_ttd.png)
-
-### 3.3 Quality Metrics Comparison (Grouped Bar Chart)
-Evaluates critical machine-learning classifiers quality scores (Precision, Recall, F1, Accuracy, ROC-AUC, PR-AUC, and Matthews Correlation Coefficient - MCC).
-
-![Quality Metric Evaluation](outputs/ablation_metrics_comparison.png)
-
-### 3.4 False Positive Rate (FPR Reduction)
-The False Positive Rate decreases to a baseline of **1.3%** under the Proposed system, minimizing developer alarm fatigue.
-
-![False Positive Rate](outputs/fpr_metrics_comparison.png)
+```
+Ingestion (requirements.txt / package-lock.json)
+       │
+       ▼
+Pre-Install Quarantine Staging (CycloneDX & SPDX SBOM)
+       │
+   ┌───┴───────────────────────────────┐
+   ▼                                   ▼
+Static AST & Shannon Entropy    Local SQLite CVE Database
+   │                                   │
+   └───────────────┬───────────────────┘
+                   ▼
+     NetworkX Dependency Graph (79,741 Edges)
+                   │
+         ┌─────────┴─────────┐
+         ▼                   ▼
+Multi-Head HGAT GNN    Temporal LSTM
+ (Graph Propagation)   (Release Drift)
+         │                   │
+         └─────────┬─────────┘
+                   ▼
+     Composite Risk Fusion (0.6 GNN + 0.4 LSTM)
+     + Explainable AI (XAI Saliency Gradients)
+                   │
+         ┌─────────┴─────────┐
+         ▼                   ▼
+Interactive Dashboard    Automated Safe Upgrade Solver
+(http://localhost:5000)  (outputs/remediation_plan.json)
+```
 
 ---
 
-## 4. GNN Classifier Evaluation Plots
+## 2. Empirical Benchmark Evaluation (24,666 Real Packages)
 
-The following publication-grade charts evaluate the core GNN (HGAT) model training convergence and class-wise threat prediction accuracy.
+The framework was trained and evaluated on **24,666 real-world packages and 79,741 dependency graph edges** from `Supply_Chain_Risk_Dataset_v2.xlsx`, split chronologically using a stratified 70/15/15 partition (17,266 train / 3,700 val / 3,700 held-out test packages).
 
-### 4.1 Training & Validation Convergence
-* **Accuracy Curves (`graphs/accuracy_curves.png`)**: Shows GNN train and validation accuracy steadily climbing to a stable plateau (~98% and ~95% respectively) over 120 epochs.
-* **Loss Curves (`graphs/loss_curves.png`)**: Illustrates consistent cross-entropy loss minimization, with early-stopping checkpoints preventing overfitting.
+### 2.1 Ablation Study & Baseline Comparison Table
 
-![Accuracy Curves](graphs/accuracy_curves.png)
-![Loss Curves](graphs/loss_curves.png)
+| Model Configuration | Accuracy | Threat Recall | F1-Score | Precision | ROC-AUC | PR-AUC | False Positive Rate (FPR) |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **M1 (Dependency Topology Only)** | 50.57% | 67.87% | 0.5833 | 0.5114 | 0.5034 | 0.5415 | 67.4% |
+| **M2 (GitHub Health Only)** | 50.97% | 100.0% | 0.6753 | 0.5097 | 0.5000 | 0.7549 | 100.0% |
+| **M3 (PyPI Release Cadence Only)** | 51.03% | 77.62% | 0.6177 | 0.5130 | 0.5061 | 0.5524 | 76.6% |
+| **M4 (Logistic Regression Baseline)** | 50.76% | 65.11% | 0.5741 | 0.5134 | 0.5111 | 0.5558 | 64.2% |
+| **M5 (Random Forest Baseline)** | 50.86% | 64.16% | 0.5710 | 0.5145 | 0.5089 | 0.5444 | 63.0% |
+| **Proposed HGAT GNN (Full System)** | **84.89%** | **97.24%** | **0.8678** | **0.7834** | **0.8617** | **0.8933** | **27.9%** |
 
-### 4.2 Multi-Class Prediction Performance
-* **Multi-Class Confusion Matrix (`graphs/confusion_matrix.png`)**: Displays exact classification distributions across five risk levels (Secure, Low, Medium, High, and Critical Risk).
-* **ROC Curves (`graphs/roc_curves.png`)**: Depicts the Receiver Operating Characteristic curves for each of the five risk tiers.
+*Key Findings*:
+* Classical classifiers (Random Forest at $50.86\%$ accuracy) fail to capture deep transitive infections because graph relationships cannot be represented in flat feature matrices.
+* The proposed Multi-Head HGAT GNN achieves **$84.89\%$ Accuracy** and **$97.24\%$ Recall**, reducing the False Positive Rate from $63.0\%$ to **$27.9\%$**.
 
-![Confusion Matrix](graphs/confusion_matrix.png)
-![ROC Curves](graphs/roc_curves.png)
+---
 
-### 4.3 Evaluation Profiles & Optimization
-* **Class-Wise Performance (`graphs/class_wise_performance.png`)**: Evaluates Precision, Recall, and F1-Score breakdown for individual risk levels.
-* **Overall System Performance (`graphs/overall_performance.png` / `graphs/system_performance.png`)**: Shows a comparison of macro/micro-averaged metrics and latency parameters.
-* **Inference Speed Optimization (`graphs/optimized_vs_unoptimized.png`)**: Illustrates the latency reduction achieved via tensor pruning and architecture optimization.
+## 3. Early Warning & Interception Latency
 
-![Class-Wise Performance](graphs/class_wise_performance.png)
-![Overall Performance](graphs/overall_performance.png)
-![System Performance](graphs/system_performance.png)
-![Inference Optimization](graphs/optimized_vs_unoptimized.png)
+* **Median Time-To-Detection (TTD)**: **14.6 hours**
+* **Interception Rate within 24 Hours (TTD@24h)**: **71.4%**
+* **Interception Rate within 72 Hours (TTD@72h)**: **100.0%**
+* **Early Detection Rate (EDR)**: **42.9%**
+
+---
+
+## 4. Key Capabilities & Features
+
+### 4.1 ⚡ Local Offline SQLite CVE Database (`outputs/cve_database.sqlite`)
+* Pre-indexed local database providing **$< 0.1\text{ ms}$ zero-latency offline lookups** without network dependency.
+
+### 4.2 🛡️ Automated Self-Healing Remediation (`outputs/remediation_plan.json`)
+* Generates minimal, non-breaking safe upgrade recipes with 1-click `pip install --upgrade ...` commands for vulnerable transitive dependencies.
+
+### 4.3 🌐 Multi-Ecosystem Support (Python + Node.js)
+* Supports both Python (`requirements.txt`, wheels, sdist) and Node.js (`package-lock.json` v1/v2/v3, `package.json`).
+
+### 4.4 ⚙️ GitHub Actions CI/CD Workflow (`.github/workflows/security-gatekeeper.yml`)
+* Automated DevSecOps gatekeeper that scans pull requests and blocks builds containing critical supply chain threats.
+
+### 4.5 🧠 Explainable AI (XAI)
+* Uses gradient backpropagation and Graph Attention weights to rank the top mathematical drivers behind every risk score.
 
 ---
 
 ## 5. Setup & Running Instructions
 
-### 5.1 Prerequisites
-* Python 3.10+
-* Windows, Linux, or macOS
-
-### 5.2 Installation
-Install the core AI framework libraries and command-line scanning utilities:
+### 5.1 Installation
 ```bash
-pip install torch networkx pandas numpy scikit-learn bandit semgrep requests warcio
+pip install torch networkx pandas numpy scikit-learn bandit semgrep requests warcio openpyxl
 ```
 
-### 5.3 Running the Gatekeeper Server
-1. Start the HTTP server:
-   ```bash
-   python main.py
-   ```
-2. The server will seed the database, run chronological training epochs, and output chronological validation and test split metrics directly in the terminal:
-   ```text
-   ================================------------------
-   CHRONOLOGICAL MODEL EVALUATION METRICS (HGAT GNN)
-   ================================------------------
-    [TRAINING SPLIT (Release <= 2022)]
-     Precision: 1.0000 | Recall: 1.0000 | F1-Score: 1.0000
-    [VALIDATION SPLIT (Release 2023-2024)]
-     Precision: 0.0000 | Recall: 0.0000 | F1-Score: 0.0000
-   ```
-3. Open your browser to `http://localhost:5000/`.
-4. Drag-and-drop or select any `requirements.txt` file in the dropzone.
-5. Review the anomalies propagation graph and click **Approve & Run Local Installation** to automatically install verified packages on the host terminal.
+### 5.2 Running the Interactive Web Gatekeeper Dashboard
+```bash
+python main.py
+```
+* Starts the server at **`http://localhost:5000/`**.
+* Drag and drop `test_project/requirements.txt` to inspect the D3.js dependency graph, attack paths, XAI saliency bars, and remediation cards.
+
+### 5.3 Running the Automated CLI Scan Pipeline
+```bash
+python test_pipeline.py
+```
+* Scans target packages end-to-end, displays the ASCII dependency tree with vulnerability tags, and outputs audit CSV reports.
+
+### 5.4 Re-Training the GNN on the Full Dataset
+```bash
+python ml_engine/train_full_dataset.py
+```
+* Runs 100 training epochs on 17,266 packages and updates all empirical plots in `graphs/`.
+
+---
+
+## 6. Project Structure
+
+```
+├── .github/workflows/
+│   └── security-gatekeeper.yml     # Automated CI/CD PR scanning action
+├── data_pipeline/
+│   └── enricher.py                 # PyPI/GitHub metadata & CVE database logger
+├── dataset/
+│   └── Supply_Chain_Risk_Dataset_v2.xlsx  # 24,666 real package dataset
+├── dependency_analysis/
+│   ├── cve_db.py                   # Local SQLite CVE database
+│   ├── dependency_scanner.py       # Vulnerability scanner & tree builder
+│   ├── remediator.py               # Automated safe version solver
+│   └── threat_model.py             # Threat vectors T1-T6 classifier
+├── graph_intelligence/
+│   └── graph_builder.py            # NetworkX dependency graph & blast radius
+├── graphs/                         # 13 Empirical publication plots
+├── ml_engine/
+│   ├── hgat_model.py               # Multi-Head HGAT PyTorch architecture
+│   ├── predictor.py                # Risk Fusion & XAI Saliency engine
+│   ├── temporal_model.py           # Temporal LSTM anomaly detector
+│   └── train_full_dataset.py       # 100-epoch full dataset training script
+├── outputs/
+│   ├── ablation_study_results.csv  # Empirical test metrics
+│   ├── cve_database.sqlite         # Local offline CVE database
+│   ├── hgat_model.pt               # Trained GNN weights
+│   ├── remediation_plan.json       # Automated remediation recipes
+│   ├── sbom.json                   # CycloneDX v1.4 SBOM
+│   ├── sbom.spdx                   # SPDX 2.2 SBOM
+│   └── scan_results.csv            # Consolidated security audit CSV
+├── runtime_behaviour/
+│   └── monitor.py                  # Behavioral execution telemetry tracer
+├── sbom/
+│   ├── generator.py                # Python SBOM generator & metadata resolver
+│   └── npm_generator.py            # Node.js / npm lockfile dependency parser
+├── static_analysis/
+│   └── analyzer.py                 # AST visitor, Shannon entropy, Bandit & Semgrep
+├── visualization/
+│   └── dashboard.py                # Interactive Glassmorphic Web Dashboard
+├── main.py                         # Live HTTP Server & Gatekeeper orchestrator
+└── test_pipeline.py                # Automated end-to-end CLI pipeline
+```
