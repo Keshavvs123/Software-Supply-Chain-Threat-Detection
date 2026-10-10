@@ -271,6 +271,48 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             color: #ffffff;
         }
 
+        /* Remediation Card Styles */
+        .remediation-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: all 0.2s ease;
+        }
+        .remediation-card:hover {
+            background: rgba(99, 102, 241, 0.05);
+            border-color: var(--primary);
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15);
+        }
+        .remediation-cmd-box {
+            background: rgba(10, 11, 16, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-family: monospace;
+            font-size: 12px;
+            color: #a5b4fc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .btn-copy-fix {
+            background: rgba(99, 102, 241, 0.2);
+            border: 1px solid var(--primary);
+            color: #ffffff;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-copy-fix:hover {
+            background: var(--primary);
+        }
+
         /* Drag and drop upload zone styles */
         .upload-zone {
             border: 2px dashed rgba(99, 102, 241, 0.4);
@@ -484,6 +526,16 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         <div class="card" style="grid-column: 1 / 3;">
             <div class="card-title">Critical Attack Propagation Paths</div>
             <div class="attack-path-list" id="attackPathsContainer">
+            </div>
+        </div>
+
+        <!-- Automated Remediation & Safe Upgrade Recipes Card -->
+        <div class="card" style="grid-column: 1 / 3;">
+            <div class="card-title" style="display: flex; justify-content: space-between; align-items: center;">
+                <span>Automated Remediation & Safe Upgrade Recipes</span>
+                <span class="logo-tag" id="remediationBadge" style="background: rgba(16, 185, 129, 0.15); border-color: #10b981; color: #34d399;">0 Actions</span>
+            </div>
+            <div id="remediationContainer" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; margin-top: 12px;">
             </div>
         </div>
     </div> <!-- Close grid-container -->
@@ -806,8 +858,60 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                 });
             }
 
+            // 5.5 Render Automated Remediation Recipes
+            const remedContainer = document.getElementById("remediationContainer");
+            const remedBadge = document.getElementById("remediationBadge");
+            if (remedContainer) {
+                remedContainer.innerHTML = "";
+                const plan = predData.remediation_plan || {};
+                const actions = plan.actions || [];
+                if (remedBadge) remedBadge.innerText = `${actions.length} Actions Available`;
+
+                if (actions.length === 0) {
+                    remedContainer.innerHTML = '<div style="color: var(--text-muted); font-size: 13px; grid-column: 1 / -1;">All packages verified clean. No remediation upgrade required.</div>';
+                } else {
+                    actions.forEach((act, idx) => {
+                        const badgeClass = act.severity === "CRITICAL" ? "badge-danger" : "badge-warning";
+                        const cvesPreview = act.cves_resolved.slice(0, 3).join(', ') + (act.cves_resolved.length > 3 ? '...' : '');
+                        const block = `<div class="remediation-card">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong style="font-size: 15px; color: #a5b4fc;">${act.package}</strong>
+                                <span class="badge ${badgeClass}">${act.severity} (CVSS: ${act.max_cvss})</span>
+                            </div>
+                            <div style="font-size: 12px; color: var(--text-muted);">
+                                <span>Current: <code style="color: #fda4af;">${act.current_version}</code></span> &rarr; 
+                                <span>Recommended: <code style="color: #86efac; font-weight: 700;">&gt;=${act.recommended_version}</code></span>
+                            </div>
+                            <div style="font-size: 11px; color: var(--text-muted);">
+                                Fixes ${act.cve_count} CVEs: <span style="color: #fca5a5;">${cvesPreview}</span>
+                            </div>
+                            <div class="remediation-cmd-box">
+                                <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-right: 8px;">${act.upgrade_command}</span>
+                                <button class="btn-copy-fix" id="copyBtn_${idx}" onclick="copyFixCommand('${act.upgrade_command.replace(/"/g, '&quot;')}', 'copyBtn_${idx}')">Copy</button>
+                            </div>
+                        </div>`;
+                        remedContainer.innerHTML += block;
+                    });
+                }
+            }
+
             // 6. Draw D3 homogeneous graph
             drawD3Graph(gData, predData);
+        }
+
+        function copyFixCommand(cmd, btnId) {
+            navigator.clipboard.writeText(cmd).then(() => {
+                const btn = document.getElementById(btnId);
+                if (btn) {
+                    const oldText = btn.innerText;
+                    btn.innerText = "Copied! ✓";
+                    btn.style.background = "var(--success)";
+                    setTimeout(() => {
+                        btn.innerText = oldText;
+                        btn.style.background = "";
+                    }, 1500);
+                }
+            });
         }
 
         // Homogeneous force-directed graph renderer using D3.js
