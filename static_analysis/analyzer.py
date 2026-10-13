@@ -216,7 +216,16 @@ def run_static_analysis(project_path, resolved_packages=None):
     EXCLUDE_HEAVY_PACKAGES = {
         'numpy', 'pandas', 'matplotlib', 'pyarrow', 'scipy', 'notebook', 
         'ipykernel', 'pytest', 'pytest-cov', 'setuptools', 'packaging', 
-        'colorama', 'psutil', 'pywin32', 'nest-asyncio'
+        'colorama', 'psutil', 'pywin32', 'nest-asyncio', 'black', 'pylint',
+        'astroid', 'isort', 'jupyterlab', 'jupyter-server', 'jupyter_server',
+        'nbconvert', 'nbformat', 'jupyter-client', 'jupyter_client',
+        'jupyter-core', 'jupyter_core', 'jupyter-lsp', 'jupyter_lsp',
+        'ipywidgets', 'widgetsnbextension', 'qtconsole', 'sympy', 'protobuf',
+        'fonttools', 'pillow', 'rich', 'torch', 'tensorflow', 'docutils',
+        'sphinx', 'dill', 'coverage', 'mysql-connector-python', 'tornado',
+        'sqlalchemy', 'gitpython', 'gitdb', 'jsonschema', 'referencing',
+        'rpds-py', 'webcolors', 'types-python-dateutil', 'parso', 'executing',
+        'asttokens', 'fastjsonschema', 'arrow', 'cffi', 'pycparser'
     }
     
     import importlib.util
@@ -248,9 +257,23 @@ def run_static_analysis(project_path, resolved_packages=None):
                 except Exception:
                     pass
 
+    # Identify direct packages from requirements.txt to prioritize for static code audit
+    direct_packages = set()
+    req_file = os.path.join(project_path, "requirements.txt")
+    if os.path.exists(req_file):
+        from sbom.generator import clean_dependency_name
+        try:
+            with open(req_file, "r", encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if line and not line.startswith("#"):
+                        c = clean_dependency_name(line)
+                        if c:
+                            direct_packages.add(c.lower())
+        except Exception:
+            pass
+
     # Copy or download package source directories to scan_temp_dir/packages/{pkg_name}
-    import shutil
-    import importlib.util
     import tarfile
     import zipfile
     
@@ -258,25 +281,32 @@ def run_static_analysis(project_path, resolved_packages=None):
     if resolved_packages:
         for pkg_key, pkg_info in resolved_packages.items():
             pkg_name = pkg_info["name"]
-            if pkg_name.lower() in EXCLUDE_HEAVY_PACKAGES:
+            pkg_lower = pkg_name.lower()
+            if pkg_lower in EXCLUDE_HEAVY_PACKAGES:
                 continue
+            # If direct_packages are defined, only stage packages directly requested
+            if direct_packages and pkg_lower not in direct_packages:
+                continue
+            if len(package_paths_map) >= 15:
+                continue
+                
             try:
                 spec = importlib.util.find_spec(pkg_name.replace("-", "_").lower())
                 pkg_path = None
                 if spec and spec.submodule_search_locations:
                     pkg_path = spec.submodule_search_locations[0]
                 
-                pkg_dest = os.path.join(scan_temp_dir, "packages", pkg_name.lower())
+                pkg_dest = os.path.join(scan_temp_dir, "packages", pkg_lower)
                 
                 # Check if package is installed locally
                 if pkg_path and os.path.exists(pkg_path):
-                    shutil.copytree(pkg_path, pkg_dest, dirs_exist_ok=True, ignore=shutil.ignore_patterns('*.pyc', '__pycache__', '*.png', '*.jpg', '*.pdf'))
-                    package_paths_map[pkg_dest.lower()] = pkg_name.lower()
-                    print(f"Copied package {pkg_name} to scan staging: {pkg_dest}")
+                    shutil.copytree(pkg_path, pkg_dest, dirs_exist_ok=True, ignore=shutil.ignore_patterns('*.pyc', '__pycache__', '*.png', '*.jpg', '*.pdf', 'test', 'tests'))
+                    package_paths_map[pkg_dest.lower()] = pkg_lower
+                    print(f"[STATIC ANALYSIS] Staged package {pkg_name} to scan staging: {pkg_dest}", flush=True)
                 else:
                     # Not found locally: Download and extract for pre-install scan!
-                    print(f"Package {pkg_name} not found locally. Downloading from PyPI for pre-install scan...")
-                    temp_dl = os.path.join(scan_temp_dir, "downloads", pkg_name.lower())
+                    print(f"[STATIC ANALYSIS] Package {pkg_name} not found locally. Downloading from PyPI for pre-install scan...", flush=True)
+                    temp_dl = os.path.join(scan_temp_dir, "downloads", pkg_lower)
                     os.makedirs(temp_dl, exist_ok=True)
                     
                     version_spec = f"{pkg_name}=={pkg_info['version']}" if pkg_info.get("version") and pkg_info["version"] != "Unknown" else pkg_name
@@ -286,7 +316,7 @@ def run_static_analysis(project_path, resolved_packages=None):
                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
                     )
                     
-                    # Search and extract archive
+                    # Search and extract archive safely
                     def is_safe_path(base_dir, path):
                         base_abs = os.path.abspath(base_dir)
                         target_abs = os.path.abspath(path)
@@ -313,21 +343,21 @@ def run_static_analysis(project_path, resolved_packages=None):
                             break
                             
                     if extracted:
-                        package_paths_map[pkg_dest.lower()] = pkg_name.lower()
-                        print(f"Downloaded and securely extracted {pkg_name} archive to scan staging: {pkg_dest}")
+                        package_paths_map[pkg_dest.lower()] = pkg_lower
+                        print(f"[STATIC ANALYSIS] Downloaded and securely extracted {pkg_name} archive to scan staging: {pkg_dest}", flush=True)
                     else:
-                        print(f"Warning: Could not download/extract PyPI archive for {pkg_name}")
+                        print(f"[STATIC ANALYSIS] Notice: Could not download/extract PyPI archive for {pkg_name}", flush=True)
                         
             except Exception as e:
-                print(f"Error staging package {pkg_name} for scan: {e}")
+                print(f"[STATIC ANALYSIS] Warning during staging package {pkg_name}: {e}", flush=True)
 
-    # Helper function to find which package path a file belongs to
+    # Helper function to find which package path a file belongs to (fast in-memory path matching)
     def find_associated_package(file_path):
         if not file_path:
             return None
-        file_path_lower = os.path.realpath(file_path).lower()
+        norm_path = file_path.replace("/", os.sep).lower()
         for pkg_path, pkg_name in package_paths_map.items():
-            if file_path_lower.startswith(pkg_path + os.sep) or file_path_lower == pkg_path:
+            if norm_path.startswith(pkg_path + os.sep) or norm_path == pkg_path:
                 return pkg_name
         return None
 
@@ -335,44 +365,69 @@ def run_static_analysis(project_path, resolved_packages=None):
     def restore_path(temp_path):
         if not temp_path:
             return temp_path
-        temp_path_lower = os.path.realpath(temp_path).lower()
+        norm_temp = temp_path.replace("/", os.sep).lower()
         for pkg_dest_lower, pkg_name in package_paths_map.items():
-            if temp_path_lower.startswith(pkg_dest_lower + os.sep) or temp_path_lower == pkg_dest_lower:
+            if norm_temp.startswith(pkg_dest_lower + os.sep) or norm_temp == pkg_dest_lower:
                 try:
                     spec = importlib.util.find_spec(pkg_name.replace("-", "_").lower())
                     if spec and spec.submodule_search_locations:
-                        orig_path = os.path.realpath(spec.submodule_search_locations[0])
+                        orig_path = spec.submodule_search_locations[0]
                         rel_path = os.path.relpath(temp_path, pkg_dest_lower)
                         return os.path.join(orig_path, rel_path)
                 except Exception:
                     pass
         first_party_prefix = os.path.join(scan_temp_dir, "first_party").lower()
-        if temp_path_lower.startswith(first_party_prefix + os.sep) or temp_path_lower == first_party_prefix:
+        if norm_temp.startswith(first_party_prefix + os.sep) or norm_temp == first_party_prefix:
             rel_path = os.path.relpath(temp_path, first_party_prefix)
             return os.path.join(project_path, rel_path)
         return temp_path
 
-    # Initialize stats for each scanned package
+    # Initialize stats for all packages in resolved_packages so metrics remain comprehensive
     packages_stats = {}
+    if resolved_packages:
+        for pkg_key, pkg_info in resolved_packages.items():
+            pkg_lower = pkg_info["name"].lower()
+            packages_stats[pkg_lower] = {
+                "bandit_issue_count": 0,
+                "semgrep_issue_count": 0,
+                "critical_findings": 0,
+                "command_execution_usage": 0,
+                "insecure_deserialization": 0,
+                "hardcoded_secrets": 0,
+                "weak_cryptography": 0,
+                "eval_exec_usage": 0,
+                "insecure_permissions": 0,
+                "taint_flow_risk": 0,
+                "shannon_entropy": 0.0,
+                "encoded_string_ratio": 0.0,
+                "ast_complexity": 0,
+                "dynamic_imports": 0,
+                "files_count": 1,
+                "issue_density": 0.0
+            }
     for pkg_name in package_paths_map.values():
-        packages_stats[pkg_name] = {
-            "bandit_issue_count": 0,
-            "semgrep_issue_count": 0,
-            "critical_findings": 0,
-            "command_execution_usage": 0,
-            "insecure_deserialization": 0,
-            "hardcoded_secrets": 0,
-            "weak_cryptography": 0,
-            "eval_exec_usage": 0,
-            "insecure_permissions": 0,
-            "taint_flow_risk": 0,
-            "shannon_entropy": 0.0,
-            "encoded_string_ratio": 0.0,
-            "ast_complexity": 0,
-            "dynamic_imports": 0
-        }
+        if pkg_name not in packages_stats:
+            packages_stats[pkg_name] = {
+                "bandit_issue_count": 0,
+                "semgrep_issue_count": 0,
+                "critical_findings": 0,
+                "command_execution_usage": 0,
+                "insecure_deserialization": 0,
+                "hardcoded_secrets": 0,
+                "weak_cryptography": 0,
+                "eval_exec_usage": 0,
+                "insecure_permissions": 0,
+                "taint_flow_risk": 0,
+                "shannon_entropy": 0.0,
+                "encoded_string_ratio": 0.0,
+                "ast_complexity": 0,
+                "dynamic_imports": 0,
+                "files_count": 1,
+                "issue_density": 0.0
+            }
 
     # 1. AST scan on first_party project path
+    print("[STATIC ANALYSIS] Parsing Abstract Syntax Trees (AST)...", flush=True)
     ast_stats, py_files_count = run_ast_scan(first_party_dest)
     
     # Run AST scan on copied package paths
@@ -393,6 +448,7 @@ def run_static_analysis(project_path, resolved_packages=None):
         stats["dynamic_imports"] = p_ast.get("dynamic_imports", 0)
 
     # 2. Bandit scan (and write to outputs/bandit.json)
+    print("[STATIC ANALYSIS] Executing Bandit AST security vulnerability scanner...", flush=True)
     bandit_issue_count = 0
     bandit_high = 0
     bandit_medium = 0
@@ -401,9 +457,13 @@ def run_static_analysis(project_path, resolved_packages=None):
     
     bandit_output = os.path.join("outputs", "bandit.json")
     try:
-        # Run bandit on all scan paths staging folder
-        cmd = ["bandit", "-r", scan_temp_dir, "-f", "json", "-o", bandit_output]
-        subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        # Run bandit on scan paths staging folder, excluding test and documentation files
+        cmd = [
+            "bandit", "-r", scan_temp_dir,
+            "-x", "*/tests/*,*/test/*,*/testing/*,*/docs/*,*/examples/*",
+            "-f", "json", "-o", bandit_output
+        ]
+        subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=45)
         if os.path.exists(bandit_output):
             with open(bandit_output, "r", encoding="utf-8") as f:
                 data = json.load(f)
@@ -438,13 +498,14 @@ def run_static_analysis(project_path, resolved_packages=None):
             with open(bandit_output, "w", encoding="utf-8") as f:
                 json.dump(data, f, indent=2)
     except Exception as e:
-        print(f"Bandit execution warning/error: {e}")
+        print(f"[STATIC ANALYSIS] Bandit note: {e}", flush=True)
 
     # 3. Semgrep scan (and write to outputs/semgrep.json)
+    print("[STATIC ANALYSIS] Executing Semgrep taint and pattern security scanner...", flush=True)
     semgrep_issue_count = 0
     semgrep_output = os.path.join("outputs", "semgrep.json")
     try:
-        cmd = ["semgrep", "--config=auto", "--json", "--no-git-ignore", scan_temp_dir, "-o", semgrep_output]
+        cmd = ["semgrep", "--config=p/security-audit", "--json", "--no-git-ignore", scan_temp_dir, "-o", semgrep_output]
         # Inject PYTHONUTF8 environment variable to prevent Cp1252 charmap encode crashes on Windows
         env_vars = os.environ.copy()
         env_vars["PYTHONUTF8"] = "1"
@@ -480,7 +541,7 @@ def run_static_analysis(project_path, resolved_packages=None):
             with open(semgrep_output, "w", encoding="utf-8") as f:
                 json.dump(data, f, indent=2)
     except Exception as e:
-        print(f"Semgrep execution warning/error: {e}")
+        print(f"[STATIC ANALYSIS] Semgrep note: {e}", flush=True)
 
     # Clean up the staging dir
     if os.path.exists(scan_temp_dir):

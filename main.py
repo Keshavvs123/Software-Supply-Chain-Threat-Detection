@@ -272,6 +272,12 @@ class GatekeeperHandler(http.server.SimpleHTTPRequestHandler):
             self.wfile.write(b"File not found or access restricted.")
             return
 
+        # Return 204 No Content for favicon.ico to prevent 404 console errors in browser
+        if self.path == "/favicon.ico":
+            self.send_response(204)
+            self.end_headers()
+            return
+
         # Serve the dashboard at root or /dashboard.html
         if self.path == "/" or self.path == "/dashboard.html":
             self.path = "/outputs/dashboard.html"
