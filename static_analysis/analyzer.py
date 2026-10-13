@@ -287,23 +287,34 @@ def run_static_analysis(project_path, resolved_packages=None):
                     )
                     
                     # Search and extract archive
+                    def is_safe_path(base_dir, path):
+                        base_abs = os.path.abspath(base_dir)
+                        target_abs = os.path.abspath(path)
+                        return os.path.commonpath([base_abs, target_abs]) == base_abs
+
                     extracted = False
                     for file in os.listdir(temp_dl):
                         file_path = os.path.join(temp_dl, file)
                         if file.endswith(".tar.gz") or file.endswith(".tgz"):
                             with tarfile.open(file_path, "r:gz") as tar:
-                                tar.extractall(path=pkg_dest)
+                                safe_members = [
+                                    m for m in tar.getmembers() 
+                                    if is_safe_path(pkg_dest, os.path.join(pkg_dest, m.name))
+                                ]
+                                tar.extractall(path=pkg_dest, members=safe_members)
                             extracted = True
                             break
                         elif file.endswith(".whl") or file.endswith(".zip"):
                             with zipfile.ZipFile(file_path, "r") as zip_ref:
-                                zip_ref.extractall(path=pkg_dest)
+                                for member in zip_ref.namelist():
+                                    if is_safe_path(pkg_dest, os.path.join(pkg_dest, member)):
+                                        zip_ref.extract(member, path=pkg_dest)
                             extracted = True
                             break
                             
                     if extracted:
                         package_paths_map[pkg_dest.lower()] = pkg_name.lower()
-                        print(f"Downloaded and extracted {pkg_name} archive to scan staging: {pkg_dest}")
+                        print(f"Downloaded and securely extracted {pkg_name} archive to scan staging: {pkg_dest}")
                     else:
                         print(f"Warning: Could not download/extract PyPI archive for {pkg_name}")
                         
@@ -368,6 +379,7 @@ def run_static_analysis(project_path, resolved_packages=None):
     for pkg_dest_path, pkg_name in package_paths_map.items():
         p_ast, p_files = run_ast_scan(pkg_dest_path)
         stats = packages_stats[pkg_name]
+        stats["files_count"] = max(p_files, 1)
         stats["command_execution_usage"] = p_ast["command_execution_usage"]
         stats["insecure_deserialization"] = p_ast["insecure_deserialization"]
         stats["hardcoded_secrets"] = p_ast["hardcoded_secrets"]
@@ -436,7 +448,7 @@ def run_static_analysis(project_path, resolved_packages=None):
         # Inject PYTHONUTF8 environment variable to prevent Cp1252 charmap encode crashes on Windows
         env_vars = os.environ.copy()
         env_vars["PYTHONUTF8"] = "1"
-        subprocess.run(cmd, env=env_vars, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        subprocess.run(cmd, env=env_vars, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=45)
         if os.path.exists(semgrep_output):
             with open(semgrep_output, "r", encoding="utf-8") as f:
                 data = json.load(f)
@@ -479,11 +491,13 @@ def run_static_analysis(project_path, resolved_packages=None):
     )
     issue_density = (bandit_issue_count + semgrep_issue_count) / max(py_files_count, 1)
 
-    # Compute critical findings for packages
+    # Compute critical findings and size-normalized issue density for packages
     for pkg_name, stats in packages_stats.items():
         p_ast_crit = sum(1 for k, v in stats.items() if k in ["command_execution_usage", "insecure_deserialization"] and v > 0)
         stats["critical_findings"] += p_ast_crit
-        print(f"Scanned package source: {pkg_name} | Bandit issues: {stats['bandit_issue_count']} | Semgrep issues: {stats['semgrep_issue_count']} | AST issues: {stats['command_execution_usage'] + stats['insecure_deserialization'] + stats['hardcoded_secrets']}")
+        f_count = stats.get("files_count", 1)
+        stats["issue_density"] = round((stats["bandit_issue_count"] + stats["semgrep_issue_count"]) / max(f_count, 1), 3)
+        print(f"Scanned package source: {pkg_name} | Files: {f_count} | Issues: {stats['bandit_issue_count'] + stats['semgrep_issue_count']} (Density: {stats['issue_density']}/file) | AST issues: {stats['command_execution_usage'] + stats['insecure_deserialization'] + stats['hardcoded_secrets']}")
 
     project_static_features = {
         "bandit_issue_count": bandit_issue_count,

@@ -373,7 +373,7 @@ def get_real_package_metrics(pkg_name):
             pass
     return None
 
-NVD_API_KEY = "ba8bbcd6-c107-4c68-9c9f-103b73fbaa4b"
+NVD_API_KEY = os.environ.get("NVD_API_KEY", "")
 CACHE_DIR_NVD = os.path.join("outputs", "nvd_cache")
 os.makedirs(CACHE_DIR_NVD, exist_ok=True)
 

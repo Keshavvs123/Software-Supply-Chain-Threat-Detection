@@ -5,7 +5,29 @@ import subprocess
 import importlib.metadata
 import urllib.request
 import hashlib
+import re
 from packaging.requirements import Requirement
+
+def clean_dependency_name(dep_str):
+    """
+    Cleans requirement string removing environment markers, extras [toml], and version operators.
+    E.g. "coverage[toml] (>=7.10.6); os_name == 'nt'" -> "coverage"
+    """
+    if not dep_str:
+        return ""
+    # Remove markers after semicolon
+    dep = dep_str.split(";")[0].strip()
+    # Remove comments
+    dep = dep.split("#")[0].strip()
+    # Remove parentheses
+    dep = dep.split("(")[0].strip()
+    # Remove extras [...]
+    dep = re.sub(r'\[.*?\]', '', dep).strip()
+    # Remove version operators <, >, =, !, ~, ^ and anything after
+    dep = re.sub(r'[<>=!~^].*$', '', dep).strip()
+    # Split by whitespace to take first token
+    dep = dep.split()[0] if dep.split() else ""
+    return dep.strip().lower()
 
 def get_package_hashes(pkg_name, version):
     """
@@ -43,9 +65,8 @@ def get_installed_packages():
         requires = dist.requires or []
         deps = []
         for req in requires:
-            # Clean requirement string (e.g. requests (>=2.0) -> requests)
-            dep_name = req.split(";")[0].split("(")[0].strip().split(" ")[0]
-            if dep_name:
+            dep_name = clean_dependency_name(req)
+            if dep_name and dep_name != name.lower() and dep_name not in deps:
                 deps.append(dep_name)
                 
         packages[name.lower()] = {
@@ -90,10 +111,9 @@ def get_pypi_metadata(pkg_name, requested_version=None):
             raw_reqs = info.get("requires_dist") or []
             deps = []
             for r in raw_reqs:
-                # Strip out environment markers and constraints
-                dep_pkg = r.split(";")[0].split("(")[0].split("<")[0].split(">")[0].split("=")[0].split("!")[0].split("~")[0].strip()
-                if dep_pkg and dep_pkg.lower() not in deps and dep_pkg.lower() != clean_name:
-                    deps.append(dep_pkg.lower())
+                dep_pkg = clean_dependency_name(r)
+                if dep_pkg and dep_pkg != clean_name and dep_pkg not in deps:
+                    deps.append(dep_pkg)
                     
             res = {
                 "name": clean_name,
@@ -122,9 +142,9 @@ def get_pypi_metadata(pkg_name, requested_version=None):
                 req_dists = msg.get_all("Requires-Dist", [])
                 deps = []
                 for r in req_dists:
-                    dep_pkg = r.split(";")[0].split("(")[0].split("<")[0].split(">")[0].split("=")[0].strip()
-                    if dep_pkg and dep_pkg.lower() not in deps:
-                        deps.append(dep_pkg.lower())
+                    dep_pkg = clean_dependency_name(r)
+                    if dep_pkg and dep_pkg != clean_name and dep_pkg not in deps:
+                        deps.append(dep_pkg)
                 res = {
                     "name": clean_name,
                     "version": v,
@@ -162,10 +182,10 @@ def generate_sbom(project_path):
                     req_ver = None
                     if "==" in line:
                         parts = line.split("==")
-                        pkg = parts[0].strip().lower()
+                        pkg = clean_dependency_name(parts[0])
                         req_ver = parts[1].split(";")[0].strip()
                     else:
-                        pkg = line.split(">=")[0].split("<=")[0].split("~=")[0].split(" ")[0].strip().lower()
+                        pkg = clean_dependency_name(line)
                     if pkg:
                         direct_deps[pkg] = req_ver
     

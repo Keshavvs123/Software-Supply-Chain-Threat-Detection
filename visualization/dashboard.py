@@ -586,6 +586,17 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         const graphData = {graph_data_json};
         const predictionData = {prediction_data_json};
 
+        // XSS sanitization helper
+        function escapeHtml(str) {
+            if (str === null || str === undefined) return '';
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
         // File drag & drop / browse event handlers
         const dropZone = document.getElementById("dropZone");
         const fileInput = document.getElementById("fileInput");
@@ -791,11 +802,11 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                 
                 let threatBadges = '<span style="color: var(--text-muted); font-size: 11px;">Clean</span>';
                 if (threats.length > 0) {
-                    threatBadges = threats.map(t => `<span class="badge badge-danger" style="margin-right: 4px; font-size: 10px;" title="${t.detail}">${t.id}: ${t.vector}</span>`).join('');
+                    threatBadges = threats.map(t => `<span class="badge badge-danger" style="margin-right: 4px; font-size: 10px;" title="${escapeHtml(t.detail)}">${escapeHtml(t.id)}: ${escapeHtml(t.vector)}</span>`).join('');
                 }
                 
                 const row = `<tr>
-                    <td><strong>${pkg}</strong></td>
+                    <td><strong>${escapeHtml(pkg)}</strong></td>
                     <td>
                         <span class="badge ${badgeClass}">${(score * 100).toFixed(0)}% (${badgeLabel})</span>
                     </td>
@@ -820,17 +831,17 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                 if (exp.top_features.length > 0) {
                     const featureLines = exp.top_features.map(([f, weight]) => `
                         <div style="display: flex; justify-content: space-between; font-size: 11px;">
-                            <span>${f}</span>
+                            <span>${escapeHtml(f)}</span>
                             <span style="font-family: 'Space Grotesk', sans-serif;">${(weight * 100).toFixed(0)}% importance</span>
                         </div>
                     `).join('');
                     
                     const neighborLines = exp.top_influencing_nodes.map(([n, w]) => `
-                        <div style="font-size: 11px; color: var(--text-muted);">${n} (attention: ${w.toFixed(2)})</div>
+                        <div style="font-size: 11px; color: var(--text-muted);">${escapeHtml(n)} (attention: ${w.toFixed(2)})</div>
                     `).join('') || '<div style="font-size: 11px; color: var(--text-muted);">No graph neighbors</div>';
                     
                     const block = `<div class="xai-block">
-                        <div style="font-weight: 600; color: #a5b4fc; margin-bottom: 6px;">Package: ${pkg}</div>
+                        <div style="font-weight: 600; color: #a5b4fc; margin-bottom: 6px;">Package: ${escapeHtml(pkg)}</div>
                         <div style="font-size: 12px; margin-bottom: 4px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 4px;">Top Saliency Features:</div>
                         ${featureLines}
                         <div style="font-size: 12px; margin-top: 8px; margin-bottom: 4px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 4px;">Graph Attention Influences:</div>
@@ -850,9 +861,9 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                     const block = `<div class="attack-path-item">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <span class="badge badge-danger">PROPAGATED RISK: ${(ap.risk_score * 100).toFixed(0)}%</span>
-                            <span style="font-size: 11px; color: var(--text-muted);">CVE: ${ap.cve_id}</span>
+                            <span style="font-size: 11px; color: var(--text-muted);">CVE: ${escapeHtml(ap.cve_id)}</span>
                         </div>
-                        <div class="attack-path-route">${ap.path}</div>
+                        <div class="attack-path-route">${escapeHtml(ap.path)}</div>
                     </div>`;
                     apContainer.innerHTML += block;
                 });
@@ -872,22 +883,23 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                 } else {
                     actions.forEach((act, idx) => {
                         const badgeClass = act.severity === "CRITICAL" ? "badge-danger" : "badge-warning";
-                        const cvesPreview = act.cves_resolved.slice(0, 3).join(', ') + (act.cves_resolved.length > 3 ? '...' : '');
+                        const cvesPreview = escapeHtml(act.cves_resolved.slice(0, 3).join(', ') + (act.cves_resolved.length > 3 ? '...' : ''));
+                        const safeCmd = escapeHtml(act.upgrade_command);
                         const block = `<div class="remediation-card">
                             <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <strong style="font-size: 15px; color: #a5b4fc;">${act.package}</strong>
-                                <span class="badge ${badgeClass}">${act.severity} (CVSS: ${act.max_cvss})</span>
+                                <strong style="font-size: 15px; color: #a5b4fc;">${escapeHtml(act.package)}</strong>
+                                <span class="badge ${badgeClass}">${escapeHtml(act.severity)} (CVSS: ${act.max_cvss})</span>
                             </div>
                             <div style="font-size: 12px; color: var(--text-muted);">
-                                <span>Current: <code style="color: #fda4af;">${act.current_version}</code></span> &rarr; 
-                                <span>Recommended: <code style="color: #86efac; font-weight: 700;">&gt;=${act.recommended_version}</code></span>
+                                <span>Current: <code style="color: #fda4af;">${escapeHtml(act.current_version)}</code></span> &rarr; 
+                                <span>Recommended: <code style="color: #86efac; font-weight: 700;">&gt;=${escapeHtml(act.recommended_version)}</code></span>
                             </div>
                             <div style="font-size: 11px; color: var(--text-muted);">
                                 Fixes ${act.cve_count} CVEs: <span style="color: #fca5a5;">${cvesPreview}</span>
                             </div>
                             <div class="remediation-cmd-box">
-                                <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-right: 8px;">${act.upgrade_command}</span>
-                                <button class="btn-copy-fix" id="copyBtn_${idx}" onclick="copyFixCommand('${act.upgrade_command.replace(/"/g, '&quot;')}', 'copyBtn_${idx}')">Copy</button>
+                                <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-right: 8px;">${safeCmd}</span>
+                                <button class="btn-copy-fix" id="copyBtn_${idx}" onclick="copyFixCommand(this.getAttribute('data-cmd'), 'copyBtn_${idx}')" data-cmd="${safeCmd}">Copy</button>
                             </div>
                         </div>`;
                         remedContainer.innerHTML += block;
@@ -1091,7 +1103,7 @@ def generate_security_dashboard(prediction_results, resolved_packages, output_pa
             "relationship": attr.get("relationship", "depends_on")
         })
         
-    graph_data_json = json.dumps({"nodes": nodes_list, "links": links_list})
+    graph_data_json = json.dumps({"nodes": nodes_list, "links": links_list}).replace("<", "\\u003c")
     
     # 3. Clean prediction outputs (remove PyTorch tensor structures)
     prediction_clean = {
@@ -1115,7 +1127,7 @@ def generate_security_dashboard(prediction_results, resolved_packages, output_pa
             "top_influencing_nodes": [(n, float(w)) for n, w in exp["top_influencing_nodes"]]
         }
         
-    prediction_data_json = json.dumps(prediction_clean)
+    prediction_data_json = json.dumps(prediction_clean).replace("<", "\\u003c")
     
     # 1. Clean up double curly braces in HTML_TEMPLATE first to avoid bracket formatting conflicts
     compiled_template = HTML_TEMPLATE.replace("{{", "{").replace("}}", "}")

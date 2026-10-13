@@ -240,8 +240,30 @@ def run_risk_prediction(resolved_packages, vulnerability_details, package_metada
                 
             confidence = 0.95 - (0.15 * entropy_penalty) - (0.10 * metadata_penalty)
             
-            # Boost vulnerability risk if static / runtime analysis shows high values
-            if static_risk > 0.5 or runtime_risk > 0.5:
+            # Boost vulnerability risk if package-level static or runtime analysis shows high values
+            pkg_static = static_results.get("packages", {}).get(key.lower(), {})
+            pkg_static_risk = (pkg_static.get("bandit_issue_count", 0) + pkg_static.get("semgrep_issue_count", 0)) / 10.0
+
+            import_name = key.lower()
+            if key.lower() == "pyyaml":
+                import_name = "yaml"
+            elif key.lower() == "pytest-cov":
+                import_name = "pytest_cov"
+            elif key.lower() == "charset-normalizer":
+                import_name = "charset_normalizer"
+            pkg_runtime = {}
+            for k in (key.lower(), import_name):
+                pkg_runtime = runtime_results.get("packages", {}).get(k, {})
+                if pkg_runtime:
+                    break
+            pkg_runtime_risk = (
+                pkg_runtime.get("subprocess_count", 0) + 
+                pkg_runtime.get("system_call_count", 0) +
+                pkg_runtime.get("dynamic_execution_count", 0) +
+                pkg_runtime.get("suspicious_network_activity", 0)
+            ) / 10.0
+
+            if pkg_static_risk > 0.5 or pkg_runtime_risk > 0.5:
                 composite_risk = min(composite_risk + 0.15, 1.0)
                 
             package_risks[name] = composite_risk

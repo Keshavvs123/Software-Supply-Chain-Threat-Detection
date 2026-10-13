@@ -73,15 +73,22 @@ graph TD
 
 ## 4. Evaluation Performance & Results
 
-To evaluate the system, we performed a systematic **Ablation Study** across configurations M1–M7 and the proposed system:
+To evaluate the system, we performed a systematic **Ablation Study** across baseline configurations M1–M5 and the proposed system on **24,666 real-world packages and 79,741 graph edges** (evaluated on 3,700 held-out test packages):
 
-* **M1–M2 (Uni-modal models)**: Relying only on source code or metadata shows suboptimal warning speeds.
-* **M6–M7 (Partial multimodal)**: Fusing code, metadata, graph topologies, and behavior yields higher scores but lacks temporal hijack safeguards.
-* **Proposed System (Full C-M-G-B-T Fusion)**:
-  * **Precision / Recall / F1**: Achieves **98.6% Precision**, **95.8% Recall**, and **97.1% F1-score**.
-  * **Early Warning Capacity (EDR)**: Intercepts **96.4%** of threat anomalies within **24 hours** of release, climbing to **99.5%** within 72 hours.
-  * **Mean Time-To-Detection (TTD)**: Drops exposure latency from 64.8 hours down to **18.5 hours**.
-  * **False Positive Reduction (FPR)**: Reduces false alarm rate to just **1.3%** to eliminate developer friction.
+* **M1–M3 (Unimodal Baselines)**: Relying strictly on flat features (topology-only, GitHub-only, or release cadence-only) caps detection accuracy near random chance (~50.5%–51.0%).
+* **M4–M5 (Classical ML Baselines)**: Logistic Regression (50.76% Acc) and Random Forest (50.86% Acc, 64.16% Recall) fail on supply chain cascades because flat tabular vectors cannot represent deep transitive dependency graphs.
+* **Proposed System (Multi-Head HGAT GNN + Temporal LSTM Fusion)**:
+  * **Test Accuracy**: **84.89%** (vs. 50.86% Random Forest baseline)
+  * **Threat Detection Recall**: **97.24%** (intercepting nearly all supply chain threat vectors)
+  * **F1-Score**: **0.8678** (86.78%)
+  * **Precision**: **78.34%** (0.7834)
+  * **ROC-AUC & PR-AUC**: **0.8617 ROC-AUC** and **0.8933 PR-AUC**
+  * **False Positive Rate (FPR)**: Dropped from 63.0% (RF) down to **27.9%**
+* **Early Warning Capacity & Latency**:
+  * **Median Time-To-Detection (TTD)**: **14.6 hours**
+  * **Intercepted within 24 Hours (TTD@24h)**: **71.4%**
+  * **Intercepted within 72 Hours (TTD@72h)**: **100.0%**
+  * **Early Detection Rate (EDR)**: **42.9%**
 
 ---
 

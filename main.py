@@ -413,6 +413,41 @@ class GatekeeperHandler(http.server.SimpleHTTPRequestHandler):
             print("="*50)
             try:
                 import subprocess
+                import re
+                
+                if not os.path.exists(last_requirements_path):
+                    self.send_response(400)
+                    self.end_headers()
+                    self.wfile.write(b"No active requirements staged for installation. Please upload and scan a requirements.txt file first.")
+                    return
+
+                with open(last_requirements_path, "r", encoding="utf-8") as f:
+                    req_lines = [line.strip() for line in f if line.strip() and not line.strip().startswith("#")]
+
+                if not req_lines:
+                    self.send_response(400)
+                    self.end_headers()
+                    self.wfile.write(b"Requirements file is empty. Nothing to install.")
+                    return
+
+                # Strict validation against flags (--index-url, --extra-index-url, -e), URLs, and shell metacharacters
+                valid_pkg_pattern = re.compile(r'^[a-zA-Z0-9_.-]+(\[[a-zA-Z0-9_,.-]+\])?([<>=!~].*)?$')
+                for line in req_lines:
+                    # Strip environment marker for base check
+                    base_spec = line.split(";")[0].strip()
+                    if line.startswith("-") or "://" in line or any(c in line for c in [";", "&", "|", "`", "$", "\n", "\r"]):
+                        print(f"[SECURITY ALERT] Prohibited specification detected in requirements.txt: {line}")
+                        self.send_response(400)
+                        self.end_headers()
+                        self.wfile.write(f"Security Error: Prohibited requirement line '{line}'. Pip flags, remote URLs, and shell characters are disallowed.".encode("utf-8"))
+                        return
+                    if not valid_pkg_pattern.match(base_spec):
+                        print(f"[SECURITY ALERT] Malformed package specification: {line}")
+                        self.send_response(400)
+                        self.end_headers()
+                        self.wfile.write(f"Security Error: Package specification '{line}' does not match standard Python package format.".encode("utf-8"))
+                        return
+
                 cmd = [sys.executable, "-m", "pip", "install", "-r", last_requirements_path]
                 print(f"Running command: {' '.join(cmd)}")
                 

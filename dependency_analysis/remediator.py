@@ -32,12 +32,26 @@ def generate_remediation_plan(resolved_packages, vulnerability_details, attack_p
             
         pkg_info = resolved_packages.get(pkg_key, {})
         current_version = pkg_info.get("version", "Unknown")
-        cve_list = [v.get("cve_id", v.get("id", "Unknown")) for v in vulns]
+        # Deduplicate CVE list preserving order
+        cve_list = list(dict.fromkeys([v.get("cve_id", v.get("id", "Unknown")) for v in vulns]))
         max_cvss = max([v.get("cvss_score", 0.0) for v in vulns]) if vulns else 0.0
         
         # Determine safe version
         safe_ver = KNOWN_SAFE_VERSIONS.get(pkg_key.lower())
         
+        # If current version is already at the known safe version, query PyPI for newer release or mark safe
+        if safe_ver and current_version != "Unknown" and safe_ver == current_version:
+            try:
+                url = f"https://pypi.org/pypi/{pkg_key}/json"
+                req = urllib.request.Request(url, headers={"User-Agent": "SecurityRemediator/2.0"})
+                with urllib.request.urlopen(req, timeout=3) as resp:
+                    pypi_data = json.loads(resp.read().decode("utf-8"))
+                    latest_ver = pypi_data.get("info", {}).get("version")
+                    if latest_ver and latest_ver != current_version:
+                        safe_ver = latest_ver
+            except Exception:
+                pass
+
         if not safe_ver:
             # Fallback: check PyPI for latest patch release
             try:
@@ -47,8 +61,15 @@ def generate_remediation_plan(resolved_packages, vulnerability_details, attack_p
                     pypi_data = json.loads(resp.read().decode("utf-8"))
                     safe_ver = pypi_data.get("info", {}).get("version")
             except Exception:
-                safe_ver = f">={current_version}"
+                safe_ver = current_version
                 
+        clean_safe_ver = str(safe_ver).lstrip(">= ").strip() if safe_ver else current_version
+        
+        # Skip redundant upgrade action if package is already at the recommended version
+        if current_version != "Unknown" and clean_safe_ver == current_version:
+            package_recommendations[pkg_key] = f"Verified at secure release {current_version}"
+            continue
+
         # Find which root packages pull this vulnerable library
         root_parents = []
         if attack_paths:
@@ -64,18 +85,18 @@ def generate_remediation_plan(resolved_packages, vulnerability_details, attack_p
         remediation_item = {
             "package": pkg_key,
             "current_version": current_version,
-            "recommended_version": safe_ver,
+            "recommended_version": clean_safe_ver,
             "severity": impact_level,
             "cves_resolved": cve_list,
             "cve_count": len(cve_list),
             "max_cvss": max_cvss,
             "transitive_parents": root_parents,
-            "upgrade_command": f"pip install --upgrade \"{pkg_key}>={safe_ver}\"",
-            "action_summary": f"Upgrade {pkg_key} from {current_version} to >={safe_ver} (fixes {len(cve_list)} CVEs)"
+            "upgrade_command": f"pip install --upgrade \"{pkg_key}>={clean_safe_ver}\"",
+            "action_summary": f"Upgrade {pkg_key} from {current_version} to >={clean_safe_ver} (fixes {len(cve_list)} CVEs)"
         }
         
         remediation_actions.append(remediation_item)
-        package_recommendations[pkg_key] = f"Upgrade to >={safe_ver} (Fixes {', '.join(cve_list[:2])})"
+        package_recommendations[pkg_key] = f"Upgrade to >={clean_safe_ver} (Fixes {', '.join(cve_list[:2])})"
         
     # Sort by risk severity
     remediation_actions.sort(key=lambda x: x["max_cvss"], reverse=True)

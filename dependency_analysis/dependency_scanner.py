@@ -263,7 +263,12 @@ def run_dependency_scan(project_path, resolved_packages=None):
         # If circular or everything is linked, just print all
         root_nodes = list(resolved_packages.keys())
  
-    def print_tree(node_key, prefix="", is_last=True):
+    global_visited = set()
+
+    def print_tree(node_key, prefix="", is_last=True, path_visited=None, depth=0):
+        if path_visited is None:
+            path_visited = set()
+            
         pkg = resolved_packages.get(node_key)
         if not pkg:
             return
@@ -272,6 +277,7 @@ def run_dependency_scan(project_path, resolved_packages=None):
         version = pkg["version"]
         vulns = vulnerability_database.get(node_key, [])
         
+        is_already_seen = (node_key in global_visited) or (node_key in path_visited) or (depth > 8)
         marker = "└── " if is_last else "├── "
         node_str = f"{prefix}{marker}{name} ({version})"
         
@@ -283,6 +289,9 @@ def run_dependency_scan(project_path, resolved_packages=None):
             node_str += f" [VULNERABLE - Max CVSS: {max_cvss} - {cve_labels}]"
         else:
             node_str += " [SECURE]"
+            
+        if is_already_seen:
+            node_str += " (*)"
             
         try:
             print(node_str, flush=True)
@@ -296,14 +305,21 @@ def run_dependency_scan(project_path, resolved_packages=None):
                 ascii_node_str += f" [VULNERABLE - Max CVSS: {max_cvss} - {cve_labels}]"
             else:
                 ascii_node_str += " [SECURE]"
+            if is_already_seen:
+                ascii_node_str += " (*)"
             print(ascii_node_str, flush=True)
+            
+        if is_already_seen:
+            return
         
+        global_visited.add(node_key)
+        new_path_visited = path_visited | {node_key}
         new_prefix = prefix + ("    " if is_last else "│   ")
-        deps = pkg["dependencies"]
+        deps = pkg.get("dependencies", [])
         for i, dep in enumerate(deps):
             dep_key = dep.lower()
             if dep_key in resolved_packages:
-                print_tree(dep_key, new_prefix, i == len(deps) - 1)
+                print_tree(dep_key, new_prefix, i == len(deps) - 1, new_path_visited, depth + 1)
  
     for i, root in enumerate(root_nodes):
         print_tree(root, is_last=(i == len(root_nodes)-1))

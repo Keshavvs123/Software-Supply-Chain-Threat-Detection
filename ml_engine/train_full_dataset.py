@@ -1,5 +1,6 @@
 import os
 import sys
+import copy
 import time
 import numpy as np
 import pandas as pd
@@ -218,7 +219,7 @@ def train_and_evaluate():
             
             if val_f1 > best_val_f1:
                 best_val_f1 = val_f1
-                best_weights = model.state_dict().copy()
+                best_weights = copy.deepcopy(model.state_dict())
                 
         if epoch % 20 == 0 or epoch == 1:
             print(f"Epoch {epoch:03d}/{num_epochs:03d} | Train Loss: {loss.item():.4f} | Val Loss: {val_loss.item():.4f} | Val F1: {val_f1:.4f}")

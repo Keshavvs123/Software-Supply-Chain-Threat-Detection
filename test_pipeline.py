@@ -1,6 +1,10 @@
 import os
 import sys
 
+# Force line buffering on stdout
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(line_buffering=True)
+
 # Ensure root is in path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
@@ -81,174 +85,8 @@ def main():
     
     # [8.5] Generate Consolidated CSV Scan Report
     print("\n[8.5] Exporting Consolidated CSV Scan Report...")
-    def get_transitive_dependencies(pkg_key, resolved_packages, visited=None):
-        if visited is None:
-            visited = set()
-        pkg = resolved_packages.get(pkg_key)
-        if not pkg:
-            return set()
-        for dep in pkg.get("dependencies", []):
-            dep_key = dep.lower()
-            if dep_key not in visited:
-                visited.add(dep_key)
-                get_transitive_dependencies(dep_key, resolved_packages, visited)
-        return visited
-
-    import pandas as pd
-    scan_rows = []
-    
-    # Add package rows
-    for key, pkg in resolved_packages.items():
-        name = pkg["name"]
-        ver = pkg["version"]
-        vulns = vulns_details.get(key, [])
-        cve_count = len(vulns)
-        max_cvss = max([v["cvss_score"] for v in vulns]) if vulns else 0.0
-        
-        # Dependency counts
-        direct_list = [d.lower() for d in pkg.get("dependencies", []) if d.lower() in resolved_packages]
-        direct_count = len(direct_list)
-        all_transitive = get_transitive_dependencies(key, resolved_packages, set())
-        indirect_list = all_transitive - set(direct_list) - {key}
-        indirect_count = len(indirect_list)
-        total_count = direct_count + indirect_count
-        
-        # Risk predictions
-        final_score = predictions["package_risks"].get(name, 0.1)
-        conf = predictions["confidence_scores"].get(name, 0.9)
-        exp = predictions["explanations"].get(name, {})
-        hgat_gnn = exp.get("graph_risk", 0.1)
-        lstm_drift = exp.get("temporal_drift", 0.1)
-        
-        # Risk level classification
-        if final_score >= 0.85:
-            risk_lvl = "Critical Risk"
-        elif final_score >= 0.60:
-            risk_lvl = "High Risk"
-        elif final_score >= 0.35:
-            risk_lvl = "Medium Risk"
-        else:
-            risk_lvl = "Low Risk"
-            
-        # Get package static issues and metrics
-        pkg_static = static_results.get("packages", {}).get(key.lower(), {})
-        pkg_static_issues = pkg_static.get("bandit_issue_count", 0) + pkg_static.get("semgrep_issue_count", 0)
-        shannon_entropy = pkg_static.get("shannon_entropy", 0.0)
-        encoded_string_ratio = pkg_static.get("encoded_string_ratio", 0.0)
-        ast_complexity = pkg_static.get("ast_complexity", 0)
-        dynamic_imports = pkg_static.get("dynamic_imports", 0)
-        
-        # Get package runtime system calls
-        import_name = key.lower()
-        if key.lower() == "pyyaml":
-            import_name = "yaml"
-        elif key.lower() == "pytest-cov":
-            import_name = "pytest_cov"
-        elif key.lower() == "charset-normalizer":
-            import_name = "charset_normalizer"
-            
-        pkg_runtime = {}
-        for k in (key.lower(), import_name):
-            pkg_runtime = runtime_results.get("packages", {}).get(k, {})
-            if pkg_runtime:
-                break
-        pkg_sys_calls = (
-            pkg_runtime.get("system_call_count", 0) +
-            pkg_runtime.get("subprocess_count", 0) +
-            pkg_runtime.get("dynamic_execution_count", 0) +
-            pkg_runtime.get("suspicious_network_activity", 0)
-        )
-        behavioral_risk = pkg_runtime.get("behavioral_risk", 0.0)
-        
-        # Get Blast Radius and RADV
-        blast_radius = predictions["blast_radius_scores"].get(name, 0)
-        radv_score = predictions["radv_scores"].get(name, 0.0)
-
-        scan_rows.append({
-            "entity_name": name,
-            "entity_type": "package",
-            "version": ver,
-            "direct_dependencies": ",".join(direct_list) if direct_list else "None",
-            "indirect_dependencies": ",".join(sorted(list(indirect_list))) if indirect_list else "None",
-            "direct_dependency_count": direct_count,
-            "indirect_dependency_count": indirect_count,
-            "total_dependency_count": total_count,
-            "cve_count": cve_count,
-            "max_cvss": max_cvss,
-            "static_analysis_issues": pkg_static_issues,
-            "runtime_system_calls": pkg_sys_calls,
-            "hgat_gnn_risk": hgat_gnn,
-            "lstm_drift_risk": lstm_drift,
-            "final_risk_score": final_score,
-            "confidence_score": conf,
-            "risk_level": risk_lvl,
-            "shannon_entropy": shannon_entropy,
-            "encoded_string_ratio": encoded_string_ratio,
-            "ast_complexity": ast_complexity,
-            "dynamic_imports": dynamic_imports,
-            "behavioral_risk": behavioral_risk,
-            "blast_radius": blast_radius,
-            "radv_score": radv_score
-        })
-        
-    # Add first-party file rows
-    if os.path.exists(entry_script):
-        file_name = os.path.basename(entry_script)
-        static_issues = static_results.get("bandit_issue_count", 0) + static_results.get("semgrep_issue_count", 0)
-        sys_calls = runtime_results.get("system_call_count", 0) + runtime_results.get("subprocess_count", 0)
-        
-        # Calculate file risk score normalized to 0.0 - 1.0
-        file_score = min((static_issues + sys_calls) / 10.0, 1.0)
-        
-        if file_score >= 0.85:
-            risk_lvl = "Critical Risk"
-        elif file_score >= 0.60:
-            risk_lvl = "High Risk"
-        elif file_score >= 0.35:
-            risk_lvl = "Medium Risk"
-        else:
-            risk_lvl = "Low Risk"
-            
-        # Get static analysis metrics
-        shannon_entropy = static_results.get("shannon_entropy", 0.0)
-        encoded_string_ratio = static_results.get("encoded_string_ratio", 0.0)
-        ast_complexity = static_results.get("ast_complexity", 0)
-        dynamic_imports = static_results.get("dynamic_imports", 0)
-        
-        # Get dynamic behavior risk
-        behavioral_risk = runtime_results.get("behavioral_risk", 0.0)
-
-        scan_rows.append({
-            "entity_name": file_name,
-            "entity_type": "file",
-            "version": "N/A",
-            "direct_dependencies": "None",
-            "indirect_dependencies": "None",
-            "direct_dependency_count": 0,
-            "indirect_dependency_count": 0,
-            "total_dependency_count": 0,
-            "cve_count": 0,
-            "max_cvss": 0.0,
-            "static_analysis_issues": static_issues,
-            "runtime_system_calls": sys_calls,
-            "hgat_gnn_risk": 0.0,
-            "lstm_drift_risk": 0.0,
-            "final_risk_score": file_score,
-            "confidence_score": 0.95,
-            "risk_level": risk_lvl,
-            "shannon_entropy": shannon_entropy,
-            "encoded_string_ratio": encoded_string_ratio,
-            "ast_complexity": ast_complexity,
-            "dynamic_imports": dynamic_imports,
-            "behavioral_risk": behavioral_risk,
-            "blast_radius": 0,
-            "radv_score": 0.0
-        })
-        
-    df_scan = pd.DataFrame(scan_rows)
-    scan_csv_path = "outputs/scan_results.csv"
-    df_scan.to_csv(scan_csv_path, index=False)
-    print(f"Consolidated scan results exported to: {os.path.abspath(scan_csv_path)}")
+    from main import save_scan_results_csv
+    save_scan_results_csv(predictions, resolved_packages, static_results)
 
     # Log risk scores to history database
     for key, pkg in resolved_packages.items():
