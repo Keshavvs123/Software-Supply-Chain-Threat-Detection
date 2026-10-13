@@ -5,7 +5,29 @@ import subprocess
 import importlib.metadata
 import urllib.request
 import hashlib
-from packaging.requirements import Requirement
+import uuid
+from datetime import datetime, timezone
+from packaging.requirements import Requirement, InvalidRequirement
+from packaging.utils import canonicalize_name
+from packaging.specifiers import SpecifierSet, InvalidSpecifier
+from packaging.version import Version, InvalidVersion
+
+MAX_RESOLVED_PACKAGES = 200  # safety cap for transitive resolution
+
+
+def parse_requirement_name(req_str):
+    """
+    Returns the normalised package name of a Requires-Dist string, or None when the
+    requirement is an optional extra (marker contains `extra ==`) or unparsable.
+    Extras, version specifiers and other markers are stripped.
+    """
+    try:
+        req = Requirement(req_str)
+    except InvalidRequirement:
+        return None
+    if req.marker is not None and 'extra' in str(req.marker):
+        return None
+    return str(canonicalize_name(req.name))
 
 def get_package_hashes(pkg_name, version):
     """
@@ -43,12 +65,12 @@ def get_installed_packages():
         requires = dist.requires or []
         deps = []
         for req in requires:
-            # Clean requirement string (e.g. requests (>=2.0) -> requests)
-            dep_name = req.split(";")[0].split("(")[0].strip().split(" ")[0]
-            if dep_name:
+            # Skip optional extras; strip specifiers/markers/extras-brackets
+            dep_name = parse_requirement_name(req)
+            if dep_name and dep_name not in deps:
                 deps.append(dep_name)
                 
-        packages[name.lower()] = {
+        packages[str(canonicalize_name(name))] = {
             "name": name,
             "version": version,
             "license": license_info,
@@ -58,6 +80,41 @@ def get_installed_packages():
     return packages
 
 _pypi_cache = {}
+
+def parse_requirement_spec(req_str):
+    """Return (canonical name, SpecifierSet) for a requirement string, or None (extras / invalid)."""
+    name = parse_requirement_name(req_str)
+    if not name:
+        return None
+    try:
+        return name, Requirement(req_str).specifier
+    except InvalidRequirement:
+        return None
+
+
+def resolve_version_for_spec(pkg_name, spec):
+    """Highest non-yanked, non-pre-release PyPI version satisfying `spec` (what a fresh pip install would pick)."""
+    try:
+        req = urllib.request.Request(f"https://pypi.org/pypi/{pkg_name}/json",
+                                     headers={"User-Agent": "SupplyChainThreatScanner/2.0"})
+        with urllib.request.urlopen(req, timeout=5) as resp:
+            releases = json.loads(resp.read().decode("utf-8")).get("releases", {})
+    except Exception:
+        return None
+    best = None
+    for ver_str, files in releases.items():
+        if not files or all(f.get("yanked") for f in files):
+            continue
+        try:
+            ver = Version(ver_str)
+        except InvalidVersion:
+            continue
+        if ver.is_prerelease or ver not in spec:
+            continue
+        if best is None or ver > best:
+            best = ver
+    return str(best) if best else None
+
 
 def get_pypi_metadata(pkg_name, requested_version=None):
     """
@@ -81,26 +138,28 @@ def get_pypi_metadata(pkg_name, requested_version=None):
             data = json.loads(resp.read().decode("utf-8"))
             info = data.get("info", {})
             real_ver = info.get("version") or (requested_version if requested_version else "1.0.0")
-            license_val = info.get("license") or "Open Source"
+            license_val = info.get("license") or "NOASSERTION"
             # Trim long license text if it's the entire license file
             if len(license_val) > 40 or "\n" in license_val:
-                license_val = "Open Source / Specified in Package"
-            author = info.get("author") or info.get("maintainer") or "PyPI Community"
+                license_val = "NOASSERTION"
+            author = info.get("author") or info.get("maintainer") or "Unknown"
             
             raw_reqs = info.get("requires_dist") or []
             deps = []
+            dep_specs = {}
             for r in raw_reqs:
-                # Strip out environment markers and constraints
-                dep_pkg = r.split(";")[0].split("(")[0].split("<")[0].split(">")[0].split("=")[0].split("!")[0].split("~")[0].strip()
-                if dep_pkg and dep_pkg.lower() not in deps and dep_pkg.lower() != clean_name:
-                    deps.append(dep_pkg.lower())
+                parsed = parse_requirement_spec(r)
+                if parsed and parsed[0] not in deps and parsed[0] != str(canonicalize_name(clean_name)):
+                    deps.append(parsed[0])
+                    dep_specs[parsed[0]] = str(parsed[1])
                     
             res = {
                 "name": clean_name,
                 "version": real_ver,
                 "license": license_val,
                 "maintainer": author,
-                "dependencies": deps
+                "dependencies": deps,
+                "dependency_specs": dep_specs
             }
             _pypi_cache[cache_key] = res
             return res
@@ -117,14 +176,14 @@ def get_pypi_metadata(pkg_name, requested_version=None):
             with open(meta_candidates[0], "r", encoding="utf-8", errors="ignore") as mf:
                 msg = message_from_string(mf.read())
                 v = msg.get("Version") or requested_version or "1.0.0"
-                lic = msg.get("License") or "Open Source"
-                maint = msg.get("Author") or msg.get("Maintainer") or "PyPI Author"
+                lic = msg.get("License") or "NOASSERTION"
+                maint = msg.get("Author") or msg.get("Maintainer") or "Unknown"
                 req_dists = msg.get_all("Requires-Dist", [])
                 deps = []
                 for r in req_dists:
-                    dep_pkg = r.split(";")[0].split("(")[0].split("<")[0].split(">")[0].split("=")[0].strip()
-                    if dep_pkg and dep_pkg.lower() not in deps:
-                        deps.append(dep_pkg.lower())
+                    dep_pkg = parse_requirement_name(r)
+                    if dep_pkg and dep_pkg not in deps:
+                        deps.append(dep_pkg)
                 res = {
                     "name": clean_name,
                     "version": v,
@@ -139,9 +198,9 @@ def get_pypi_metadata(pkg_name, requested_version=None):
         
     res = {
         "name": clean_name,
-        "version": requested_version if requested_version else "1.0.0",
-        "license": "Open Source",
-        "maintainer": "PyPI Contributor",
+        "version": requested_version if requested_version else "Unknown",
+        "license": "NOASSERTION",
+        "maintainer": "Unknown",
         "dependencies": []
     }
     _pypi_cache[cache_key] = res
@@ -157,17 +216,19 @@ def generate_sbom(project_path):
     if os.path.exists(requirements_file):
         with open(requirements_file, "r") as f:
             for line in f:
-                line = line.strip()
-                if line and not line.startswith("#"):
-                    req_ver = None
-                    if "==" in line:
-                        parts = line.split("==")
-                        pkg = parts[0].strip().lower()
-                        req_ver = parts[1].split(";")[0].strip()
-                    else:
-                        pkg = line.split(">=")[0].split("<=")[0].split("~=")[0].split(" ")[0].strip().lower()
-                    if pkg:
-                        direct_deps[pkg] = req_ver
+                line = line.split(" #")[0].strip()
+                # skip blanks, comments, and pip options (-r, --index-url, -e, ...): never interpret them
+                if not line or line.startswith("#") or line.startswith("-"):
+                    continue
+                try:
+                    req = Requirement(line)
+                except InvalidRequirement:
+                    continue
+                req_ver = None
+                for spec in req.specifier:
+                    if spec.operator == "==":
+                        req_ver = spec.version
+                direct_deps[str(canonicalize_name(req.name))] = req_ver
     
     if not direct_deps:
         # Fallback: parse pipdeptree output
@@ -190,41 +251,60 @@ def generate_sbom(project_path):
     dependency_queue = list(direct_deps.keys())
     resolved_packages = {}
     visited = set()
+    constraints = {}   # dep name -> SpecifierSet collected from the packages that require it
     
     while dependency_queue:
-        pkg_key = dependency_queue.pop(0).lower()
+        pkg_key = str(canonicalize_name(dependency_queue.pop(0)))
         if pkg_key in visited:
             continue
         visited.add(pkg_key)
         
         pkg_info = installed.get(pkg_key)
+        pinned = direct_deps.get(pkg_key)
+        spec = constraints.get(pkg_key)
+        # An installed version that does not satisfy what a requested package needs would not be kept by pip.
+        if pkg_info and not pinned and spec is not None:
+            try:
+                if Version(str(pkg_info.get("version"))) not in spec:
+                    pkg_info = None
+            except InvalidVersion:
+                pass
+        # A gatekeeper must analyse the version being REQUESTED, not whatever happens to be installed:
+        # if requirements.txt pins a different version than the installed one, resolve the pinned one.
+        if pkg_info and pinned and pkg_info.get("version") != pinned:
+            pkg_info = None
         if pkg_info:
             resolved_packages[pkg_key] = pkg_info
             for dep in pkg_info["dependencies"]:
-                dep_key = dep.lower()
+                dep_key = str(canonicalize_name(dep))
                 if dep_key not in visited and dep_key in installed:
                     dependency_queue.append(dep_key)
         else:
             # Not installed locally: resolve from PyPI manifest / wheel archive!
             req_version = direct_deps.get(pkg_key)
+            if not req_version and constraints.get(pkg_key) is not None:
+                req_version = resolve_version_for_spec(pkg_key, constraints[pkg_key])
             non_local_info = get_pypi_metadata(pkg_key, req_version)
             resolved_packages[pkg_key] = non_local_info
             # For dependencies of non-local packages:
             # If installed on disk, queue them to expand the tree!
+            for dep, dep_spec in non_local_info.get("dependency_specs", {}).items():
+                try:
+                    prev = constraints.get(dep)
+                    constraints[dep] = (prev & SpecifierSet(dep_spec)) if prev is not None else SpecifierSet(dep_spec)
+                except InvalidSpecifier:
+                    pass
             for dep in non_local_info["dependencies"]:
                 dep_key = dep.lower()
-                if dep_key not in visited:
-                    if dep_key in installed:
-                        dependency_queue.append(dep_key)
-                    elif len(resolved_packages) < 15:
-                        # Light resolution for uninstalled direct dependencies
-                        resolved_packages[dep_key] = get_pypi_metadata(dep_key)
+                if dep_key not in visited and len(visited) + len(dependency_queue) < MAX_RESOLVED_PACKAGES:
+                    # Fully resolve uninstalled transitive deps too (bounded by MAX_RESOLVED_PACKAGES)
+                    dependency_queue.append(dep_key)
 
     # Generate CycloneDX JSON SBOM structure
     cyclonedx = {
         "bomFormat": "CycloneDX",
         "specVersion": "1.4",
-        "serialNumber": "urn:uuid:68e894ba-e35f-4a5f-97cb-251f084ba6f8",
+        "serialNumber": f"urn:uuid:{uuid.uuid4()}",
         "version": 1,
         "metadata": {
             "component": {
@@ -263,7 +343,7 @@ def generate_sbom(project_path):
         "DocumentName: Python Supply Chain Analysis Target",
         "DocumentNamespace: http://spdx.org/spdxdocs/python-supply-chain-analysis-document",
         "Creator: Tool: AI Software Supply Chain Threat Detector",
-        "Created: 2026-06-11T12:00:00Z",
+        f"Created: {datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')}",
         ""
     ]
     

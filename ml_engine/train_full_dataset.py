@@ -1,5 +1,6 @@
 import os
 import sys
+import copy
 import time
 import numpy as np
 import pandas as pd
@@ -218,7 +219,7 @@ def train_and_evaluate():
             
             if val_f1 > best_val_f1:
                 best_val_f1 = val_f1
-                best_weights = model.state_dict().copy()
+                best_weights = copy.deepcopy(model.state_dict())
                 
         if epoch % 20 == 0 or epoch == 1:
             print(f"Epoch {epoch:03d}/{num_epochs:03d} | Train Loss: {loss.item():.4f} | Val Loss: {val_loss.item():.4f} | Val F1: {val_f1:.4f}")
@@ -226,8 +227,10 @@ def train_and_evaluate():
     # Load best model weights
     if best_weights:
         model.load_state_dict(best_weights)
-    torch.save(model.state_dict(), "outputs/hgat_model.pt")
-    print("Best HGAT model weights saved to: outputs/hgat_model.pt")
+    # Saved under its own name: this 12-feature benchmark model has a different architecture from the
+    # 13-feature HGATModel used by the scanner, so it must NOT overwrite outputs/hgat_model.pt.
+    torch.save(model.state_dict(), "outputs/hgat_full_eval.pt")
+    print("Best HGAT (benchmark) weights saved to: outputs/hgat_full_eval.pt")
     
     # Test Evaluation
     model.eval()
@@ -240,7 +243,7 @@ def train_and_evaluate():
     # -------------------------------------------------------------
     # 4. COMPUTE REAL PERFORMANCE METRICS ON TEST SET
     # -------------------------------------------------------------
-    print("\n[4/5] Computing Real Empirical Evaluation Metrics on Test Set (3,700 packages)...")
+    print("\n[4/5] Computing Real Empirical Evaluation Metrics on the Test Set...")
     
     def calculate_all_metrics(y_true, y_pred, y_prob):
         acc = accuracy_score(y_true, y_pred)
@@ -270,7 +273,7 @@ def train_and_evaluate():
     metrics_hgat = calculate_all_metrics(y_test_real, hgat_preds, hgat_probs)
     
     print("\n==================================================")
-    print("REAL EMPIRICAL TEST RESULTS (TRAINED ON 24,666 PACKAGES)")
+    print(f"REAL EMPIRICAL TEST RESULTS ({len(data['train_idx']):,} train / {len(data['test_idx']):,} test packages; stratified random split)")
     print("==================================================")
     print(f"Logistic Regression: Accuracy={metrics_lr['Accuracy']:.4f} | F1={metrics_lr['F1-Score']:.4f} | ROC-AUC={metrics_lr['ROC-AUC']:.4f} | FPR={metrics_lr['FPR']:.4f}")
     print(f"Random Forest:       Accuracy={metrics_rf['Accuracy']:.4f} | F1={metrics_rf['F1-Score']:.4f} | ROC-AUC={metrics_rf['ROC-AUC']:.4f} | FPR={metrics_rf['FPR']:.4f}")
@@ -293,6 +296,41 @@ def train_and_evaluate():
     m3_probs = lr_m3.predict_proba(data["X_np"][data["test_idx"]][:, 4:8])[:, 1]
     m3_res = calculate_all_metrics(y_test_real, (m3_probs >= 0.5).astype(int), m3_probs)
     
+    # CONTROL A: degree-only baseline (columns 0-3 are dependency / in-degree counts). If this alone
+    # scores close to the GNN, the GNN is mostly exploiting graph-structure differences between classes.
+    lr_deg = LogisticRegression(max_iter=500).fit(data["X_np"][data["train_idx"]][:, :4], data["y_np"][data["train_idx"]])
+    deg_probs = lr_deg.predict_proba(data["X_np"][data["test_idx"]][:, :4])[:, 1]
+    deg_res = calculate_all_metrics(y_test_real, (deg_probs >= 0.5).astype(int), deg_probs)
+
+    # CONTROL B: same GNN, same features, but edges randomly rewired (degree-preserving is not
+    # needed; the point is to destroy real topology). A large score drop proves the real edges matter.
+    print("\nTraining shuffled-edge control GNN (real topology destroyed)...")
+    g = torch.Generator().manual_seed(0)
+    n_nodes = x.size(0)
+    shuf_edge_index = edge_index.clone()
+    shuf_edge_index[1] = edge_index[1][torch.randperm(edge_index.size(1), generator=g)]
+    ctrl = FullHGAT(in_channels=12, hidden_channels=64, heads=4, dropout=0.2).to(device)
+    c_opt = optim.AdamW(ctrl.parameters(), lr=0.005, weight_decay=1e-4)
+    c_best, c_best_f1 = None, -1.0
+    for _ in range(num_epochs):
+        ctrl.train(); c_opt.zero_grad()
+        c_loss = criterion(ctrl(x, shuf_edge_index)[train_mask], y[train_mask])
+        c_loss.backward(); c_opt.step()
+        ctrl.eval()
+        with torch.no_grad():
+            c_out = ctrl(x, shuf_edge_index)
+            c_f1 = f1_score(y[val_mask].cpu().numpy().flatten().astype(int),
+                            (c_out[val_mask].cpu().numpy().flatten() >= 0.5).astype(int), zero_division=0)
+        if c_f1 > c_best_f1:
+            c_best_f1, c_best = c_f1, copy.deepcopy(ctrl.state_dict())
+    ctrl.load_state_dict(c_best); ctrl.eval()
+    with torch.no_grad():
+        ctrl_probs = ctrl(x, shuf_edge_index)[test_mask].cpu().numpy().flatten()
+    ctrl_res = calculate_all_metrics(y_test_real, (ctrl_probs >= 0.5).astype(int), ctrl_probs)
+    print(f"Degree-only LR: Acc={deg_res['Accuracy']:.4f} AUC={deg_res['ROC-AUC']:.4f} | "
+          f"Shuffled-edge GNN: Acc={ctrl_res['Accuracy']:.4f} AUC={ctrl_res['ROC-AUC']:.4f} | "
+          f"Real GNN: Acc={metrics_hgat['Accuracy']:.4f} AUC={metrics_hgat['ROC-AUC']:.4f}")
+
     # Compile Real Ablation Table DataFrame
     ablation_df = pd.DataFrame([
         {"Model Config": "M1 (Dependency Topology Only)", "Precision": f"{m1_res['Precision']:.4f}", "Recall": f"{m1_res['Recall']:.4f}", "F1-Score": f"{m1_res['F1-Score']:.4f}", "Accuracy": f"{m1_res['Accuracy']:.4f}", "ROC-AUC": f"{m1_res['ROC-AUC']:.4f}", "PR-AUC": f"{m1_res['PR-AUC']:.4f}", "FPR": f"{m1_res['FPR']*100:.1f}%"},
@@ -300,9 +338,12 @@ def train_and_evaluate():
         {"Model Config": "M3 (PyPI Release Cadence Only)", "Precision": f"{m3_res['Precision']:.4f}", "Recall": f"{m3_res['Recall']:.4f}", "F1-Score": f"{m3_res['F1-Score']:.4f}", "Accuracy": f"{m3_res['Accuracy']:.4f}", "ROC-AUC": f"{m3_res['ROC-AUC']:.4f}", "PR-AUC": f"{m3_res['PR-AUC']:.4f}", "FPR": f"{m3_res['FPR']*100:.1f}%"},
         {"Model Config": "M4 (Logistic Regression Baseline)", "Precision": f"{metrics_lr['Precision']:.4f}", "Recall": f"{metrics_lr['Recall']:.4f}", "F1-Score": f"{metrics_lr['F1-Score']:.4f}", "Accuracy": f"{metrics_lr['Accuracy']:.4f}", "ROC-AUC": f"{metrics_lr['ROC-AUC']:.4f}", "PR-AUC": f"{metrics_lr['PR-AUC']:.4f}", "FPR": f"{metrics_lr['FPR']*100:.1f}%"},
         {"Model Config": "M5 (Random Forest Baseline)", "Precision": f"{metrics_rf['Precision']:.4f}", "Recall": f"{metrics_rf['Recall']:.4f}", "F1-Score": f"{metrics_rf['F1-Score']:.4f}", "Accuracy": f"{metrics_rf['Accuracy']:.4f}", "ROC-AUC": f"{metrics_rf['ROC-AUC']:.4f}", "PR-AUC": f"{metrics_rf['PR-AUC']:.4f}", "FPR": f"{metrics_rf['FPR']*100:.1f}%"},
+        {"Model Config": "Control: Degree-only LR (dependency counts)", "Precision": f"{deg_res['Precision']:.4f}", "Recall": f"{deg_res['Recall']:.4f}", "F1-Score": f"{deg_res['F1-Score']:.4f}", "Accuracy": f"{deg_res['Accuracy']:.4f}", "ROC-AUC": f"{deg_res['ROC-AUC']:.4f}", "PR-AUC": f"{deg_res['PR-AUC']:.4f}", "FPR": f"{deg_res['FPR']*100:.1f}%"},
+        {"Model Config": "Control: HGAT with shuffled edges", "Precision": f"{ctrl_res['Precision']:.4f}", "Recall": f"{ctrl_res['Recall']:.4f}", "F1-Score": f"{ctrl_res['F1-Score']:.4f}", "Accuracy": f"{ctrl_res['Accuracy']:.4f}", "ROC-AUC": f"{ctrl_res['ROC-AUC']:.4f}", "PR-AUC": f"{ctrl_res['PR-AUC']:.4f}", "FPR": f"{ctrl_res['FPR']*100:.1f}%"},
         {"Model Config": "Proposed HGAT GNN (Full System)", "Precision": f"{metrics_hgat['Precision']:.4f}", "Recall": f"{metrics_hgat['Recall']:.4f}", "F1-Score": f"{metrics_hgat['F1-Score']:.4f}", "Accuracy": f"{metrics_hgat['Accuracy']:.4f}", "ROC-AUC": f"{metrics_hgat['ROC-AUC']:.4f}", "PR-AUC": f"{metrics_hgat['PR-AUC']:.4f}", "FPR": f"{metrics_hgat['FPR']*100:.1f}%"}
     ])
     
+    ablation_df.to_csv("outputs/ablation_study_results.csv", index=False)
     with open("outputs/ablation_table.md", "w", encoding="utf-8") as f:
         f.write(ablation_df.to_string(index=False))
     print("Real ablation results saved to: outputs/ablation_study_results.csv")
@@ -326,7 +367,7 @@ def train_and_evaluate():
     plt.ylim([0.0, 1.05])
     plt.xlabel('False Positive Rate (FPR)', fontsize=12, fontweight='bold')
     plt.ylabel('True Positive Rate (TPR / Recall)', fontsize=12, fontweight='bold')
-    plt.title('Empirical Receiver Operating Characteristic (ROC) Curve\n(Evaluated on 3,700 Real Test Packages)', fontsize=12, fontweight='bold')
+    plt.title('Empirical Receiver Operating Characteristic (ROC) Curve\n(Evaluated on the held-out test split)', fontsize=12, fontweight='bold')
     plt.legend(loc='lower right', fontsize=10)
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
@@ -345,7 +386,7 @@ def train_and_evaluate():
     plt.plot(r_lr, p_lr, color='#f59e0b', lw=2.0, linestyle=':', label=f'Logistic Regression (PR-AUC = {metrics_lr["PR-AUC"]:.3f})')
     plt.xlabel('Recall', fontsize=12, fontweight='bold')
     plt.ylabel('Precision', fontsize=12, fontweight='bold')
-    plt.title('Empirical Precision-Recall (PR) Curve\n(Evaluated on 3,700 Real Test Packages)', fontsize=12, fontweight='bold')
+    plt.title('Empirical Precision-Recall (PR) Curve\n(Evaluated on the held-out test split)', fontsize=12, fontweight='bold')
     plt.legend(loc='lower left', fontsize=10)
     plt.grid(True, alpha=0.3)
     plt.tight_layout()

@@ -1,1 +1,12 @@
-warcio
+# ============================================================
+# SCAN TARGET — sample requirements file used to demonstrate
+# and test the Gatekeeper scanner (drag-drop this into the
+# dashboard, or reference it in test_pipeline.py).
+#
+# This is NOT the Gatekeeper's own dependency list.
+# To install Gatekeeper itself, run:
+#   pip install -r project_requirements.txt
+# ============================================================
+requests==2.32.3
+urllib3==2.2.3
+jinja2==3.1.4

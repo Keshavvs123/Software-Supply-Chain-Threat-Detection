@@ -4,6 +4,9 @@ import json
 import subprocess
 import re
 
+SKIP_DIRS = {"venv", ".venv", ".git", "__pycache__", "node_modules"}
+
+
 class PyASTSecurityVisitor(ast.NodeVisitor):
     def __init__(self):
         self.stats = {
@@ -30,8 +33,6 @@ class PyASTSecurityVisitor(ast.NodeVisitor):
                 name = target.id
                 if self.secrets_pattern.search(name):
                     if isinstance(node.value, ast.Constant) and isinstance(node.value.value, str):
-                        self.stats["hardcoded_secrets"] += 1
-                    elif isinstance(node.value, ast.Str):  # for compatibility with older Python
                         self.stats["hardcoded_secrets"] += 1
                 
                 # Simple taint-style variable flow helper
@@ -60,8 +61,6 @@ class PyASTSecurityVisitor(ast.NodeVisitor):
             for kw in node.keywords:
                 if kw.arg == "shell":
                     if isinstance(kw.value, ast.Constant) and kw.value.value is True:
-                        is_shell_true = True
-                    elif isinstance(kw.value, ast.NameConstant) and kw.value.value is True:
                         is_shell_true = True
             
             if func_name == "os.system" or is_shell_true:
@@ -157,7 +156,7 @@ def run_ast_scan(dir_path):
     total_encoded_ratio = 0.0
     
     for root, _, files in os.walk(dir_path):
-        if "venv" in root or ".git" in root or "__pycache__" in root:
+        if SKIP_DIRS.intersection(os.path.normpath(root).split(os.sep)):
             continue
         for file in files:
             if file.endswith(".py"):
@@ -209,15 +208,44 @@ def run_bandit_scan(dir_path):
             os.remove(temp_json)
     return 0, 0, 0, 0
 
+def _inside(base, target):
+    base = os.path.realpath(base)
+    target = os.path.realpath(target)
+    return target == base or target.startswith(base + os.sep)
+
+
+def _safe_zip_extract(zf, dest):
+    os.makedirs(dest, exist_ok=True)
+    for name in zf.namelist():
+        if not _inside(dest, os.path.join(dest, name)):
+            raise ValueError(f"unsafe path in archive: {name}")
+    zf.extractall(dest)
+
+
+def _safe_tar_extract(tf, dest):
+    os.makedirs(dest, exist_ok=True)
+    members = []
+    for m in tf.getmembers():
+        if m.issym() or m.islnk() or m.isdev():
+            continue
+        if not _inside(dest, os.path.join(dest, m.name)):
+            raise ValueError(f"unsafe path in archive: {m.name}")
+        members.append(m)
+    tf.extractall(dest, members=members)
+
+
 def run_static_analysis(project_path, resolved_packages=None):
     print(f"\nRunning Static Analysis on: {project_path}...\n")
     os.makedirs("outputs", exist_ok=True)
     
+    # Only very large packages are skipped (for speed). Skipped packages are
+    # reported in the result as "skipped_packages" so that a missing scan is
+    # never mistaken for a clean scan.
     EXCLUDE_HEAVY_PACKAGES = {
-        'numpy', 'pandas', 'matplotlib', 'pyarrow', 'scipy', 'notebook', 
-        'ipykernel', 'pytest', 'pytest-cov', 'setuptools', 'packaging', 
-        'colorama', 'psutil', 'pywin32', 'nest-asyncio'
+        'numpy', 'pandas', 'matplotlib', 'pyarrow', 'scipy', 'notebook',
+        'ipykernel', 'pywin32'
     }
+    skipped_packages = {}
     
     import importlib.util
     import shutil
@@ -259,6 +287,7 @@ def run_static_analysis(project_path, resolved_packages=None):
         for pkg_key, pkg_info in resolved_packages.items():
             pkg_name = pkg_info["name"]
             if pkg_name.lower() in EXCLUDE_HEAVY_PACKAGES:
+                skipped_packages[pkg_name.lower()] = "excluded (very large package)"
                 continue
             try:
                 spec = importlib.util.find_spec(pkg_name.replace("-", "_").lower())
@@ -282,7 +311,9 @@ def run_static_analysis(project_path, resolved_packages=None):
                     version_spec = f"{pkg_name}=={pkg_info['version']}" if pkg_info.get("version") and pkg_info["version"] != "Unknown" else pkg_name
                     import sys
                     subprocess.run(
-                        [sys.executable, "-m", "pip", "download", "--no-deps", "-d", temp_dl, version_spec],
+                        # wheels only: building an sdist can execute the package's setup.py
+                        [sys.executable, "-m", "pip", "download", "--no-deps",
+                         "--only-binary=:all:", "-d", temp_dl, version_spec],
                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
                     )
                     
@@ -292,12 +323,12 @@ def run_static_analysis(project_path, resolved_packages=None):
                         file_path = os.path.join(temp_dl, file)
                         if file.endswith(".tar.gz") or file.endswith(".tgz"):
                             with tarfile.open(file_path, "r:gz") as tar:
-                                tar.extractall(path=pkg_dest)
+                                _safe_tar_extract(tar, pkg_dest)
                             extracted = True
                             break
                         elif file.endswith(".whl") or file.endswith(".zip"):
                             with zipfile.ZipFile(file_path, "r") as zip_ref:
-                                zip_ref.extractall(path=pkg_dest)
+                                _safe_zip_extract(zip_ref, pkg_dest)
                             extracted = True
                             break
                             
@@ -306,6 +337,7 @@ def run_static_analysis(project_path, resolved_packages=None):
                         print(f"Downloaded and extracted {pkg_name} archive to scan staging: {pkg_dest}")
                     else:
                         print(f"Warning: Could not download/extract PyPI archive for {pkg_name}")
+                        skipped_packages[pkg_name.lower()] = "no wheel available / download failed (not scanned)"
                         
             except Exception as e:
                 print(f"Error staging package {pkg_name} for scan: {e}")
@@ -345,6 +377,7 @@ def run_static_analysis(project_path, resolved_packages=None):
     packages_stats = {}
     for pkg_name in package_paths_map.values():
         packages_stats[pkg_name] = {
+            "py_files": 0,
             "bandit_issue_count": 0,
             "semgrep_issue_count": 0,
             "critical_findings": 0,
@@ -368,6 +401,7 @@ def run_static_analysis(project_path, resolved_packages=None):
     for pkg_dest_path, pkg_name in package_paths_map.items():
         p_ast, p_files = run_ast_scan(pkg_dest_path)
         stats = packages_stats[pkg_name]
+        stats["py_files"] = p_files
         stats["command_execution_usage"] = p_ast["command_execution_usage"]
         stats["insecure_deserialization"] = p_ast["insecure_deserialization"]
         stats["hardcoded_secrets"] = p_ast["hardcoded_secrets"]
@@ -483,6 +517,8 @@ def run_static_analysis(project_path, resolved_packages=None):
     for pkg_name, stats in packages_stats.items():
         p_ast_crit = sum(1 for k, v in stats.items() if k in ["command_execution_usage", "insecure_deserialization"] and v > 0)
         stats["critical_findings"] += p_ast_crit
+        # size-normalised density so large packages are not penalised for being large
+        stats["issue_density"] = (stats["bandit_issue_count"] + stats["semgrep_issue_count"]) / max(stats.get("py_files", 0), 1)
         print(f"Scanned package source: {pkg_name} | Bandit issues: {stats['bandit_issue_count']} | Semgrep issues: {stats['semgrep_issue_count']} | AST issues: {stats['command_execution_usage'] + stats['insecure_deserialization'] + stats['hardcoded_secrets']}")
 
     project_static_features = {
@@ -505,7 +541,8 @@ def run_static_analysis(project_path, resolved_packages=None):
         "bandit_high": bandit_high,
         "bandit_medium": bandit_medium,
         "bandit_low": bandit_low,
-        "packages": packages_stats
+        "packages": packages_stats,
+        "skipped_packages": skipped_packages
     }
 
     print("Static Analysis Features Generated successfully.")

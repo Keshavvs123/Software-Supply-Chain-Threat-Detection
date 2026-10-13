@@ -9,7 +9,10 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Software Supply Chain Threat Intelligence Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- pinned version with SRI hash (sha384 computed from cdnjs.cloudflare.com). -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"
+            integrity="sha384-Cjloay00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i"
+            crossorigin="anonymous"></script>
     <style>
         :root {{
             --bg-base: #0a0b10;
@@ -425,6 +428,31 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
     <!-- Drag & Drop Uploader -->
     <div id="uploadContainer" style="display: block;">
+        <!-- Runtime safety warning — shown before the first scan -->
+        <div id="runtimeWarningBanner" style="
+            max-width: 760px;
+            margin: 12px auto 0 auto;
+            padding: 12px 20px;
+            border-radius: 10px;
+            background: rgba(245, 158, 11, 0.08);
+            border: 1px solid rgba(245, 158, 11, 0.35);
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        ">
+            <span style="font-size: 18px; flex-shrink: 0;">⚠️</span>
+            <div style="font-size: 12px; color: #fcd34d; line-height: 1.6;">
+                <strong>Runtime Execution Notice:</strong>
+                The behavioral monitoring step <em>imports and partially executes</em> the scanned packages
+                on this machine — it is instrumentation, not a true sandbox.
+                <br>
+                <strong>Only scan packages you trust, or run Gatekeeper inside a container/VM.</strong>
+                To skip runtime monitoring entirely, start the server with:
+                <code style="background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px; font-size: 11px;">
+                    GATEKEEPER_DISABLE_RUNTIME=1 python main.py
+                </code>
+            </div>
+        </div>
         <div class="upload-zone" id="dropZone">
             <div class="upload-icon">📥</div>
             <div class="upload-title" style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; margin-bottom: 6px;">Drag & Drop requirements.txt here</div>
@@ -438,22 +466,22 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         <div style="max-width: 1600px; margin: 24px auto 0 auto; padding: 0 40px;">
             <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
                 <div class="card" style="padding: 16px 20px; border-left: 4px solid var(--primary);">
-                    <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Detection Latency (TTD)</div>
+                    <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Detection Latency (TTD, simulated)</div>
                     <div style="font-size: 24px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: #a5b4fc; margin-top: 4px;" id="kpiLatency">-</div>
                     <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Avg threat verification speed</div>
                 </div>
                 <div class="card" style="padding: 16px 20px; border-left: 4px solid #38bdf8;">
-                    <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Median TTD</div>
+                    <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Median TTD (simulated)</div>
                     <div style="font-size: 24px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: #38bdf8; margin-top: 4px;" id="kpiMedian">-</div>
                     <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Median time to detection</div>
                 </div>
                 <div class="card" style="padding: 16px 20px; border-left: 4px solid #34d399;">
-                    <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Intercepted @ 24h</div>
+                    <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Intercepted @ 24h (simulated)</div>
                     <div style="font-size: 24px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: #34d399; margin-top: 4px;" id="kpi24h">-</div>
                     <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Quarantined in day 1</div>
                 </div>
                 <div class="card" style="padding: 16px 20px; border-left: 4px solid #fbbf24;">
-                    <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Early Detection Rate (EDR)</div>
+                    <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Early Detection Rate (EDR, simulated)</div>
                     <div style="font-size: 24px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: #fbbf24; margin-top: 4px;" id="kpiEdr">-</div>
                     <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Threats caught within 12h</div>
                 </div>
@@ -582,6 +610,12 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     </div>
 
     <script>
+        // HTML-escape every dynamic string before it goes into innerHTML (package names come from untrusted files)
+        function esc(v) {{
+            return String(v === undefined || v === null ? "" : v)
+                .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+        }}
         // Data injected by python builder
         const graphData = {graph_data_json};
         const predictionData = {prediction_data_json};
@@ -681,11 +715,11 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             document.getElementById("explorerPreviewHeader").innerText = "Previewing: " + filename;
             if (filename.endsWith(".png")) {
                 const imgUrl = "/view_output?file=" + encodeURIComponent(filename);
-                document.getElementById("explorerCodeBlock").innerHTML = `<div style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; padding: 10px; background: rgba(10,11,16,0.3); border-radius: 4px;"><img src="${imgUrl}" style="max-width: 100%; max-height: 500px; border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,0.6);" /></div>`;
+                document.getElementById("explorerCodeBlock").innerHTML = `<div style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; padding: 10px; background: rgba(10,11,16,0.3); border-radius: 4px;"><img src="${esc(imgUrl)}" style="max-width: 100%; max-height: 500px; border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,0.6);" /></div>`;
                 return;
             }
             
-            document.getElementById("explorerCodeBlock").innerHTML = "Loading content...";
+            document.getElementById("explorerCodeBlock").innerText = "Loading content...";
             fetch("/view_output?file=" + encodeURIComponent(filename))
             .then(res => res.text())
             .then(text => {
@@ -791,11 +825,11 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                 
                 let threatBadges = '<span style="color: var(--text-muted); font-size: 11px;">Clean</span>';
                 if (threats.length > 0) {
-                    threatBadges = threats.map(t => `<span class="badge badge-danger" style="margin-right: 4px; font-size: 10px;" title="${t.detail}">${t.id}: ${t.vector}</span>`).join('');
+                    threatBadges = threats.map(t => `<span class="badge badge-danger" style="margin-right: 4px; font-size: 10px;" title="${esc(t.detail)}">${esc(t.id)}: ${esc(t.vector)}</span>`).join('');
                 }
                 
                 const row = `<tr>
-                    <td><strong>${pkg}</strong></td>
+                    <td><strong>${esc(pkg)}</strong></td>
                     <td>
                         <span class="badge ${badgeClass}">${(score * 100).toFixed(0)}% (${badgeLabel})</span>
                     </td>
@@ -820,17 +854,17 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                 if (exp.top_features.length > 0) {
                     const featureLines = exp.top_features.map(([f, weight]) => `
                         <div style="display: flex; justify-content: space-between; font-size: 11px;">
-                            <span>${f}</span>
+                            <span>${esc(f)}</span>
                             <span style="font-family: 'Space Grotesk', sans-serif;">${(weight * 100).toFixed(0)}% importance</span>
                         </div>
                     `).join('');
                     
                     const neighborLines = exp.top_influencing_nodes.map(([n, w]) => `
-                        <div style="font-size: 11px; color: var(--text-muted);">${n} (attention: ${w.toFixed(2)})</div>
+                        <div style="font-size: 11px; color: var(--text-muted);">${esc(n)} (attention: ${w.toFixed(2)})</div>
                     `).join('') || '<div style="font-size: 11px; color: var(--text-muted);">No graph neighbors</div>';
                     
                     const block = `<div class="xai-block">
-                        <div style="font-weight: 600; color: #a5b4fc; margin-bottom: 6px;">Package: ${pkg}</div>
+                        <div style="font-weight: 600; color: #a5b4fc; margin-bottom: 6px;">Package: ${esc(pkg)}</div>
                         <div style="font-size: 12px; margin-bottom: 4px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 4px;">Top Saliency Features:</div>
                         ${featureLines}
                         <div style="font-size: 12px; margin-top: 8px; margin-bottom: 4px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 4px;">Graph Attention Influences:</div>
@@ -850,9 +884,9 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                     const block = `<div class="attack-path-item">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <span class="badge badge-danger">PROPAGATED RISK: ${(ap.risk_score * 100).toFixed(0)}%</span>
-                            <span style="font-size: 11px; color: var(--text-muted);">CVE: ${ap.cve_id}</span>
+                            <span style="font-size: 11px; color: var(--text-muted);">CVE: ${esc(ap.cve_id)}</span>
                         </div>
-                        <div class="attack-path-route">${ap.path}</div>
+                        <div class="attack-path-route">${esc(ap.path)}</div>
                     </div>`;
                     apContainer.innerHTML += block;
                 });
@@ -875,19 +909,19 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                         const cvesPreview = act.cves_resolved.slice(0, 3).join(', ') + (act.cves_resolved.length > 3 ? '...' : '');
                         const block = `<div class="remediation-card">
                             <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <strong style="font-size: 15px; color: #a5b4fc;">${act.package}</strong>
-                                <span class="badge ${badgeClass}">${act.severity} (CVSS: ${act.max_cvss})</span>
+                                <strong style="font-size: 15px; color: #a5b4fc;">${esc(act.package)}</strong>
+                                <span class="badge ${badgeClass}">${esc(act.severity)} (CVSS: ${esc(act.max_cvss)})</span>
                             </div>
                             <div style="font-size: 12px; color: var(--text-muted);">
-                                <span>Current: <code style="color: #fda4af;">${act.current_version}</code></span> &rarr; 
-                                <span>Recommended: <code style="color: #86efac; font-weight: 700;">&gt;=${act.recommended_version}</code></span>
+                                <span>Current: <code style="color: #fda4af;">${esc(act.current_version)}</code></span> &rarr; 
+                                <span>Recommended: <code style="color: #86efac; font-weight: 700;">${act.recommended_version ? "&gt;=" + esc(act.recommended_version) : "no newer fixed release known"}</code></span>
                             </div>
                             <div style="font-size: 11px; color: var(--text-muted);">
-                                Fixes ${act.cve_count} CVEs: <span style="color: #fca5a5;">${cvesPreview}</span>
+                                Fixes ${esc(act.cve_count)} CVEs: <span style="color: #fca5a5;">${esc(cvesPreview)}</span>
                             </div>
                             <div class="remediation-cmd-box">
-                                <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-right: 8px;">${act.upgrade_command}</span>
-                                <button class="btn-copy-fix" id="copyBtn_${idx}" onclick="copyFixCommand('${act.upgrade_command.replace(/"/g, '&quot;')}', 'copyBtn_${idx}')">Copy</button>
+                                <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-right: 8px;">${esc(act.upgrade_command)}</span>
+                                <button class="btn-copy-fix" id="copyBtn_${idx}" data-cmd="${esc(act.upgrade_command)}" onclick="copyFixCommand(this.dataset.cmd, this.id)">Copy</button>
                             </div>
                         </div>`;
                         remedContainer.innerHTML += block;
@@ -1067,6 +1101,13 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 </html>
 """
 
+def _json_for_script(obj):
+    """JSON that is safe inside an inline <script>: no '</script>' or HTML comment breakout."""
+    return (json.dumps(obj, default=str)
+            .replace("<", "\\u003c").replace(">", "\\u003e").replace("&", "\\u0026")
+            .replace("\u2028", "\\u2028").replace("\u2029", "\\u2029"))
+
+
 def generate_security_dashboard(prediction_results, resolved_packages, output_path="outputs/dashboard.html"):
     """
     Compiles NetworkX graph structure and predictor outputs into an interactive D3.html dashboard.
@@ -1091,7 +1132,7 @@ def generate_security_dashboard(prediction_results, resolved_packages, output_pa
             "relationship": attr.get("relationship", "depends_on")
         })
         
-    graph_data_json = json.dumps({"nodes": nodes_list, "links": links_list})
+    graph_data_json = _json_for_script({"nodes": nodes_list, "links": links_list})
     
     # 3. Clean prediction outputs (remove PyTorch tensor structures)
     prediction_clean = {
@@ -1115,7 +1156,7 @@ def generate_security_dashboard(prediction_results, resolved_packages, output_pa
             "top_influencing_nodes": [(n, float(w)) for n, w in exp["top_influencing_nodes"]]
         }
         
-    prediction_data_json = json.dumps(prediction_clean)
+    prediction_data_json = _json_for_script(prediction_clean)
     
     # 1. Clean up double curly braces in HTML_TEMPLATE first to avoid bracket formatting conflicts
     compiled_template = HTML_TEMPLATE.replace("{{", "{").replace("}}", "}")

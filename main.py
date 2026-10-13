@@ -43,8 +43,50 @@ import threading
 import urllib.parse
 import networkx as nx
 
-PORT = 5000
+PORT = 5001
 last_requirements_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "outputs", "last_requirements.txt"))
+
+ABLATION_CSV = os.path.join(os.path.dirname(os.path.abspath(__file__)), "outputs", "ablation_study_results.csv")
+
+
+def validate_requirements_text(text):
+    """Accept only plain PEP 508 requirement lines (no pip options, URLs or includes)."""
+    from packaging.requirements import Requirement, InvalidRequirement
+    for n, raw in enumerate(text.splitlines(), 1):
+        line = raw.split(" #")[0].strip()
+        if not line or line.startswith("#"):
+            continue
+        if line.startswith("-"):
+            return False, f"line {n}: pip options are not allowed"
+        try:
+            req = Requirement(line)
+        except InvalidRequirement:
+            return False, f"line {n}: not a valid requirement"
+        if req.url:
+            return False, f"line {n}: direct URL requirements are not allowed"
+    return True, ""
+
+
+def _print_evaluation_metrics():
+    """Print metrics from the last evaluation run instead of hard-coded numbers."""
+    import csv
+    try:
+        with open(ABLATION_CSV, newline="", encoding="utf-8") as f:
+            rows = list(csv.DictReader(f))
+    except OSError:
+        rows = []
+    if not rows:
+        print(" No evaluation results found. Run ml_engine/train_full_dataset.py first.")
+        return
+    for row in rows:
+        name = row.get("Model Config", "?")
+        try:
+            print(f" {name:38s} Acc {float(row['Accuracy'])*100:5.2f}% | Recall {float(row['Recall'])*100:5.2f}% | "
+                  f"Prec {float(row['Precision'])*100:5.2f}% | F1 {float(row['F1-Score'])*100:5.2f}% | "
+                  f"AUC {float(row['ROC-AUC']):.4f} | FPR {row['FPR']}")
+        except (KeyError, ValueError):
+            print(f" {name}: (unreadable row)")
+
 
 def print_console_summary(predictions, resolved_packages):
     print("\n" + "="*50)
@@ -75,7 +117,7 @@ def print_console_summary(predictions, resolved_packages):
 
     ew = predictions.get("early_warning_metrics", {})
     print("\n==================================================")
-    print("           EARLY WARNING PERFORMANCE METRICS")
+    print("     EARLY WARNING METRICS (SIMULATED, NOT MEASURED)")
     print("==================================================")
     print(f" Detection Latency (TTD):             {ew.get('detection_latency_hours', 0.0):.1f} hours")
     print(f" Median Time-To-Detection (TTD):      {ew.get('median_ttd_hours', 0.0):.1f} hours")
@@ -90,23 +132,18 @@ def print_console_summary(predictions, resolved_packages):
         print("    AUTOMATED REMEDIATION & SAFE UPGRADE RECIPES")
         print("==================================================")
         for act in remed_plan["actions"][:4]:
-            print(f" [REMEDY] {act['package']} ({act['current_version']}) -> >={act['recommended_version']}")
+            rec = act.get('recommended_version')
+            target = f">={rec}" if rec else "no newer fixed release known"
+            print(f" [REMEDY] {act['package']} ({act['current_version']}) -> {target}")
             print(f"          Command: {act['upgrade_command']}")
             print(f"          Resolves: {', '.join(act['cves_resolved'][:3])} (Max CVSS: {act['max_cvss']})")
         print("==================================================")
 
     print("\n==================================================")
     print("     MODEL TESTING PERFORMANCE EVALUATION (HGAT GNN)")
-    print("     (Evaluated on 3,700 Test Packages / 24,666 Total)")
+    print("     (read from outputs/ablation_study_results.csv)")
     print("==================================================")
-    print(" Test Accuracy:                       84.97%")
-    print(" Threat Detection Recall:             97.40%")
-    print(" F1-Score:                            86.86%")
-    print(" Precision:                           78.37%")
-    print(" ROC-AUC:                             0.8628")
-    print(" PR-AUC:                              0.8942")
-    print(" False Positive Rate (FPR):           27.90%")
-    print(" Baseline Comparison (Random Forest): 50.86% Acc | 64.16% Recall")
+    _print_evaluation_metrics()
     print("==================================================\n")
 
 def get_transitive_dependencies(pkg_key, resolved_packages, visited=None):
@@ -277,12 +314,33 @@ class GatekeeperHandler(http.server.SimpleHTTPRequestHandler):
             self.path = "/outputs/dashboard.html"
         return super().do_GET()
 
+    def _request_allowed(self):
+        """Reject cross-site / non-local requests (CSRF and DNS-rebinding guard)."""
+        host = (self.headers.get("Host") or "").split(":")[0]
+        if host not in ("localhost", "127.0.0.1"):
+            return False
+        origin = self.headers.get("Origin")
+        if origin and urllib.parse.urlparse(origin).hostname not in ("localhost", "127.0.0.1"):
+            return False
+        return True
+
     def do_POST(self):
         global last_requirements_path
+        if not self._request_allowed():
+            self.send_response(403)
+            self.end_headers()
+            self.wfile.write(b"Forbidden")
+            return
         if self.path == "/scan_requirements":
             # 1. Parse plain text requirements from body
-            content_length = int(self.headers.get('Content-Length', 0))
-            post_data = self.rfile.read(content_length).decode('utf-8')
+            content_length = min(int(self.headers.get('Content-Length', 0)), 256 * 1024)
+            post_data = self.rfile.read(content_length).decode('utf-8', errors='replace')
+            ok, problem = validate_requirements_text(post_data)
+            if not ok:
+                self.send_response(400)
+                self.end_headers()
+                self.wfile.write(f"Rejected requirements file: {problem}".encode('utf-8'))
+                return
             
             print("\n" + "="*50)
             print("[GATEKEEPER] RECEIVED REQUIREMENTS FILE UPLOAD")
@@ -413,7 +471,13 @@ class GatekeeperHandler(http.server.SimpleHTTPRequestHandler):
             print("="*50)
             try:
                 import subprocess
-                cmd = [sys.executable, "-m", "pip", "install", "-r", last_requirements_path]
+                with open(last_requirements_path, encoding="utf-8") as rf:
+                    ok, problem = validate_requirements_text(rf.read())
+                if not ok:
+                    raise Exception(f"requirements file failed validation: {problem}")
+                # Wheels only: never run setup.py of an unreviewed sdist on the host.
+                cmd = [sys.executable, "-m", "pip", "install", "--only-binary=:all:",
+                       "-r", last_requirements_path]
                 print(f"Running command: {' '.join(cmd)}")
                 
                 proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
@@ -451,7 +515,7 @@ def main():
     os.makedirs("outputs", exist_ok=True)
 
     # 1. Train models and output training, validation, and test split metrics
-    print("Initializing chronological neural network training and validation pipeline...")
+    print("Initializing neural network training and validation pipeline...")
     train_framework_models()
         
     # 2. Write empty initial dashboard page to outputs/dashboard.html
@@ -468,7 +532,7 @@ def main():
     # 3. Start local HTTP server
     handler = GatekeeperHandler
     socketserver.TCPServer.allow_reuse_address = True
-    with socketserver.TCPServer(("", PORT), handler) as httpd:
+    with socketserver.TCPServer(("127.0.0.1", PORT), handler) as httpd:
         print(f"\n[SERVER] Gatekeeper server listening on: http://localhost:{PORT}")
         print("[SERVER] Opening Security Gatekeeper Dashboard in your browser...")
         

@@ -30,7 +30,7 @@ def get_caller_package():
         while frame:
             module_name = frame.f_globals.get("__name__", "")
             root_package = module_name.split(".")[0]
-            if root_package and root_package not in ("__main__", "builtins", "monitor", "runpy", "os", "subprocess", "socket", "sys", "json", "importlib", "ssl"):
+            if root_package and not root_package.startswith("_") and root_package not in ("__main__", "builtins", "monitor", "runpy", "os", "subprocess", "socket", "sys", "json", "importlib", "ssl"):
                 return root_package
             frame = frame.f_back
     except Exception:
@@ -75,14 +75,7 @@ def patched_popen(*args, **kwargs):
     return orig_popen(*args, **kwargs)
 subprocess.Popen = patched_popen
 
-# 3. Patch builtins.__import__ for dynamic imports
-orig_import = builtins.__import__
-def patched_import(name, globals=None, locals=None, fromlist=(), level=0):
-    caller = get_caller_package()
-    telemetry["dynamic_execution_count"] += 1
-    log_package_telemetry(caller, "dynamic_execution_count")
-    return orig_import(name, globals, locals, fromlist, level)
-builtins.__import__ = patched_import
+# 3. (Plain import statements are NOT counted: they are normal behaviour, not dynamic execution.)
 
 # 4. Patch open for suspicious file access
 orig_open = builtins.open
@@ -145,8 +138,8 @@ for pkg_name in {package_names_repr}:
 
 if import_errors:
     try:
-        with open("outputs/import_errors.log", "w", encoding="utf-8") as err_f:
-            err_f.write("\n".join(import_errors))
+        with open({import_log_repr}, "w", encoding="utf-8") as err_f:
+            err_f.write("\\n".join(import_errors))
     except Exception:
         pass
 
@@ -165,6 +158,21 @@ with open({output_file_repr}, "w", encoding="utf-8") as f:
     json.dump(telemetry, f, indent=2)
 """
 
+def _fallback(reason):
+    """All-zero features, explicitly flagged so 'not measured' is not read as 'clean'."""
+    return {
+        "system_call_count": 0,
+        "subprocess_count": 0,
+        "shell_execution_usage": 0,
+        "dynamic_execution_count": 0,
+        "suspicious_network_activity": 0,
+        "file_access_risk": 0,
+        "packages": {},
+        "monitored": False,
+        "monitor_note": reason,
+    }
+
+
 def monitor_runtime(script_path, package_names=None, timeout=5):
     """
     Runs the target Python script in a monitored environment using monkeypatching
@@ -175,6 +183,18 @@ def monitor_runtime(script_path, package_names=None, timeout=5):
     os.makedirs("outputs", exist_ok=True)
     telemetry_file = os.path.abspath(os.path.join("outputs", "runtime_telemetry.json"))
     
+    # A stale file from an earlier run must never be mistaken for this run's result
+    if os.path.exists(telemetry_file):
+        os.remove(telemetry_file)
+
+    if os.environ.get("GATEKEEPER_DISABLE_RUNTIME") == "1":
+        print("Runtime monitoring disabled via GATEKEEPER_DISABLE_RUNTIME=1.")
+        return _fallback("disabled")
+
+    print("WARNING: runtime monitoring EXECUTES the target script and imports the scanned packages "
+          "on this machine. It is instrumentation, not a sandbox. Run Gatekeeper inside a container/VM "
+          "when scanning untrusted code (or set GATEKEEPER_DISABLE_RUNTIME=1).")
+
     # Write the monitoring script wrapper
     fd, wrapper_path = tempfile.mkstemp(suffix=".py", text=True)
     os.close(fd)
@@ -183,7 +203,8 @@ def monitor_runtime(script_path, package_names=None, timeout=5):
         monitoring_code = WRAPPER_TEMPLATE.format(
             target_script_repr=repr(os.path.abspath(script_path)),
             output_file_repr=repr(telemetry_file),
-            package_names_repr=repr(package_names or [])
+            package_names_repr=repr(package_names or []),
+            import_log_repr=repr(os.path.abspath(os.path.join("outputs", "import_errors.log")))
         )
         
         with open(wrapper_path, "w", encoding="utf-8") as f:
@@ -191,13 +212,20 @@ def monitor_runtime(script_path, package_names=None, timeout=5):
         
         # Run wrapper script
         # We pass a timeout to avoid hangs (e.g. from infinite loops or stdin reads)
+        # Scrubbed environment (no tokens/keys inherited) and a throw-away working directory.
+        safe_env = {k: v for k, v in os.environ.items()
+                    if k in ("PATH", "SYSTEMROOT", "TEMP", "TMP", "HOME", "USERPROFILE", "PYTHONPATH", "VIRTUAL_ENV")}
+        safe_env["PYTHONUTF8"] = "1"
         try:
-            subprocess.run(
-                [sys.executable, wrapper_path],
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-                timeout=timeout
-            )
+            with tempfile.TemporaryDirectory() as sandbox_cwd:
+                subprocess.run(
+                    [sys.executable, wrapper_path],
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                    timeout=timeout,
+                    env=safe_env,
+                    cwd=sandbox_cwd
+                )
         except subprocess.TimeoutExpired:
             print("Runtime monitoring script execution timed out (graceful recovery).")
             
@@ -213,6 +241,7 @@ def monitor_runtime(script_path, package_names=None, timeout=5):
                 e = float(stats_dict.get("dynamic_execution_count", 0))
                 return 0.4 * p + 0.3 * n + 0.2 * f + 0.1 * e
 
+            runtime_features["monitored"] = True
             runtime_features["behavioral_risk"] = calc_weighted_risk(runtime_features)
             for pkg, pkg_stats in runtime_features.get("packages", {}).items():
                 pkg_stats["behavioral_risk"] = calc_weighted_risk(pkg_stats)
@@ -230,14 +259,5 @@ def monitor_runtime(script_path, package_names=None, timeout=5):
         if os.path.exists(wrapper_path):
             os.remove(wrapper_path)
             
-    # Fallback to defaults
-    fallback = {
-        "system_call_count": 0,
-        "subprocess_count": 0,
-        "shell_execution_usage": 0,
-        "dynamic_execution_count": 0,
-        "suspicious_network_activity": 0,
-        "file_access_risk": 0
-    }
-    print("Using default fallback runtime features.")
-    return fallback
+    print("Using default fallback runtime features (nothing was measured).")
+    return _fallback("no telemetry produced")

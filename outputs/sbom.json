@@ -1,7 +1,7 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.4",
-  "serialNumber": "urn:uuid:68e894ba-e35f-4a5f-97cb-251f084ba6f8",
+  "serialNumber": "urn:uuid:3d0ee521-c123-41b1-8618-d1f4ccc27bc2",
   "version": 1,
   "metadata": {
     "component": {
@@ -11,122 +11,6 @@
     }
   },
   "components": [
-    {
-      "type": "library",
-      "name": "warcio",
-      "version": "1.8.1",
-      "purl": "pkg:pypi/warcio@1.8.1",
-      "hashes": [
-        {
-          "alg": "SHA-256",
-          "content": "82345c5914d36cb5e0513210dbf759e3db348bf8d0f7762996ccce3a5ce6e87b"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "76f71b22159ca3c043521e10ee8a2478d167672ad1d137c7c15e40b0d5c73ccd"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "name": "Apache 2.0"
-          }
-        }
-      ],
-      "properties": [
-        {
-          "name": "maintainer",
-          "value": "Ilya Kreymer"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "six",
-      "version": "1.16.0",
-      "purl": "pkg:pypi/six@1.16.0",
-      "hashes": [
-        {
-          "alg": "SHA-256",
-          "content": "8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "name": "MIT"
-          }
-        }
-      ],
-      "properties": [
-        {
-          "name": "maintainer",
-          "value": "Benjamin Peterson"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "pytest",
-      "version": "8.4.2",
-      "purl": "pkg:pypi/pytest@8.4.2",
-      "hashes": [
-        {
-          "alg": "SHA-256",
-          "content": "872f880de3fc3a5bdc88a11b39c9710c3497a547cfa9320bc3c5e62fbf272e79"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "86c0d0b93306b961d58d62a4db4879f27fe25513d4b969df351abdddb3c30e01"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "name": "MIT"
-          }
-        }
-      ],
-      "properties": [
-        {
-          "name": "maintainer",
-          "value": "Holger Krekel, Bruno Oliveira, Ronny Pfannschmidt, Floris Bruynooghe, Brianna Laugher, Florian Bruhin, Others (See AUTHORS)"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "pytest-cov",
-      "version": "7.0.0",
-      "purl": "pkg:pypi/pytest-cov@7.0.0",
-      "hashes": [
-        {
-          "alg": "SHA-256",
-          "content": "3b8e9558b16cc1479da72058bdecf8073661c7f57f7d3c5f22a1c23507f2d861"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "33c97eda2e049a0c5298e91f519302a1334c26ac65c1a483d6206fd458361af1"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "name": "Unknown"
-          }
-        }
-      ],
-      "properties": [
-        {
-          "name": "maintainer",
-          "value": "Unknown"
-        }
-      ]
-    },
     {
       "type": "library",
       "name": "requests",
@@ -158,23 +42,23 @@
     },
     {
       "type": "library",
-      "name": "Flask",
-      "version": "3.1.0",
-      "purl": "pkg:pypi/Flask@3.1.0",
+      "name": "urllib3",
+      "version": "2.2.3",
+      "purl": "pkg:pypi/urllib3@2.2.3",
       "hashes": [
         {
           "alg": "SHA-256",
-          "content": "d667207822eb83f1c4b50949b1623c8fc8d51f2341d65f72e1a1815397551136"
+          "content": "ca899ca043dcb1bafa3e262d73aa25c465bfb49e0bd9dd5d59f1d0acba2f8fac"
         },
         {
           "alg": "SHA-256",
-          "content": "5f873c5184c897c8d9d1b05df1e3d01b14910ce69607a117bd3277098a5836ac"
+          "content": "e7d814a81dad81e6caf2ec9fdedb284ecc9c73076b62654547cc64ccdcae26e9"
         }
       ],
       "licenses": [
         {
           "license": {
-            "name": "Unknown"
+            "name": "NOASSERTION"
           }
         }
       ],
@@ -187,553 +71,23 @@
     },
     {
       "type": "library",
-      "name": "fsspec",
-      "version": "2025.7.0",
-      "purl": "pkg:pypi/fsspec@2025.7.0",
+      "name": "jinja2",
+      "version": "3.1.4",
+      "purl": "pkg:pypi/jinja2@3.1.4",
       "hashes": [
         {
           "alg": "SHA-256",
-          "content": "8b012e39f63c7d5f10474de957f3ab793b47b45ae7d39f2fb735f8bbe25c0e21"
+          "content": "bc5dd2abb727a5319567b7a813e6a2e7318c39f4f487cfe6c89c6f9c7d25197d"
         },
         {
           "alg": "SHA-256",
-          "content": "786120687ffa54b8283d942929540d8bc5ccfa820deb555a2b5d0ed2b737bf58"
+          "content": "4a3aee7acbbe7303aede8e9648d13b8bf88a429282aa6122a993f0ac800cb369"
         }
       ],
       "licenses": [
         {
           "license": {
-            "name": "BSD 3-Clause License\n\nCopyright (c) 2018, Martin Durant\nAll rights reserved.\n\nRedistribution and use in source and binary forms, with or without\nmodification, are permitted provided that the following conditions are met:\n\n* Redistributions of source code must retain the above copyright notice, this\n  list of conditions and the following disclaimer.\n\n* Redistributions in binary form must reproduce the above copyright notice,\n  this list of conditions and the following disclaimer in the documentation\n  and/or other materials provided with the distribution.\n\n* Neither the name of the copyright holder nor the names of its\n  contributors may be used to endorse or promote products derived from\n  this software without specific prior written permission.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\nAND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\nIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\nDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\nFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\nDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\nSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\nCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\nOR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\nOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
-          }
-        }
-      ],
-      "properties": [
-        {
-          "name": "maintainer",
-          "value": "Unknown"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "aiohttp",
-      "version": "3.13.5",
-      "purl": "pkg:pypi/aiohttp@3.13.5",
-      "hashes": [
-        {
-          "alg": "SHA-256",
-          "content": "02222e7e233295f40e011c1b00e3b0bd451f22cf853a0304c3595633ee47da4b"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "bace460460ed20614fa6bc8cb09966c0b8517b8c58ad8046828c6078d25333b5"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "8f546a4dc1e6a5edbb9fd1fd6ad18134550e096a5a43f4ad74acfbd834fc6670"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "c86969d012e51b8e415a8c6ce96f7857d6a87d6207303ab02d5d11ef0cad2274"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "b6f6cd1560c5fa427e3b6074bb24d2c64e225afbb7165008903bd42e4e33e28a"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "636bc362f0c5bbc7372bc3ae49737f9e3030dbce469f0f422c8f38079780363d"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "6a7cbeb06d1070f1d14895eeeed4dac5913b22d7b456f2eb969f11f4b3993796"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "bca9ef7517fd7874a1a08970ae88f497bf5c984610caa0bf40bd7e8450852b95"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "019a67772e034a0e6b9b17c13d0a8fe56ad9fb150fc724b7f3ffd3724288d9e5"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "f34ecee82858e41dd217734f0c41a532bd066bcaab636ad830f03a30b2a96f2a"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "4eac02d9af4813ee289cd63a361576da36dba57f5a1ab36377bc2600db0cbb73"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "4beac52e9fe46d6abf98b0176a88154b742e878fdf209d2248e99fcdf73cd297"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "c180f480207a9b2475f2b8d8bd7204e47aec952d084b2a2be58a782ffcf96074"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "2837fb92951564d6339cedae4a7231692aa9f73cbc4fb2e04263b96844e03b4e"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "d9010032a0b9710f58012a1e9c222528763d860ba2ee1422c03473eab47703e7"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "7c4b6668b2b2b9027f209ddf647f2a4407784b5d88b8be4efcc72036f365baf9"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "cd3db5927bf9167d5a6157ddb2f036f6b6b0ad001ac82355d43e97a4bde76d76"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "7ab7229b6f9b5c1ba4910d6c41a9eb11f543eadb3f384df1b4c293f4e73d44d6"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "8f14c50708bb156b3a3ca7230b3d820199d56a48e3af76fa21c2d6087190fe3d"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "e7d2f8616f0ff60bd332022279011776c3ac0faa0f1b463f7bb12326fbc97a1c"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "a2567b72e1ffc3ab25510db43f355b29eeada56c0a622e58dcdb19530eb0a3cb"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "fb0540c854ac9c0c5ad495908fdfd3e332d553ec731698c0e29b1877ba0d2ec6"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "c9883051c6972f58bfc4ebb2116345ee2aa151178e99c3f2b2bbe2af712abd13"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "2294172ce08a82fb7c7273485895de1fa1186cc8294cfeb6aef4af42ad261174"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "3a807cabd5115fb55af198b98178997a5e0e57dead43eb74a93d9c07d6d4a7dc"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "aa6d0d932e0f39c02b80744273cd5c388a2d9bc07760a03164f229c8e02662f6"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "60869c7ac4aaabe7110f26499f3e6e5696eae98144735b12a9c3d9eae2b51a49"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "26d2f8546f1dfa75efa50c3488215a903c0168d253b75fba4210f57ab77a0fb8"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "f1162a1492032c82f14271e831c8f4b49f2b6078f4f5fc74de2c912fa225d51d"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "8b14eb3262fad0dc2f89c1a43b13727e709504972186ff6a99a3ecaa77102b6c"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "ca9ac61ac6db4eb6c2a0cd1d0f7e1357647b638ccc92f7e9d8d133e71ed3c6ac"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "7996023b2ed59489ae4762256c8516df9820f751cf2c5da8ed2fb20ee50abab3"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "77dfa48c9f8013271011e51c00f8ada19851f013cde2c48fca1ba5e0caf5bb06"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "d3a4834f221061624b8887090637db9ad4f61752001eae37d56c52fddade2dc8"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "023ecba036ddd840b0b19bf195bfae970083fd7024ce1ac22e9bba90464620e9"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "15c933ad7920b7d9a20de151efcd05a6e38302cbf0e10c9b2acb9a42210a2416"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "ab2899f9fa2f9f741896ebb6fa07c4c883bfa5c7f2ddd8cf2aafa86fa981b2d2"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "a60eaa2d440cd4707696b52e40ed3e2b0f73f65be07fd0ef23b6b539c9c0b0b4"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "55b3bdd3292283295774ab585160c4004f4f2f203946997f49aac032c84649e9"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "c2b2355dc094e5f7d45a7bb262fe7207aa0460b37a0d87027dcf21b5d890e7d5"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "b38765950832f7d728297689ad78f5f2cf79ff82487131c4d26fe6ceecdc5f8e"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "b18f31b80d5a33661e08c89e202edabf1986e9b49c42b4504371daeaa11b47c1"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "33add2463dde55c4f2d9635c6ab33ce154e5ecf322bd26d09af95c5f81cfa286"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "327cc432fdf1356fb4fbc6fe833ad4e9f6aacb71a8acaa5f1855e4b25910e4a9"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "7c35b0bf0b48a70b4cb4fc5d7bed9b932532728e124874355de1a0af8ec4bc88"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "df23d57718f24badef8656c49743e11a89fd6f5358fa8a7b96e728fda2abf7d3"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "02e048037a6501a5ec1f6fc9736135aec6eb8a004ce48838cb951c515f32c80b"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "31cebae8b26f8a615d2b546fee45d5ffb76852ae6450e2a03f42c9102260d6fe"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "888e78eb5ca55a615d285c3c09a7a91b42e9dd6fc699b166ebd5dee87c9ccf14"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "8bd3ec6376e68a41f9f95f5ed170e2fcf22d4eb27a1f8cb361d0508f6e0557f3"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "110e448e02c729bcebb18c60b9214a87ba33bac4a9fa5e9a5f139938b56c6cb1"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "a5029cc80718bbd545123cd8fe5d15025eccaaaace5d0eeec6bd556ad6163d61"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "4bb6bf5811620003614076bdc807ef3b5e38244f9d25ca5fe888eaccea2a9832"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "a84792f8631bf5a94e52d9cc881c0b824ab42717165a5579c760b830d9392ac9"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "57653eac22c6a4c13eb22ecf4d673d64a12f266e72785ab1c8b8e5940d0e8090"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "e5e5f7debc7a57af53fdf5c5009f9391d9f4c12867049d509bf7bb164a6e295b"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "c719f65bebcdf6716f10e9eff80d27567f7892d8988c06de12bbbd39307c6e3a"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "d97f93fdae594d886c5a866636397e2bcab146fd7a132fd6bb9ce182224452f8"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "3df334e39d4c2f899a914f1dba283c1aadc311790733f705182998c6f7cae665"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "fe6970addfea9e5e081401bcbadf865d2b6da045472f58af08427e108d618540"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "7becdf835feff2f4f335d7477f121af787e3504b48b449ff737afb35869ba7bb"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "676e5651705ad5d8a70aeb8eb6936c436d8ebbd56e63436cb7dd9bb36d2a9a46"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "9b16c653d38eb1a611cc898c41e76859ca27f119d25b53c12875fd0474ae31a8"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "999802d5fa0389f58decd24b537c54aa63c01c3219ce17d1214cbda3c2b22d2d"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "ec707059ee75732b1ba130ed5f9580fe10ff75180c812bc267ded039db5128c6"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "2d6d44a5b48132053c2f6cd5c8cb14bc67e99a63594e336b0f2af81e94d5530c"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "329f292ed14d38a6c4c435e465f48bebb47479fd676a0411936cc371643225cc"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "69f571de7500e0557801c0b51f4780482c0ec5fe2ac851af5a92cfce1af1cb83"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "eb4639f32fd4a9904ab8fb45bf3383ba71137f3d9d4ba25b3b3f3109977c5b8c"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "7e5dc4311bd5ac493886c63cbf76ab579dbe4641268e7c74e48e774c74b6f2be"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "756c3c304d394977519824449600adaf2be0ccee76d206ee339c5e76b70ded25"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "ecc26751323224cf8186efcf7fbcbc30f4e1d8c7970659daf25ad995e4032a56"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "10a75acfcf794edf9d8db50e5a7ec5fc818b2a8d3f591ce93bc7b1210df016d2"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "0f7a18f258d124cd678c5fe072fe4432a4d5232b0657fca7c1847f599233c83a"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "df6104c009713d3a89621096f3e3e88cc323fd269dbd7c20afe18535094320be"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "241a94f7de7c0c3b616627aaad530fe2cb620084a8b144d3be7b6ecfe95bae3b"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "c974fb66180e58709b6fc402846f13791240d180b74de81d23913abe48e96d94"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "6e27ea05d184afac78aabbac667450c75e54e35f62238d44463131bd3f96753d"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "a79a6d399cef33a11b6f004c67bb07741d91f2be01b8d712d52c75711b1e07c7"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "c632ce9c0b534fbe25b52c974515ed674937c5b99f549a92127c85f771a78772"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "fceedde51fbd67ee2bcc8c0b33d0126cc8b51ef3bbde2f86662bd6d5a6f10ec5"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "f92995dfec9420bb69ae629abf422e516923ba79ba4403bc750d94fb4a6c68c1"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "20ae0ff08b1f2c8788d6fb85afcb798654ae6ba0b747575f8562de738078457b"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "1efb06900858bb618ff5cee184ae2de5828896c448403d51fb633f09e109be0a"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "fee86b7c4bd29bdaf0d53d14739b08a106fdda809ca5fe032a15f52fae5fe254"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "20058e23909b9e65f9da62b396b77dfa95965cbe840f8def6e572538b1d32e36"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "8cf20a8d6868cb15a73cab329ffc07291ba8c22b1b88176026106ae39aa6df0f"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "330f5da04c987f1d5bdb8ae189137c77139f36bd1cb23779ca1a354a4b027800"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "6f1cbf0c7926d315c3c26c2da41fd2b5d2fe01ac0e157b78caefc51a782196cf"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "53fc049ed6390d05423ba33103ded7281fe897cf97878f369a527070bd95795b"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "898703aa2667e3c5ca4c54ca36cd73f58b7a38ef87a5606414799ebce4d3fd3a"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "0494a01ca9584eea1e5fbd6d748e61ecff218c51b576ee1999c23db7066417d8"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "6cf81fe010b8c17b09495cbd15c1d35afbc8fb405c0c9cf4738e5ae3af1d65be"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "c564dd5f09ddc9d8f2c2d0a301cd30a79a2cc1b46dd1a73bef8f0038863d016b"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "2994be9f6e51046c4f864598fd9abeb4fba6e88f0b2152422c9666dcd4aea9c6"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "157826e2fa245d2ef46c83ea8a5faf77ca19355d278d425c29fda0beb3318037"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "a8aca50daa9493e9e13c0f566201a9006f080e7c50e5e90d0b06f53146a54500"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "3b13560160d07e047a93f23aaa30718606493036253d5430887514715b67c9d9"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "9a0f4474b6ea6818b41f82172d799e4b3d29e22c2c520ce4357856fced9af2f8"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "18a2f6c1182c51baa1d28d68fea51513cb2a76612f038853c0ad3c145423d3d9"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "b20df693de16f42b2472a9c485e1c948ee55524786a0a34345511afdd22246f3"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "f85c6f327bf0b8c29da7d93b1cabb6363fb5e4e160a32fa241ed2dce21b73162"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "347542f0ea3f95b2a955ee6656461fa1c776e401ac50ebce055a6c38454a0adf"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "178c7b5e62b454c2bc790786e6058c3cc968613b4419251b478c153a4aec32b1"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "af545c2cffdb0967a96b6249e6f5f7b0d92cdfd267f9d5238d5b9ca63e8edb10"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "206b7b3ef96e4ce211754f0cd003feb28b7d81f0ad26b8d077a5d5161436067f"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "ee5e86776273de1795947d17bddd6bb19e0365fd2af4289c0d2c5454b6b1d36b"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "95d14ca7abefde230f7639ec136ade282655431fd5db03c343b19dda72dd1643"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "912d4b6af530ddb1338a66229dac3a25ff11d4448be3ec3d6340583995f56031"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "e999f0c88a458c836d5fb521814e92ed2172c649200336a6df514987c1488258"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "39380e12bd1f2fdab4285b6e055ad48efbaed5c836433b142ed4f5b9be71036a"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "9efcc0f11d850cefcafdd9275b9576ad3bfb539bed96807663b32ad99c4d4b88"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "147b4f501d0292077f29d5268c16bb7c864a1f054d7001c4c1812c0421ea1ed0"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "d147004fede1b12f6013a6dbb2a26a986a671a03c6ea740ddc76500e5f1c399f"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "9277145d36a01653863899c665243871434694bcc3431922c3b35c978061bdb8"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "4e704c52438f66fdd89588346183d898bb42167cf88f8b7ff1c0f9fc957c348f"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "a8a4d3427e8de1312ddf309cc482186466c79895b3a139fed3259fc01dfa9a5b"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "6f497a6876aa4b1a102b04996ce4c1170c7040d83faa9387dd921c16e30d5c83"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "cb979826071c0986a5f08333a36104153478ce6018c58cba7f9caddaf63d5d67"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "9d98cc980ecc96be6eb4c1994ce35d28d8b1f5e5208a23b421187d1209dbb7d1"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "name": "Apache-2.0 AND MIT"
-          }
-        }
-      ],
-      "properties": [
-        {
-          "name": "maintainer",
-          "value": "Unknown"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "setuptools",
-      "version": "75.8.2",
-      "purl": "pkg:pypi/setuptools@75.8.2",
-      "hashes": [
-        {
-          "alg": "SHA-256",
-          "content": "558e47c15f1811c1fa7adbd0096669bf76c1d3f433f58324df69f3f5ecac4e8f"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "4880473a969e5f23f2a2be3646b2dfd84af9028716d398e46192f84bc36900d2"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "name": "Unknown"
+            "name": "NOASSERTION"
           }
         }
       ],
@@ -747,368 +101,696 @@
     {
       "type": "library",
       "name": "charset-normalizer",
-      "version": "3.3.2",
-      "purl": "pkg:pypi/charset-normalizer@3.3.2",
+      "version": "3.5.2",
+      "purl": "pkg:pypi/charset-normalizer@3.5.2",
       "hashes": [
         {
           "alg": "SHA-256",
-          "content": "25baf083bf6f6b341f4121c2f3c548875ee6f5339300e08be3f2b2ba1721cdd3"
+          "content": "195c26fb65950f8fce54e26349852b7bdd7c5f120aeefbcc440b8a20faaed4a3"
         },
         {
           "alg": "SHA-256",
-          "content": "06435b539f889b1f6f4ac1758871aae42dc3a8c0e24ac9e60c2384973ad73027"
+          "content": "9373ad13ef0d2c0fb761e04e55bfdee5a08b52cef2c882c8fbe9935b1517152e"
         },
         {
           "alg": "SHA-256",
-          "content": "9063e24fdb1e498ab71cb7419e24622516c4a04476b17a2dab57e8baa30d6e03"
+          "content": "ddf19c062bea7a0cc80f519243d2c01dd091be0cf952a0750d4ad576709559f5"
         },
         {
           "alg": "SHA-256",
-          "content": "6897af51655e3691ff853668779c7bad41579facacf5fd7253b0133308cf000d"
+          "content": "3d14b50de6bf4d0edf857a9386836846f982b8f524e188e2e68b96d702bcf4aa"
         },
         {
           "alg": "SHA-256",
-          "content": "1d3193f4a680c64b4b6a9115943538edb896edc190f0b222e73761716519268e"
+          "content": "28a15fdad492a99b6eccfaaed66ef3f74050680545ea61ec8b2f4c538f1f1320"
         },
         {
           "alg": "SHA-256",
-          "content": "cd70574b12bb8a4d2aaa0094515df2463cb429d8536cfb6c7ce983246983e5a6"
+          "content": "8a893cc101149f80a653f82062ebc95b34525a2614382e1da5458fe7c6997249"
         },
         {
           "alg": "SHA-256",
-          "content": "8465322196c8b4d7ab6d1e049e4c5cb460d0394da4a27d23cc242fbf0034b6b5"
+          "content": "619799369eeef6366ed3e8755a5670f4f2f0fb6b30a0fd7264dc0fdc2357058e"
         },
         {
           "alg": "SHA-256",
-          "content": "a9a8e9031d613fd2009c182b69c7b2c1ef8239a0efb1df3f7c8da66d5dd3d537"
+          "content": "447441e76ec720b15e64418d32e092297340387053047c7c694f579efb0ee1d9"
         },
         {
           "alg": "SHA-256",
-          "content": "beb58fe5cdb101e3a055192ac291b7a21e3b7ef4f67fa1d74e331a7f2124341c"
+          "content": "62588a277bfb59def052abd940703fa35107152bf479781a878617d60faf8fb5"
         },
         {
           "alg": "SHA-256",
-          "content": "e06ed3eb3218bc64786f7db41917d4e686cc4856944f53d5bdf83a6884432e12"
+          "content": "44bd4fbb29dfbeba60e7d2bd000c59e4b21ddb3cc53912b14048d37092706d7c"
         },
         {
           "alg": "SHA-256",
-          "content": "2e81c7b9c8979ce92ed306c249d46894776a909505d8f5a4ba55b14206e3222f"
+          "content": "30fcd120b732aa79317f08dee04d7de0847822e4cf7ee0e9f445bb958832252c"
         },
         {
           "alg": "SHA-256",
-          "content": "572c3763a264ba47b3cf708a44ce965d98555f618ca42c926a9c1616d8f34269"
+          "content": "50e3adfb96fc189eb27b1cf62d3b598b89b4bb0420d93a3d3e42e137409011be"
         },
         {
           "alg": "SHA-256",
-          "content": "fd1abc0d89e30cc4e02e4064dc67fcc51bd941eb395c502aac3ec19fab46b519"
+          "content": "b736353c0a625bbd5fcec108576e2385db3496f4f771f785ff32e108d3c3bc45"
         },
         {
           "alg": "SHA-256",
-          "content": "3d47fa203a7bd9c5b6cee4736ee84ca03b8ef23193c0d1ca99b5089f72645c73"
+          "content": "f5833ad231be5eb6553de524a70f48d71b2c8563101750531e0b80184e175cd4"
         },
         {
           "alg": "SHA-256",
-          "content": "10955842570876604d404661fbccbc9c7e684caf432c09c715ec38fbae45ae09"
+          "content": "1461ac396c4fdb983a675f20aa555624f0ee18ac83d832b9244ffff3d8055275"
         },
         {
           "alg": "SHA-256",
-          "content": "802fe99cca7457642125a8a88a084cef28ff0cf9407060f7b93dca5aa25480db"
+          "content": "c6708715abcf3c73b99508253e961a9967f02fe536532834149574eda6de0d1c"
         },
         {
           "alg": "SHA-256",
-          "content": "573f6eac48f4769d667c4442081b1794f52919e7edada77495aaed9236d13a96"
+          "content": "3d21b8b13c7592db2ac5e544a6d83187b995257472b0c9e8351b6d507ae37ed6"
         },
         {
           "alg": "SHA-256",
-          "content": "549a3a73da901d5bc3ce8d24e0600d1fa85524c10287f6004fbab87672bf3e1e"
+          "content": "d760fe2a4d7c3b226cb9026d6a842868d52a7901bd98420e1baf14e80da85cf5"
         },
         {
           "alg": "SHA-256",
-          "content": "f27273b60488abe721a075bcca6d7f3964f9f6f067c8c4c605743023d7d3944f"
+          "content": "c9790464842f85f437dbbb54417eda1e0e6bfc52dd8d22d6fd1c994b73b2dc74"
         },
         {
           "alg": "SHA-256",
-          "content": "1ceae2f17a9c33cb48e3263960dc5fc8005351ee19db217e9b1bb15d28c02574"
+          "content": "4685902cf26edf013ed7a3da0f426ebba7a00ebb9541386d835afbf002c11cab"
         },
         {
           "alg": "SHA-256",
-          "content": "65f6f63034100ead094b8744b3b97965785388f308a64cf8d7c34f2f2e5be0c4"
+          "content": "4495c5002a7b28557e7e222e77e0b661183e432b7d6d2e788101e3f240e05b8c"
         },
         {
           "alg": "SHA-256",
-          "content": "753f10e867343b4511128c6ed8c82f7bec3bd026875576dfd88483c5c73b2fd8"
+          "content": "211d5a3eb6af8f513b8d4ca19a8c1b7accab1b5f0d3175f9826b03c1a920dc1f"
         },
         {
           "alg": "SHA-256",
-          "content": "4a78b2b446bd7c934f5dcedc588903fb2f5eec172f3d29e52a9096a43722adfc"
+          "content": "ef4fcbf3327382cd4c9f540babd61248208af7b93eec4de397b4d5f58a09e288"
         },
         {
           "alg": "SHA-256",
-          "content": "e537484df0d8f426ce2afb2d0f8e1c3d0b114b83f8850e5f2fbea0e797bd82ae"
+          "content": "bd16aabe4a02a297c23417aa17ac6299dbd8c49f673bcd645b4929b11f5a4400"
         },
         {
           "alg": "SHA-256",
-          "content": "eb6904c354526e758fda7167b33005998fb68c46fbc10e013ca97f21ca5c8887"
+          "content": "fb9e68df06293761f9fe66ade60a9bc6d0f5e42b8acf2939a9158af86ab0e5bd"
         },
         {
           "alg": "SHA-256",
-          "content": "deb6be0ac38ece9ba87dea880e438f25ca3eddfac8b002a2ec3d9183a454e8ae"
+          "content": "59f63901b0031c3136cf64704dcb21de0bbae62ce2c9529bc39d27665463de37"
         },
         {
           "alg": "SHA-256",
-          "content": "4ab2fe47fae9e0f9dee8c04187ce5d09f48eabe611be8259444906793ab7cbce"
+          "content": "304d5463e65a35d7bb0850550e0780395395f6fcf452f04db7d5ca7cecc425ac"
         },
         {
           "alg": "SHA-256",
-          "content": "80402cd6ee291dcb72644d6eac93785fe2c8b9cb30893c1af5b8fdd753b9d40f"
+          "content": "9cf9b1a857e25c4baceeb3624e92a56df3668f398c4acba74e174d81fb4d1d3a"
         },
         {
           "alg": "SHA-256",
-          "content": "7cd13a2e3ddeed6913a65e66e94b51d80a041145a026c27e6bb76c31a853c6ab"
+          "content": "114e4d0c92d618409ed82a99e22b5c5e768fe995f2973f78265f4524f49d4640"
         },
         {
           "alg": "SHA-256",
-          "content": "663946639d296df6a2bb2aa51b60a2454ca1cb29835324c640dafb5ff2131a77"
+          "content": "2625388c6c754520c37abaf3b41eb34d1cc4a373f457898f08606c8e362b891d"
         },
         {
           "alg": "SHA-256",
-          "content": "0b2b64d2bb6d3fb9112bafa732def486049e63de9618b5843bcdd081d8144cd8"
+          "content": "87e50a3e7cb90af586b6c5faf23e302a970415ac73bd7bd90a515a04b427ef96"
         },
         {
           "alg": "SHA-256",
-          "content": "ddbb2551d7e0102e7252db79ba445cdab71b26640817ab1e3e3648dad515003b"
+          "content": "254eb48b9fa5ee9898a3c445825a1f340fe53712a098904b39b0bddba8ea3cb1"
         },
         {
           "alg": "SHA-256",
-          "content": "55086ee1064215781fff39a1af09518bc9255b50d6333f2e4c74ca09fac6a8f6"
+          "content": "ed2a239c0ea213acc1908150a3037257083c7c083128f1a4cec2ec4b97dca491"
         },
         {
           "alg": "SHA-256",
-          "content": "8f4a014bc36d3c57402e2977dada34f9c12300af536839dc38c0beab8878f38a"
+          "content": "b91363207bd9dc966a691e959bb47f64b30f7ac4b072be9968b366982f7db77c"
         },
         {
           "alg": "SHA-256",
-          "content": "a10af20b82360ab00827f916a6058451b723b4e65030c5a18577c8b2de5b3389"
+          "content": "38a873987f3be698494da8b2e3085e29da02da7b633dce73e79c699a113d7bf0"
         },
         {
           "alg": "SHA-256",
-          "content": "8d756e44e94489e49571086ef83b2bb8ce311e730092d2c34ca8f7d925cb20aa"
+          "content": "355ad8011081dec5412240c087a9a0c9d4d5039f3ed11a3f13e18c2b29b56c51"
         },
         {
           "alg": "SHA-256",
-          "content": "90d558489962fd4918143277a773316e56c72da56ec7aa3dc3dbbe20fdfed15b"
+          "content": "ee21e28f0430bd6dc9086c6e525d5e818a44a5ad19720c8a0ef766792f3eb5e5"
         },
         {
           "alg": "SHA-256",
-          "content": "6ac7ffc7ad6d040517be39eb591cac5ff87416c2537df6ba3cba3bae290c0fed"
+          "content": "3d31298449090ab8d47b7b1b2a555ff73cac7ed438a08b7ac160980c7ebed649"
         },
         {
           "alg": "SHA-256",
-          "content": "7ed9e526742851e8d5cc9e6cf41427dfc6068d4f5a3bb03659444b4cabf6bc26"
+          "content": "5cde776b7cc66e4f6c99612cea4aa7269aa65863f7a15841b2c264f103822f4e"
         },
         {
           "alg": "SHA-256",
-          "content": "8bdb58ff7ba23002a4c5808d608e4e6c687175724f54a5dade5fa8c67b604e4d"
+          "content": "ae4f5fea5b8b8ccff88238cc8569303e5ee95efae67fa62922a311397a71f346"
         },
         {
           "alg": "SHA-256",
-          "content": "6b3251890fff30ee142c44144871185dbe13b11bab478a88887a639655be1068"
+          "content": "f7d486c83842422badd511868fd8a9a20e9407ace71564b6af47ce7e60a336c1"
         },
         {
           "alg": "SHA-256",
-          "content": "b4a23f61ce87adf89be746c8a8974fe1c823c891d8f86eb218bb957c924bb143"
+          "content": "11a4d68a6ecda3292cb1e50239e111543ba5d709bb62a6b4ea1afcfa729d8875"
         },
         {
           "alg": "SHA-256",
-          "content": "efcb3f6676480691518c177e3b465bcddf57cea040302f9f4e6e191af91174d4"
+          "content": "d6734d2ef8a50fbf8445c139477da401f50d62a0606bf00e20ec6d87773fefb1"
         },
         {
           "alg": "SHA-256",
-          "content": "d965bba47ddeec8cd560687584e88cf699fd28f192ceb452d1d7ee807c5597b7"
+          "content": "a815775b6c38d4e0ff7bcffbeba67feded90202bb6a226b8dd35f1c855217413"
         },
         {
           "alg": "SHA-256",
-          "content": "96b02a3dc4381e5494fad39be677abcb5e6634bf7b4fa83a6dd3112607547001"
+          "content": "23851fb4e1b85ed3f6c2a27b777cdfe2e19fb5b38429a8faf38c7542b7665869"
         },
         {
           "alg": "SHA-256",
-          "content": "95f2a5796329323b8f0512e09dbb7a1860c46a39da62ecb2324f116fa8fdc85c"
+          "content": "db19d07e2e0129e974a0e65d0064fc222a446cd5122c2fd4184d2af9fc734a9e"
         },
         {
           "alg": "SHA-256",
-          "content": "c002b4ffc0be611f0d9da932eb0f704fe2602a9a949d1f738e4c34c75b0863d5"
+          "content": "780fbe7cab297b81dad9fb8dc5eb003c0468ffb0d9e5f65068c53a34661a96bc"
         },
         {
           "alg": "SHA-256",
-          "content": "a981a536974bbc7a512cf44ed14938cf01030a99e9b3a06dd59578882f06f985"
+          "content": "e2af3aad578aa6bd1384bcf4750fc285e5a9de53f40b7d41e5a0bf748edeb2b3"
         },
         {
           "alg": "SHA-256",
-          "content": "3287761bc4ee9e33561a7e058c72ac0938c4f57fe49a09eae428fd88aafe7bb6"
+          "content": "ed905975ab14056a2e5eb1c376cb2e1ebc5396baf84163939c518556fccde9f5"
         },
         {
           "alg": "SHA-256",
-          "content": "42cb296636fcc8b0644486d15c12376cb9fa75443e00fb25de0b8602e64c1714"
+          "content": "a66c3bc5ab1f0ff2164fc9965ddd611ff0802173f4b9d24554c563f6ab7e1d6e"
         },
         {
           "alg": "SHA-256",
-          "content": "0a55554a2fa0d408816b3b5cedf0045f4b8e1a6065aec45849de2d6f3f8e9786"
+          "content": "d2374b62878abb00cd8309b32af6c0b715cd02dec0ca74ef12e5069bdc64144a"
         },
         {
           "alg": "SHA-256",
-          "content": "c083af607d2515612056a31f0a8d9e0fcb5876b7bfc0abad3ecd275bc4ebc2d5"
+          "content": "d376bbd28b3a8999db1a103b3b388aee6f1ddeb3e51bc2172993efdcd86e064d"
         },
         {
           "alg": "SHA-256",
-          "content": "87d1351268731db79e0f8e745d92493ee2841c974128ef629dc518b937d9194c"
+          "content": "6045373d5a89a5ec71afde535db987ca28e76dfa276c2d4c818265b375d4b055"
         },
         {
           "alg": "SHA-256",
-          "content": "bd8f7df7d12c2db9fab40bdd87a7c09b1530128315d047a086fa3ae3435cb3a8"
+          "content": "849df64e889b2e17230d58410a03dba311a65b163508fd33679b2b737d4b7858"
         },
         {
           "alg": "SHA-256",
-          "content": "c180f51afb394e165eafe4ac2936a14bee3eb10debc9d9e4db8958fe36afe711"
+          "content": "15c44f7edfd477b06f517a5cc317fc1707edb9de2c865f43d4b6513907473234"
         },
         {
           "alg": "SHA-256",
-          "content": "8c622a5fe39a48f78944a87d4fb8a53ee07344641b0562c540d840748571b811"
+          "content": "a89012d6d5476ee112d20d998570ed58df2260a852afb1758809cd6900411d21"
         },
         {
           "alg": "SHA-256",
-          "content": "db364eca23f876da6f9e16c9da0df51aa4f104a972735574842618b8c6d999d4"
+          "content": "0c951d5e6dd9c2ff60609476752bee49da4206adde960ebc247766937f72e718"
         },
         {
           "alg": "SHA-256",
-          "content": "86216b5cee4b06df986d214f664305142d9c76df9b6512be2738aa72a2048f99"
+          "content": "7218e8f32b0956cfcd048fd42d9d5779809745ca1d86113ca56f66e7ae1549c4"
         },
         {
           "alg": "SHA-256",
-          "content": "6463effa3186ea09411d50efc7d85360b38d5f09b870c48e4600f63af490e56a"
+          "content": "a19a731138fc27d5682277d3b9df22855cea1239bce7fcec5f78f42ef2d1f3c3"
         },
         {
           "alg": "SHA-256",
-          "content": "6c4caeef8fa63d06bd437cd4bdcf3ffefe6738fb1b25951440d80dc7df8c03ac"
+          "content": "62603db9a7caa0802eaa28c1c46fecd7b3a263a774069c24c3c28c302448721c"
         },
         {
           "alg": "SHA-256",
-          "content": "37e55c8e51c236f95b033f6fb391d7d7970ba5fe7ff453dad675e88cf303377a"
+          "content": "b6856554c4f44d79fc2307d5768854310a8f0096e501c75637542c82292b0429"
         },
         {
           "alg": "SHA-256",
-          "content": "fb69256e180cb6c8a894fee62b3afebae785babc1ee98b81cdf68bbca1987f33"
+          "content": "1bc0baf5ef96b6ede57d47f4b8fe4d9d84019c3bfcbeb20a41edc6a6ee341f1f"
         },
         {
           "alg": "SHA-256",
-          "content": "ae5f4161f18c61806f411a13b0310bea87f987c7d2ecdbdaad0e94eb2e404238"
+          "content": "56bc200a365efb37383b7852e4cc5898d3b2da5987289b543956cf8cad71018a"
         },
         {
           "alg": "SHA-256",
-          "content": "b2b0a0c0517616b6869869f8c581d4eb2dd83a4d79e0ebcb7d373ef9956aeb0a"
+          "content": "2c9ad19a6cfcd5ea5c0d41161d22f9df1dcc277e9bef2751391334546a314c00"
         },
         {
           "alg": "SHA-256",
-          "content": "45485e01ff4d3630ec0d9617310448a8702f70e9c01906b0d0118bdf9d124cf2"
+          "content": "e243bd13217235fc7290c621941c3f5cc8b66e4872495be821d7436ba2fb838d"
         },
         {
           "alg": "SHA-256",
-          "content": "eb00ed941194665c332bf8e078baf037d6c35d7c4f3102ea2d4f16ca94a26dc8"
+          "content": "a090bb2c68df85450502e3e20d665e3a5af9c65a84d6508ed477badd49166fd3"
         },
         {
           "alg": "SHA-256",
-          "content": "2127566c664442652f024c837091890cb1942c30937add288223dc895793f898"
+          "content": "2b7b3bbfb4fe8ef40600792d762fbaa9057559f9d3fad209525b7a22b99e91fd"
         },
         {
           "alg": "SHA-256",
-          "content": "a50aebfa173e157099939b17f18600f72f84eed3049e743b68ad15bd69b6bf99"
+          "content": "78456a747de8dc58360ffa581f30a002baf5aa28cb262536545e91f113ed7639"
         },
         {
           "alg": "SHA-256",
-          "content": "4d0d1650369165a14e14e1e47b372cfcb31d6ab44e6e33cb2d4e57265290044d"
+          "content": "11912e4bb14baae7c5d8791aa55ba0a3a03ec6729073307b0f57270abaa713d3"
         },
         {
           "alg": "SHA-256",
-          "content": "923c0c831b7cfcb071580d3f46c4baf50f174be571576556269530f4bbd79d04"
+          "content": "1afb975bd5d68d5ce9f6b6d44fdf2f7e34b895a35e95708a7a91b20a3b51d187"
         },
         {
           "alg": "SHA-256",
-          "content": "06a81e93cd441c56a9b65d8e1d043daeb97a3d0856d177d5c90ba85acb3db087"
+          "content": "bbbfc8e28816f19d7c0f1816664980c0a9875d01b27cdf8eedddb639d9e108ad"
         },
         {
           "alg": "SHA-256",
-          "content": "6ef1d82a3af9d3eecdba2321dc1b3c238245d890843e040e41e470ffa64c3e25"
+          "content": "7967d08cf06dee78443b874f98c98036f624f3a4e73e11f9f64f5be4d25393cf"
         },
         {
           "alg": "SHA-256",
-          "content": "eb8821e09e916165e160797a6c17edda0679379a4be5c716c260e836e122f54b"
+          "content": "4c2b5031f63e331e3839b40aed2dd6f191e9c07edbde303e7876846ea1946995"
         },
         {
           "alg": "SHA-256",
-          "content": "c235ebd9baae02f1b77bcea61bce332cb4331dc3617d254df3323aa01ab47bd4"
+          "content": "fcff63213e8e6e47770541a4607175404f47cbb3ebea7b6058cc82d524a0e424"
         },
         {
           "alg": "SHA-256",
-          "content": "5b4c145409bef602a690e7cfad0a15a55c13320ff7a3ad7ca59c13bb8ba4d45d"
+          "content": "8d86d6fc60743dc916eb79e2eb1ec4818e21e427731543af40a3021851174a13"
         },
         {
           "alg": "SHA-256",
-          "content": "68d1f8a9e9e37c1223b656399be5d6b448dea850bed7d0f87a8311f1ff3dabb0"
+          "content": "7a881931aa470808df94a8c380eed2bbbc76cd9dc622310f99665658c821eb6d"
         },
         {
           "alg": "SHA-256",
-          "content": "22afcb9f253dac0696b5a4be4a1c0f8762f8239e21b99680099abd9b2b1b2269"
+          "content": "8024d00c3faf3fc0c16e07a69f4405e8eac7cc0ab15f65fe6cf43827c4cf72b4"
         },
         {
           "alg": "SHA-256",
-          "content": "e27ad930a842b4c5eb8ac0016b0a54f5aebbe679340c26101df33424142c143c"
+          "content": "4d48f2d08b9de5864e2c8744d4461b862fb149a18274abc8b698c45975573438"
         },
         {
           "alg": "SHA-256",
-          "content": "1f79682fbe303db92bc2b1136016a38a42e835d932bab5b3b1bfcfbf0640e519"
+          "content": "34276fd796040bf0993ab33a369aa572e6979c7aab225a88893667ad8eac8f7a"
         },
         {
           "alg": "SHA-256",
-          "content": "b261ccdec7821281dade748d088bb6e9b69e6d15b30652b74cbbac25e280b796"
+          "content": "0521c5665880b33d603717defa76c094048900010897909952397feb3039da56"
         },
         {
           "alg": "SHA-256",
-          "content": "122c7fa62b130ed55f8f285bfd56d5f4b4a5b503609d181f9ad85e55c89f4185"
+          "content": "eff0ac9dbe711a4aee69bf04a83896aa9b85f19641264053a9f6d48573abb7dd"
         },
         {
           "alg": "SHA-256",
-          "content": "d0eccceffcb53201b5bfebb52600a5fb483a20b61da9dbc885f8b103cbe7598c"
+          "content": "1503bccbeb36d5527790c3930327704c39af22de3112f1b1666a9f3ce15ee204"
         },
         {
           "alg": "SHA-256",
-          "content": "9f96df6923e21816da7e0ad3fd47dd8f94b2a5ce594e00677c0013018b813458"
+          "content": "52aa6992700996af31f375de0c6bacd402b0097fe40b53c426b9f51a90ebabc7"
         },
         {
           "alg": "SHA-256",
-          "content": "7f04c839ed0b6b98b1a7501a002144b76c18fb1c1850c8b98d458ac269e26ed2"
+          "content": "e09a3942ecbdee5cce73ea9d42da82b81b72ac1bf031ce069b93b5adf4eac8cd"
         },
         {
           "alg": "SHA-256",
-          "content": "34d1c8da1e78d2e001f363791c98a272bb734000fcef47a491c1e3b0505657a8"
+          "content": "c7c9ab723cde841fefb34efbad91e87f00a674b1fe1cd0784fde742bf2c154dc"
         },
         {
           "alg": "SHA-256",
-          "content": "ff8fa367d09b717b2a17a052544193ad76cd49979c805768879cb63d9ca50561"
+          "content": "ddc7dacc8ece3a182e7f15cb862d1fd616b46d076cb1ae9dd232b2c38b655874"
         },
         {
           "alg": "SHA-256",
-          "content": "aed38f6e4fb3f5d6bf81bfa990a07806be9d83cf7bacef998ab1a9bd660a581f"
+          "content": "ee43c17b173d46a3212baa6ead3ae258eeabdae48c263a01ccf0218c366dd655"
         },
         {
           "alg": "SHA-256",
-          "content": "b01b88d45a6fcb69667cd6d2f7a9aeb4bf53760d7fc536bf679ec94fe9f3ff3d"
+          "content": "dca9ab98072a5a54ebacebdc45f53e645336b320c667410b061be1ca588ae709"
         },
         {
           "alg": "SHA-256",
-          "content": "3e4d1f6587322d2788836a99c69062fbb091331ec940e02d12d179c1d53e25fc"
+          "content": "f0aa869112ef88429ae17820d99c3dd9504c9e9c671d3c246f3d7442cb051084"
         },
         {
           "alg": "SHA-256",
-          "content": "f30c3cb33b24454a82faecaf01b19c18562b1e89558fb6c56de4d9118a032fd5"
+          "content": "c0afc6800ba57ccc350374c5bd6150419915d95ce93cdbab2d783d75eaf30ecb"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "7dcd882da75ef9adf94903b1e3b9419e8aa8fb4c7396822b834b9ef7fb96954f"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "2e06a3a98f916dd41d27f3105e02e7a40181c98c94b9158733d03a6f80506c09"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "6bd128f206a7752ae1f2ab6c61bf8a24ba28913a10df8b14c2637b973ff97a80"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "c8f3d67aeaf55f017982b73683f0e7342ba2f6635a78f69ce89ebb26aa411e5c"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "fe9753dfee015c570d73df76f899f18444d41388bffcde097deba51c4fadbb9f"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "92888bb3187c5ba50500b00b3b310c9f2c651709d28036077680cb5255450a03"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "d008d90a7f2471519aef0c90dfbe73b3e6e4d5e66ac48e19154c17e89e98b604"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "31f3930700408d211f13378ccbe1c40845d8da54bd0681fac3a9b5aae81c7aa8"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "2a925889534b3748302dae5dead07cc13480de1dac3aea80a941b729b471ef93"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "f5ec61164adcec446f8969a3358ec3f9b26bbda3b9213e5586d219afa8df2915"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "598a11a2c7ebaa5334bf698bf29568c9c390abac6a154d8170fedecd1cea38c5"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "7fdde2c9fd9e3eca40631e024664cf2584272cc8f96308cbe5fdfc930f51d8bc"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "d1befeed746d247c81127bb14de9dc3d30edb6e5976d34f83f86ed262b1d9105"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "4f87960d57feabfb618e4e0af6e7371645fa26a277860739d6e5d6e0012c92f0"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "e4e81e09c1578b8df602e3db08b0b3ea0a6947ad612f52bf8dc5ea8d47691f0c"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "80d02b6f04e92601a081dd97b23d3128033098bff5d35d392ddcc0476ea11253"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "87475fabc8d9996fd9c27debb395e642e8c838d78a00b6e932227a0e06b81e26"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "9409a8bf35cf78353942504b24a57de3d75b708997a1e4bd8db71ac8633ce364"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "498dc3188ca05a68231ac3fdbfc7f57eb67e1343c30e0fea17f8218c1599b253"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "e242bb1c5e76e97dfa9e7f209a71e93a01d7f19ffdd5cfbb2e2d55b4f08f8ab0"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "def79fa35ef0cef8d2accec024f4fdc7ead3012ff02f5215c783f39f03ef8cfc"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "3df041de8887954562c9b261cba85ca0e9ded74048daf125f45edcfaa4832229"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "04851f73ae72b8413dddadb16a49dfee95263553741fd42d546f7d66907e6be5"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "183b88127acdb4fabe59d951ab424faf1af7b63cdbb5f776186c1ea2ffcaed98"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "16fa0eccf81304b79c5cd87f9271c3b85dd9dd99245e4422ae9c0dd45e0f99d3"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "7441d755b7ab94f8d4eb3e43ec05482d760842fd263d003a99102d742cd835e2"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "ca403d7e4798f525fdfc78e258820419cbbd0f0ecbab9de7840e3c017cf6b8cf"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "df29a0a7107f7011e77f4eebdddec4c7331e24d787a0b21a46d63bdf7445da95"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "f3c96f633825733f735c5a9cf21d21a257d8e1edf0b1cee0a064b9c424ca0f7d"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "915563965d418f986e7e145accc592eae9e1a1be3566ff98a05d7a9ec42a76e1"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "65cd72beeeca9d3aaea1201e5923859f308f952f9c71de93f06063c79f0f7a3b"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "b7fd005a73d9e657273b7a10dc71a9e03c8fb9ee6999798d6918ce095b81ac7f"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "e54da4baf05720032d527874d40b65fa4d7e5c6c6a43d0c3adbeffcaf275a2b3"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "124fbf1a8ff966d87ae05bb8bd45a71f966055ed8bba320d0c7cf450bc5f4d0e"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "28b4f0d66fb834ff90f28209ac7bce77868c45d8c93e26f906709d9b7c2e1af9"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "58ca3755ee7ff7f59b57789ec9833c9de9ea275405cdd240eda1f193112e398a"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "443eae2bf318abeaf6f15d785138f71fd6de770e99a92158b8b814265e079115"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "58f361dcbab699cf8f42db3f47c8e7fd1036f138c23a5d08de9fde5f425a730c"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "1b4cbc7c3491ccb4aa17fcd8165649d01cf39f76de1696da8631b5f71b85401d"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "ba0b1d2620edf869789c3879223f52bf2afc5d31b3cb47cc57b3a12c05e2aa9d"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "5e2b6b57e9733d39f0c9fd3185efa6b8e29652c4cd8fe94180272cf6ed9a78c4"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "51cf45226a9b588d0d2b4880c62d686934b63ab0bd79ca23ab0e9762eb27441b"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "5fb29fb8cd1a46c27a1bf9613ad5ec2599310d46b4025d9556404a6b6a292800"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "a192e2c40070d92c3ccf777e3a5c4ff515573cd2bb7ed0c537fdadbbec5bbf21"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "749e97e1b32313717a565abbe321bc2190bc8b35f1a67e4cdbc7c56c8d8ffe58"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "281cb91036248400f4cc957495cccd44c275c2e0c5854f7e45ac5cf7dc193847"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "89b53f3cda69831909888e0494f4fa0bcd3537e3e138dabeb620bd6ad946bae8"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "6be488a102b8cf28d0391d8c4ba7748938ae28b78ad901f8585520fca33ead1a"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "4275811936e2f06feff5e598fb42a1b7ae852da8e39605211892b56b81a34efd"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "1c50fe28bbc2ced33386f298650d91218076c05420e6cbd790b913adc41659e7"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "d19fbd981a488e22cd04883659ca6b08f50b5974f9fd7c95655ef6a043e5893f"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "0fed1d06615f022ee3b13caf5e8b180cfea32bb2c5aded8a9d44277afc040f93"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "838dcc90063569a0448120554591a1d6c4a4ffe11babf048908793154ab86ade"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "2ce45c6627b22c47e390bc91a41c3d13032192e699fa0bea96e9671b373d69b0"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "0774bf9bf620249fee3e0b8b9fd3065de213be30f3aa94ce2494b3b638949e26"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "1db38f4c5496827c1a501846d64d14c3b80c7e6714e406cd7dc36a9899fa1011"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "304d8e4d493af723536393eee0c689eb7813f4a474c8b479dee63f1fdd98f621"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "9b7f416ff0978e2f2249330527f0ad6fa02f4932e6199692d3b52da2048c19e4"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "01077390b03f7988f11d700a2194e69b119741a86b1a638b1db88891e3eced8e"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "7e841fb9010836c992c9f12fcbd43a831de93a5f726fc1ccd8ca1d0268c5014c"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "9cae88599c7219005d879f98e5ed53341e9a122af585e1091200358a3003d2a0"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "01b0c0d2262a9e28e8484a278c7e1b5d650e3ac8cf2683d2967e25899f208bdf"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "9f56f72050826f63dcee7a7f55b0a77168cb3bfc553fd405e7f8f9ece75a4036"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "40ab6bffa02ae10a0581e6c198be7d2d8ca5c2a0c64e4ed3465d766df457573e"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "75a3ceed0724d625d64b86ca20aba182e4df462e04c2414fc941c0f523f06aac"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "0891b9d3903c5571c03771ca669a4b0ec5618ca722a5c957d3d29cd4e5062848"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "fc14a032f813bf5fe624d991960ea83e9715adc27e4c1830a2361eb1d02ac341"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "8b2bfab86aa71ae13aa41a6a26aab338e0db2b8bc75434b05aea89e011ff35a4"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "9bde855991b7e362c146535e3136a50bfaffc0487d38b33ca7e5edefc6e23849"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "55ea99acb17b9325618de155a0cd6a2e8f5d10be008113e1d433bbb58db543b2"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "68eb192d85ab8e5f6ec69c2bc6ac0179fbf04a5ac1569d12fbef74883fe102d0"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "d913de495d90407cd859d263bee2e5d1a4ed3eb6573c04e70d9ec619a7cbed7f"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "3ddacd27458c45bdacd6bd6db644bfb730efbf9e830310186e3045c9c5be8fb2"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "588461c2e8384d309bd63e5826019b6977bc66d629b99ac8737bb795d7b2cb5a"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "e80e6c2f55656b4824d72065abb4ddd6a525c74bd78a0aab5d9fc2cf4fb5af50"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "d4a7319f304a774bed22115bc891618e45f85065ab44ea6acd07d274e750519a"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "fd1fbe0f116b6e55da77aca2c6ddcddcfac2186cbf78bdebf40fc156efca389d"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "93223adc95033dd47133a46ccfc316a0139176fd79085762e27202ec56018f03"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "15bb4005af6320d259dc7593ca84a38d7fe06a421dbcf7b910ae23979101e787"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "2cc961b171b3f3440f410489ab3573e86aea8736134ebbb40ea1338b7f0831bc"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "b6b751274acb69d77b3323d6b7dbaa3c7fdfc1eb829b7eb61d262f32e1af9685"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "39de2a259fc954455c57274dc94c79d5842774e1247a016aff30bc0efed0f4ef"
         }
       ],
       "licenses": [
@@ -1121,52 +803,23 @@
       "properties": [
         {
           "name": "maintainer",
-          "value": "Ahmed TAHRI"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "idna",
-      "version": "3.7",
-      "purl": "pkg:pypi/idna@3.7",
-      "hashes": [
-        {
-          "alg": "SHA-256",
-          "content": "82fee1fc78add43492d3a1898bfa6d8a904cc97d8427f683ed8e798d07761aa0"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "name": "Unknown"
-          }
-        }
-      ],
-      "properties": [
-        {
-          "name": "maintainer",
           "value": "Unknown"
         }
       ]
     },
     {
       "type": "library",
-      "name": "urllib3",
-      "version": "2.2.2",
-      "purl": "pkg:pypi/urllib3@2.2.2",
+      "name": "idna",
+      "version": "3.20",
+      "purl": "pkg:pypi/idna@3.20",
       "hashes": [
         {
           "alg": "SHA-256",
-          "content": "a448b2f64d686155468037e1ace9f2d2199776e17f0a46610480d311f73e3472"
+          "content": "ab7ae7122974553370f0bdb919e1a960b2cd1bc1ef0276416d896db81c14582c"
         },
         {
           "alg": "SHA-256",
-          "content": "dd505485549a7a552833da5e6063639d0d177c04f23bc3864e41e5dc5f612168"
+          "content": "a7db850025b95ded1eae8a46181a1a6c56c92c96f0e2b005d9ff8dc0210cab44"
         }
       ],
       "licenses": [
@@ -1186,16 +839,16 @@
     {
       "type": "library",
       "name": "certifi",
-      "version": "2024.7.4",
-      "purl": "pkg:pypi/certifi@2024.7.4",
+      "version": "2026.7.22",
+      "purl": "pkg:pypi/certifi@2026.7.22",
       "hashes": [
         {
           "alg": "SHA-256",
-          "content": "c198e21b1289c2ab85ee4e67bb4b4ef3ead0892059901a8d5b622f24a1101e90"
+          "content": "62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775"
         },
         {
           "alg": "SHA-256",
-          "content": "5a1e7645bc0ec61a09e26c36f6106dd4cf40c6db3a1fb6352b0244e7fb057c7b"
+          "content": "741e2c3b351ddf169a738da9f2c048608ff7f2c5cc02f1ebc6b118bb090d5d55"
         }
       ],
       "licenses": [
@@ -1214,846 +867,613 @@
     },
     {
       "type": "library",
-      "name": "chardet",
-      "version": "5.2.0",
-      "purl": "pkg:pypi/chardet@5.2.0",
+      "name": "MarkupSafe",
+      "version": "3.0.4",
+      "purl": "pkg:pypi/MarkupSafe@3.0.4",
       "hashes": [
         {
           "alg": "SHA-256",
-          "content": "e1cf59446890a00105fe7b7912492ea04b6e6f06d4b742b2c788469e34c82970"
+          "content": "dd8ea6ebee7aedbf7c749fa80521d9ccf1ba473e0d1e14805caafbaad281c889"
         },
         {
           "alg": "SHA-256",
-          "content": "1b3b6ff479a8c414bc3fa2c0852995695c4a026dcd6d0633b2dd092ca39c1cf7"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "name": "LGPL"
-          }
-        }
-      ],
-      "properties": [
-        {
-          "name": "maintainer",
-          "value": "Daniel Blanchard"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "python-dotenv",
-      "version": "1.2.2",
-      "purl": "pkg:pypi/python-dotenv@1.2.2",
-      "hashes": [
-        {
-          "alg": "SHA-256",
-          "content": "1d8214789a24de455a8b8bd8ae6fe3c6b69a5e3d64aa8a8e5d68e694bbcb285a"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "2c371a91fbd7ba082c2c1dc1f8bf89ca22564a087c2c287cd9b662adde799cf3"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "name": "BSD-3-Clause"
-          }
-        }
-      ],
-      "properties": [
-        {
-          "name": "maintainer",
-          "value": "Unknown"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "yarl",
-      "version": "1.22.0",
-      "purl": "pkg:pypi/yarl@1.22.0",
-      "hashes": [
-        {
-          "alg": "SHA-256",
-          "content": "c7bd6683587567e5a49ee6e336e0612bec8329be1b7d4c8af5687dcdeb67ee1e"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "5cdac20da754f3a723cceea5b3448e1a2074866406adeb4ef35b469d089adb8f"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "07a524d84df0c10f41e3ee918846e1974aba4ec017f990dc735aad487a0bdfdf"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "e1b329cb8146d7b736677a2440e422eadd775d1806a81db2d4cded80a48efc1a"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "75976c6945d85dbb9ee6308cd7ff7b1fb9409380c82d6119bd778d8fcfe2931c"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "80ddf7a5f8c86cb3eb4bc9028b07bbbf1f08a96c5c0bc1244be5e8fefcb94147"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "d332fc2e3c94dad927f2112395772a4e4fedbcf8f80efc21ed7cdfae4d574fdb"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "0cf71bf877efeac18b38d3930594c0948c82b64547c1cf420ba48722fe5509f6"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "663e1cadaddae26be034a6ab6072449a8426ddb03d500f43daf952b74553bba0"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "6dcbb0829c671f305be48a7227918cfcd11276c2d637a8033a99a02b67bf9eda"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "f0d97c18dfd9a9af4490631905a3f131a8e4c9e80a39353919e2cfed8f00aedc"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "437840083abe022c978470b942ff832c3940b2ad3734d424b7eaffcd07f76737"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "a899cbd98dce6f5d8de1aad31cb712ec0a530abc0a86bd6edaa47c1090138467"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "595697f68bd1f0c1c159fcb97b661fc9c3f5db46498043555d04805430e79bea"
+          "content": "dff05cb7016dff1e9fd68f4122c127b65dfc59de5306cfb7ad92f956f230bee2"
         },
         {
           "alg": "SHA-256",
-          "content": "cb95a9b1adaa48e41815a55ae740cfda005758104049a640a398120bf02515ca"
+          "content": "cf63c214fe879a65e69a386f915e36104fc84254ab141240f8854602d8e0be2a"
         },
         {
           "alg": "SHA-256",
-          "content": "b85b982afde6df99ecc996990d4ad7ccbdbb70e2a4ba4de0aecde5922ba98a0b"
+          "content": "2a6ef68ae94aed8721934072b27a3b654ea2100b97e4ab864cf1489c90926fbc"
         },
         {
           "alg": "SHA-256",
-          "content": "1ab72135b1f2db3fed3997d7e7dc1b80573c67138023852b6efb336a5eae6511"
+          "content": "fd9f8797427910198f95bced71ddfed61130d7e349213bfb8466c9c99e2c46a8"
         },
         {
           "alg": "SHA-256",
-          "content": "669930400e375570189492dc8d8341301578e8493aec04aebc20d4717f899dd6"
+          "content": "d1aca03ede943eb80ab3d63bb082c84b7aab85ea83bd0fd0c200260945fb49d9"
         },
         {
           "alg": "SHA-256",
-          "content": "792a2af6d58177ef7c19cbf0097aba92ca1b9cb3ffdd9c7470e156c8f9b5e028"
+          "content": "0764a13d34cae40db7bbf3a09b7e9b491bf4603e20b263a7a9d6b8e324975d0a"
         },
         {
           "alg": "SHA-256",
-          "content": "3ea66b1c11c9150f1372f69afb6b8116f2dd7286f38e14ea71a44eee9ec51b9d"
+          "content": "9388003072b95f2f1e3fd908604194d653ba21330d811961a78b7da1a77e9e36"
         },
         {
           "alg": "SHA-256",
-          "content": "3e2daa88dc91870215961e96a039ec73e4937da13cf77ce17f9cad0c18df3503"
+          "content": "8698d70a8081ee8c090dbb394768b5789a1da8b131b5499f89d071dd3cfaf6be"
         },
         {
           "alg": "SHA-256",
-          "content": "ba440ae430c00eee41509353628600212112cd5018d5def7e9b05ea7ac34eb65"
+          "content": "bf053da3c97a4bc5ecfbb218cdd2983febd91c617be8367d139882aa11e490aa"
         },
         {
           "alg": "SHA-256",
-          "content": "e6438cc8f23a9c1478633d216b16104a586b9761db62bfacb6425bac0a36679e"
+          "content": "9438a2648b2195980cb2dd8e53ed7b8df91319e2d0b70ae61a9e1d1bc8d3bec9"
         },
         {
           "alg": "SHA-256",
-          "content": "4c52a6e78aef5cf47a98ef8e934755abf53953379b7d53e68b15ff4420e6683d"
+          "content": "88d59b473bfb03259722600839af9bbd7fa13a2eb514beefeedb95997882f69a"
         },
         {
           "alg": "SHA-256",
-          "content": "3b06bcadaac49c70f4c88af4ffcfbe3dc155aab3163e75777818092478bcbbe7"
+          "content": "4a540e2d3192792fc84eced57bef37851ccb2b41f73291bb17408eea77bcd278"
         },
         {
           "alg": "SHA-256",
-          "content": "6944b2dc72c4d7f7052683487e3677456050ff77fcf5e6204e98caf785ad1967"
+          "content": "5c22873ad1f0532ba40fa1727f3c0fc1bbbaab6d373d4cbe3f0dc74b2e2521c7"
         },
         {
           "alg": "SHA-256",
-          "content": "d5372ca1df0f91a86b047d1277c2aaf1edb32d78bbcefffc81b40ffd18f027ed"
+          "content": "3d23795802fc8bd72534836d64489bbf0f67c088959091bdb22e10735a5107bf"
         },
         {
           "alg": "SHA-256",
-          "content": "51af598701f5299012b8416486b40fceef8c26fc87dc6d7d1f6fc30609ea0aa6"
+          "content": "9e25feb9e330b63edb0278a0acdf85e50d0cb0fbf49c3084abbe4e24ae195346"
         },
         {
           "alg": "SHA-256",
-          "content": "b266bd01fedeffeeac01a79ae181719ff848a5a13ce10075adbefc8f1daee70e"
+          "content": "7d3391b2188d18737cb2fa147028b1096236eaa7e156446c650a489fa2cadc91"
         },
         {
           "alg": "SHA-256",
-          "content": "a9b1ba5610a4e20f655258d5a1fdc7ebe3d837bb0e45b581398b99eb98b1f5ca"
+          "content": "849dd2bb0e5e4ab2b71c7191726a4a8d5aa8a610daa584728cbee0b710ddc4ef"
         },
         {
           "alg": "SHA-256",
-          "content": "078278b9b0b11568937d9509b589ee83ef98ed6d561dfe2020e24a9fd08eaa2b"
+          "content": "befb4158af32106b9a93db8d6d1d1cbbd418c0d5aca0cabb7b1780abf0c89169"
         },
         {
           "alg": "SHA-256",
-          "content": "b6a6f620cfe13ccec221fa312139135166e47ae169f8253f72a0abc0dae94376"
+          "content": "71f88e749ea29f67f21f3b36433c1dc54c7729ed2a6d9e2da2e0d9e0d7b224eb"
         },
         {
           "alg": "SHA-256",
-          "content": "e340382d1afa5d32b892b3ff062436d592ec3d692aeea3bef3a5cfe11bbf8c6f"
+          "content": "6da83a088f8ef93b2d483a8232a4dbf4d69d3d8496b568a03c56becac43e1808"
         },
         {
           "alg": "SHA-256",
-          "content": "f1e09112a2c31ffe8d80be1b0988fa6a18c5d5cad92a9ffbb1c04c91bfe52ad2"
+          "content": "8f0fac8b13d14bb06c68195f849371924ae53dd7b1c00fed24650f704383b692"
         },
         {
           "alg": "SHA-256",
-          "content": "939fe60db294c786f6b7c2d2e121576628468f65453d86b0fe36cb52f987bd74"
+          "content": "4a7cdc2a420ca01058182da4253329764d4bfa055564d1eced90e6ba1e8b1d3d"
         },
         {
           "alg": "SHA-256",
-          "content": "e1651bf8e0398574646744c1885a41198eba53dc8a9312b954073f845c90a8df"
+          "content": "83b3944fea42a8400edf92fd1770fb8d0d4f7de651353bd2d8525a92dba69a21"
         },
         {
           "alg": "SHA-256",
-          "content": "b8a0588521a26bf92a57a1705b77b8b59044cdceccac7151bd8d229e66b8dedb"
+          "content": "8138eb83940ec7299024d92d4dee45f601b9e6c5ffde9d25f4e35e326203c707"
         },
         {
           "alg": "SHA-256",
-          "content": "42188e6a615c1a75bcaa6e150c3fe8f3e8680471a6b10150c5f7e83f47cc34d2"
+          "content": "811d02d5122171c1941357efd8f9bf4ffe907b7f0a1a4e729a880e4be3f46e3e"
         },
         {
           "alg": "SHA-256",
-          "content": "f6d2cb59377d99718913ad9a151030d6f83ef420a2b8f521d94609ecc106ee82"
+          "content": "50b5bedc9ed8a94fc8857a42ef4f84a81ea88f8d4f05dc8705fb23ee6d8dcca7"
         },
         {
           "alg": "SHA-256",
-          "content": "50678a3b71c751d58d7908edc96d332af328839eea883bb554a43f539101277a"
+          "content": "2e5a7cd7fdd14fcb1ae5d7d8bf23d24fbd1daefd1fbca2580132e1ea75f098b5"
         },
         {
           "alg": "SHA-256",
-          "content": "1e8fbaa7cec507aa24ea27a01456e8dd4b6fab829059b69844bd348f2d467124"
+          "content": "fdb4ca07ab75ffadab4a8b135ad59cdbb3156b99310f3d565370da74a15d6bd3"
         },
         {
           "alg": "SHA-256",
-          "content": "433885ab5431bc3d3d4f2f9bd15bfa1614c522b0f1405d62c4f926ccd69d04fa"
+          "content": "569d65055d367e3dcdf30c3f41119467b73d9ee9faf332bdf40402644f5ac08e"
         },
         {
           "alg": "SHA-256",
-          "content": "b790b39c7e9a4192dc2e201a282109ed2985a1ddbd5ac08dc56d0e121400a8f7"
+          "content": "61631e08084be9e21a8967ec3139c7616ed7c5e9368e05c86d1b39562c8a57b6"
         },
         {
           "alg": "SHA-256",
-          "content": "31f0b53913220599446872d757257be5898019c85e7971599065bc55065dc99d"
+          "content": "0930db9bdc62d22944e10b066448bb65dc9abe9112880c7cab8da54db4284d5f"
         },
         {
           "alg": "SHA-256",
-          "content": "a49370e8f711daec68d09b821a34e1167792ee2d24d405cbc2387be4f158b520"
+          "content": "6a45c3d514f2436064db00d7fc8778d888f0236ebfed649b53d13a59e69ad51b"
         },
         {
           "alg": "SHA-256",
-          "content": "70dfd4f241c04bd9239d53b17f11e6ab672b9f1420364af63e8531198e3f5fe8"
+          "content": "1e1451fab512d1bcc3dc26988ec1edb0b82c2db909132872cd9356070a6b63df"
         },
         {
           "alg": "SHA-256",
-          "content": "8884d8b332a5e9b88e23f60bb166890009429391864c685e17bd73a9eda9105c"
+          "content": "bd3ce56ae2cbae3ba82b683bc425cd7e48d2ed8b10f3e818186b6f5646d9271c"
         },
         {
           "alg": "SHA-256",
-          "content": "ea70f61a47f3cc93bdf8b2f368ed359ef02a01ca6393916bc8ff877427181e74"
+          "content": "8e124f974786f831d6043728e38296969d3579db8896fe004682f5758e613581"
         },
         {
           "alg": "SHA-256",
-          "content": "8dee9c25c74997f6a750cd317b8ca63545169c098faee42c84aa5e506c819b53"
+          "content": "c02e8f18bdedba082cef725942ac823b9b60656db07f7e265cb31618dfd00d77"
         },
         {
           "alg": "SHA-256",
-          "content": "01e73b85a5434f89fc4fe27dcda2aff08ddf35e4d47bbbea3bdcd25321af538a"
+          "content": "9f098115c247e11d138ab83a28fa0323c77015007ea2df73ba5fd714dfefd67c"
         },
         {
           "alg": "SHA-256",
-          "content": "22965c2af250d20c873cdbee8ff958fb809940aeb2e74ba5f20aaf6b7ac8c70c"
+          "content": "d5f93ebbeb8032d47e349328ec8662d973d9b05a70b3c35df1f91fe419b84749"
         },
         {
           "alg": "SHA-256",
-          "content": "b4f15793aa49793ec8d1c708ab7f9eded1aa72edc5174cae703651555ed1b601"
+          "content": "64511c54db4e4987aef4c41923235927428729e8174c5dba488429be70a998ed"
         },
         {
           "alg": "SHA-256",
-          "content": "e5542339dcf2747135c5c85f68680353d5cb9ffd741c0f2e8d832d054d41f35a"
+          "content": "e1a622f13970d81f95d0c72f9dc090dce9085fccfa4c9f2174377ee32bd15786"
         },
         {
           "alg": "SHA-256",
-          "content": "5c401e05ad47a75869c3ab3e35137f8468b846770587e70d71e11de797d113df"
+          "content": "c9a7f43c0b202b334cc9184af09bb8f21d3a209e038efaf106936fb69e6b026e"
         },
         {
           "alg": "SHA-256",
-          "content": "243dda95d901c733f5b59214d28b0120893d91777cb8aa043e6ef059d3cddfe2"
+          "content": "f0ec3b750b59375eab5b0fb2b9254810c00a3375be6d789899f1055a1d556237"
         },
         {
           "alg": "SHA-256",
-          "content": "bec03d0d388060058f5d291a813f21c011041938a441c593374da6077fe21b1b"
+          "content": "11935df9bf455ed0c04eb87bcd720f02b1fe5e02128a9430f23aed6f93336fc7"
         },
         {
           "alg": "SHA-256",
-          "content": "b0748275abb8c1e1e09301ee3cf90c8a99678a4e92e4373705f2a2570d581273"
+          "content": "a4bbd2d87dd233b9fc5812160c3d0ffbe42edc22a26ce0469f58479ede633fe9"
         },
         {
           "alg": "SHA-256",
-          "content": "47fdb18187e2a4e18fda2c25c05d8251a9e4a521edaed757fef033e7d8498d9a"
+          "content": "de8b364c423ef0a4bad9069657d617f9a5d2b2062457a89b1fa16ee199c399c1"
         },
         {
           "alg": "SHA-256",
-          "content": "c7044802eec4524fde550afc28edda0dd5784c4c45f0be151a2d3ba017daca7d"
+          "content": "34bdde374c5932765d7dc685c4a1d191a3207852d67e8e0a9eb6ea85156181f1"
         },
         {
           "alg": "SHA-256",
-          "content": "139718f35149ff544caba20fce6e8a2f71f1e39b92c700d8438a0b1d2a631a02"
+          "content": "6bd9e1788e15bfcf6a9082de42e30387e7b85d211ab21e57a939bb8cfaaf8d96"
         },
         {
           "alg": "SHA-256",
-          "content": "e1b51bebd221006d3d2f95fbe124b22b247136647ae5dcc8c7acafba66e5ee67"
+          "content": "5066b244f576f91afc8ee3ba029a89f99d39c79b1853fe9d39bea9f0afbec148"
         },
         {
           "alg": "SHA-256",
-          "content": "719ae08b6972befcba4310e49edb1161a88cdd331e3a694b84466bd938a6ab10"
+          "content": "7a83aa6e4805df46fed18e989d3d16f86ef60cb50bbc8d9ce3a6be89165fbf6e"
         },
         {
           "alg": "SHA-256",
-          "content": "47d8a5c446df1c4db9d21b49619ffdba90e77c89ec6e283f453856c74b50b9e3"
+          "content": "2d1b7d9308288661f56672b1b157d75fc536714d3638487bbea17b6318a78248"
         },
         {
           "alg": "SHA-256",
-          "content": "cfebc0ac8333520d2d0423cbbe43ae43c8838862ddb898f5ca68565e395516e9"
+          "content": "73e77980c7207854f00fc4e71fb1626868d5740ab4012623d55c7a99ad122a72"
         },
         {
           "alg": "SHA-256",
-          "content": "4398557cbf484207df000309235979c79c4356518fd5c99158c7d38203c4da4f"
+          "content": "7018d4af1cd272e847aa5917983ab5e83e4f6579f9dbfecd4a79c0ca80b144c2"
         },
         {
           "alg": "SHA-256",
-          "content": "2ca6fd72a8cd803be290d42f2dec5cdcd5299eeb93c2d929bf060ad9efaf5de0"
+          "content": "c90d5b3d4e944e065a301d741b3c1d784f6bd1f503aa68b4967e32b2ba313d85"
         },
         {
           "alg": "SHA-256",
-          "content": "ca1f59c4e1ab6e72f0a23c13fca5430f889634166be85dbf1013683e49e3278e"
+          "content": "18a801868a884f216e784d7d14db2a4077143ce7610440aee2ce8f734e7cfcde"
         },
         {
           "alg": "SHA-256",
-          "content": "6c5010a52015e7c70f86eb967db0f37f3c8bd503a695a49f8d45700144667708"
+          "content": "434139499bb20b502ed3baa1f169e618f924a97e7a777fea1a49446d80106cf6"
         },
         {
           "alg": "SHA-256",
-          "content": "9d7672ecf7557476642c88497c2f8d8542f8e36596e928e9bcba0e42e1e7d71f"
+          "content": "9e227f3dbe6bde7491cf0a9965d00b88c6b1a4a95d11480ddf88bb96d397c19f"
         },
         {
           "alg": "SHA-256",
-          "content": "3b7c88eeef021579d600e50363e0b6ee4f7f6f728cd3486b9d0f3ee7b946398d"
+          "content": "b8cd1f918b26fd7b1832ece557cc18f2d8747309ff8b3f0ef9d4250c5ad67a39"
         },
         {
           "alg": "SHA-256",
-          "content": "f4afb5c34f2c6fecdcc182dfcfc6af6cccf1aa923eed4d6a12e9d96904e1a0d8"
+          "content": "a5fcffb37e602b0b3c1638a97746b9b96125caa9bcf6fa41d337a9261de231ee"
         },
         {
           "alg": "SHA-256",
-          "content": "59c189e3e99a59cf8d83cbb31d4db02d66cda5a1a4374e8a012b51255341abf5"
+          "content": "5989cb26b2e1efc6a42216a9f6b5ee495ce5ace2e5b352a9af489976b32d1ee2"
         },
         {
           "alg": "SHA-256",
-          "content": "5a3bf7f62a289fa90f1990422dc8dff5a458469ea71d1624585ec3a4c8d6960f"
+          "content": "add96447a86d205ab616665d53b2950ee81083757f56e6ea833c8b2917646b46"
         },
         {
           "alg": "SHA-256",
-          "content": "de6b9a04c606978fdfe72666fa216ffcf2d1a9f6a381058d4378f8d7b1e5de62"
+          "content": "2628d3a8cb648ecebb3c5d6b0a1052d400e4d8b7ac0fb786be8d285b50040d17"
         },
         {
           "alg": "SHA-256",
-          "content": "1834bb90991cc2999f10f97f5f01317f99b143284766d197e43cd5b45eb18d03"
+          "content": "672d207103e6b16ca098611b0f9efad6bc00afd47c03d6ef62186495ca677dc0"
         },
         {
           "alg": "SHA-256",
-          "content": "ff86011bd159a9d2dfc89c34cfd8aff12875980e3bd6a39ff097887520e60249"
+          "content": "1f1f9477e174582b0a1b583d60b66e1f2cf5d3fe12cee985e4aedf44766600e5"
         },
         {
           "alg": "SHA-256",
-          "content": "7861058d0582b847bc4e3a4a4c46828a410bca738673f35a29ba3ca5db0b473b"
+          "content": "06de8ef6331f6e822c28d577dc8bf43fe398800477c49498f38fc38b67ff33fc"
         },
         {
           "alg": "SHA-256",
-          "content": "d3e32536234a95f513bd374e93d717cf6b2231a791758de6c509e3653f234c95"
+          "content": "4ed644d75aa94a2baf7ec3a96eaa160ea58c742eb9d27c6506053c5c40fc84ed"
         },
         {
           "alg": "SHA-256",
-          "content": "47743b82b76d89a1d20b83e60d5c20314cbd5ba2befc9cda8f28300c4a08ed4d"
+          "content": "6d2a9efe686f9de00d0d1ea32a4a5a86d558a2277501bd78d964214eab625e59"
         },
         {
           "alg": "SHA-256",
-          "content": "5d0fcda9608875f7d052eff120c7a5da474a6796fe4d83e152e0e4d42f6d1a9b"
+          "content": "8781a792a070cf2bd1b86d3aa943894115faaba6e88122a7bf32d62072742453"
         },
         {
           "alg": "SHA-256",
-          "content": "34b36c2c57124530884d89d50ed2c1478697ad7473efd59cfd479945c95650e4"
+          "content": "971a3bbb75d97ae4e2e8f7d4834236f86f85f0c85e04ab2e191db1123b04f80b"
         },
         {
           "alg": "SHA-256",
-          "content": "0dd9a702591ca2e543631c2a017e4a547e38a5c0f29eece37d9097e04a7ac683"
+          "content": "8909c2f1c6dd65e054ac4b573a91c8384d1492281e55d82d159d653f7a13adf6"
         },
         {
           "alg": "SHA-256",
-          "content": "594fcab1032e2d2cc3321bb2e51271e7cd2b516c7d9aee780ece81b07ff8244b"
+          "content": "4cf3468d5ec187ffffcaca8e61929a37448f215dafc1386a12c750a72fe53634"
         },
         {
           "alg": "SHA-256",
-          "content": "f3d7a87a78d46a2e3d5b72587ac14b4c16952dd0887dbb051451eceac774411e"
+          "content": "52704c5d36eb6dda8866493decd61111fff86244c9b1ad225ca01b9e91e5970f"
         },
         {
           "alg": "SHA-256",
-          "content": "852863707010316c973162e703bddabec35e8757e67fcb8ad58829de1ebc8590"
+          "content": "1caa2fa5a6184fb233153b35f654e6687bd555476f6170f29d8ee9be1a8b0af9"
         },
         {
           "alg": "SHA-256",
-          "content": "131a085a53bfe839a477c0845acf21efc77457ba2bcf5899618136d64f3303a2"
+          "content": "387d8cd30e69b3f0a72877b9ae717033396404e19095b17fe89753a981fda44f"
         },
         {
           "alg": "SHA-256",
-          "content": "078a8aefd263f4d4f923a9677b942b445a2be970ca24548a8102689a3a8ab8da"
+          "content": "051417f74bcaaefa316276e0ff723f541616ca51043d070da00249d9bddd3e3c"
         },
         {
           "alg": "SHA-256",
-          "content": "bca03b91c323036913993ff5c738d0842fc9c60c4648e5c8d98331526df89784"
+          "content": "a8e9f292fcda89b324f2f5c91d13f1424a153e40fc2756f38ee23b15835ff300"
         },
         {
           "alg": "SHA-256",
-          "content": "68986a61557d37bb90d3051a45b91fa3d5c516d177dfc6dd6f2f436a07ff2b6b"
+          "content": "df1ae86ff54725a01fa1a0510b914ca53a161b7050be74f6204e24aded5971d0"
         },
         {
           "alg": "SHA-256",
-          "content": "4792b262d585ff0dff6bcb787f8492e40698443ec982a3568c2096433660c694"
+          "content": "8965520ac587c94a4ac48b729be3d8b8de00af39699b17585dfb599babe77977"
         },
         {
           "alg": "SHA-256",
-          "content": "ebd4549b108d732dba1d4ace67614b9545b21ece30937a63a65dd34efa19732d"
+          "content": "340cbb1957ba99929cbf19a75626d36ba1ae21d1730b287d1cf7f824a20c4fc7"
         },
         {
           "alg": "SHA-256",
-          "content": "f87ac53513d22240c7d59203f25cc3beac1e574c6cd681bbfd321987b69f95fd"
+          "content": "3a93d9616ddecfb393727a0041a562cf0b15a244e20f2bd25efc7949be4c4f17"
         },
         {
           "alg": "SHA-256",
-          "content": "22b029f2881599e2f1b06f8f1db2ee63bd309e2293ba2d566e008ba12778b8da"
+          "content": "d2e56fd3b00222722abfb3f5f0759ddbae4b90811b5ad4343c64030ad1bde70c"
         },
         {
           "alg": "SHA-256",
-          "content": "45c2842ff0e0d1b35a6bf1cd6c690939dacb617a70827f715232b2e0494d55d1"
+          "content": "0d9c47709875fdb321452056622e930c52afbc07a7d780762fbb8b4d91ce6fa4"
         },
         {
           "alg": "SHA-256",
-          "content": "d947071e6ebcf2e2bee8fce76e10faca8f7a14808ca36a910263acaacef08eca"
+          "content": "805c8b84534fa10891890f0e4be39f3a99e94615d93e8836bf9fa1fdca2feeb2"
         },
         {
           "alg": "SHA-256",
-          "content": "334b8721303e61b00019474cc103bdac3d7b1f65e91f0bfedeec2d56dfe74b53"
+          "content": "fa95848c929b6a75f6848d3c9793e59db365ee436776e57db835cdbfa79ba977"
         },
         {
           "alg": "SHA-256",
-          "content": "1e7ce67c34138a058fd092f67d07a72b8e31ff0c9236e751957465a24b28910c"
+          "content": "e916035e3e9930cbdfdd10abf48861340221857f45509565898e012263f7b289"
         },
         {
           "alg": "SHA-256",
-          "content": "d77e1b2c6d04711478cb1c4ab90db07f1609ccf06a287d5607fcd90dc9863acf"
+          "content": "b4d12837e0203bbace818ff4a7461afdcd78bcd782351cea148139180d7bcffe"
         },
         {
           "alg": "SHA-256",
-          "content": "c4647674b6150d2cae088fc07de2738a84b8bcedebef29802cf0b0a82ab6face"
+          "content": "5086f9975abb1ab531ee6afca1761e4b59a19b446f3f6522ed776963228cfe5a"
         },
         {
           "alg": "SHA-256",
-          "content": "efb07073be061c8f79d03d04139a80ba33cbd390ca8f0297aae9cce6411e4c6b"
+          "content": "b4a635a0487774f841cb1fb62e907e7195cc95bc761e053184b8acc3ceb20733"
         },
         {
           "alg": "SHA-256",
-          "content": "e51ac5435758ba97ad69617e13233da53908beccc6cfcd6c34bbed8dcbede486"
+          "content": "cb96e6e088d6cf71c1ea977510948320234824cf226e32f6f6e044f7a9c82b34"
         },
         {
           "alg": "SHA-256",
-          "content": "33e32a0dd0c8205efa8e83d04fc9f19313772b78522d1bdc7d9aed706bfd6138"
+          "content": "8b5d563170ff8ba3181caa967c99a3c804d1dedb702c7cb93a6a7c32247da978"
         },
         {
           "alg": "SHA-256",
-          "content": "bf4a21e58b9cde0e401e683ebd00f6ed30a06d14e93f7c8fd059f8b6e8f87b6a"
+          "content": "396ec4e65cc889f69786b3b89478b471cee5a3bcf468b9d9bb03e1a30fb291fc"
         },
         {
           "alg": "SHA-256",
-          "content": "e4b582bab49ac33c8deb97e058cd67c2c50dac0dd134874106d9c774fd272529"
+          "content": "15ba9e28640feef770374b116a6f019c21f52404aeabe516aa7f800587b98cfc"
         },
         {
           "alg": "SHA-256",
-          "content": "0b5bcc1a9c4839e7e30b7b30dd47fe5e7e44fb7054ec29b5bb8d526aa1041093"
+          "content": "d920abdfa61279ba1a2ef9484aab07bf03331f8c08a10120fa332353d06e6932"
         },
         {
           "alg": "SHA-256",
-          "content": "c0232bce2170103ec23c454e54a57008a9a72b5d1c3105dc2496750da8cfa47c"
+          "content": "a9f54054101545a9a9cccefddf54316aa6e4491611fcbef9e91b3b6bebec04f6"
         },
         {
           "alg": "SHA-256",
-          "content": "8009b3173bcd637be650922ac455946197d858b3630b6d8787aa9e5c4564533e"
+          "content": "12a606a492de952afcb43b59a14aaaaad120e708d3663dd0fdf2d738d427a691"
         },
         {
           "alg": "SHA-256",
-          "content": "9fb17ea16e972c63d25d4a97f016d235c78dd2344820eb35bc034bc32012ee27"
+          "content": "a18f38cafc329bac5e3c2b96c765b4c96d3d103421ed22ab7988c1e3fce27464"
         },
         {
           "alg": "SHA-256",
-          "content": "9f6d73c1436b934e3f01df1e1b21ff765cd1d28c77dfb9ace207f746d4610ee1"
+          "content": "eba154571c16e032112afac0dc2dfe9e63c2ceb7aedd07bb7eecf2ce26d4dd4c"
         },
         {
           "alg": "SHA-256",
-          "content": "6a635ea45ba4ea8238463b4f7d0e721bad669f80878b7bfd1f89266e2ae63da2"
+          "content": "38fc55594dab834470b6733dead2ee9e3f657fb0608c769dcafa0ba5ab52f45c"
         },
         {
           "alg": "SHA-256",
-          "content": "0d6e6885777af0f110b0e5d7e5dda8b704efed3894da26220b7f3d887b839a79"
+          "content": "c1bc67752d5f21013cfe430df4062441714eab79f65a6a05e01505957e9c35fe"
         },
         {
           "alg": "SHA-256",
-          "content": "8218f4e98d3c10d683584cb40f0424f4b9fd6e95610232dd75e13743b070ee33"
+          "content": "7e1636da3d8dfc220b6dd10264db5f2b165e4888c4518594898fbe381049af8a"
         },
         {
           "alg": "SHA-256",
-          "content": "3aa27acb6de7a23785d81557577491f6c38a5209a254d1191519d07d8fe51748"
+          "content": "737c9c3981998eba27f11786f84fddcbabc74068b72a4a1f454ea02094b57b65"
         },
         {
           "alg": "SHA-256",
-          "content": "af74f05666a5e531289cb1cc9c883d1de2088b8e5b4de48004e5ca8a830ac859"
+          "content": "489505b03f692c3f376394e49194fa7a7f9e8558d6e293a7056a0032b0c38163"
         },
         {
           "alg": "SHA-256",
-          "content": "62441e55958977b8167b2709c164c91a6363e25da322d87ae6dd9c6019ceecf9"
+          "content": "077293e425f28ec737dbcad442a71752e28f8ae27cde3d68acd1fb212091cd92"
         },
         {
           "alg": "SHA-256",
-          "content": "b580e71cac3f8113d3135888770903eaf2f507e9421e5697d6ee6d8cd1c7f054"
+          "content": "9348cbb300d224fe3b89793262cb093504d4ae927004468463f745188a193e4a"
         },
         {
           "alg": "SHA-256",
-          "content": "e81fda2fb4a07eda1a2252b216aa0df23ebcd4d584894e9612e80999a78fd95b"
+          "content": "b807e598953730f82e4eae3bd30f6a122cf6b31c398c6b504c0e04c13c170429"
         },
         {
           "alg": "SHA-256",
-          "content": "99b6fc1d55782461b78221e95fc357b47ad98b041e8e20f47c1411d0aacddc60"
+          "content": "799c39bdf5e2f1292fedd3009f7b3c9e760f10b2420cb9638d56920840ff6db8"
         },
         {
           "alg": "SHA-256",
-          "content": "088e4e08f033db4be2ccd1f34cf29fe994772fb54cfe004bbf54db320af56890"
+          "content": "ae9dcb8fbe244cb82f8a6458b455b927a03685e383d9bacf1ea5ce180b96dc97"
         },
         {
           "alg": "SHA-256",
-          "content": "2e4e1f6f0b4da23e61188676e3ed027ef0baa833a2e633c29ff8530800edccba"
+          "content": "4bced6e2a6dba6a28f7dd3c6ce14df1b2dd495923f16ea484cad03decd463b2b"
         },
         {
           "alg": "SHA-256",
-          "content": "84fc3ec96fce86ce5aa305eb4aa9358279d1aa644b71fab7b8ed33fe3ba1a7ca"
+          "content": "3882fb412298575bae3b9c46868251f15cc69307359f87bb1b382e53d6e5a2c9"
         },
         {
           "alg": "SHA-256",
-          "content": "5dbeefd6ca588b33576a01b0ad58aa934bc1b41ef89dee505bf2932b22ddffba"
+          "content": "04e7902ba80ee4bac1d50a549606527a1dcf0476cd81403db41099d3b60ec653"
         },
         {
           "alg": "SHA-256",
-          "content": "14291620375b1060613f4aab9ebf21850058b6b1b438f386cc814813d901c60b"
+          "content": "925f929d6b59a8b3f8b8c6ac363cd0af7eecc81efb3071770b3c6717c450a369"
         },
         {
           "alg": "SHA-256",
-          "content": "a4fcfc8eb2c34148c118dfa02e6427ca278bfd0f3df7c5f99e33d2c0e81eae3e"
+          "content": "f68edfc67aabac33708941f26f22a7b8e9f81429bc0cf249fcf7d66b23af8d19"
         },
         {
           "alg": "SHA-256",
-          "content": "029866bde8d7b0878b9c160e72305bbf0a7342bcd20b9999381704ae03308dc8"
+          "content": "e5c802729725bd07e2bc3ab7b76dc7e0bbfc53129d8f1eb1c002c24cf774717e"
         },
         {
           "alg": "SHA-256",
-          "content": "4dcc74149ccc8bba31ce1944acee24813e93cfdee2acda3c172df844948ddf7b"
+          "content": "55ffd6ce583d97dc71dc92e930324c8c0d25aea7e3ade6ae54ef77cedb096811"
         },
         {
           "alg": "SHA-256",
-          "content": "10619d9fdee46d20edc49d3479e2f8269d0779f1b031e6f7c2aa1c76be04b7ed"
+          "content": "2cb3dd71fc6be918ad4264346a8ed69485f9b7ed7bf35495d8e22807cd6b8bea"
         },
         {
           "alg": "SHA-256",
-          "content": "dd7afd3f8b0bfb4e0d9fc3c31bfe8a4ec7debe124cfd90619305def3c8ca8cd2"
+          "content": "94f5407f7bc64fa6463906b896f9904beeeb7dd8dc116ee8e9056c8714ff9916"
         },
         {
           "alg": "SHA-256",
-          "content": "1380560bdba02b6b6c90de54133c81c9f2a453dee9912fe58c1dcced1edb7cff"
+          "content": "2dad610540cb2e6272855c178f08ae9a1c7ac258a7fb71660553a5f104b42741"
         },
         {
           "alg": "SHA-256",
-          "content": "bebf8557577d4401ba8bd9ff33906f1376c877aa78d1fe216ad01b4d6745af71"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "name": "Apache-2.0"
-          }
-        }
-      ],
-      "properties": [
-        {
-          "name": "maintainer",
-          "value": "aiohttp team <team@aiohttp.org>"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "tqdm",
-      "version": "4.67.1",
-      "purl": "pkg:pypi/tqdm@4.67.1",
-      "hashes": [
-        {
-          "alg": "SHA-256",
-          "content": "26445eca388f82e72884e0d580d5464cd801a3ea01e63e5601bdff9ba6a48de2"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "f8aef9c52c08c13a65f30ea34f4e5aac3fd1a34959879d7e59e63027286627f2"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "name": "MPL-2.0 AND MIT"
-          }
-        }
-      ],
-      "properties": [
-        {
-          "name": "maintainer",
-          "value": "Unknown"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "numpy",
-      "version": "2.0.1",
-      "purl": "pkg:pypi/numpy@2.0.1",
-      "hashes": [
-        {
-          "alg": "SHA-256",
-          "content": "0fbb536eac80e27a2793ffd787895242b7f18ef792563d742c2d673bfcb75134"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "69ff563d43c69b1baba77af455dd0a839df8d25e8590e79c90fcbe1499ebde42"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "1b902ce0e0a5bb7704556a217c4f63a7974f8f43e090aff03fcf262e0b135e02"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "f1659887361a7151f89e79b276ed8dff3d75877df906328f14d8bb40bb4f5101"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "4658c398d65d1b25e1760de3157011a80375da861709abd7cef3bad65d6543f9"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "4127d4303b9ac9f94ca0441138acead39928938660ca58329fe156f84b9f3015"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "e5eeca8067ad04bc8a2a8731183d51d7cbaac66d86085d5f4766ee6bf19c7f87"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "9adbd9bb520c866e1bfd7e10e1880a1f7749f1f6e5017686a5fbb9b72cf69f82"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "7b9853803278db3bdcc6cd5beca37815b133e9e77ff3d4733c247414e78eb8d1"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "81b0893a39bc5b865b8bf89e9ad7807e16717f19868e9d234bdaf9b1f1393868"
+          "content": "c61750fadcd119d0825bcb7d7d675dd264dcc89cc05292aab5be68ebdbb374ad"
         },
         {
           "alg": "SHA-256",
-          "content": "75b4e316c5902d8163ef9d423b1c3f2f6252226d1aa5cd8a0a03a7d01ffc6268"
+          "content": "1c0df495a977d10460a94941799c72d5b5ab03d3858d949b55b5a66c8f371c99"
         },
         {
           "alg": "SHA-256",
-          "content": "6e4eeb6eb2fced786e32e6d8df9e755ce5be920d17f7ce00bc38fcde8ccdbf9e"
+          "content": "02fa4acbc6a3fc5c693c34d4dd8c1130b7fe99cc915181b0ddd6f72aeb296002"
         },
         {
           "alg": "SHA-256",
-          "content": "a1e01dcaab205fbece13c1410253a9eea1b1c9b61d237b6fa59bcc46e8e89343"
+          "content": "05295589e619b9bed252a86b532b8e27350abc372d18ba89b59375325e91ec1e"
         },
         {
           "alg": "SHA-256",
-          "content": "a8fc2de81ad835d999113ddf87d1ea2b0f4704cbd947c948d2f5513deafe5a7b"
+          "content": "be6cb0c799abb0e2ba3e618e6d28ddddf7e485f6c2ce938dfa237daf3905072c"
         },
         {
           "alg": "SHA-256",
-          "content": "5a3d94942c331dd4e0e1147f7a8699a4aa47dffc11bf8a1523c12af8b2e91bbe"
+          "content": "26e9867520db70d37f7fb421a7f0d8adb40171011fb84ce869afa1a83370dfa8"
         },
         {
           "alg": "SHA-256",
-          "content": "15eb4eca47d36ec3f78cde0a3a2ee24cf05ca7396ef808dda2c0ddad7c2bde67"
+          "content": "f03460ff076f70ab595bb45a0205ccea1971443575b6920c52e755dec2b3fbfe"
         },
         {
           "alg": "SHA-256",
-          "content": "b83e16a5511d1b1f8a88cbabb1a6f6a499f82c062a4251892d9ad5d609863fb7"
+          "content": "436e3ffc6310d3c41878c601db29098102fe5d8a467c49da4a4125254e0980f2"
         },
         {
           "alg": "SHA-256",
-          "content": "1f87fec1f9bc1efd23f4227becff04bd0e979e23ca50cc92ec88b38489db3b55"
+          "content": "4e2c4809c14559aa7ef426f27fb35afbb38104c349a903bf8f3600456764bb38"
         },
         {
           "alg": "SHA-256",
-          "content": "36d3a9405fd7c511804dc56fc32974fa5533bdeb3cd1604d6b8ff1d292b819c4"
+          "content": "da2af0d7aebfc2074080d72efa6ab8317c62481ef1f896f65d9999c1c01f4494"
         },
         {
           "alg": "SHA-256",
-          "content": "08458fbf403bff5e2b45f08eda195d4b0c9b35682311da5a5a0a0925b11b9bd8"
+          "content": "aa2c838cc024642cc04c6854232f32b43e5e22833dd11119c1766c7873b8370d"
         },
         {
           "alg": "SHA-256",
-          "content": "6bf4e6f4a2a2e26655717a1983ef6324f2664d7011f6ef7482e8c0b3d51e82ac"
+          "content": "b91cc9d336957239ff200f30097e6fea2dc6d6fb3c81e853eaa09eac904fd894"
         },
         {
           "alg": "SHA-256",
-          "content": "7d6fddc5fe258d3328cd8e3d7d3e02234c5d70e01ebe377a6ab92adb14039cb4"
+          "content": "e49fb0d1ce92cfa0cb198cc5b1b11cdf9d0638658e2a2db2687e39db7c87fc78"
         },
         {
           "alg": "SHA-256",
-          "content": "5daab361be6ddeb299a918a7c0864fa8618af66019138263247af405018b04e1"
+          "content": "4f6e0852a0283b1b1fd776eeb7b766a5f440b3e2bd31ab51af3b400585f3965c"
         },
         {
           "alg": "SHA-256",
-          "content": "ea2326a4dca88e4a274ba3a4405eb6c6467d3ffbd8c7d38632502eaae3820587"
+          "content": "39dbacefc411633db5b4378b066a9aca70a3d7e2922c9e578d825f844026eeba"
         },
         {
           "alg": "SHA-256",
-          "content": "529af13c5f4b7a932fb0e1911d3a75da204eff023ee5e0e79c1751564221a5c8"
+          "content": "03470d1a8268e692ecf79ecd565593e59d44219377a7ead61f1f1b94c1f7ff6b"
         },
         {
           "alg": "SHA-256",
-          "content": "6790654cb13eab303d8402354fabd47472b24635700f631f041bd0b65e37298a"
+          "content": "d882a373d8093c2941e01291b7ced96e9cbe4781da9a7751ca7e6c70385e5214"
         },
         {
           "alg": "SHA-256",
-          "content": "cbab9fc9c391700e3e1287666dfd82d8666d10e69a6c4a09ab97574c0b7ee0a7"
+          "content": "353bd63081912ab8cfa6a0c7d185934cdf8426f04c618bba6bc4b394f2069b67"
         },
         {
           "alg": "SHA-256",
-          "content": "99d0d92a5e3613c33a5f01db206a33f8fdf3d71f2912b0de1739894668b7a93b"
+          "content": "f291bcf42ae98eb5107edb162c3c998b4a89648fd8e99ed4cbd12705292788cd"
         },
         {
           "alg": "SHA-256",
-          "content": "173a00b9995f73b79eb0191129f2455f1e34c203f559dd118636858cc452a1bf"
+          "content": "ac0c7c9f1609b0c4c114feb1d7a3409564c7fb77e360bed9e97e5d25dfeaf868"
         },
         {
           "alg": "SHA-256",
-          "content": "bb2124fdc6e62baae159ebcfa368708867eb56806804d005860b6007388df171"
+          "content": "6768d67d1bce64270e0fdc2e69309d68b9b18ae56ddf6c711d168e9d051c2cac"
         },
         {
           "alg": "SHA-256",
-          "content": "bfc085b28d62ff4009364e7ca34b80a9a080cbd97c2c0630bb5f7f770dae9414"
+          "content": "14bd2d845d62ab678eaf81da89d7b621b51756c72346745c1a594c09d49207a2"
         },
         {
           "alg": "SHA-256",
-          "content": "8fae4ebbf95a179c1156fab0b142b74e4ba4204c87bde8d3d8b6f9c34c5825ef"
+          "content": "007e1ffd9bf65bb6ee96df7b258fc632a4868dd5566037986c64781f35a36e98"
         },
         {
           "alg": "SHA-256",
-          "content": "72dc22e9ec8f6eaa206deb1b1355eb2e253899d7347f5e2fae5f0af613741d06"
+          "content": "5e8b3d0b18fd623afa12ecb2ce8d8becef69f9b5440c6330c7972200e0bb84b0"
         },
         {
           "alg": "SHA-256",
-          "content": "ec87f5f8aca726117a1c9b7083e7656a9d0d606eec7299cc067bb83d26f16e0c"
+          "content": "57f9947a7e57a081c1e3e0a2dd0d2dcf290a4531450e6f611e30084c222a7295"
         },
         {
           "alg": "SHA-256",
-          "content": "1f682ea61a88479d9498bf2091fdcd722b090724b08b31d63e022adc063bad59"
+          "content": "b61687d0828e72bf5cda24a2690188f37170bd31c9359ac97e4e66569f120a16"
         },
         {
           "alg": "SHA-256",
-          "content": "8efc84f01c1cd7e34b3fb310183e72fcdf55293ee736d679b6d35b35d80bba26"
+          "content": "0cee7cb0f9a1b6892ea482237d9403b3d1b4603aee057d0ff01f0fac2d019a97"
         },
         {
           "alg": "SHA-256",
-          "content": "3fdabe3e2a52bc4eff8dc7a5044342f8bd9f11ef0934fcd3289a788c0eb10018"
+          "content": "94e4c421742086aeee4c32a506eec8859d7634aad943f7e6aacf70f813478768"
         },
         {
           "alg": "SHA-256",
-          "content": "24a0e1befbfa14615b49ba9659d3d8818a0f4d8a1c5822af8696706fbda7310c"
+          "content": "9240187afb63d2f9ddc3e032c670356fe941f6e20662ea168a5dc3f1f317e1b3"
         },
         {
           "alg": "SHA-256",
-          "content": "f9cf5ea551aec449206954b075db819f52adc1638d46a6738253a712d553c7b4"
+          "content": "e841068dc0be4cb6dfb5c890eb88cbdcff2f4a332393c7ec94e8e618bd32c1a8"
         },
         {
           "alg": "SHA-256",
-          "content": "e9e81fa9017eaa416c056e5d9e71be93d05e2c3c2ab308d23307a8bc4443c368"
+          "content": "f61efe1d2fe0de16158a5fe1d1cf3c14bdb6aecd54d8938fd26512c525c1f624"
         },
         {
           "alg": "SHA-256",
-          "content": "61728fba1e464f789b11deb78a57805c70b2ed02343560456190d0501ba37b0f"
+          "content": "2b2b1e18af909b448bb3cf9e3433366f7a8726271fc214e8b10e0f62a78c724b"
         },
-        {
-          "alg": "SHA-256",
-          "content": "12f5d865d60fb9734e60a60f1d5afa6d962d8d4467c120a1c0cda6eb2964437d"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "eacf3291e263d5a67d8c1a581a8ebbcfd6447204ef58828caf69a5e3e8c75990"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "2c3a346ae20cfd80b6cfd3e60dc179963ef2ea58da5ec074fd3d9e7a1e7ba97f"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "485b87235796410c3519a699cfe1faab097e509e90ebb05dcd098db2ae87e7b3"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "name": "Copyright (c) 2005-2024, NumPy Developers.\nAll rights reserved.\n\nRedistribution and use in source and binary forms, with or without\nmodification, are permitted provided that the following conditions are\nmet:\n\n    * Redistributions of source code must retain the above copyright\n       notice, this list of conditions and the following disclaimer.\n\n    * Redistributions in binary form must reproduce the above\n       copyright notice, this list of conditions and the following\n       disclaimer in the documentation and/or other materials provided\n       with the distribution.\n\n    * Neither the name of the NumPy Developers nor the names of any\n       contributors may be used to endorse or promote products derived\n       from this software without specific prior written permission.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n\"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT\nLIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR\nA PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT\nOWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,\nSPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT\nLIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,\nDATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY\nTHEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\nOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n\n----\n\nThe NumPy repository and source distributions bundle several libraries that are\ncompatibly licensed.  We list these here.\n\nName: lapack-lite\nFiles: numpy/linalg/lapack_lite/*\nLicense: BSD-3-Clause\n  For details, see numpy/linalg/lapack_lite/LICENSE.txt\n\nName: dragon4\nFiles: numpy/_core/src/multiarray/dragon4.c\nLicense: MIT\n  For license text, see numpy/_core/src/multiarray/dragon4.c\n\nName: libdivide\nFiles: numpy/_core/include/numpy/libdivide/*\nLicense: Zlib\n  For license text, see numpy/_core/include/numpy/libdivide/LICENSE.txt\n\n\nNote that the following files are vendored in the repository and sdist but not\ninstalled in built numpy packages:\n\nName: Meson\nFiles: vendored-meson/meson/*\nLicense: Apache 2.0\n  For license text, see vendored-meson/meson/COPYING\n\nName: spin\nFiles: .spin/cmds.py\nLicense: BSD-3\n  For license text, see .spin/LICENSE\n\n----\n\nThis binary distribution of NumPy also bundles the following software:\n\n\nName: OpenBLAS\nFiles: numpy.libs\\libopenblas*.dll\nDescription: bundled as a dynamically linked library\nAvailability: https://github.com/OpenMathLib/OpenBLAS/\nLicense: BSD-3-Clause\n  Copyright (c) 2011-2014, The OpenBLAS Project\n  All rights reserved.\n\n  Redistribution and use in source and binary forms, with or without\n  modification, are permitted provided that the following conditions are\n  met:\n\n     1. Redistributions of source code must retain the above copyright\n        notice, this list of conditions and the following disclaimer.\n\n     2. Redistributions in binary form must reproduce the above copyright\n        notice, this list of conditions and the following disclaimer in\n        the documentation and/or other materials provided with the\n        distribution.\n     3. Neither the name of the OpenBLAS project nor the names of\n        its contributors may be used to endorse or promote products\n        derived from this software without specific prior written\n        permission.\n\n  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE\n  ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE\n  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n  DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE\n  USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n\n\nName: LAPACK\nFiles: numpy.libs\\libopenblas*.dll\nDescription: bundled in OpenBLAS\nAvailability: https://github.com/OpenMathLib/OpenBLAS/\nLicense: BSD-3-Clause-Attribution\n  Copyright (c) 1992-2013 The University of Tennessee and The University\n                          of Tennessee Research Foundation.  All rights\n                          reserved.\n  Copyright (c) 2000-2013 The University of California Berkeley. All\n                          rights reserved.\n  Copyright (c) 2006-2013 The University of Colorado Denver.  All rights\n                          reserved.\n\n  $COPYRIGHT$\n\n  Additional copyrights may follow\n\n  $HEADER$\n\n  Redistribution and use in source and binary forms, with or without\n  modification, are permitted provided that the following conditions are\n  met:\n\n  - Redistributions of source code must retain the above copyright\n    notice, this list of conditions and the following disclaimer.\n\n  - Redistributions in binary form must reproduce the above copyright\n    notice, this list of conditions and the following disclaimer listed\n    in this license in the documentation and/or other materials\n    provided with the distribution.\n\n  - Neither the name of the copyright holders nor the names of its\n    contributors may be used to endorse or promote products derived from\n    this software without specific prior written permission.\n\n  The copyright holders provide no reassurances that the source code\n  provided does not infringe any patent, copyright, or any other\n  intellectual property rights of third parties.  The copyright holders\n  disclaim any liability to any recipient for claims brought against\n  recipient by any third party for infringement of that parties\n  intellectual property rights.\n\n  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n  \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT\n  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR\n  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT\n  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,\n  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT\n  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,\n  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY\n  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n\n\nName: GCC runtime library\nFiles: numpy.libs\\libgfortran*.dll\nDescription: statically linked to files compiled with gcc\nAvailability: https://gcc.gnu.org/git/?p=gcc.git;a=tree;f=libgfortran\nLicense: GPL-3.0-with-GCC-exception\n  Copyright (C) 2002-2017 Free Software Foundation, Inc.\n\n  Libgfortran is free software; you can redistribute it and/or modify\n  it under the terms of the GNU General Public License as published by\n  the Free Software Foundation; either version 3, or (at your option)\n  any later version.\n\n  Libgfortran is distributed in the hope that it will be useful,\n  but WITHOUT ANY WARRANTY; without even the implied warranty of\n  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n  GNU General Public License for more details.\n\n  Under Section 7 of GPL version 3, you are granted additional\n  permissions described in the GCC Runtime Library Exception, version\n  3.1, as published by the Free Software Foundation.\n\n  You should have received a copy of the GNU General Public License and\n  a copy of the GCC Runtime Library Exception along with this program;\n  see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see\n  <http://www.gnu.org/licenses/>.\n\n----\n\nFull text of license texts referred to above follows (that they are\nlisted below does not necessarily imply the conditions apply to the\npresent binary release):\n\n----\n\nGCC RUNTIME LIBRARY EXCEPTION\n\nVersion 3.1, 31 March 2009\n\nCopyright (C) 2009 Free Software Foundation, Inc. <http://fsf.org/>\n\nEveryone is permitted to copy and distribute verbatim copies of this\nlicense document, but changing it is not allowed.\n\nThis GCC Runtime Library Exception (\"Exception\") is an additional\npermission under section 7 of the GNU General Public License, version\n3 (\"GPLv3\"). It applies to a given file (the \"Runtime Library\") that\nbears a notice placed by the copyright holder of the file stating that\nthe file is governed by GPLv3 along with this Exception.\n\nWhen you use GCC to compile a program, GCC may combine portions of\ncertain GCC header files and runtime libraries with the compiled\nprogram. The purpose of this Exception is to allow compilation of\nnon-GPL (including proprietary) programs to use, in this way, the\nheader files and runtime libraries covered by this Exception.\n\n0. Definitions.\n\nA file is an \"Independent Module\" if it either requires the Runtime\nLibrary for execution after a Compilation Process, or makes use of an\ninterface provided by the Runtime Library, but is not otherwise based\non the Runtime Library.\n\n\"GCC\" means a version of the GNU Compiler Collection, with or without\nmodifications, governed by version 3 (or a specified later version) of\nthe GNU General Public License (GPL) with the option of using any\nsubsequent versions published by the FSF.\n\n\"GPL-compatible Software\" is software whose conditions of propagation,\nmodification and use would permit combination with GCC in accord with\nthe license of GCC.\n\n\"Target Code\" refers to output from any compiler for a real or virtual\ntarget processor architecture, in executable form or suitable for\ninput to an assembler, loader, linker and/or execution\nphase. Notwithstanding that, Target Code does not include data in any\nformat that is used as a compiler intermediate representation, or used\nfor producing a compiler intermediate representation.\n\nThe \"Compilation Process\" transforms code entirely represented in\nnon-intermediate languages designed for human-written code, and/or in\nJava Virtual Machine byte code, into Target Code. Thus, for example,\nuse of source code generators and preprocessors need not be considered\npart of the Compilation Process, since the Compilation Process can be\nunderstood as starting with the output of the generators or\npreprocessors.\n\nA Compilation Process is \"Eligible\" if it is done using GCC, alone or\nwith other GPL-compatible software, or if it is done without using any\nwork based on GCC. For example, using non-GPL-compatible Software to\noptimize any GCC intermediate representations would not qualify as an\nEligible Compilation Process.\n\n1. Grant of Additional Permission.\n\nYou have permission to propagate a work of Target Code formed by\ncombining the Runtime Library with Independent Modules, even if such\npropagation would otherwise violate the terms of GPLv3, provided that\nall Target Code was generated by Eligible Compilation Processes. You\nmay then convey such a combination under terms of your choice,\nconsistent with the licensing of the Independent Modules.\n\n2. No Weakening of GCC Copyleft.\n\nThe availability of this Exception does not imply any general\npresumption that third-party software is unaffected by the copyleft\nrequirements of the license of GCC.\n\n----\n\n                    GNU GENERAL PUBLIC LICENSE\n                       Version 3, 29 June 2007\n\n Copyright (C) 2007 Free Software Foundation, Inc. <http://fsf.org/>\n Everyone is permitted to copy and distribute verbatim copies\n of this license document, but changing it is not allowed.\n\n                            Preamble\n\n  The GNU General Public License is a free, copyleft license for\nsoftware and other kinds of works.\n\n  The licenses for most software and other practical works are designed\nto take away your freedom to share and change the works.  By contrast,\nthe GNU General Public License is intended to guarantee your freedom to\nshare and change all versions of a program--to make sure it remains free\nsoftware for all its users.  We, the Free Software Foundation, use the\nGNU General Public License for most of our software; it applies also to\nany other work released this way by its authors.  You can apply it to\nyour programs, too.\n\n  When we speak of free software, we are referring to freedom, not\nprice.  Our General Public Licenses are designed to make sure that you\nhave the freedom to distribute copies of free software (and charge for\nthem if you wish), that you receive source code or can get it if you\nwant it, that you can change the software or use pieces of it in new\nfree programs, and that you know you can do these things.\n\n  To protect your rights, we need to prevent others from denying you\nthese rights or asking you to surrender the rights.  Therefore, you have\ncertain responsibilities if you distribute copies of the software, or if\nyou modify it: responsibilities to respect the freedom of others.\n\n  For example, if you distribute copies of such a program, whether\ngratis or for a fee, you must pass on to the recipients the same\nfreedoms that you received.  You must make sure that they, too, receive\nor can get the source code.  And you must show them these terms so they\nknow their rights.\n\n  Developers that use the GNU GPL protect your rights with two steps:\n(1) assert copyright on the software, and (2) offer you this License\ngiving you legal permission to copy, distribute and/or modify it.\n\n  For the developers' and authors' protection, the GPL clearly explains\nthat there is no warranty for this free software.  For both users' and\nauthors' sake, the GPL requires that modified versions be marked as\nchanged, so that their problems will not be attributed erroneously to\nauthors of previous versions.\n\n  Some devices are designed to deny users access to install or run\nmodified versions of the software inside them, although the manufacturer\ncan do so.  This is fundamentally incompatible with the aim of\nprotecting users' freedom to change the software.  The systematic\npattern of such abuse occurs in the area of products for individuals to\nuse, which is precisely where it is most unacceptable.  Therefore, we\nhave designed this version of the GPL to prohibit the practice for those\nproducts.  If such problems arise substantially in other domains, we\nstand ready to extend this provision to those domains in future versions\nof the GPL, as needed to protect the freedom of users.\n\n  Finally, every program is threatened constantly by software patents.\nStates should not allow patents to restrict development and use of\nsoftware on general-purpose computers, but in those that do, we wish to\navoid the special danger that patents applied to a free program could\nmake it effectively proprietary.  To prevent this, the GPL assures that\npatents cannot be used to render the program non-free.\n\n  The precise terms and conditions for copying, distribution and\nmodification follow.\n\n                       TERMS AND CONDITIONS\n\n  0. Definitions.\n\n  \"This License\" refers to version 3 of the GNU General Public License.\n\n  \"Copyright\" also means copyright-like laws that apply to other kinds of\nworks, such as semiconductor masks.\n\n  \"The Program\" refers to any copyrightable work licensed under this\nLicense.  Each licensee is addressed as \"you\".  \"Licensees\" and\n\"recipients\" may be individuals or organizations.\n\n  To \"modify\" a work means to copy from or adapt all or part of the work\nin a fashion requiring copyright permission, other than the making of an\nexact copy.  The resulting work is called a \"modified version\" of the\nearlier work or a work \"based on\" the earlier work.\n\n  A \"covered work\" means either the unmodified Program or a work based\non the Program.\n\n  To \"propagate\" a work means to do anything with it that, without\npermission, would make you directly or secondarily liable for\ninfringement under applicable copyright law, except executing it on a\ncomputer or modifying a private copy.  Propagation includes copying,\ndistribution (with or without modification), making available to the\npublic, and in some countries other activities as well.\n\n  To \"convey\" a work means any kind of propagation that enables other\nparties to make or receive copies.  Mere interaction with a user through\na computer network, with no transfer of a copy, is not conveying.\n\n  An interactive user interface displays \"Appropriate Legal Notices\"\nto the extent that it includes a convenient and prominently visible\nfeature that (1) displays an appropriate copyright notice, and (2)\ntells the user that there is no warranty for the work (except to the\nextent that warranties are provided), that licensees may convey the\nwork under this License, and how to view a copy of this License.  If\nthe interface presents a list of user commands or options, such as a\nmenu, a prominent item in the list meets this criterion.\n\n  1. Source Code.\n\n  The \"source code\" for a work means the preferred form of the work\nfor making modifications to it.  \"Object code\" means any non-source\nform of a work.\n\n  A \"Standard Interface\" means an interface that either is an official\nstandard defined by a recognized standards body, or, in the case of\ninterfaces specified for a particular programming language, one that\nis widely used among developers working in that language.\n\n  The \"System Libraries\" of an executable work include anything, other\nthan the work as a whole, that (a) is included in the normal form of\npackaging a Major Component, but which is not part of that Major\nComponent, and (b) serves only to enable use of the work with that\nMajor Component, or to implement a Standard Interface for which an\nimplementation is available to the public in source code form.  A\n\"Major Component\", in this context, means a major essential component\n(kernel, window system, and so on) of the specific operating system\n(if any) on which the executable work runs, or a compiler used to\nproduce the work, or an object code interpreter used to run it.\n\n  The \"Corresponding Source\" for a work in object code form means all\nthe source code needed to generate, install, and (for an executable\nwork) run the object code and to modify the work, including scripts to\ncontrol those activities.  However, it does not include the work's\nSystem Libraries, or general-purpose tools or generally available free\nprograms which are used unmodified in performing those activities but\nwhich are not part of the work.  For example, Corresponding Source\nincludes interface definition files associated with source files for\nthe work, and the source code for shared libraries and dynamically\nlinked subprograms that the work is specifically designed to require,\nsuch as by intimate data communication or control flow between those\nsubprograms and other parts of the work.\n\n  The Corresponding Source need not include anything that users\ncan regenerate automatically from other parts of the Corresponding\nSource.\n\n  The Corresponding Source for a work in source code form is that\nsame work.\n\n  2. Basic Permissions.\n\n  All rights granted under this License are granted for the term of\ncopyright on the Program, and are irrevocable provided the stated\nconditions are met.  This License explicitly affirms your unlimited\npermission to run the unmodified Program.  The output from running a\ncovered work is covered by this License only if the output, given its\ncontent, constitutes a covered work.  This License acknowledges your\nrights of fair use or other equivalent, as provided by copyright law.\n\n  You may make, run and propagate covered works that you do not\nconvey, without conditions so long as your license otherwise remains\nin force.  You may convey covered works to others for the sole purpose\nof having them make modifications exclusively for you, or provide you\nwith facilities for running those works, provided that you comply with\nthe terms of this License in conveying all material for which you do\nnot control copyright.  Those thus making or running the covered works\nfor you must do so exclusively on your behalf, under your direction\nand control, on terms that prohibit them from making any copies of\nyour copyrighted material outside their relationship with you.\n\n  Conveying under any other circumstances is permitted solely under\nthe conditions stated below.  Sublicensing is not allowed; section 10\nmakes it unnecessary.\n\n  3. Protecting Users' Legal Rights From Anti-Circumvention Law.\n\n  No covered work shall be deemed part of an effective technological\nmeasure under any applicable law fulfilling obligations under article\n11 of the WIPO copyright treaty adopted on 20 December 1996, or\nsimilar laws prohibiting or restricting circumvention of such\nmeasures.\n\n  When you convey a covered work, you waive any legal power to forbid\ncircumvention of technological measures to the extent such circumvention\nis effected by exercising rights under this License with respect to\nthe covered work, and you disclaim any intention to limit operation or\nmodification of the work as a means of enforcing, against the work's\nusers, your or third parties' legal rights to forbid circumvention of\ntechnological measures.\n\n  4. Conveying Verbatim Copies.\n\n  You may convey verbatim copies of the Program's source code as you\nreceive it, in any medium, provided that you conspicuously and\nappropriately publish on each copy an appropriate copyright notice;\nkeep intact all notices stating that this License and any\nnon-permissive terms added in accord with section 7 apply to the code;\nkeep intact all notices of the absence of any warranty; and give all\nrecipients a copy of this License along with the Program.\n\n  You may charge any price or no price for each copy that you convey,\nand you may offer support or warranty protection for a fee.\n\n  5. Conveying Modified Source Versions.\n\n  You may convey a work based on the Program, or the modifications to\nproduce it from the Program, in the form of source code under the\nterms of section 4, provided that you also meet all of these conditions:\n\n    a) The work must carry prominent notices stating that you modified\n    it, and giving a relevant date.\n\n    b) The work must carry prominent notices stating that it is\n    released under this License and any conditions added under section\n    7.  This requirement modifies the requirement in section 4 to\n    \"keep intact all notices\".\n\n    c) You must license the entire work, as a whole, under this\n    License to anyone who comes into possession of a copy.  This\n    License will therefore apply, along with any applicable section 7\n    additional terms, to the whole of the work, and all its parts,\n    regardless of how they are packaged.  This License gives no\n    permission to license the work in any other way, but it does not\n    invalidate such permission if you have separately received it.\n\n    d) If the work has interactive user interfaces, each must display\n    Appropriate Legal Notices; however, if the Program has interactive\n    interfaces that do not display Appropriate Legal Notices, your\n    work need not make them do so.\n\n  A compilation of a covered work with other separate and independent\nworks, which are not by their nature extensions of the covered work,\nand which are not combined with it such as to form a larger program,\nin or on a volume of a storage or distribution medium, is called an\n\"aggregate\" if the compilation and its resulting copyright are not\nused to limit the access or legal rights of the compilation's users\nbeyond what the individual works permit.  Inclusion of a covered work\nin an aggregate does not cause this License to apply to the other\nparts of the aggregate.\n\n  6. Conveying Non-Source Forms.\n\n  You may convey a covered work in object code form under the terms\nof sections 4 and 5, provided that you also convey the\nmachine-readable Corresponding Source under the terms of this License,\nin one of these ways:\n\n    a) Convey the object code in, or embodied in, a physical product\n    (including a physical distribution medium), accompanied by the\n    Corresponding Source fixed on a durable physical medium\n    customarily used for software interchange.\n\n    b) Convey the object code in, or embodied in, a physical product\n    (including a physical distribution medium), accompanied by a\n    written offer, valid for at least three years and valid for as\n    long as you offer spare parts or customer support for that product\n    model, to give anyone who possesses the object code either (1) a\n    copy of the Corresponding Source for all the software in the\n    product that is covered by this License, on a durable physical\n    medium customarily used for software interchange, for a price no\n    more than your reasonable cost of physically performing this\n    conveying of source, or (2) access to copy the\n    Corresponding Source from a network server at no charge.\n\n    c) Convey individual copies of the object code with a copy of the\n    written offer to provide the Corresponding Source.  This\n    alternative is allowed only occasionally and noncommercially, and\n    only if you received the object code with such an offer, in accord\n    with subsection 6b.\n\n    d) Convey the object code by offering access from a designated\n    place (gratis or for a charge), and offer equivalent access to the\n    Corresponding Source in the same way through the same place at no\n    further charge.  You need not require recipients to copy the\n    Corresponding Source along with the object code.  If the place to\n    copy the object code is a network server, the Corresponding Source\n    may be on a different server (operated by you or a third party)\n    that supports equivalent copying facilities, provided you maintain\n    clear directions next to the object code saying where to find the\n    Corresponding Source.  Regardless of what server hosts the\n    Corresponding Source, you remain obligated to ensure that it is\n    available for as long as needed to satisfy these requirements.\n\n    e) Convey the object code using peer-to-peer transmission, provided\n    you inform other peers where the object code and Corresponding\n    Source of the work are being offered to the general public at no\n    charge under subsection 6d.\n\n  A separable portion of the object code, whose source code is excluded\nfrom the Corresponding Source as a System Library, need not be\nincluded in conveying the object code work.\n\n  A \"User Product\" is either (1) a \"consumer product\", which means any\ntangible personal property which is normally used for personal, family,\nor household purposes, or (2) anything designed or sold for incorporation\ninto a dwelling.  In determining whether a product is a consumer product,\ndoubtful cases shall be resolved in favor of coverage.  For a particular\nproduct received by a particular user, \"normally used\" refers to a\ntypical or common use of that class of product, regardless of the status\nof the particular user or of the way in which the particular user\nactually uses, or expects or is expected to use, the product.  A product\nis a consumer product regardless of whether the product has substantial\ncommercial, industrial or non-consumer uses, unless such uses represent\nthe only significant mode of use of the product.\n\n  \"Installation Information\" for a User Product means any methods,\nprocedures, authorization keys, or other information required to install\nand execute modified versions of a covered work in that User Product from\na modified version of its Corresponding Source.  The information must\nsuffice to ensure that the continued functioning of the modified object\ncode is in no case prevented or interfered with solely because\nmodification has been made.\n\n  If you convey an object code work under this section in, or with, or\nspecifically for use in, a User Product, and the conveying occurs as\npart of a transaction in which the right of possession and use of the\nUser Product is transferred to the recipient in perpetuity or for a\nfixed term (regardless of how the transaction is characterized), the\nCorresponding Source conveyed under this section must be accompanied\nby the Installation Information.  But this requirement does not apply\nif neither you nor any third party retains the ability to install\nmodified object code on the User Product (for example, the work has\nbeen installed in ROM).\n\n  The requirement to provide Installation Information does not include a\nrequirement to continue to provide support service, warranty, or updates\nfor a work that has been modified or installed by the recipient, or for\nthe User Product in which it has been modified or installed.  Access to a\nnetwork may be denied when the modification itself materially and\nadversely affects the operation of the network or violates the rules and\nprotocols for communication across the network.\n\n  Corresponding Source conveyed, and Installation Information provided,\nin accord with this section must be in a format that is publicly\ndocumented (and with an implementation available to the public in\nsource code form), and must require no special password or key for\nunpacking, reading or copying.\n\n  7. Additional Terms.\n\n  \"Additional permissions\" are terms that supplement the terms of this\nLicense by making exceptions from one or more of its conditions.\nAdditional permissions that are applicable to the entire Program shall\nbe treated as though they were included in this License, to the extent\nthat they are valid under applicable law.  If additional permissions\napply only to part of the Program, that part may be used separately\nunder those permissions, but the entire Program remains governed by\nthis License without regard to the additional permissions.\n\n  When you convey a copy of a covered work, you may at your option\nremove any additional permissions from that copy, or from any part of\nit.  (Additional permissions may be written to require their own\nremoval in certain cases when you modify the work.)  You may place\nadditional permissions on material, added by you to a covered work,\nfor which you have or can give appropriate copyright permission.\n\n  Notwithstanding any other provision of this License, for material you\nadd to a covered work, you may (if authorized by the copyright holders of\nthat material) supplement the terms of this License with terms:\n\n    a) Disclaiming warranty or limiting liability differently from the\n    terms of sections 15 and 16 of this License; or\n\n    b) Requiring preservation of specified reasonable legal notices or\n    author attributions in that material or in the Appropriate Legal\n    Notices displayed by works containing it; or\n\n    c) Prohibiting misrepresentation of the origin of that material, or\n    requiring that modified versions of such material be marked in\n    reasonable ways as different from the original version; or\n\n    d) Limiting the use for publicity purposes of names of licensors or\n    authors of the material; or\n\n    e) Declining to grant rights under trademark law for use of some\n    trade names, trademarks, or service marks; or\n\n    f) Requiring indemnification of licensors and authors of that\n    material by anyone who conveys the material (or modified versions of\n    it) with contractual assumptions of liability to the recipient, for\n    any liability that these contractual assumptions directly impose on\n    those licensors and authors.\n\n  All other non-permissive additional terms are considered \"further\nrestrictions\" within the meaning of section 10.  If the Program as you\nreceived it, or any part of it, contains a notice stating that it is\ngoverned by this License along with a term that is a further\nrestriction, you may remove that term.  If a license document contains\na further restriction but permits relicensing or conveying under this\nLicense, you may add to a covered work material governed by the terms\nof that license document, provided that the further restriction does\nnot survive such relicensing or conveying.\n\n  If you add terms to a covered work in accord with this section, you\nmust place, in the relevant source files, a statement of the\nadditional terms that apply to those files, or a notice indicating\nwhere to find the applicable terms.\n\n  Additional terms, permissive or non-permissive, may be stated in the\nform of a separately written license, or stated as exceptions;\nthe above requirements apply either way.\n\n  8. Termination.\n\n  You may not propagate or modify a covered work except as expressly\nprovided under this License.  Any attempt otherwise to propagate or\nmodify it is void, and will automatically terminate your rights under\nthis License (including any patent licenses granted under the third\nparagraph of section 11).\n\n  However, if you cease all violation of this License, then your\nlicense from a particular copyright holder is reinstated (a)\nprovisionally, unless and until the copyright holder explicitly and\nfinally terminates your license, and (b) permanently, if the copyright\nholder fails to notify you of the violation by some reasonable means\nprior to 60 days after the cessation.\n\n  Moreover, your license from a particular copyright holder is\nreinstated permanently if the copyright holder notifies you of the\nviolation by some reasonable means, this is the first time you have\nreceived notice of violation of this License (for any work) from that\ncopyright holder, and you cure the violation prior to 30 days after\nyour receipt of the notice.\n\n  Termination of your rights under this section does not terminate the\nlicenses of parties who have received copies or rights from you under\nthis License.  If your rights have been terminated and not permanently\nreinstated, you do not qualify to receive new licenses for the same\nmaterial under section 10.\n\n  9. Acceptance Not Required for Having Copies.\n\n  You are not required to accept this License in order to receive or\nrun a copy of the Program.  Ancillary propagation of a covered work\noccurring solely as a consequence of using peer-to-peer transmission\nto receive a copy likewise does not require acceptance.  However,\nnothing other than this License grants you permission to propagate or\nmodify any covered work.  These actions infringe copyright if you do\nnot accept this License.  Therefore, by modifying or propagating a\ncovered work, you indicate your acceptance of this License to do so.\n\n  10. Automatic Licensing of Downstream Recipients.\n\n  Each time you convey a covered work, the recipient automatically\nreceives a license from the original licensors, to run, modify and\npropagate that work, subject to this License.  You are not responsible\nfor enforcing compliance by third parties with this License.\n\n  An \"entity transaction\" is a transaction transferring control of an\norganization, or substantially all assets of one, or subdividing an\norganization, or merging organizations.  If propagation of a covered\nwork results from an entity transaction, each party to that\ntransaction who receives a copy of the work also receives whatever\nlicenses to the work the party's predecessor in interest had or could\ngive under the previous paragraph, plus a right to possession of the\nCorresponding Source of the work from the predecessor in interest, if\nthe predecessor has it or can get it with reasonable efforts.\n\n  You may not impose any further restrictions on the exercise of the\nrights granted or affirmed under this License.  For example, you may\nnot impose a license fee, royalty, or other charge for exercise of\nrights granted under this License, and you may not initiate litigation\n(including a cross-claim or counterclaim in a lawsuit) alleging that\nany patent claim is infringed by making, using, selling, offering for\nsale, or importing the Program or any portion of it.\n\n  11. Patents.\n\n  A \"contributor\" is a copyright holder who authorizes use under this\nLicense of the Program or a work on which the Program is based.  The\nwork thus licensed is called the contributor's \"contributor version\".\n\n  A contributor's \"essential patent claims\" are all patent claims\nowned or controlled by the contributor, whether already acquired or\nhereafter acquired, that would be infringed by some manner, permitted\nby this License, of making, using, or selling its contributor version,\nbut do not include claims that would be infringed only as a\nconsequence of further modification of the contributor version.  For\npurposes of this definition, \"control\" includes the right to grant\npatent sublicenses in a manner consistent with the requirements of\nthis License.\n\n  Each contributor grants you a non-exclusive, worldwide, royalty-free\npatent license under the contributor's essential patent claims, to\nmake, use, sell, offer for sale, import and otherwise run, modify and\npropagate the contents of its contributor version.\n\n  In the following three paragraphs, a \"patent license\" is any express\nagreement or commitment, however denominated, not to enforce a patent\n(such as an express permission to practice a patent or covenant not to\nsue for patent infringement).  To \"grant\" such a patent license to a\nparty means to make such an agreement or commitment not to enforce a\npatent against the party.\n\n  If you convey a covered work, knowingly relying on a patent license,\nand the Corresponding Source of the work is not available for anyone\nto copy, free of charge and under the terms of this License, through a\npublicly available network server or other readily accessible means,\nthen you must either (1) cause the Corresponding Source to be so\navailable, or (2) arrange to deprive yourself of the benefit of the\npatent license for this particular work, or (3) arrange, in a manner\nconsistent with the requirements of this License, to extend the patent\nlicense to downstream recipients.  \"Knowingly relying\" means you have\nactual knowledge that, but for the patent license, your conveying the\ncovered work in a country, or your recipient's use of the covered work\nin a country, would infringe one or more identifiable patents in that\ncountry that you have reason to believe are valid.\n\n  If, pursuant to or in connection with a single transaction or\narrangement, you convey, or propagate by procuring conveyance of, a\ncovered work, and grant a patent license to some of the parties\nreceiving the covered work authorizing them to use, propagate, modify\nor convey a specific copy of the covered work, then the patent license\nyou grant is automatically extended to all recipients of the covered\nwork and works based on it.\n\n  A patent license is \"discriminatory\" if it does not include within\nthe scope of its coverage, prohibits the exercise of, or is\nconditioned on the non-exercise of one or more of the rights that are\nspecifically granted under this License.  You may not convey a covered\nwork if you are a party to an arrangement with a third party that is\nin the business of distributing software, under which you make payment\nto the third party based on the extent of your activity of conveying\nthe work, and under which the third party grants, to any of the\nparties who would receive the covered work from you, a discriminatory\npatent license (a) in connection with copies of the covered work\nconveyed by you (or copies made from those copies), or (b) primarily\nfor and in connection with specific products or compilations that\ncontain the covered work, unless you entered into that arrangement,\nor that patent license was granted, prior to 28 March 2007.\n\n  Nothing in this License shall be construed as excluding or limiting\nany implied license or other defenses to infringement that may\notherwise be available to you under applicable patent law.\n\n  12. No Surrender of Others' Freedom.\n\n  If conditions are imposed on you (whether by court order, agreement or\notherwise) that contradict the conditions of this License, they do not\nexcuse you from the conditions of this License.  If you cannot convey a\ncovered work so as to satisfy simultaneously your obligations under this\nLicense and any other pertinent obligations, then as a consequence you may\nnot convey it at all.  For example, if you agree to terms that obligate you\nto collect a royalty for further conveying from those to whom you convey\nthe Program, the only way you could satisfy both those terms and this\nLicense would be to refrain entirely from conveying the Program.\n\n  13. Use with the GNU Affero General Public License.\n\n  Notwithstanding any other provision of this License, you have\npermission to link or combine any covered work with a work licensed\nunder version 3 of the GNU Affero General Public License into a single\ncombined work, and to convey the resulting work.  The terms of this\nLicense will continue to apply to the part which is the covered work,\nbut the special requirements of the GNU Affero General Public License,\nsection 13, concerning interaction through a network will apply to the\ncombination as such.\n\n  14. Revised Versions of this License.\n\n  The Free Software Foundation may publish revised and/or new versions of\nthe GNU General Public License from time to time.  Such new versions will\nbe similar in spirit to the present version, but may differ in detail to\naddress new problems or concerns.\n\n  Each version is given a distinguishing version number.  If the\nProgram specifies that a certain numbered version of the GNU General\nPublic License \"or any later version\" applies to it, you have the\noption of following the terms and conditions either of that numbered\nversion or of any later version published by the Free Software\nFoundation.  If the Program does not specify a version number of the\nGNU General Public License, you may choose any version ever published\nby the Free Software Foundation.\n\n  If the Program specifies that a proxy can decide which future\nversions of the GNU General Public License can be used, that proxy's\npublic statement of acceptance of a version permanently authorizes you\nto choose that version for the Program.\n\n  Later license versions may give you additional or different\npermissions.  However, no additional obligations are imposed on any\nauthor or copyright holder as a result of your choosing to follow a\nlater version.\n\n  15. Disclaimer of Warranty.\n\n  THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY\nAPPLICABLE LAW.  EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT\nHOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM \"AS IS\" WITHOUT WARRANTY\nOF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO,\nTHE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR\nPURPOSE.  THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM\nIS WITH YOU.  SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF\nALL NECESSARY SERVICING, REPAIR OR CORRECTION.\n\n  16. Limitation of Liability.\n\n  IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING\nWILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MODIFIES AND/OR CONVEYS\nTHE PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY\nGENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE\nUSE OR INABILITY TO USE THE PROGRAM (INCLUDING BUT NOT LIMITED TO LOSS OF\nDATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD\nPARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS),\nEVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF\nSUCH DAMAGES.\n\n  17. Interpretation of Sections 15 and 16.\n\n  If the disclaimer of warranty and limitation of liability provided\nabove cannot be given local legal effect according to their terms,\nreviewing courts shall apply local law that most closely approximates\nan absolute waiver of all civil liability in connection with the\nProgram, unless a warranty or assumption of liability accompanies a\ncopy of the Program in return for a fee.\n\n                     END OF TERMS AND CONDITIONS\n\n            How to Apply These Terms to Your New Programs\n\n  If you develop a new program, and you want it to be of the greatest\npossible use to the public, the best way to achieve this is to make it\nfree software which everyone can redistribute and change under these terms.\n\n  To do so, attach the following notices to the program.  It is safest\nto attach them to the start of each source file to most effectively\nstate the exclusion of warranty; and each file should have at least\nthe \"copyright\" line and a pointer to where the full notice is found.\n\n    <one line to give the program's name and a brief idea of what it does.>\n    Copyright (C) <year>  <name of author>\n\n    This program is free software: you can redistribute it and/or modify\n    it under the terms of the GNU General Public License as published by\n    the Free Software Foundation, either version 3 of the License, or\n    (at your option) any later version.\n\n    This program is distributed in the hope that it will be useful,\n    but WITHOUT ANY WARRANTY; without even the implied warranty of\n    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n    GNU General Public License for more details.\n\n    You should have received a copy of the GNU General Public License\n    along with this program.  If not, see <http://www.gnu.org/licenses/>.\n\nAlso add information on how to contact you by electronic and paper mail.\n\n  If the program does terminal interaction, make it output a short\nnotice like this when it starts in an interactive mode:\n\n    <program>  Copyright (C) <year>  <name of author>\n    This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.\n    This is free software, and you are welcome to redistribute it\n    under certain conditions; type `show c' for details.\n\nThe hypothetical commands `show w' and `show c' should show the appropriate\nparts of the General Public License.  Of course, your program's commands\nmight be different; for a GUI interface, you would use an \"about box\".\n\n  You should also get your employer (if you work as a programmer) or school,\nif any, to sign a \"copyright disclaimer\" for the program, if necessary.\nFor more information on this, and how to apply and follow the GNU GPL, see\n<http://www.gnu.org/licenses/>.\n\n  The GNU General Public License does not permit incorporating your program\ninto proprietary programs.  If your program is a subroutine library, you\nmay consider it more useful to permit linking proprietary applications with\nthe library.  If this is what you want to do, use the GNU Lesser General\nPublic License instead of this License.  But first, please read\n<http://www.gnu.org/philosophy/why-not-lgpl.html>.\n\nName: libquadmath\nFiles: numpy.libs\\libopenb*.dll\nDescription: statically linked to files compiled with gcc\nAvailability: https://gcc.gnu.org/git/?p=gcc.git;a=tree;f=libquadmath\nLicense: LGPL-2.1-or-later\n\n    GCC Quad-Precision Math Library\n    Copyright (C) 2010-2019 Free Software Foundation, Inc.\n    Written by Francois-Xavier Coudert  <fxcoudert@gcc.gnu.org>\n\n    This file is part of the libquadmath library.\n    Libquadmath is free software; you can redistribute it and/or\n    modify it under the terms of the GNU Library General Public\n    License as published by the Free Software Foundation; either\n    version 2.1 of the License, or (at your option) any later version.\n\n    Libquadmath is distributed in the hope that it will be useful,\n    but WITHOUT ANY WARRANTY; without even the implied warranty of\n    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n    Lesser General Public License for more details.\n    https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html"
-          }
-        }
-      ],
-      "properties": [
-        {
-          "name": "maintainer",
-          "value": "Travis E. Oliphant et al."
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "Jinja2",
-      "version": "3.1.4",
-      "purl": "pkg:pypi/Jinja2@3.1.4",
-      "hashes": [
         {
           "alg": "SHA-256",
-          "content": "bc5dd2abb727a5319567b7a813e6a2e7318c39f4f487cfe6c89c6f9c7d25197d"
+          "content": "6669c1bf34080161ce49c589cc512ef24d4c704ac9d2b2d3667f519c60418378"
         },
         {
           "alg": "SHA-256",
-          "content": "4a3aee7acbbe7303aede8e9648d13b8bf88a429282aa6122a993f0ac800cb369"
+          "content": "2e9ad7dd851bf45fab9f75cbff4cb493fee9979e8d8c7c9c3ee119022518edd6"
         }
       ],
       "licenses": [
@@ -2067,940 +1487,6 @@
         {
           "name": "maintainer",
           "value": "Unknown"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "notebook",
-      "version": "7.2.1",
-      "purl": "pkg:pypi/notebook@7.2.1",
-      "hashes": [
-        {
-          "alg": "SHA-256",
-          "content": "f45489a3995746f2195a137e0773e2130960b51c9ac3ce257dbc2705aab3a6ca"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "4287b6da59740b32173d01d641f763d292f49c30e7a51b89c46ba8473126341e"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "name": "BSD 3-Clause License\n\n- Copyright (c) 2001-2015, IPython Development Team\n- Copyright (c) 2015-, Jupyter Development Team\n\nAll rights reserved.\n\nRedistribution and use in source and binary forms, with or without\nmodification, are permitted provided that the following conditions are met:\n\n1. Redistributions of source code must retain the above copyright notice, this\n   list of conditions and the following disclaimer.\n\n2. Redistributions in binary form must reproduce the above copyright notice,\n   this list of conditions and the following disclaimer in the documentation\n   and/or other materials provided with the distribution.\n\n3. Neither the name of the copyright holder nor the names of its\n   contributors may be used to endorse or promote products derived from\n   this software without specific prior written permission.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\nAND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\nIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\nDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\nFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\nDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\nSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\nCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\nOR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\nOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
-          }
-        }
-      ],
-      "properties": [
-        {
-          "name": "maintainer",
-          "value": "Unknown"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "pandas",
-      "version": "2.2.2",
-      "purl": "pkg:pypi/pandas@2.2.2",
-      "hashes": [
-        {
-          "alg": "SHA-256",
-          "content": "90c6fca2acf139569e74e8781709dccb6fe25940488755716d1d354d6bc58bce"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "c7adfc142dac335d8c1e0dcbd37eb8617eac386596eb9e1a1b77791cf2498238"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "4abfe0be0d7221be4f12552995e58723c7422c80a659da13ca382697de830c08"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "8635c16bf3d99040fdf3ca3db669a7250ddf49c55dc4aa8fe0ae0fa8d6dcc1f0"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "40ae1dffb3967a52203105a077415a86044a2bea011b5f321c6aa64b379a3f51"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "8e5a0b00e1e56a842f922e7fae8ae4077aee4af0acb5ae3622bd4b4c30aedf99"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "ddf818e4e6c7c6f4f7c8a12709696d193976b591cc7dc50588d3d1a6b5dc8772"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "696039430f7a562b74fa45f540aca068ea85fa34c244d0deee539cb6d70aa288"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "8e90497254aacacbc4ea6ae5e7a8cd75629d6ad2b30025a4a8b09aa4faf55151"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "58b84b91b0b9f4bafac2a0ac55002280c094dfc6402402332c0913a59654ab2b"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "6d2123dc9ad6a814bcdea0f099885276b31b24f7edf40f6cdbc0912672e22eee"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "2925720037f06e89af896c70bca73459d7e6a4be96f9de79e2d440bd499fe0db"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "0cace394b6ea70c01ca1595f839cf193df35d1575986e484ad35c4aeae7266c1"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "873d13d177501a28b2756375d59816c365e42ed8417b41665f346289adc68d24"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "9dfde2a0ddef507a631dc9dc4af6a9489d5e2e740e226ad426a05cabfbd7c8ef"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "e9b79011ff7a0f4b1d6da6a61aa1aa604fb312d6647de5bad20013682d1429ce"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "1cb51fe389360f3b5a4d57dbd2848a5f033350336ca3b340d1c53a1fad33bcad"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "eee3a87076c0756de40b05c5e9a6069c035ba43e8dd71c379e68cab2c20f16ad"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "3e374f59e440d4ab45ca2fffde54b81ac3834cf5ae2cdfa69c90bc03bde04d76"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "43498c0bdb43d55cb162cdc8c06fac328ccb5d2eabe3cadeb3529ae6f0517c32"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "d187d355ecec3629624fccb01d104da7d7f391db0311145817525281e2804d23"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "0ca6377b8fca51815f382bd0b697a0814c8bda55115678cbc94c30aacbb6eff2"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "9057e6aa78a584bc93a13f0a9bf7e753a5e9770a30b4d758b8d5f2a62a9433cd"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "001910ad31abc7bf06f49dcc903755d2f7f3a9186c0c040b827e522e9cef0863"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "66b479b0bd07204e37583c191535505410daa8df638fd8e75ae1b383851fe921"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "a77e9d1c386196879aa5eb712e77461aaee433e54c68cf253053a73b7e49c33a"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "92fd6b027924a7e178ac202cfbe25e53368db90d56872d20ffae94b96c7acc57"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "640cef9aa381b60e296db324337a554aeeb883ead99dc8f6c18e81a93942f5f4"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "9e79019aba43cb4fda9e4d983f8e88ca0373adbb697ae9c6c43093218de28b54"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "name": "BSD 3-Clause License\n\nCopyright (c) 2008-2011, AQR Capital Management, LLC, Lambda Foundry, Inc. and PyData Development Team\nAll rights reserved.\n\nCopyright (c) 2011-2023, Open source contributors.\n\nRedistribution and use in source and binary forms, with or without\nmodification, are permitted provided that the following conditions are met:\n\n* Redistributions of source code must retain the above copyright notice, this\n  list of conditions and the following disclaimer.\n\n* Redistributions in binary form must reproduce the above copyright notice,\n  this list of conditions and the following disclaimer in the documentation\n  and/or other materials provided with the distribution.\n\n* Neither the name of the copyright holder nor the names of its\n  contributors may be used to endorse or promote products derived from\n  this software without specific prior written permission.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\nAND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\nIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\nDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\nFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\nDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\nSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\nCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\nOR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\nOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
-          }
-        }
-      ],
-      "properties": [
-        {
-          "name": "maintainer",
-          "value": "Unknown"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "pyarrow",
-      "version": "23.0.0",
-      "purl": "pkg:pypi/pyarrow@23.0.0",
-      "hashes": [
-        {
-          "alg": "SHA-256",
-          "content": "cbdc2bf5947aa4d462adcf8453cf04aee2f7932653cb67a27acd96e5e8528a67"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "4d38c836930ce15cd31dce20114b21ba082da231c884bdc0a7b53e1477fe7f07"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "4222ff8f76919ecf6c716175a0e5fddb5599faeed4c56d9ea41a2c42be4998b2"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "87f06159cbe38125852657716889296c83c37b4d09a5e58f3d10245fd1f69795"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "1675c374570d8b91ea6d4edd4608fa55951acd44e0c31bd146e091b4005de24f"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "247374428fde4f668f138b04031a7e7077ba5fa0b5b1722fdf89a017bf0b7ee0"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "de53b1bd3b88a2ee93c9af412c903e57e738c083be4f6392288294513cd8b2c1"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "5574d541923efcbfdf1294a2746ae3b8c2498a2dc6cd477882f6f4e7b1ac08d3"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "2ef0075c2488932e9d3c2eb3482f9459c4be629aa673b725d5e3cf18f777f8e4"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "65666fc269669af1ef1c14478c52222a2aa5c907f28b68fb50a203c777e4f60c"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "4d85cb6177198f3812db4788e394b757223f60d9a9f5ad6634b3e32be1525803"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "1a9ff6fa4141c24a03a1a434c63c8fa97ce70f8f36bccabc18ebba905ddf0f17"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "84839d060a54ae734eb60a756aeacb62885244aaa282f3c968f5972ecc7b1ecc"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "a149a647dbfe928ce8830a713612aa0b16e22c64feac9d1761529778e4d4eaa5"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "5961a9f646c232697c24f54d3419e69b4261ba8a8b66b0ac54a1851faffcbab8"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "632b3e7c3d232f41d64e1a4a043fb82d44f8a349f339a1188c6a0dd9d2d47d8a"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "76242c846db1411f1d6c2cc3823be6b86b40567ee24493344f8226ba34a81333"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "b73519f8b52ae28127000986bf228fda781e81d3095cd2d3ece76eb5cf760e1b"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "068701f6823449b1b6469120f399a1239766b117d211c5d2519d4ed5861f75de"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "1801ba947015d10e23bca9dd6ef5d0e9064a81569a89b6e9a63b59224fd060df"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "52265266201ec25b6839bf6bd4ea918ca6d50f31d13e1cf200b4261cd11dc25c"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "ad96a597547af7827342ffb3c503c8316e5043bb09b47a84885ce39394c96e00"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "b9edf990df77c2901e79608f08c13fbde60202334a4fcadb15c1f57bf7afee43"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "36d1b5bc6ddcaff0083ceec7e2561ed61a51f49cce8be079ee8ed406acb6fdef"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "4292b889cd224f403304ddda8b63a36e60f92911f89927ec8d98021845ea21be"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "dfd9e133e60eaa847fd80530a1b89a052f09f695d0b9c34c235ea6b2e0924cf7"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "832141cc09fac6aab1cd3719951d23301396968de87080c57c9a7634e0ecd068"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "ce9486e0535a843cf85d990e2ec5820a47918235183a5c7b8b97ed7e92c2d47d"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "075c29aeaa685fd1182992a9ed2499c66f084ee54eea47da3eb76e125e06064c"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "799965a5379589510d888be3094c2296efd186a17ca1cef5b77703d4d5121f53"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "ef7cac8fe6fccd8b9e7617bfac785b0371a7fe26af59463074e4882747145d40"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "15a414f710dc927132dd67c361f78c194447479555af57317066ee5116b90e9e"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "3e0d2e6915eca7d786be6a77bf227fbc06d825a75b5b5fe9bcbef121dec32685"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "4b317ea6e800b5704e5e5929acb6e2dc13e9276b708ea97a39eb8b345aa2658b"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "7a7d067c9a88faca655c71bcc30ee2782038d59c802d57950826a07f60d83c4c"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "20b187ed9550d233a872074159f765f52f9d92973191cd4b93f293a19efbe377"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "18ec84e839b493c3886b9b5e06861962ab4adfaeb79b81c76afbd8d84c7d5fda"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "e438dd3f33894e34fd02b26bd12a32d30d006f5852315f611aa4add6c7fab4bc"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "a244279f240c81f135631be91146d7fa0e9e840e1dfed2aba8483eba25cd98e6"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "c4692e83e42438dba512a570c6eaa42be2f8b6c0f492aea27dec54bdc495103a"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "ae7f30f898dfe44ea69654a35c93e8da4cef6606dc4c72394068fd95f8e9f54a"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "ebc017d765d71d80a3f8584ca0566b53e40464586585ac64176115baa0ada7d3"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "0800cc58a6d17d159df823f87ad66cefebf105b982493d4bad03ee7fab84b993"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "3a7c68c722da9bb5b0f8c10e3eae71d9825a4b429b40b32709df5d1fa55beb3d"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "bd5556c24622df90551063ea41f559b714aa63ca953db884cfb958559087a14e"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "54810f6e6afc4ffee7c2e0051b61722fbea9a4961b46192dcfae8ea12fa09059"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "14de7d48052cf4b0ed174533eafa3cfe0711b8076ad70bede32cf59f744f0d7c"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "427deac1f535830a744a4f04a6ac183a64fcac4341b3f618e693c41b7b98d2b0"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "5b86bb649e4112fb0614294b7d0a175c7513738876b89655605ebb87c804f861"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "180e3150e7edfcd182d3d9afba72f7cf19839a497cc76555a8dce998a8f67615"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "name": "Unknown"
-          }
-        }
-      ],
-      "properties": [
-        {
-          "name": "maintainer",
-          "value": "Unknown"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "packaging",
-      "version": "26.0",
-      "purl": "pkg:pypi/packaging@26.0",
-      "hashes": [
-        {
-          "alg": "SHA-256",
-          "content": "b36f1fef9334a5588b4166f8bcd26a14e521f2b55e6b9de3aaa80d3ff7a37529"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "00243ae351a257117b6a241061796684b084ed1c516a08c48a3f7e147a9d80b4"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "name": "Unknown"
-          }
-        }
-      ],
-      "properties": [
-        {
-          "name": "maintainer",
-          "value": "Unknown"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "colorama",
-      "version": "0.4.6",
-      "purl": "pkg:pypi/colorama@0.4.6",
-      "hashes": [
-        {
-          "alg": "SHA-256",
-          "content": "4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "name": "Unknown"
-          }
-        }
-      ],
-      "properties": [
-        {
-          "name": "maintainer",
-          "value": "Unknown"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "ipykernel",
-      "version": "6.29.5",
-      "purl": "pkg:pypi/ipykernel@6.29.5",
-      "hashes": [
-        {
-          "alg": "SHA-256",
-          "content": "afdb66ba5aa354b09b91379bac28ae4afebbb30e8b39510c9690afb7a10421b5"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "f093a22c4a40f8828f8e330a9c297cb93dcab13bd9678ded6de8e5cf81c56215"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "name": "BSD 3-Clause License\n\nCopyright (c) 2015, IPython Development Team\n\nAll rights reserved.\n\nRedistribution and use in source and binary forms, with or without\nmodification, are permitted provided that the following conditions are met:\n\n1. Redistributions of source code must retain the above copyright notice, this\n   list of conditions and the following disclaimer.\n\n2. Redistributions in binary form must reproduce the above copyright notice,\n   this list of conditions and the following disclaimer in the documentation\n   and/or other materials provided with the distribution.\n\n3. Neither the name of the copyright holder nor the names of its\n   contributors may be used to endorse or promote products derived from\n   this software without specific prior written permission.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\nAND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\nIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\nDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\nFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\nDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\nSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\nCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\nOR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\nOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
-          }
-        }
-      ],
-      "properties": [
-        {
-          "name": "maintainer",
-          "value": "Unknown"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "nest-asyncio",
-      "version": "1.6.0",
-      "purl": "pkg:pypi/nest-asyncio@1.6.0",
-      "hashes": [
-        {
-          "alg": "SHA-256",
-          "content": "87af6efd6b5e897c81050477ef65c62e2b2f35d51703cae01aff2905b1852e1c"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "6f172d5449aca15afd6c646851f4e31e02c598d553a667e38cafa997cfec55fe"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "name": "BSD"
-          }
-        }
-      ],
-      "properties": [
-        {
-          "name": "maintainer",
-          "value": "Ewald R. de Wit"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "psutil",
-      "version": "6.0.0",
-      "purl": "pkg:pypi/psutil@6.0.0",
-      "hashes": [
-        {
-          "alg": "SHA-256",
-          "content": "a021da3e881cd935e64a3d0a20983bda0bb4cf80e4f74fa9bfcb1bc5785360c6"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "1287c2b95f1c0a364d23bc6f2ea2365a8d4d9b726a3be7294296ff7ba97c17f0"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "a9a3dbfb4de4f18174528d87cc352d1f788b7496991cca33c6996f40c9e3c92c"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "6ec7588fb3ddaec7344a825afe298db83fe01bfaaab39155fa84cf1c0d6b13c3"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "1e7c870afcb7d91fdea2b37c24aeb08f98b6d67257a5cb0a8bc3ac68d0f1a68c"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "02b69001f44cc73c1c5279d02b30a817e339ceb258ad75997325e0e6169d8b35"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "21f1fb635deccd510f69f485b87433460a603919b45e2a324ad65b0cc74f8fb1"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "c588a7e9b1173b6e866756dde596fd4cad94f9399daf99ad8c3258b3cb2b47a0"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "6ed2440ada7ef7d0d608f20ad89a04ec47d2d3ab7190896cd62ca5fc4fe08bf0"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "5fd9a97c8e94059b0ef54a7d4baf13b405011176c3b6ff257c247cae0d560ecd"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "e2e8d0054fc88153ca0544f5c4d554d42e33df2e009c4ff42284ac9ebdef4132"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "fc8c9510cde0146432bbdb433322861ee8c3efbf8589865c8bf8d21cb30c4d14"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "34859b8d8f423b86e4385ff3665d3f4d94be3cdf48221fbe476e883514fdb71c"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "a495580d6bae27291324fe60cea0b5a7c23fa36a7cd35035a16d93bdcf076b9d"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "33ea5e1c975250a720b3a6609c490db40dae5d83a4eb315170c4fe0d8b1f34b3"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "ffe7fc9b6b36beadc8c322f84e1caff51e8703b88eee1da46d1e3a6ae11b4fd0"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "8faae4f310b6d969fa26ca0545338b21f73c6b15db7c4a8d934a5482faa818f2"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "name": "BSD-3-Clause"
-          }
-        }
-      ],
-      "properties": [
-        {
-          "name": "maintainer",
-          "value": "Giampaolo Rodola"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "matplotlib",
-      "version": "3.10.6",
-      "purl": "pkg:pypi/matplotlib@3.10.6",
-      "hashes": [
-        {
-          "alg": "SHA-256",
-          "content": "bc7316c306d97463a9866b89d5cc217824e799fa0de346c8f68f4f3d27c8693d"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "d00932b0d160ef03f59f9c0e16d1e3ac89646f7785165ce6ad40c842db16cc2e"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "8fa4c43d6bfdbfec09c733bca8667de11bfa4970e8324c471f3a3632a0301c15"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "ea117a9c1627acaa04dbf36265691921b999cbf515a015298e54e1a12c3af837"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "08fc803293b4e1694ee325896030de97f74c141ccff0be886bb5915269247676"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "2adf92d9b7527fbfb8818e050260f0ebaa460f79d61546374ce73506c9421d09"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "905b60d1cb0ee604ce65b297b61cf8be9f4e6cfecf95a3fe1c388b5266bc8f4f"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "7bac38d816637343e53d7185d0c66677ff30ffb131044a81898b5792c956ba76"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "942a8de2b5bfff1de31d95722f702e2966b8a7e31f4e68f7cd963c7cd8861cf6"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "a3276c85370bc0dfca051ec65c5817d1e0f8f5ce1b7787528ec8ed2d524bbc2f"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "9df5851b219225731f564e4b9e7f2ac1e13c9e6481f941b5631a0f8e2d9387ce"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "abb5d9478625dd9c9eb51a06d39aae71eda749ae9b3138afb23eb38824026c7e"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "886f989ccfae63659183173bb3fced7fd65e9eb793c3cc21c273add368536951"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "31ca662df6a80bd426f871105fdd69db7543e28e73a9f2afe80de7e531eb2347"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "1678bb61d897bb4ac4757b5ecfb02bfb3fddf7f808000fb81e09c510712fda75"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "56cd2d20842f58c03d2d6e6c1f1cf5548ad6f66b91e1e48f814e4fb5abd1cb95"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "662df55604a2f9a45435566d6e2660e41efe83cd94f4288dfbf1e6d1eae4b0bb"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "08f141d55148cd1fc870c3387d70ca4df16dee10e909b3b038782bd4bda6ea07"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "590f5925c2d650b5c9d813c5b3b5fc53f2929c3f8ef463e4ecfa7e052044fb2b"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "f44c8d264a71609c79a78d50349e724f5d5fc3684ead7c2a473665ee63d868aa"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "819e409653c1106c8deaf62e6de6b8611449c2cd9939acb0d7d4e57a3d95cc7a"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "59c8ac8382fefb9cb71308dde16a7c487432f5255d8f1fd32473523abecfecdf"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "84e82d9e0fd70c70bc55739defbd8055c54300750cbacf4740c9673a24d6933a"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "25f7a3eb42d6c1c56e89eacd495661fc815ffc08d9da750bca766771c0fd9110"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "f9c862d91ec0b7842920a4cfdaaec29662195301914ea54c33e01f1a28d014b2"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "acc86dd6e0e695c095001a7fccff158c49e45e0758fdf5dcdbb0103318b59c9f"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "e228cd2ffb8f88b7d0b29e37f68ca9aaf83e33821f24a5ccc4f082dd8396bc27"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "658bc91894adeab669cf4bb4a186d049948262987e80f0857216387d7435d833"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "8913b7474f6dd83ac444c9459c91f7f0f2859e839f41d642691b104e0af056aa"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "091cea22e059b89f6d7d1a18e2c33a7376c26eee60e401d92a4d6726c4e12706"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "491e25e02a23d7207629d942c666924a6b61e007a48177fdd231a0097b7f507e"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "3d80d60d4e54cda462e2cd9a086d85cd9f20943ead92f575ce86885a43a565d5"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "1b53bd6337eba483e2e7d29c5ab10eee644bc3a2491ec67cc55f7b44583ffb18"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "cbd5eb50b7058b2892ce45c2f4e92557f395c9991f5c886d1bb74a1582e70fd6"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "70aaf890ce1d0efd482df969b28a5b30ea0b891224bb315810a3940f67182899"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "1565aae810ab79cb72e402b22facfa6501365e73ebab70a0fdfb98488d2c3c0c"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "f3b23315a01981689aa4e1a179dbf6ef9fbd17143c3eea77548c2ecfb0499438"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "30fdd37edf41a4e6785f9b37969de57aea770696cb637d9946eb37470c94a453"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "bc31e693da1c08012c764b053e702c1855378e04102238e6a5ee6a7117c53a47"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "94f0b4cacb23763b64b5dace50d5b7bfe98710fed5f0cef5c08135a03399d98b"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "cc332891306b9fb39462673d8225d1b824c89783fee82840a709f96714f17a5c"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "ee1d607b3fb1590deb04b69f02ea1d53ed0b0bf75b2b1a5745f269afcbd3cdd3"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "376a624a218116461696b27b2bbf7a8945053e6d799f6502fc03226d077807bf"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "83847b47f6524c34b4f2d3ce726bb0541c48c8e7692729865c3df75bfa0f495a"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "c7e0518e0d223683532a07f4b512e2e0729b62674f1b3a1a69869f98e6b1c7e3"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "4dd83e029f5b4801eeb87c64efd80e732452781c16a9cf7415b7b63ec8f374d7"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "05be9bdaa8b242bc6ff96330d18c52f1fc59c6fb3a4dd411d953d67e7e1baf98"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "f56a0d1ab05d34c628592435781d185cd99630bdfd76822cd686fb5a0aecd43a"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "13fcd07ccf17e354398358e0307a1f53f5325dca22982556ddb9c52837b5af41"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "470fc846d59d1406e34fa4c32ba371039cd12c2fe86801159a965956f2575bd1"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "f7173f8551b88f4ef810a94adae3128c2530e0d07529f7141be7f8d8c365f051"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "f2d684c3204fa62421bbf770ddfebc6b50130f9cad65531eeba19236d73bb488"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "6f4a69196e663a41d12a728fab8751177215357906436804217d6d9cf0d4d6cf"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "4d6ca6ef03dfd269f4ead566ec6f3fb9becf8dab146fb999022ed85ee9f6b3eb"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "ec01b645840dd1996df21ee37f208cd8ba57644779fa20464010638013d3203c"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "name": "License agreement for matplotlib versions 1.3.0 and later\n =========================================================\n\n 1. This LICENSE AGREEMENT is between the Matplotlib Development Team\n (\"MDT\"), and the Individual or Organization (\"Licensee\") accessing and\n otherwise using matplotlib software in source or binary form and its\n associated documentation.\n\n 2. Subject to the terms and conditions of this License Agreement, MDT\n hereby grants Licensee a nonexclusive, royalty-free, world-wide license\n to reproduce, analyze, test, perform and/or display publicly, prepare\n derivative works, distribute, and otherwise use matplotlib\n alone or in any derivative version, provided, however, that MDT's\n License Agreement and MDT's notice of copyright, i.e., \"Copyright (c)\n 2012- Matplotlib Development Team; All Rights Reserved\" are retained in\n matplotlib  alone or in any derivative version prepared by\n Licensee.\n\n 3. In the event Licensee prepares a derivative work that is based on or\n incorporates matplotlib or any part thereof, and wants to\n make the derivative work available to others as provided herein, then\n Licensee hereby agrees to include in any such work a brief summary of\n the changes made to matplotlib .\n\n 4. MDT is making matplotlib available to Licensee on an \"AS\n IS\" basis.  MDT MAKES NO REPRESENTATIONS OR WARRANTIES, EXPRESS OR\n IMPLIED.  BY WAY OF EXAMPLE, BUT NOT LIMITATION, MDT MAKES NO AND\n DISCLAIMS ANY REPRESENTATION OR WARRANTY OF MERCHANTABILITY OR FITNESS\n FOR ANY PARTICULAR PURPOSE OR THAT THE USE OF MATPLOTLIB\n WILL NOT INFRINGE ANY THIRD PARTY RIGHTS.\n\n 5. MDT SHALL NOT BE LIABLE TO LICENSEE OR ANY OTHER USERS OF MATPLOTLIB\n  FOR ANY INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES OR\n LOSS AS A RESULT OF MODIFYING, DISTRIBUTING, OR OTHERWISE USING\n MATPLOTLIB , OR ANY DERIVATIVE THEREOF, EVEN IF ADVISED OF\n THE POSSIBILITY THEREOF.\n\n 6. This License Agreement will automatically terminate upon a material\n breach of its terms and conditions.\n\n 7. Nothing in this License Agreement shall be deemed to create any\n relationship of agency, partnership, or joint venture between MDT and\n Licensee.  This License Agreement does not grant permission to use MDT\n trademarks or trade name in a trademark sense to endorse or promote\n products or services of Licensee, or any third party.\n\n 8. By copying, installing or otherwise using matplotlib ,\n Licensee agrees to be bound by the terms and conditions of this License\n Agreement.\n\n License agreement for matplotlib versions prior to 1.3.0\n ========================================================\n\n 1. This LICENSE AGREEMENT is between John D. Hunter (\"JDH\"), and the\n Individual or Organization (\"Licensee\") accessing and otherwise using\n matplotlib software in source or binary form and its associated\n documentation.\n\n 2. Subject to the terms and conditions of this License Agreement, JDH\n hereby grants Licensee a nonexclusive, royalty-free, world-wide license\n to reproduce, analyze, test, perform and/or display publicly, prepare\n derivative works, distribute, and otherwise use matplotlib\n alone or in any derivative version, provided, however, that JDH's\n License Agreement and JDH's notice of copyright, i.e., \"Copyright (c)\n 2002-2011 John D. Hunter; All Rights Reserved\" are retained in\n matplotlib  alone or in any derivative version prepared by\n Licensee.\n\n 3. In the event Licensee prepares a derivative work that is based on or\n incorporates matplotlib  or any part thereof, and wants to\n make the derivative work available to others as provided herein, then\n Licensee hereby agrees to include in any such work a brief summary of\n the changes made to matplotlib.\n\n 4. JDH is making matplotlib  available to Licensee on an \"AS\n IS\" basis.  JDH MAKES NO REPRESENTATIONS OR WARRANTIES, EXPRESS OR\n IMPLIED.  BY WAY OF EXAMPLE, BUT NOT LIMITATION, JDH MAKES NO AND\n DISCLAIMS ANY REPRESENTATION OR WARRANTY OF MERCHANTABILITY OR FITNESS\n FOR ANY PARTICULAR PURPOSE OR THAT THE USE OF MATPLOTLIB\n WILL NOT INFRINGE ANY THIRD PARTY RIGHTS.\n\n 5. JDH SHALL NOT BE LIABLE TO LICENSEE OR ANY OTHER USERS OF MATPLOTLIB\n  FOR ANY INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES OR\n LOSS AS A RESULT OF MODIFYING, DISTRIBUTING, OR OTHERWISE USING\n MATPLOTLIB , OR ANY DERIVATIVE THEREOF, EVEN IF ADVISED OF\n THE POSSIBILITY THEREOF.\n\n 6. This License Agreement will automatically terminate upon a material\n breach of its terms and conditions.\n\n 7. Nothing in this License Agreement shall be deemed to create any\n relationship of agency, partnership, or joint venture between JDH and\n Licensee.  This License Agreement does not grant permission to use JDH\n trademarks or trade name in a trademark sense to endorse or promote\n products or services of Licensee, or any third party.\n\n 8. By copying, installing or otherwise using matplotlib,\n Licensee agrees to be bound by the terms and conditions of this License\n Agreement."
-          }
-        }
-      ],
-      "properties": [
-        {
-          "name": "maintainer",
-          "value": "John D. Hunter, Michael Droettboom"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "pywin32",
-      "version": "311",
-      "purl": "pkg:pypi/pywin32@311",
-      "hashes": [
-        {
-          "alg": "SHA-256",
-          "content": "d03ff496d2a0cd4a5893504789d4a15399133fe82517455e78bad62efbb7f0a3"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "797c2772017851984b97180b0bebe4b620bb86328e8a884bb626156295a63b3b"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "0502d1facf1fed4839a9a51ccbcc63d952cf318f78ffc00a7e78528ac27d7a2b"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "184eb5e436dea364dcd3d2316d577d625c0351bf237c4e9a5fabbcfa5a58b151"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "3ce80b34b22b17ccbd937a6e78e7225d80c52f5ab9940fe0506a1a16f3dab503"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "a733f1388e1a842abb67ffa8e7aad0e70ac519e09b0f6a784e65a136ec7cefd2"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "750ec6e621af2b948540032557b10a2d43b0cee2ae9758c54154d711cc852d31"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "b8c095edad5c211ff31c05223658e71bf7116daa0ecf3ad85f3201ea3190d067"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "e286f46a9a39c4a18b319c28f59b61de793654af2f395c102b4f819e584b5852"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "f95ba5a847cba10dd8c4d8fefa9f2a6cf283b8b88ed6178fa8a6c1ab16054d0d"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "718a38f7e5b058e76aee1c56ddd06908116d35147e133427e59a3983f703a20d"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "7b4075d959648406202d92a2310cb990fea19b535c7f4a78d3f5e10b926eeb8a"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "b7a2c10b93f8986666d0c803ee19b5990885872a7de910fc460f9b0c2fbf92ee"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "3aca44c046bd2ed8c90de9cb8427f581c479e594e99b5c0bb19b29c10fd6cb87"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "a508e2d9025764a8270f93111a970e1d0fbfc33f4153b388bb649b7eec4f9b42"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "6c6f2969607b5023b0d9ce2541f8d2cbb01c4f46bc87456017cf63b73f1e2d8c"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "c8015b09fb9a5e188f83b7b04de91ddca4658cee2ae6f3bc483f0b21a77ef6cd"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "aba8f82d551a942cb20d4a83413ccbac30790b50efb89a75e4f586ac0bb8056b"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "e0c4cfb0621281fe40387df582097fd796e80430597cb9944f0ae70447bacd91"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "62ea666235135fee79bb154e695f3ff67370afefd71bd7fea7512fc70ef31e3d"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "name": "PSF"
-          }
-        }
-      ],
-      "properties": [
-        {
-          "name": "maintainer",
-          "value": "Mark Hammond (et al)"
         }
       ]
     }

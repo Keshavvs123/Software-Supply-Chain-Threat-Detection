@@ -6,8 +6,8 @@ import re
 from datetime import datetime
 import ssl
 
-# Bypass SSL validation issues if any local cert configs are outdated
-ssl_context = ssl._create_unverified_context()
+# Verified TLS (default context). Do NOT disable certificate validation.
+ssl_context = ssl.create_default_context()
 
 DB_PATH = os.path.join("outputs", "cyber_intel_db.sqlite")
 

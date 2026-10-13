@@ -92,7 +92,9 @@ def compute_graph_features(G, resolved_packages):
         pagerank = {node: 1.0/max(len(G), 1) for node in G.nodes()}
         
     try:
-        betweenness = nx.betweenness_centrality(G)
+        # exact for small graphs; seeded sampling keeps large graphs tractable (O(VE) otherwise)
+        n_nodes = G.number_of_nodes()
+        betweenness = nx.betweenness_centrality(G, k=min(300, n_nodes), seed=42) if n_nodes > 300 else nx.betweenness_centrality(G)
     except Exception:
         betweenness = {node: 0.0 for node in G.nodes()}
         
@@ -141,6 +143,12 @@ def compute_graph_features(G, resolved_packages):
     vuln_ratios = {}
     blast_radius = {}
     
+    # Compute "has a CVE" once per version node instead of once per (ancestor, descendant) pair
+    has_cve_cache = {
+        vn_: any(G.nodes[t].get("type") == "cve" for t in G.successors(vn_))
+        for vn_ in version_nodes
+    }
+
     for vn in version_nodes:
         # 1. Vulnerable neighbor ratios
         descendants = nx.descendants(G, vn)
@@ -149,11 +157,7 @@ def compute_graph_features(G, resolved_packages):
         if not desc_versions:
             vuln_ratios[vn] = 0.0
         else:
-            vuln_desc_count = 0
-            for dv in desc_versions:
-                has_cve = any(G.nodes[target].get("type") == "cve" for target in G.successors(dv))
-                if has_cve:
-                    vuln_desc_count += 1
+            vuln_desc_count = sum(1 for dv in desc_versions if has_cve_cache.get(dv, False))
             vuln_ratios[vn] = float(vuln_desc_count) / len(desc_versions)
             
         # 2. Blast Radius (number of upstream package dependents)
@@ -251,8 +255,28 @@ def propagate_risks(G):
                     max_r = max(max_r, propagated_risks[succ])
             package_risks[node] = max_r
 
+    # Group paths: one entry per route, listing every CVE on it (instead of one row per CVE)
+    grouped = {}
+    for ap in critical_attack_paths:
+        route = ap["path"].split(" [VULN:")[0]
+        g = grouped.setdefault(route, {"route": route, "risk_score": 0.0, "cves": []})
+        g["risk_score"] = max(g["risk_score"], ap["risk_score"])
+        if ap["cve_id"] not in g["cves"]:
+            g["cves"].append(ap["cve_id"])
+    merged_paths = []
+    for g in grouped.values():
+        cves = g["cves"]
+        shown = ", ".join(cves[:3]) + (f" (+{len(cves) - 3} more)" if len(cves) > 3 else "")
+        merged_paths.append({
+            "path": f"{g['route']} [VULN: {shown}]",
+            "risk_score": g["risk_score"],
+            "cve_id": shown,
+            "cve_ids": cves,
+            "cve_count": len(cves),
+        })
+
     return {
         "node_risk_scores": propagated_risks,
         "package_risks": package_risks,
-        "attack_paths": sorted(critical_attack_paths, key=lambda x: x["risk_score"], reverse=True)
+        "attack_paths": sorted(merged_paths, key=lambda x: x["risk_score"], reverse=True)
     }

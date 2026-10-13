@@ -41,10 +41,12 @@ def run_risk_prediction(resolved_packages, vulnerability_details, package_metada
     x_list = []
     
     # Extract static/runtime risks to embed
+    # Project-level first-party signals (per-package signals are applied per node/package below).
+    # NOTE: dependency (third-party) findings live under static_results["packages"]; the top-level
+    # counters only describe first-party code, so use them only for the project-level penalty.
     static_risk = (static_results.get("bandit_issue_count", 0) + static_results.get("semgrep_issue_count", 0)) / 10.0
     runtime_risk = (
-        runtime_results.get("subprocess_count", 0) + 
-        runtime_results.get("system_call_count", 0) +
+        runtime_results.get("subprocess_count", 0) +
         runtime_results.get("suspicious_network_activity", 0) +
         runtime_results.get("file_access_risk", 0)
     ) / 10.0
@@ -100,10 +102,10 @@ def run_risk_prediction(resolved_packages, vulnerability_details, package_metada
                     break
             
             if pkg_runtime:
+                # dynamic_execution_count is deliberately excluded: it is dominated by benign imports.
                 total_calls = (
-                    pkg_runtime.get("subprocess_count", 0) + 
+                    pkg_runtime.get("subprocess_count", 0) +
                     pkg_runtime.get("system_call_count", 0) +
-                    pkg_runtime.get("dynamic_execution_count", 0) +
                     pkg_runtime.get("suspicious_network_activity", 0)
                 )
                 pkg_runtime_risk = total_calls / 10.0
@@ -141,7 +143,11 @@ def run_risk_prediction(resolved_packages, vulnerability_details, package_metada
     lstm = TemporalRiskLSTM(in_channels=4, hidden_size=16)
     
     if os.path.exists("outputs/hgat_model.pt"):
-        hgat.load_state_dict(torch.load("outputs/hgat_model.pt"))
+        try:
+            hgat.load_state_dict(torch.load("outputs/hgat_model.pt", map_location="cpu"))
+        except RuntimeError as e:
+            print(f"WARNING: outputs/hgat_model.pt is incompatible with HGATModel (13 features); "
+                  f"using untrained weights. Run ml_engine/trainer.py to regenerate. ({e})")
     if os.path.exists("outputs/temporal_model.pt"):
         lstm.load_state_dict(torch.load("outputs/temporal_model.pt"))
         
@@ -240,8 +246,14 @@ def run_risk_prediction(resolved_packages, vulnerability_details, package_metada
                 
             confidence = 0.95 - (0.15 * entropy_penalty) - (0.10 * metadata_penalty)
             
-            # Boost vulnerability risk if static / runtime analysis shows high values
-            if static_risk > 0.5 or runtime_risk > 0.5:
+            # Boost risk if THIS package's own static / runtime analysis shows high values
+            pkg_static_now = static_results.get("packages", {}).get(key.lower(), {})
+            pkg_static_score = (pkg_static_now.get("bandit_issue_count", 0) + pkg_static_now.get("semgrep_issue_count", 0)
+                                + 3 * pkg_static_now.get("critical_findings", 0)) / 10.0
+            pkg_rt_now = runtime_results.get("packages", {}).get(key.lower(), {})
+            pkg_rt_score = (pkg_rt_now.get("subprocess_count", 0) + pkg_rt_now.get("suspicious_network_activity", 0)
+                            + pkg_rt_now.get("file_access_risk", 0)) / 10.0
+            if pkg_static_score > 0.5 or pkg_rt_score > 0.5:
                 composite_risk = min(composite_risk + 0.15, 1.0)
                 
             package_risks[name] = composite_risk
@@ -296,6 +308,9 @@ def run_risk_prediction(resolved_packages, vulnerability_details, package_metada
         radv_scores[name] = float(radv)
         blast_radius_scores[name] = int(blast_rad)
         
+        # SIMULATED early-warning estimate: derived from the risk score, NOT measured from real
+        # release/detection timestamps. It is reported with "simulated": True and must not be
+        # presented as an empirical result.
         # Track TTD for simulated threat triggers (composite_risk > 0.40)
         if composite_risk > 0.40:
             ttd = max(1.0, 2.0 + (1.0 - composite_risk) * 48.0)
@@ -319,7 +334,8 @@ def run_risk_prediction(resolved_packages, vulnerability_details, package_metada
         "median_ttd_hours": float(median_ttd),
         "ttd_at_24h_percent": float(ttd_24h),
         "ttd_at_72h_percent": float(ttd_72h),
-        "early_detection_rate_percent": float(edr)
+        "early_detection_rate_percent": float(edr),
+        "simulated": True
     }
 
     return {

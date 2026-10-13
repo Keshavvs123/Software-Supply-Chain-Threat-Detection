@@ -1,48 +1,26 @@
 {
-  "total_vulnerable_packages": 11,
+  "total_vulnerable_packages": 3,
   "remediation_actions": [
     {
       "package": "jinja2",
       "current_version": "3.1.4",
-      "recommended_version": "3.1.5",
+      "recommended_version": "3.1.6",
       "severity": "CRITICAL",
       "cves_resolved": [
         "CVE-2025-27516",
         "CVE-2024-56201",
-        "CVE-2024-56326",
-        "CVE-2025-27516",
-        "CVE-2024-56201",
         "CVE-2024-56326"
       ],
-      "cve_count": 6,
+      "cve_count": 3,
       "max_cvss": 8.8,
       "transitive_parents": [],
-      "upgrade_command": "pip install --upgrade \"jinja2>=3.1.5\"",
-      "action_summary": "Upgrade jinja2 from 3.1.4 to >=3.1.5 (fixes 6 CVEs)"
-    },
-    {
-      "package": "notebook",
-      "current_version": "7.2.1",
-      "recommended_version": "7.6.3",
-      "severity": "HIGH",
-      "cves_resolved": [
-        "CVE-2024-43805",
-        "CVE-2026-42557",
-        "CVE-2026-40171",
-        "CVE-2024-43805",
-        "CVE-2026-42557",
-        "CVE-2026-40171"
-      ],
-      "cve_count": 6,
-      "max_cvss": 7.6,
-      "transitive_parents": [],
-      "upgrade_command": "pip install --upgrade \"notebook>=7.6.3\"",
-      "action_summary": "Upgrade notebook from 7.2.1 to >=7.6.3 (fixes 6 CVEs)"
+      "upgrade_command": "pip install --upgrade \"jinja2>=3.1.6\"",
+      "action_summary": "Upgrade jinja2 from 3.1.4 to >=3.1.6 (fixes 3 CVEs)"
     },
     {
       "package": "urllib3",
-      "current_version": "2.2.2",
-      "recommended_version": "2.2.3",
+      "current_version": "2.2.3",
+      "recommended_version": "2.8.0",
       "severity": "HIGH",
       "cves_resolved": [
         "CVE-2025-66471",
@@ -52,172 +30,28 @@
         "CVE-2025-66418",
         "CVE-2025-50181",
         "CVE-2026-44431",
-        "CVE-2026-97689",
-        "CVE-2026-44431",
-        "CVE-2025-66471",
-        "CVE-2026-21441",
-        "CVE-2025-50182",
-        "CVE-2025-66418",
-        "CVE-2025-50181",
-        "CVE-2026-97687",
         "CVE-2026-97689"
       ],
-      "cve_count": 16,
+      "cve_count": 8,
       "max_cvss": 7.5,
       "transitive_parents": [],
-      "upgrade_command": "pip install --upgrade \"urllib3>=2.2.3\"",
-      "action_summary": "Upgrade urllib3 from 2.2.2 to >=2.2.3 (fixes 16 CVEs)"
-    },
-    {
-      "package": "pytest",
-      "current_version": "8.4.2",
-      "recommended_version": "8.3.4",
-      "severity": "HIGH",
-      "cves_resolved": [
-        "CVE-2025-71176",
-        "CVE-2025-71176"
-      ],
-      "cve_count": 2,
-      "max_cvss": 6.8,
-      "transitive_parents": [],
-      "upgrade_command": "pip install --upgrade \"pytest>=8.3.4\"",
-      "action_summary": "Upgrade pytest from 8.4.2 to >=8.3.4 (fixes 2 CVEs)"
+      "upgrade_command": "pip install --upgrade \"urllib3>=2.8.0\"",
+      "action_summary": "Upgrade urllib3 from 2.2.3 to >=2.8.0 (fixes 8 CVEs)"
     },
     {
       "package": "requests",
       "current_version": "2.32.3",
-      "recommended_version": "2.32.3",
+      "recommended_version": "2.33.0",
       "severity": "MEDIUM",
       "cves_resolved": [
-        "CVE-2024-47081",
-        "CVE-2026-25645",
         "CVE-2024-47081",
         "CVE-2026-25645"
       ],
-      "cve_count": 4,
+      "cve_count": 2,
       "max_cvss": 5.3,
       "transitive_parents": [],
-      "upgrade_command": "pip install --upgrade \"requests>=2.32.3\"",
-      "action_summary": "Upgrade requests from 2.32.3 to >=2.32.3 (fixes 4 CVEs)"
-    },
-    {
-      "package": "flask",
-      "current_version": "3.1.0",
-      "recommended_version": "3.1.0",
-      "severity": "MEDIUM",
-      "cves_resolved": [
-        "CVE-2025-47278",
-        "CVE-2026-27205",
-        "CVE-2025-47278",
-        "CVE-2026-27205"
-      ],
-      "cve_count": 4,
-      "max_cvss": 5.0,
-      "transitive_parents": [],
-      "upgrade_command": "pip install --upgrade \"flask>=3.1.0\"",
-      "action_summary": "Upgrade flask from 3.1.0 to >=3.1.0 (fixes 4 CVEs)"
-    },
-    {
-      "package": "fsspec",
-      "current_version": "2025.7.0",
-      "recommended_version": "2026.9.0",
-      "severity": "MEDIUM",
-      "cves_resolved": [
-        "CVE-2026-104851"
-      ],
-      "cve_count": 1,
-      "max_cvss": 5.0,
-      "transitive_parents": [],
-      "upgrade_command": "pip install --upgrade \"fsspec>=2026.9.0\"",
-      "action_summary": "Upgrade fsspec from 2025.7.0 to >=2026.9.0 (fixes 1 CVEs)"
-    },
-    {
-      "package": "aiohttp",
-      "current_version": "3.13.5",
-      "recommended_version": "3.10.11",
-      "severity": "MEDIUM",
-      "cves_resolved": [
-        "CVE-2026-54279",
-        "CVE-2026-54273",
-        "CVE-2026-54275",
-        "CVE-2026-54277",
-        "CVE-2026-54280",
-        "CVE-2026-69244",
-        "CVE-2026-54278",
-        "CVE-2026-47265",
-        "CVE-2026-54276",
-        "CVE-2026-34993",
-        "CVE-2026-50269",
-        "CVE-2026-69243",
-        "CVE-2026-59881",
-        "CVE-2026-54274",
-        "CVE-2026-34993",
-        "CVE-2026-47265",
-        "CVE-2026-50269",
-        "CVE-2026-54273",
-        "CVE-2026-54274",
-        "CVE-2026-54276",
-        "CVE-2026-54277",
-        "CVE-2026-54278",
-        "CVE-2026-54279",
-        "CVE-2026-54280",
-        "CVE-2026-54275",
-        "CVE-2026-69244",
-        "CVE-2026-69243",
-        "CVE-2026-59881"
-      ],
-      "cve_count": 28,
-      "max_cvss": 5.0,
-      "transitive_parents": [],
-      "upgrade_command": "pip install --upgrade \"aiohttp>=3.10.11\"",
-      "action_summary": "Upgrade aiohttp from 3.13.5 to >=3.10.11 (fixes 28 CVEs)"
-    },
-    {
-      "package": "setuptools",
-      "current_version": "75.8.2",
-      "recommended_version": "75.8.2",
-      "severity": "MEDIUM",
-      "cves_resolved": [
-        "CVE-2025-47273",
-        "CVE-2026-59890",
-        "CVE-2025-47273",
-        "CVE-2026-59890"
-      ],
-      "cve_count": 4,
-      "max_cvss": 5.0,
-      "transitive_parents": [],
-      "upgrade_command": "pip install --upgrade \"setuptools>=75.8.2\"",
-      "action_summary": "Upgrade setuptools from 75.8.2 to >=75.8.2 (fixes 4 CVEs)"
-    },
-    {
-      "package": "idna",
-      "current_version": "3.7",
-      "recommended_version": "3.20",
-      "severity": "MEDIUM",
-      "cves_resolved": [
-        "CVE-2026-45409",
-        "CVE-2026-45409"
-      ],
-      "cve_count": 2,
-      "max_cvss": 5.0,
-      "transitive_parents": [],
-      "upgrade_command": "pip install --upgrade \"idna>=3.20\"",
-      "action_summary": "Upgrade idna from 3.7 to >=3.20 (fixes 2 CVEs)"
-    },
-    {
-      "package": "pyarrow",
-      "current_version": "23.0.0",
-      "recommended_version": "26.0.0",
-      "severity": "MEDIUM",
-      "cves_resolved": [
-        "CVE-2026-25087",
-        "CVE-2026-25087"
-      ],
-      "cve_count": 2,
-      "max_cvss": 5.0,
-      "transitive_parents": [],
-      "upgrade_command": "pip install --upgrade \"pyarrow>=26.0.0\"",
-      "action_summary": "Upgrade pyarrow from 23.0.0 to >=26.0.0 (fixes 2 CVEs)"
+      "upgrade_command": "pip install --upgrade \"requests>=2.33.0\"",
+      "action_summary": "Upgrade requests from 2.32.3 to >=2.33.0 (fixes 2 CVEs)"
     }
   ]
 }
