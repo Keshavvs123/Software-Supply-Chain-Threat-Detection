@@ -7,8 +7,8 @@ from datetime import datetime
 import ssl
 import time
 
-# Bypass SSL validation issues if any local cert configs are outdated
-ssl_context = ssl._create_unverified_context()
+# Verified TLS (default context). Do NOT disable certificate validation.
+ssl_context = ssl.create_default_context()
 
 def urlopen_with_retry(req, timeout=4, max_retries=3, backoff_factor=0.4, context=None):
     """

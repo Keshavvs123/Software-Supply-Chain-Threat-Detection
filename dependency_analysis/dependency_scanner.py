@@ -69,7 +69,8 @@ def query_osv_vulnerabilities(package_name, version):
     
     # 1. Fast Local SQLite Cache Check (< 0.1ms)
     cached = get_cached_package_vulns(package_name, version)
-    if cached is not None:
+    # Entries cached by older versions of this tool lack "fixed_versions"; treat them as stale and re-query.
+    if cached is not None and cached and all("fixed_versions" in c for c in cached):
         return cached
 
     # 2. Remote Query with fallback
@@ -163,8 +164,18 @@ def query_osv_vulnerabilities(package_name, version):
                     cwe_list = list(set(cwe_list))
                     published = v.get("published")
                 
+                # Fixed versions published by the advisory (OSV "fixed" range events, PyPI package only)
+                fixed_versions = []
+                for aff in v.get("affected", []):
+                    if aff.get("package", {}).get("ecosystem", "PyPI") != "PyPI":
+                        continue
+                    for rng in aff.get("ranges", []):
+                        for ev in rng.get("events", []):
+                            if ev.get("fixed"):
+                                fixed_versions.append(str(ev["fixed"]))
                 parsed_vulns.append({
                     "id": vuln_id,
+                    "fixed_versions": sorted(set(fixed_versions)),
                     "cve_id": cve_id,
                     "summary": v.get("summary", "No summary provided"),
                     "cvss_score": cvss_score or 5.0,
@@ -174,13 +185,14 @@ def query_osv_vulnerabilities(package_name, version):
                     "details": details
                 })
                 
-        # Store in local SQLite cache for instant reuse
+        # Store in local SQLite cache for instant reuse (only after a successful query)
         store_cached_package_vulns(package_name, version, parsed_vulns)
         return parsed_vulns
         
     except Exception:
-        # Graceful offline / timeout recovery: check if any dataset records match package
-        store_cached_package_vulns(package_name, version, parsed_vulns)
+        # Offline / timeout: do NOT cache. Caching an empty result would make a failed query look like
+        # "no known vulnerabilities" on every later run.
+        print(f"WARNING: OSV query failed for {package_name}=={version}; vulnerability data unavailable (not cached).")
         return parsed_vulns
 
 def run_dependency_scan(project_path, resolved_packages=None):

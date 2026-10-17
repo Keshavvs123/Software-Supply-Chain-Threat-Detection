@@ -30,17 +30,16 @@ class HGATModel(nn.Module):
         edge_index: Graph adjacency of shape (2, num_edges)
         """
         # First GAT layer
-        if return_attention:
-            # GATConv returns (out, (edge_index, att_weights))
-            h, (att_edge_index, att_weights) = self.conv1(x, edge_index, return_attention_weights=True)
-        else:
-            h = self.conv1(x, edge_index)
-            
+        h = self.conv1(x, edge_index)
         h = F.elu(h)
         h = F.dropout(h, p=0.1, training=self.training)
         
-        # Second GAT layer
-        h = self.conv2(h, edge_index)
+        # Second GAT layer — capture attention here (closest to the decision)
+        if return_attention:
+            # GATConv returns (out, (edge_index, att_weights))
+            h, (att_edge_index, att_weights) = self.conv2(h, edge_index, return_attention_weights=True)
+        else:
+            h = self.conv2(h, edge_index)
         h = F.elu(h)
         
         # Fully connected predictor

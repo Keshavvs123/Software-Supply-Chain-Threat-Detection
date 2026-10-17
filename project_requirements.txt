@@ -1,0 +1,45 @@
+# ============================================================
+# Project installation requirements — run ONCE to set up the
+# Gatekeeper environment itself.
+#
+# Usage:
+#   pip install -r project_requirements.txt
+#
+# NOTE: requirements.txt at the repo root is a *sample scan
+# target* (the file you drag-drop into the dashboard to test
+# the scanner).  This file lists the Gatekeeper's own deps.
+# ============================================================
+
+# Deep-learning graph model
+torch>=2.0.0
+torch-geometric>=2.4.0
+
+# Graph & data processing
+networkx>=3.0
+pandas>=2.0.0
+numpy>=1.24.0
+openpyxl>=3.1.0          # needed by pandas to read .xlsx files
+scikit-learn>=1.3.0
+matplotlib>=3.7.0
+
+# Packaging utilities (requirement parsing, version resolution)
+packaging>=23.0
+
+# SAST tools (called as subprocesses)
+bandit>=1.7.0
+semgrep>=1.50.0
+
+# Dependency vulnerability scanner
+pip-audit>=2.6.0
+
+# HTTP / async (stdlib urllib is used for most fetches; requests
+# kept for optional enricher fallbacks)
+requests>=2.32.0
+urllib3>=2.2.0
+
+# Dashboard template dependency
+jinja2>=3.1.4
+
+# Misc utilities used internally
+tqdm>=4.60.0
+warcio>=1.7.4

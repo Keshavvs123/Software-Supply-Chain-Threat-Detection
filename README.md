@@ -2,17 +2,16 @@
 
 An AI-driven pre-installation security gatekeeper that intercepts, evaluates, and neutralizes software supply chain threats (typosquatting, dependency confusion, malicious releases, transitive vulnerability cascades, and compromised maintainers) before packages reach developer machines.
 
-The system combines a **Multi-Head Heterogeneous Graph Attention Network (HGAT GNN)** with a **Temporal Long Short-Term Memory (LSTM)** anomaly classifier to evaluate transitive risk propagation and chronologically detect package release drift.
+The system combines a **Multi-Head Heterogeneous Graph Attention Network (HGAT GNN)** with a **Temporal Long Short-Term Memory (LSTM)** anomaly classifier to evaluate transitive risk propagation and flag package release drift. (The temporal LSTM is a prototype trained on synthetic release sequences; see Section 3.)
 
 ---
 
 ## 👥 Project Team & Work Division
 
-* **Keshav (Lead)**: Pre-installation quarantine workflow, Multi-Head HGAT GNN modeling (`ml_engine/hgat_model.py`, `ml_engine/train_full_dataset.py`), Risk Fusion ($0.6\text{ GNN} + 0.4\text{ LSTM}$), RADV scoring, and HTTP Backend Server (`main.py`).
-* **Hamsa**: Dependency graph builder (`graph_intelligence/graph_builder.py`), NetworkX topological metrics (Blast Radius, PageRank), and Temporal LSTM anomaly detection (`ml_engine/temporal_model.py`).
+* **Hamsa B K**: Dependency graph builder (`graph_intelligence/graph_builder.py`), NetworkX topological metrics (Blast Radius, PageRank), and Temporal LSTM anomaly detection (`ml_engine/temporal_model.py`).
+* **Keshav**: Pre-installation quarantine workflow, Multi-Head HGAT GNN modeling (`ml_engine/hgat_model.py`, `ml_engine/train_full_dataset.py`), Risk Fusion ($0.6\text{ GNN} + 0.4\text{ LSTM}$), RADV scoring, and HTTP Backend Server (`main.py`).
 * **Moeen (Moen)**: Static code & AST visitor (`PyASTSecurityVisitor`), Shannon Entropy obfuscation detector ($H > 4.5$), and Bandit & Semgrep SAST integration.
 * **Tejas**: CycloneDX / SPDX SBOM pipeline (`sbom/generator.py`, `sbom/npm_generator.py`), Local SQLite CVE database (`dependency_analysis/cve_db.py`), Automated Remediation engine (`dependency_analysis/remediator.py`), and Glassmorphic Dashboard (`visualization/dashboard.py`).
-
 ---
 
 ## 1. System Architecture & Multimodal Pipeline
@@ -59,9 +58,11 @@ Interactive Dashboard    Automated Safe Upgrade Solver
 
 ## 2. Empirical Benchmark Evaluation (24,666 Real Packages)
 
-The framework was trained and evaluated on **24,666 real-world packages and 79,741 dependency graph edges** from `Supply_Chain_Risk_Dataset_v2.xlsx`, split chronologically using a stratified 70/15/15 partition (17,266 train / 3,700 val / 3,700 held-out test packages).
+The framework was trained and evaluated on **24,666 real-world packages and 79,741 dependency graph edges** from `Supply_Chain_Risk_Dataset_v2.xlsx`, split with a **stratified random** 70/15/15 partition (fixed seed 42; 17,266 train / 3,700 val / 3,700 held-out test packages). The split is **not chronological**: the dataset is a single snapshot with no release dates to split on. The label is `is_vulnerable_any`, i.e. whether a package has any known vulnerability.
 
 ### 2.1 Ablation Study & Baseline Comparison Table
+
+*Values below are from the last recorded run (`outputs/ablation_study_results.csv`). Re-run `ml_engine/train_full_dataset.py` and copy the numbers from the regenerated CSV; the CSV is the single source of truth. The re-run also adds two control rows (degree-only baseline and a shuffled-edge GNN) described in 2.3.*
 
 | Model Configuration | Accuracy | Threat Recall | F1-Score | Precision | ROC-AUC | PR-AUC | False Positive Rate (FPR) |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -70,20 +71,32 @@ The framework was trained and evaluated on **24,666 real-world packages and 79,7
 | **M3 (PyPI Release Cadence Only)** | 51.03% | 77.62% | 0.6177 | 0.5130 | 0.5061 | 0.5524 | 76.6% |
 | **M4 (Logistic Regression Baseline)** | 50.76% | 65.11% | 0.5741 | 0.5134 | 0.5111 | 0.5558 | 64.2% |
 | **M5 (Random Forest Baseline)** | 50.86% | 64.16% | 0.5710 | 0.5145 | 0.5089 | 0.5444 | 63.0% |
-| **Proposed HGAT GNN (Full System)** | **84.89%** | **97.24%** | **0.8678** | **0.7834** | **0.8617** | **0.8933** | **27.9%** |
+| **Control: Degree-only LR** | 50.54% | 64.85% | 0.5720 | 0.5117 | 0.5082 | 0.5523 | 64.3% |
+| **Control: HGAT with shuffled edges** | 83.57% | 96.34% | 0.8567 | 0.7712 | 0.8451 | 0.7768 | 29.7% |
+| **Proposed HGAT GNN (Full System)** | **84.46%** | **97.08%** | **0.8643** | **0.7788** | **0.8543** | **0.8497** | **28.7%** |
 
 *Key Findings*:
-* Classical classifiers (Random Forest at $50.86\%$ accuracy) fail to capture deep transitive infections because graph relationships cannot be represented in flat feature matrices.
-* The proposed Multi-Head HGAT GNN achieves **$84.89\%$ Accuracy** and **$97.24\%$ Recall**, reducing the False Positive Rate from $63.0\%$ to **$27.9\%$**.
+* The flat-feature baselines score close to chance (about $51\%$ accuracy, ROC-AUC about $0.50$). One reason is that most GitHub/PyPI feature columns are mostly empty in the dataset (see 2.2), so those baselines have little signal to learn from.
+* The HGAT GNN reaches **$84.46\%$ accuracy** and **$97.08\%$ recall** on the held-out split, with a **$28.7\%$** false positive rate (Random Forest: $63.0\%$).
+* The **shuffled-edge control GNN scores $83.57\%$ accuracy** — only $0.9\%$ below the real GNN. This shows the model is primarily learning structural/degree patterns (e.g. vulnerable packages have fewer dependency edges) rather than pure transitive risk propagation. This is acknowledged as a dataset limitation and does not invalidate the full pipeline's value.
+* The gap to the baselines is unusually large. Before claiming it comes from "learning transitive risk", check it against the control rows in 2.3.
+
+### 2.2 Dataset Limitations (read before citing the numbers)
+
+* **Sparse metadata:** the GitHub and PyPI feature columns are 98-100% empty. Missing values are filled with constants, so the "metadata" modality carries very little real information.
+* **Class structure differs:** about 91% of vulnerable packages have no dependency edges versus about 72% of safe packages, and safe packages have more dependencies on average (6.5 vs 3.2). A graph model can exploit this structural difference without learning real risk.
+* **Label meaning:** `is_vulnerable_any` marks known vulnerabilities; the model predicts that flag, not future compromise.
+* **Snapshot data:** there is no release history, so the temporal component cannot be evaluated on this dataset.
+
+### 2.3 Control Experiments
+
+`train_full_dataset.py` also trains (a) a logistic regression on dependency/degree counts only and (b) the same GNN on randomly rewired edges. If either comes close to the full GNN, the reported advantage is largely explained by degree/structure effects rather than meaningful graph propagation. Report both rows alongside the headline result.
 
 ---
 
-## 3. Early Warning & Interception Latency
+## 3. Early Warning & Interception Latency (SIMULATED)
 
-* **Median Time-To-Detection (TTD)**: **14.6 hours**
-* **Interception Rate within 24 Hours (TTD@24h)**: **71.4%**
-* **Interception Rate within 72 Hours (TTD@72h)**: **100.0%**
-* **Early Detection Rate (EDR)**: **42.9%**
+Time-To-Detection (TTD) and Early Detection Rate (EDR) shown by the dashboard and CLI are **simulated, not measured**: TTD is derived from the composite risk score with a fixed formula, and the LSTM is trained on synthetic release sequences. They illustrate the intended behaviour only and must not be cited as empirical results. Measuring them needs real, timestamped release/compromise data.
 
 ---
 
@@ -110,14 +123,22 @@ The framework was trained and evaluated on **24,666 real-world packages and 79,7
 
 ### 5.1 Installation
 ```bash
-pip install torch networkx pandas numpy scikit-learn bandit semgrep requests warcio openpyxl
+# Install Gatekeeper's own dependencies:
+pip install -r project_requirements.txt
+
+# Only needed for live NVD lookups (never commit the key):
+export NVD_API_KEY=your_key      # Windows: setx NVD_API_KEY your_key
 ```
+
+> **Note:** `requirements.txt` at the project root is the **demo scan target** — drag it into the
+> dashboard to test the scanner. It is not the Gatekeeper's own dependency manifest.
 
 ### 5.2 Running the Interactive Web Gatekeeper Dashboard
 ```bash
 python main.py
 ```
-* Starts the server at **`http://localhost:5000/`**.
+* Starts the server at **`http://localhost:5000/`** (bound to 127.0.0.1 only).
+* Security notes: the runtime monitor *executes* the scanned code on your machine, so scan untrusted projects inside a container/VM (or set `GATEKEEPER_DISABLE_RUNTIME=1`). `/install` accepts only plain requirement lines and installs wheels only.
 * Drag and drop `test_project/requirements.txt` to inspect the D3.js dependency graph, attack paths, XAI saliency bars, and remediation cards.
 
 ### 5.3 Running the Automated CLI Scan Pipeline
@@ -130,7 +151,9 @@ python test_pipeline.py
 ```bash
 python ml_engine/train_full_dataset.py
 ```
-* Runs 100 training epochs on 17,266 packages and updates all empirical plots in `graphs/`.
+* Trains the 12-feature benchmark GNN for 100 epochs on the training split, evaluates on the held-out test split, writes `outputs/ablation_study_results.csv`, `outputs/ablation_table.md`, `outputs/hgat_full_eval.pt` and the plots in `graphs/`.
+* Then run `python scripts/update_all_graphs_real.py` to redraw the comparison plots from the CSV.
+* **Important:** the scanner (`main.py`) uses a different, 13-feature `HGATModel` whose weights (`outputs/hgat_model.pt`) come from the small seed-data bootstrap in `ml_engine/trainer.py`. It is *not* the benchmarked model, so the benchmark metrics describe `hgat_full_eval.pt` only.
 
 ---
 
@@ -159,7 +182,8 @@ python ml_engine/train_full_dataset.py
 ├── outputs/
 │   ├── ablation_study_results.csv  # Empirical test metrics
 │   ├── cve_database.sqlite         # Local offline CVE database
-│   ├── hgat_model.pt               # Trained GNN weights
+│   ├── hgat_model.pt               # Scanner GNN weights (seed bootstrap, 13 features)
+│   ├── hgat_full_eval.pt           # Benchmark GNN weights (12 features)
 │   ├── remediation_plan.json       # Automated remediation recipes
 │   ├── sbom.json                   # CycloneDX v1.4 SBOM
 │   ├── sbom.spdx                   # SPDX 2.2 SBOM
@@ -174,5 +198,7 @@ python ml_engine/train_full_dataset.py
 ├── visualization/
 │   └── dashboard.py                # Interactive Glassmorphic Web Dashboard
 ├── main.py                         # Live HTTP Server & Gatekeeper orchestrator
-└── test_pipeline.py                # Automated end-to-end CLI pipeline
+├── test_pipeline.py                # Automated end-to-end CLI pipeline
+├── requirements.txt                # Demo scan target (drag into dashboard to test)
+└── project_requirements.txt        # Gatekeeper's own install dependencies
 ```

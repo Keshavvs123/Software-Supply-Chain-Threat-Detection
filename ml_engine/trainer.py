@@ -253,7 +253,7 @@ def train_framework_models():
     # Set random seed for consistent split indices
     torch.manual_seed(42)
     
-    # 1. Create Chronological Train/Validation split masks to avoid temporal leakage
+    # 1. Train/Validation split masks from an approximate, hard-coded package->year table (seed data only)
     # Train: <= 2022 releases
     # Validation: 2023-2024 releases
     pkg_years = {
@@ -384,18 +384,16 @@ def train_framework_models():
     val_f1 = f1_score(binary_targets[val_idx], binary_preds[val_idx], zero_division=0)
     
     print("\n" + "="*50)
-    print("CHRONOLOGICAL MODEL EVALUATION METRICS (HGAT GNN)")
+    print("SEED-DATA BOOTSTRAP METRICS (HGAT GNN) - computed this run")
     print("="*50)
-    print(" [TRAINING SPLIT (17,266 packages)]")
-    print("  Precision: 0.8120")
-    print("  Recall:    0.9850")
-    print("  F1-Score:  0.8900")
-    print(" [TEST EVALUATION SPLIT (3,700 held-out packages)]")
-    print("  Accuracy:  0.8497 (84.97%)")
-    print("  Precision: 0.7837 (78.37%)")
-    print("  Recall:    0.9740 (97.40% threat detection rate)")
-    print("  F1-Score:  0.8686 (86.86%)")
-    print("  ROC-AUC:   0.8628 | PR-AUC: 0.8942")
+    print(f" [TRAIN split: {len(train_idx)} seed nodes]")
+    print(f"  Precision: {train_prec:.4f} | Recall: {train_rec:.4f} | F1: {train_f1:.4f}")
+    print(f" [VALIDATION split: {len(val_idx)} seed nodes]")
+    print(f"  Precision: {val_prec:.4f} | Recall: {val_rec:.4f} | F1: {val_f1:.4f}")
+    print(" NOTE: this bootstrap trains on a tiny hand-written seed set. The split is by a")
+    print(" hard-coded package->year table (not real release dates), so these numbers are only")
+    print(" a smoke test. Benchmark results come from ml_engine/train_full_dataset.py and are")
+    print(" stored in outputs/ablation_study_results.csv.")
     print("="*50 + "\n")
     
     # Save model weights if not already present from train_full_dataset

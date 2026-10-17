@@ -140,7 +140,10 @@ def evaluate_package_threats(pkg_name, pkg_data, metadata, static_info, runtime_
     sigma = expected_interval * 0.5 + 1.0
     a_release = abs(last_update - expected_interval) / sigma
     
-    if (a_release > 2.5 and burstiness > 0.5) or burstiness > 0.75:
+    # "burstiness" is the coefficient of variation of release intervals. Mature, popular packages routinely
+    # score 1.0-3.0 here (irregular but legitimate release history), so the old thresholds (0.5 / 0.75)
+    # flagged almost everything. These thresholds are heuristic and have NOT been validated on labelled data.
+    if (a_release > 1.8 and burstiness > 0.7) or burstiness > 0.8:
         threats.append({
             "id": "T4",
             "vector": "Malicious Release Anomaly",
