@@ -173,6 +173,11 @@ def generate_sbom(project_path):
     
     # 1. Identify dependencies from requirements.txt or pipdeptree
     requirements_file = os.path.join(project_path, "requirements.txt")
+    if not os.path.exists(requirements_file):
+        for candidate in [os.path.join("outputs", "last_requirements.txt"), os.path.join("outputs", "scan_temp", "requirements.txt")]:
+            if os.path.exists(candidate):
+                requirements_file = candidate
+                break
     direct_deps = {}
     if os.path.exists(requirements_file):
         with open(requirements_file, "r") as f:

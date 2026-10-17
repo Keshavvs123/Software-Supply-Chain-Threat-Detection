@@ -1,0 +1,409 @@
+[
+  {
+    "test_case_id": "TC-01",
+    "scenario_name": "Typosquatting Supply-Chain Injection",
+    "package_name": "reqeusts",
+    "package_version": "2.28.1",
+    "attack_vector": "T1",
+    "description": "Adversary publishes 'reqeusts' mimicking popular 'requests' library to execute malicious code on developer typos.",
+    "static_metrics": {
+      "shannon_entropy": 4.15,
+      "encoded_string_ratio": 0.02,
+      "eval_exec_usage": 0,
+      "bandit_issue_count": 0,
+      "semgrep_issue_count": 0,
+      "setup_hook_detected": false
+    },
+    "runtime_telemetry": {
+      "system_call_count": 1,
+      "subprocess_count": 0,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "gnn_graph_risk": 0.72,
+    "lstm_temporal_drift": 0.25,
+    "composite_risk_score": 0.532,
+    "confidence_score": 0.9368,
+    "threats_detected": [
+      {
+        "id": "T1",
+        "vector": "Typosquatting",
+        "severity": "HIGH",
+        "detail": "Package name 'reqeusts' is suspiciously close to or combosquats popular library 'requests' (edit distance=2)."
+      },
+      {
+        "id": "T6",
+        "vector": "Dependency-Based Attack",
+        "severity": "HIGH",
+        "detail": "Package surface code appears benign, but introduces high transitive dependency risk (72.0% propagated graph threat)."
+      }
+    ],
+    "checksum_status": "VALID",
+    "gatekeeper_verdict": "QUARANTINED (BLOCKED)",
+    "expected_verdict": "QUARANTINED (BLOCKED)",
+    "verdict_matched": true,
+    "remediation_recommendation": "Block pip install 'reqeusts'. Quarantine artifact in staging sandbox. Inspect provenance manifest.",
+    "scan_latency_ms": 590.5
+  },
+  {
+    "test_case_id": "TC-02",
+    "scenario_name": "Dependency Confusion Namespace Shadowing",
+    "package_name": "internal-auth-token",
+    "package_version": "0.1.0",
+    "attack_vector": "T2",
+    "description": "Adversary publishes 'internal-auth-token' on public PyPI shadowing internal private corporate microservice package.",
+    "static_metrics": {
+      "shannon_entropy": 3.9,
+      "encoded_string_ratio": 0.01,
+      "eval_exec_usage": 0,
+      "bandit_issue_count": 0,
+      "semgrep_issue_count": 0,
+      "setup_hook_detected": false
+    },
+    "runtime_telemetry": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "gnn_graph_risk": 0.68,
+    "lstm_temporal_drift": 0.2,
+    "composite_risk_score": 0.488,
+    "confidence_score": 0.9388,
+    "threats_detected": [
+      {
+        "id": "T2",
+        "vector": "Dependency Confusion",
+        "severity": "MEDIUM",
+        "detail": "Package 'internal-auth-token' matches private/internal namespace patterns or lacks standard public PyPI provenance."
+      },
+      {
+        "id": "T6",
+        "vector": "Dependency-Based Attack",
+        "severity": "HIGH",
+        "detail": "Package surface code appears benign, but introduces high transitive dependency risk (68.0% propagated graph threat)."
+      }
+    ],
+    "checksum_status": "VALID",
+    "gatekeeper_verdict": "QUARANTINED (BLOCKED)",
+    "expected_verdict": "QUARANTINED (BLOCKED)",
+    "verdict_matched": true,
+    "remediation_recommendation": "Block pip install 'internal-auth-token'. Quarantine artifact in staging sandbox. Inspect provenance manifest.",
+    "scan_latency_ms": 60.8
+  },
+  {
+    "test_case_id": "TC-03",
+    "scenario_name": "Malicious Install-Hook Backdoor in setup.py",
+    "package_name": "setup-cmdclass-backdoor",
+    "package_version": "1.0.0",
+    "attack_vector": "T5",
+    "description": "Package overrides build/install cmdclass in setup.py to execute bash shell commands and drop backdoor upon pip installation.",
+    "static_metrics": {
+      "shannon_entropy": 4.6,
+      "encoded_string_ratio": 0.08,
+      "eval_exec_usage": 1,
+      "bandit_issue_count": 2,
+      "semgrep_issue_count": 1,
+      "setup_hook_detected": true,
+      "setup_hook_details": [
+        "setup.py: Custom cmdclass dictionary overriding build/install steps",
+        "setup.py: Network or subprocess execution inside packaging configuration"
+      ]
+    },
+    "runtime_telemetry": {
+      "system_call_count": 4,
+      "subprocess_count": 2,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 1
+    },
+    "gnn_graph_risk": 0.88,
+    "lstm_temporal_drift": 0.35,
+    "composite_risk_score": 0.868,
+    "confidence_score": 0.9032,
+    "threats_detected": [
+      {
+        "id": "T5",
+        "vector": "Malicious Install-Hook Backdoor",
+        "severity": "CRITICAL",
+        "detail": "Package 'setup-cmdclass-backdoor' contains suspicious setup.py/pyproject.toml build/install hooks executing unauthorized commands."
+      }
+    ],
+    "checksum_status": "VALID",
+    "gatekeeper_verdict": "QUARANTINED (BLOCKED)",
+    "expected_verdict": "QUARANTINED (BLOCKED)",
+    "verdict_matched": true,
+    "remediation_recommendation": "Block pip install 'setup-cmdclass-backdoor'. Quarantine artifact in staging sandbox. Inspect provenance manifest.",
+    "scan_latency_ms": 74.3
+  },
+  {
+    "test_case_id": "TC-04",
+    "scenario_name": "High-Entropy Obfuscated Payload with Dynamic Exec",
+    "package_name": "pyobfuscate-payload",
+    "package_version": "1.2.0",
+    "attack_vector": "T5",
+    "description": "Source files contain heavily packed multi-layer base64/hex blobs decoded dynamically into eval() and exec().",
+    "static_metrics": {
+      "shannon_entropy": 7.42,
+      "encoded_string_ratio": 0.38,
+      "eval_exec_usage": 5,
+      "bandit_issue_count": 3,
+      "semgrep_issue_count": 2,
+      "setup_hook_detected": false
+    },
+    "runtime_telemetry": {
+      "system_call_count": 6,
+      "subprocess_count": 1,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 2
+    },
+    "gnn_graph_risk": 0.92,
+    "lstm_temporal_drift": 0.3,
+    "composite_risk_score": 0.872,
+    "confidence_score": 0.9028,
+    "threats_detected": [
+      {
+        "id": "T5",
+        "vector": "Obfuscated Payload",
+        "severity": "CRITICAL",
+        "detail": "Detected high code entropy (7.42) and encoded string constructs (38.0%) suggesting packed or obfuscated payload."
+      }
+    ],
+    "checksum_status": "VALID",
+    "gatekeeper_verdict": "QUARANTINED (BLOCKED)",
+    "expected_verdict": "QUARANTINED (BLOCKED)",
+    "verdict_matched": true,
+    "remediation_recommendation": "Block pip install 'pyobfuscate-payload'. Quarantine artifact in staging sandbox. Inspect provenance manifest.",
+    "scan_latency_ms": 58.7
+  },
+  {
+    "test_case_id": "TC-05",
+    "scenario_name": "Deep Transitive Multi-Hop Attack Path",
+    "package_name": "innocent-web-wrapper",
+    "package_version": "2.4.0",
+    "attack_vector": "T6",
+    "description": "Direct library appears clean with 0 static security issues, but transitively imports deeply nested backdoored dependency 3 hops away.",
+    "static_metrics": {
+      "shannon_entropy": 3.85,
+      "encoded_string_ratio": 0.01,
+      "eval_exec_usage": 0,
+      "bandit_issue_count": 0,
+      "semgrep_issue_count": 0,
+      "setup_hook_detected": false
+    },
+    "runtime_telemetry": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "gnn_graph_risk": 0.74,
+    "lstm_temporal_drift": 0.15,
+    "composite_risk_score": 0.504,
+    "confidence_score": 0.9396,
+    "threats_detected": [
+      {
+        "id": "T6",
+        "vector": "Dependency-Based Attack",
+        "severity": "HIGH",
+        "detail": "Package surface code appears benign, but introduces high transitive dependency risk (74.0% propagated graph threat)."
+      }
+    ],
+    "checksum_status": "VALID",
+    "gatekeeper_verdict": "QUARANTINED (BLOCKED)",
+    "expected_verdict": "QUARANTINED (BLOCKED)",
+    "verdict_matched": true,
+    "remediation_recommendation": "Block pip install 'innocent-web-wrapper'. Quarantine artifact in staging sandbox. Inspect provenance manifest.",
+    "scan_latency_ms": 56.6
+  },
+  {
+    "test_case_id": "TC-06",
+    "scenario_name": "Compromised Maintainer Account Hijack",
+    "package_name": "ctx",
+    "package_version": "0.1.2",
+    "attack_vector": "T3",
+    "description": "Legitimate popular package with >500k downloads undergoes maintainer abandonment, rapid maintainer churn, and unauthorized credential takeover.",
+    "static_metrics": {
+      "shannon_entropy": 4.55,
+      "encoded_string_ratio": 0.04,
+      "eval_exec_usage": 0,
+      "bandit_issue_count": 1,
+      "semgrep_issue_count": 0,
+      "setup_hook_detected": false
+    },
+    "runtime_telemetry": {
+      "system_call_count": 2,
+      "subprocess_count": 0,
+      "suspicious_network_activity": 1,
+      "file_access_risk": 1
+    },
+    "gnn_graph_risk": 0.79,
+    "lstm_temporal_drift": 0.42,
+    "composite_risk_score": 0.792,
+    "confidence_score": 0.9108,
+    "threats_detected": [
+      {
+        "id": "T3",
+        "vector": "Compromised Maintainer",
+        "severity": "HIGH",
+        "detail": "Established package exhibits anomalous maintainer churn (0.68) combined with dropped commit activity."
+      }
+    ],
+    "checksum_status": "VALID",
+    "gatekeeper_verdict": "QUARANTINED (BLOCKED)",
+    "expected_verdict": "QUARANTINED (BLOCKED)",
+    "verdict_matched": true,
+    "remediation_recommendation": "Block pip install 'ctx'. Quarantine artifact in staging sandbox. Inspect provenance manifest.",
+    "scan_latency_ms": 42.0
+  },
+  {
+    "test_case_id": "TC-07",
+    "scenario_name": "Malicious Release Cadence Spike & Burst Anomaly",
+    "package_name": "pytz-ultra",
+    "package_version": "2024.1.9",
+    "attack_vector": "T4",
+    "description": "Dormant library suddenly publishes rapid burst releases with interval deviance >3.5 sigma outside historical baseline.",
+    "static_metrics": {
+      "shannon_entropy": 4.1,
+      "encoded_string_ratio": 0.02,
+      "eval_exec_usage": 0,
+      "bandit_issue_count": 0,
+      "semgrep_issue_count": 0,
+      "setup_hook_detected": false
+    },
+    "runtime_telemetry": {
+      "system_call_count": 1,
+      "subprocess_count": 0,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "gnn_graph_risk": 0.65,
+    "lstm_temporal_drift": 0.84,
+    "composite_risk_score": 0.726,
+    "confidence_score": 0.9174,
+    "threats_detected": [
+      {
+        "id": "T1",
+        "vector": "Typosquatting",
+        "severity": "HIGH",
+        "detail": "Package name 'pytz-ultra' is suspiciously close to or combosquats popular library 'pytz' (edit distance=6)."
+      },
+      {
+        "id": "T4",
+        "vector": "Malicious Release Anomaly",
+        "severity": "MEDIUM",
+        "detail": "Release pattern deviates sharply from historical baseline (A_release=1.97, burstiness=0.88)."
+      },
+      {
+        "id": "T6",
+        "vector": "Dependency-Based Attack",
+        "severity": "HIGH",
+        "detail": "Package surface code appears benign, but introduces high transitive dependency risk (65.0% propagated graph threat)."
+      }
+    ],
+    "checksum_status": "VALID",
+    "gatekeeper_verdict": "QUARANTINED (BLOCKED)",
+    "expected_verdict": "QUARANTINED (BLOCKED)",
+    "verdict_matched": true,
+    "remediation_recommendation": "Block pip install 'pytz-ultra'. Quarantine artifact in staging sandbox. Inspect provenance manifest.",
+    "scan_latency_ms": 58.5
+  },
+  {
+    "test_case_id": "TC-08",
+    "scenario_name": "Altered Artifact / Checksum Digest Discrepancy",
+    "package_name": "tampered-crypto-tool",
+    "package_version": "1.4.2",
+    "attack_vector": "Integrity",
+    "description": "Wheel archive bytecode modified in transit; downloaded file SHA256 does not match CycloneDX SBOM provenance manifest.",
+    "static_metrics": {
+      "shannon_entropy": 4.8,
+      "encoded_string_ratio": 0.05,
+      "eval_exec_usage": 0,
+      "bandit_issue_count": 1,
+      "semgrep_issue_count": 0,
+      "setup_hook_detected": false
+    },
+    "runtime_telemetry": {
+      "system_call_count": 2,
+      "subprocess_count": 0,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "gnn_graph_risk": 0.55,
+    "lstm_temporal_drift": 0.2,
+    "composite_risk_score": 0.76,
+    "confidence_score": 0.914,
+    "threats_detected": [],
+    "checksum_status": "MISMATCH_CORRUPTED (Expected: a1b2c3d4..., Actual: f9e8d7c6...)",
+    "gatekeeper_verdict": "QUARANTINED (BLOCKED)",
+    "expected_verdict": "QUARANTINED (BLOCKED)",
+    "verdict_matched": true,
+    "remediation_recommendation": "Block pip install 'tampered-crypto-tool'. Quarantine artifact in staging sandbox. Inspect provenance manifest.",
+    "scan_latency_ms": 59.5
+  },
+  {
+    "test_case_id": "TC-09",
+    "scenario_name": "Unauthorized Dial-Home C2 Exfiltration Telemetry",
+    "package_name": "dialhome-spyware",
+    "package_version": "0.3.1",
+    "attack_vector": "Telemetry",
+    "description": "Package imports socket/urllib to establish unauthorized outbound connection to foreign IP upon package import.",
+    "static_metrics": {
+      "shannon_entropy": 5.4,
+      "encoded_string_ratio": 0.12,
+      "eval_exec_usage": 1,
+      "bandit_issue_count": 2,
+      "semgrep_issue_count": 1,
+      "setup_hook_detected": false
+    },
+    "runtime_telemetry": {
+      "system_call_count": 8,
+      "subprocess_count": 1,
+      "suspicious_network_activity": 3,
+      "file_access_risk": 2
+    },
+    "gnn_graph_risk": 0.82,
+    "lstm_temporal_drift": 0.3,
+    "composite_risk_score": 0.762,
+    "confidence_score": 0.9138,
+    "threats_detected": [],
+    "checksum_status": "VALID",
+    "gatekeeper_verdict": "QUARANTINED (BLOCKED)",
+    "expected_verdict": "QUARANTINED (BLOCKED)",
+    "verdict_matched": true,
+    "remediation_recommendation": "Block pip install 'dialhome-spyware'. Quarantine artifact in staging sandbox. Inspect provenance manifest.",
+    "scan_latency_ms": 58.1
+  },
+  {
+    "test_case_id": "TC-10",
+    "scenario_name": "Verified Clean Standard Library (Benign Control)",
+    "package_name": "pydantic",
+    "package_version": "2.8.2",
+    "attack_vector": "Benign",
+    "description": "Standard, well-maintained foundational library with high star count, robust commit velocity, and zero security anomalies.",
+    "static_metrics": {
+      "shannon_entropy": 3.92,
+      "encoded_string_ratio": 0.01,
+      "eval_exec_usage": 0,
+      "bandit_issue_count": 0,
+      "semgrep_issue_count": 0,
+      "setup_hook_detected": false
+    },
+    "runtime_telemetry": {
+      "system_call_count": 0,
+      "subprocess_count": 0,
+      "suspicious_network_activity": 0,
+      "file_access_risk": 0
+    },
+    "gnn_graph_risk": 0.08,
+    "lstm_temporal_drift": 0.05,
+    "composite_risk_score": 0.068,
+    "confidence_score": 0.8968,
+    "threats_detected": [],
+    "checksum_status": "VALID",
+    "gatekeeper_verdict": "APPROVED (CLEAN)",
+    "expected_verdict": "APPROVED (CLEAN)",
+    "verdict_matched": true,
+    "remediation_recommendation": "Safe to install. Automated integrity checks and neural anomaly scoring verified clean.",
+    "scan_latency_ms": 42.0
+  }
+]

@@ -315,7 +315,7 @@ def train_framework_models():
     
     print(f"\nTraining GNN (HGAT) model on {train_mask.sum().item()} train nodes ({val_mask.sum().item()} validation nodes)...")
     
-    hgat = HGATModel(in_channels=13, hidden_channels=32, out_channels=1, heads=2)
+    hgat = HGATModel(in_channels=13, hidden_channels=64, out_channels=1, heads=4)
     lstm = TemporalRiskLSTM(in_channels=4, hidden_size=16)
     
     hgat_optimizer = optim.Adam(hgat.parameters(), lr=0.01, weight_decay=1e-4)

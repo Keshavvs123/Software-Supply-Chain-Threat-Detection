@@ -21,7 +21,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-def load_and_preprocess_dataset(excel_path="dataset/Supply_Chain_Risk_Dataset_v2.xlsx"):
+def load_and_preprocess_dataset(excel_path="dataset/Supply_Chain_Risk_Dataset_v2.xlsx", impute_median=True, add_metadata_flag=True, random_state=42):
     print(f"\n[1/5] Loading real supply chain dataset from: {excel_path}...")
     start_time = time.time()
     
@@ -35,7 +35,7 @@ def load_and_preprocess_dataset(excel_path="dataset/Supply_Chain_Risk_Dataset_v2
     pkg_to_idx = {name: i for i, name in enumerate(package_names)}
     num_nodes = len(package_names)
     
-    # 2. Extract input features (12 features)
+    # 2. Extract input features (12 features + optional binary metadata_present flag)
     feature_cols = [
         'total_dependencies',
         'direct_dependencies_count',
@@ -53,6 +53,13 @@ def load_and_preprocess_dataset(excel_path="dataset/Supply_Chain_Risk_Dataset_v2
     
     X_df = df_packages[feature_cols].copy()
     
+    if impute_median:
+        for col in feature_cols:
+            med = X_df[col].median()
+            if pd.isna(med):
+                med = 0.0
+            X_df[col] = X_df[col].fillna(med)
+
     # Fill missing values and apply robust log normalization
     X_df['total_dependencies'] = np.log1p(X_df['total_dependencies'].fillna(0).clip(lower=0))
     X_df['direct_dependencies_count'] = np.log1p(X_df['direct_dependencies_count'].fillna(0).clip(lower=0))
@@ -67,6 +74,12 @@ def load_and_preprocess_dataset(excel_path="dataset/Supply_Chain_Risk_Dataset_v2
     X_df['github_open_issues'] = np.log1p(X_df['github_open_issues'].fillna(0).clip(lower=0))
     X_df['github_days_since_last_push'] = np.log1p(X_df['github_days_since_last_push'].fillna(365).clip(lower=0))
     
+    # Binary flag indicating whether metadata is present (for fair baseline GNN vs RF comparison)
+    if add_metadata_flag:
+        has_meta = ((df_packages['github_stars'].notna() & (df_packages['github_stars'] > 0)) | 
+                    (df_packages['pypi_num_releases'].notna() & (df_packages['pypi_num_releases'] > 0))).astype(float)
+        X_df['metadata_present'] = has_meta
+
     X_mat = X_df.values.astype(np.float32)
     
     # Mean-std standardize
@@ -102,8 +115,8 @@ def load_and_preprocess_dataset(excel_path="dataset/Supply_Chain_Risk_Dataset_v2
     
     # 4. Train / Validation / Test Splits (70% / 15% / 15%) with stratification
     indices = np.arange(num_nodes)
-    train_idx, temp_idx, y_train, y_temp = train_test_split(indices, y_vec, test_size=0.30, random_state=42, stratify=y_vec)
-    val_idx, test_idx, y_val, y_test = train_test_split(temp_idx, y_temp, test_size=0.50, random_state=42, stratify=y_temp)
+    train_idx, temp_idx, y_train, y_temp = train_test_split(indices, y_vec, test_size=0.30, random_state=random_state, stratify=y_vec)
+    val_idx, test_idx, y_val, y_test = train_test_split(temp_idx, y_temp, test_size=0.50, random_state=random_state, stratify=y_temp)
     
     train_mask = torch.zeros(num_nodes, dtype=torch.bool)
     val_mask = torch.zeros(num_nodes, dtype=torch.bool)
@@ -131,7 +144,7 @@ def load_and_preprocess_dataset(excel_path="dataset/Supply_Chain_Risk_Dataset_v2
     }
 
 class FullHGAT(nn.Module):
-    def __init__(self, in_channels=12, hidden_channels=64, heads=4, dropout=0.2):
+    def __init__(self, in_channels=13, hidden_channels=64, heads=4, dropout=0.2):
         super(FullHGAT, self).__init__()
         self.conv1 = GATConv(in_channels, hidden_channels, heads=heads, concat=True, dropout=dropout)
         self.conv2 = GATConv(hidden_channels * heads, hidden_channels, heads=1, concat=False, dropout=dropout)
@@ -177,7 +190,8 @@ def train_and_evaluate():
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print(f"Using compute device: {device}")
     
-    model = FullHGAT(in_channels=12, hidden_channels=64, heads=4, dropout=0.2).to(device)
+    num_features = data["x"].shape[1]
+    model = FullHGAT(in_channels=num_features, hidden_channels=64, heads=4, dropout=0.2).to(device)
     x = data["x"].to(device)
     edge_index = data["edge_index"].to(device)
     y = data["y"].to(device)
@@ -396,6 +410,128 @@ def train_and_evaluate():
     plt.close()
     
     print("\n[SUCCESS] Real Empirical Results successfully generated and plotted!")
+    return {
+        "metrics_hgat": metrics_hgat,
+        "metrics_rf": metrics_rf,
+        "metrics_lr": metrics_lr,
+        "data": data,
+        "hgat_probs": hgat_probs,
+        "rf_probs": rf_probs,
+        "lr_probs": lr_probs,
+        "y_test_real": y_test_real
+    }
+
+def run_multi_seed_evaluation(seeds=[42, 123, 456, 789, 1011], epochs_per_seed=25):
+    """
+    Evaluates GNN, Random Forest, and Logistic Regression across 5 distinct random seeds,
+    reporting mean ± std for publication rigor and reproducibility.
+    """
+    print(f"\n=======================================================")
+    print(f"RUNNING 5-SEED REPRODUCIBILITY EVALUATION: {seeds}")
+    print(f"=======================================================")
+    
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    records = []
+
+    def calc_metrics(y_true, y_pred, y_prob):
+        acc = accuracy_score(y_true, y_pred)
+        prec = precision_score(y_true, y_pred, zero_division=0)
+        rec = recall_score(y_true, y_pred, zero_division=0)
+        f1 = f1_score(y_true, y_pred, zero_division=0)
+        roc_auc = roc_auc_score(y_true, y_prob)
+        tn, fp, fn, tp = confusion_matrix(y_true, y_pred).ravel()
+        fpr = fp / (fp + tn) if (fp + tn) > 0 else 0.0
+        return {"Accuracy": acc, "Precision": prec, "Recall": rec, "F1": f1, "ROC-AUC": roc_auc, "FPR": fpr}
+
+    for seed in seeds:
+        print(f"\n--> Running Evaluation for Seed {seed}...")
+        torch.manual_seed(seed)
+        np.random.seed(seed)
+        if torch.cuda.is_available():
+            torch.cuda.manual_seed_all(seed)
+
+        data = load_and_preprocess_dataset(random_state=seed)
+        train_idx, test_idx = data["train_idx"], data["test_idx"]
+        X_train, y_train = data["X_np"][train_idx], data["y_np"][train_idx]
+        X_test, y_test = data["X_np"][test_idx], data["y_np"][test_idx]
+
+        # 1. Logistic Regression
+        lr = LogisticRegression(max_iter=500, random_state=seed)
+        lr.fit(X_train, y_train)
+        lr_probs = lr.predict_proba(X_test)[:, 1]
+        m_lr = calc_metrics(y_test, (lr_probs >= 0.5).astype(int), lr_probs)
+        records.append({"Seed": seed, "Model": "Logistic Regression", **m_lr})
+
+        # 2. Random Forest
+        rf = RandomForestClassifier(n_estimators=100, max_depth=12, random_state=seed, n_jobs=-1)
+        rf.fit(X_train, y_train)
+        rf_probs = rf.predict_proba(X_test)[:, 1]
+        m_rf = calc_metrics(y_test, (rf_probs >= 0.5).astype(int), rf_probs)
+        records.append({"Seed": seed, "Model": "Random Forest", **m_rf})
+
+        # 3. Proposed HGAT GNN
+        num_features = data["x"].shape[1]
+        model = FullHGAT(in_channels=num_features, hidden_channels=64, heads=4, dropout=0.2).to(device)
+        x = data["x"].to(device)
+        edge_index = data["edge_index"].to(device)
+        y = data["y"].to(device)
+        train_mask = data["train_mask"].to(device)
+        test_mask = data["test_mask"].to(device)
+
+        opt = optim.AdamW(model.parameters(), lr=0.005, weight_decay=1e-4)
+        crit = nn.BCELoss()
+
+        model.train()
+        for ep in range(1, epochs_per_seed + 1):
+            opt.zero_grad()
+            out = model(x, edge_index)
+            loss = crit(out[train_mask], y[train_mask])
+            loss.backward()
+            opt.step()
+
+        model.eval()
+        with torch.no_grad():
+            t_out = model(x, edge_index)
+            gnn_probs = t_out[test_mask].cpu().numpy().flatten()
+            gnn_preds = (gnn_probs >= 0.5).astype(int)
+            y_test_t = y[test_mask].cpu().numpy().flatten().astype(int)
+
+        m_gnn = calc_metrics(y_test_t, gnn_preds, gnn_probs)
+        records.append({"Seed": seed, "Model": "Proposed HGAT GNN", **m_gnn})
+
+    df_seeds = pd.DataFrame(records)
+    df_seeds.to_csv("outputs/multi_seed_results.csv", index=False)
+    print("\nSaved raw multi-seed outputs to: outputs/multi_seed_results.csv")
+
+    # Compute mean and standard deviation
+    summary_rows = []
+    for model_name in ["Logistic Regression", "Random Forest", "Proposed HGAT GNN"]:
+        sub = df_seeds[df_seeds["Model"] == model_name]
+        row = {
+            "Model": model_name,
+            "Accuracy": f"{sub['Accuracy'].mean():.4f} ± {sub['Accuracy'].std():.4f}",
+            "Precision": f"{sub['Precision'].mean():.4f} ± {sub['Precision'].std():.4f}",
+            "Recall": f"{sub['Recall'].mean():.4f} ± {sub['Recall'].std():.4f}",
+            "F1-Score": f"{sub['F1'].mean():.4f} ± {sub['F1'].std():.4f}",
+            "ROC-AUC": f"{sub['ROC-AUC'].mean():.4f} ± {sub['ROC-AUC'].std():.4f}",
+            "FPR": f"{sub['FPR'].mean()*100:.2f}% ± {sub['FPR'].std()*100:.2f}%"
+        }
+        summary_rows.append(row)
+
+    df_summary = pd.DataFrame(summary_rows)
+    print("\n=======================================================")
+    print("5-SEED SUMMARY (MEAN ± STD DEV ACROSS 5 RANDOM SEEDS)")
+    print("=======================================================")
+    print(df_summary.to_string(index=False))
+    print("=======================================================\n")
+
+    with open("outputs/multi_seed_summary.md", "w", encoding="utf-8") as f:
+        f.write("# Multi-Seed Benchmark Summary (5 Random Seeds: 42, 123, 456, 789, 1011)\n\n")
+        f.write(df_summary.to_markdown(index=False))
+
+    return df_seeds, df_summary
 
 if __name__ == "__main__":
     train_and_evaluate()
+    if "--multi-seed" in sys.argv:
+        run_multi_seed_evaluation()

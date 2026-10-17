@@ -195,8 +195,17 @@ def save_scan_results_csv(predictions, resolved_packages, static_results, output
             "Recommended Remediation": rec_remed
         })
     df = pd.DataFrame(scan_rows)
-    df.to_csv(output_path, index=False)
-    print(f"[GATEKEEPER] Consolidated scan results saved to: {output_path}")
+    try:
+        df.to_csv(output_path, index=False)
+        print(f"[GATEKEEPER] Consolidated scan results saved to: {output_path}")
+    except PermissionError:
+        import time
+        alt_path = output_path.replace(".csv", f"_{int(time.time())}.csv")
+        try:
+            df.to_csv(alt_path, index=False)
+            print(f"[GATEKEEPER] Notice: '{output_path}' is open/locked in another program (e.g., Excel). Saved copy to: {alt_path}")
+        except Exception as lock_err:
+            print(f"[GATEKEEPER] Could not save CSV due to file lock: {lock_err}")
 
 class GatekeeperHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
@@ -218,16 +227,28 @@ class GatekeeperHandler(http.server.SimpleHTTPRequestHandler):
 
         if self.path == "/list_outputs":
             allowed_files = {
-                "ablation_study_results.csv",
-                "ablation_table.md",
-                "runtime_telemetry.json",
-                "sbom.json",
                 "scan_results.csv",
+                "sbom.json",
                 "semgrep.json",
-                "early_warning_metrics.png",
-                "detection_latency_ttd.png",
-                "ablation_metrics_comparison.png",
-                "fpr_metrics_comparison.png"
+                "runtime_telemetry.json",
+                "accuracy_bar_chart.png",
+                "precision_recall_f1_grouped.png",
+                "confusion_matrix_threat_types.png",
+                "suspicious_dependencies_bar_chart.png",
+                "dependency_risk_heatmap.png",
+                "dependency_graph_topology.png",
+                "event_timeline_suspicious_steps.png",
+                "threat_propagation_network.png",
+                "false_positive_line_chart.png",
+                "explainability_shap_saliency.png",
+                "ttd_network_graph.png",
+                "model_robustness_plot.png",
+                "computational_overhead_scatter.png",
+                "roc_curve_ablation.png",
+                "dataset_description_pie.png",
+                "test_cases_evaluation.md",
+                "multi_seed_summary.md",
+                "5fold_cv_summary.md"
             }
             files_list = []
             if os.path.exists("outputs"):
@@ -242,16 +263,28 @@ class GatekeeperHandler(http.server.SimpleHTTPRequestHandler):
 
         if self.path.startswith("/view_output"):
             allowed_files = {
-                "ablation_study_results.csv",
-                "ablation_table.md",
-                "runtime_telemetry.json",
-                "sbom.json",
                 "scan_results.csv",
+                "sbom.json",
                 "semgrep.json",
-                "early_warning_metrics.png",
-                "detection_latency_ttd.png",
-                "ablation_metrics_comparison.png",
-                "fpr_metrics_comparison.png"
+                "runtime_telemetry.json",
+                "accuracy_bar_chart.png",
+                "precision_recall_f1_grouped.png",
+                "confusion_matrix_threat_types.png",
+                "suspicious_dependencies_bar_chart.png",
+                "dependency_risk_heatmap.png",
+                "dependency_graph_topology.png",
+                "event_timeline_suspicious_steps.png",
+                "threat_propagation_network.png",
+                "false_positive_line_chart.png",
+                "explainability_shap_saliency.png",
+                "ttd_network_graph.png",
+                "model_robustness_plot.png",
+                "computational_overhead_scatter.png",
+                "roc_curve_ablation.png",
+                "dataset_description_pie.png",
+                "test_cases_evaluation.md",
+                "multi_seed_summary.md",
+                "5fold_cv_summary.md"
             }
             query_components = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
             file_name = query_components.get("file", [None])[0]
@@ -509,12 +542,27 @@ def main():
     # 3. Start local HTTP server
     handler = GatekeeperHandler
     socketserver.TCPServer.allow_reuse_address = True
-    with socketserver.TCPServer(("", PORT), handler) as httpd:
-        print(f"\n[SERVER] Gatekeeper server listening on: http://localhost:{PORT}")
+    
+    server_port = PORT
+    httpd = None
+    for candidate_port in [PORT, 5001, 5002, 5003, 8080]:
+        try:
+            httpd = socketserver.TCPServer(("", candidate_port), handler)
+            server_port = candidate_port
+            break
+        except OSError:
+            continue
+
+    if not httpd:
+        print(f"\n[SERVER ERROR] Could not bind to port {PORT} or any fallback port (5001-5003).")
+        return
+
+    with httpd:
+        print(f"\n[SERVER] Gatekeeper server listening on: http://localhost:{server_port}")
         print("[SERVER] Opening Security Gatekeeper Dashboard in your browser...")
         
         # Open browser in a separate thread to prevent blocking
-        threading.Thread(target=lambda: webbrowser.open(f"http://localhost:{PORT}")).start()
+        threading.Thread(target=lambda: webbrowser.open(f"http://localhost:{server_port}")).start()
         
         try:
             httpd.serve_forever()

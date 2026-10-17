@@ -1,7 +1,7 @@
-                     Model Config Precision Recall F1-Score Accuracy ROC-AUC PR-AUC    FPR
-    M1 (Dependency Topology Only)    0.5114 0.6787   0.5833   0.5057  0.5034 0.5415  67.4%
-          M2 (GitHub Health Only)    0.5097 1.0000   0.6753   0.5097  0.5000 0.7549 100.0%
-   M3 (PyPI Release Cadence Only)    0.5130 0.7762   0.6177   0.5103  0.5061 0.5524  76.6%
-M4 (Logistic Regression Baseline)    0.5134 0.6511   0.5741   0.5076  0.5111 0.5558  64.2%
-      M5 (Random Forest Baseline)    0.5145 0.6416   0.5710   0.5086  0.5089 0.5444  63.0%
-  Proposed HGAT GNN (Full System)    0.7837 0.9740   0.8686   0.8497  0.8628 0.8942  27.9%
+                     Model Config Precision Recall F1-Score Accuracy ROC-AUC PR-AUC   FPR
+    M1 (Dependency Topology Only)    0.5114 0.6787   0.5833   0.5057  0.5034 0.5415 67.4%
+          M2 (GitHub Health Only)    0.5100 0.9857   0.6722   0.5100  0.5006 0.7515 98.5%
+   M3 (PyPI Release Cadence Only)    0.5099 0.9936   0.6740   0.5100  0.4916 0.5016 99.3%
+M4 (Logistic Regression Baseline)    0.5117 0.5223   0.5169   0.5024  0.5052 0.5406 51.8%
+      M5 (Random Forest Baseline)    0.5133 0.5027   0.5079   0.5035  0.5004 0.6248 49.6%
+  Proposed HGAT GNN (Full System)    0.9951 0.9724   0.9836   0.9835  0.9973 0.9977  0.5%

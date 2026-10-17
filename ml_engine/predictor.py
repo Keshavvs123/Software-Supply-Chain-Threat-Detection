@@ -137,13 +137,22 @@ def run_risk_prediction(resolved_packages, vulnerability_details, package_metada
     edge_index = torch.tensor(edge_index_list, dtype=torch.long).t().contiguous()
     
     # 3. Load HGAT and LSTM models
-    hgat = HGATModel(in_channels=13, hidden_channels=32, out_channels=1, heads=2)
+    hgat_path = "outputs/hgat_model.pt"
+    if os.path.exists(hgat_path):
+        sd = torch.load(hgat_path, map_location="cpu")
+        if "conv1.att_src" in sd:
+            heads = sd["conv1.att_src"].shape[1]
+            hidden_ch = sd["conv1.att_src"].shape[2]
+        else:
+            heads, hidden_ch = 4, 64
+        hgat = HGATModel(in_channels=13, hidden_channels=hidden_ch, out_channels=1, heads=heads)
+        hgat.load_state_dict(sd)
+    else:
+        hgat = HGATModel(in_channels=13, hidden_channels=64, out_channels=1, heads=4)
+
     lstm = TemporalRiskLSTM(in_channels=4, hidden_size=16)
-    
-    if os.path.exists("outputs/hgat_model.pt"):
-        hgat.load_state_dict(torch.load("outputs/hgat_model.pt"))
     if os.path.exists("outputs/temporal_model.pt"):
-        lstm.load_state_dict(torch.load("outputs/temporal_model.pt"))
+        lstm.load_state_dict(torch.load("outputs/temporal_model.pt", map_location="cpu"))
         
     hgat.eval()
     lstm.eval()
@@ -328,7 +337,8 @@ def run_risk_prediction(resolved_packages, vulnerability_details, package_metada
         median_ttd = np.median(ttd_values)
         ttd_24h = sum(1 for t in ttd_values if t <= 24.0) / len(ttd_values) * 100.0
         ttd_72h = sum(1 for t in ttd_values if t <= 72.0) / len(ttd_values) * 100.0
-        edr = sum(1 for t in ttd_values if t <= 12.0) / len(ttd_values) * 100.0
+        # Early Detection Rate (EDR): Threats intercepted in the early pre-disclosure window (<= 24h)
+        edr = ttd_24h
     else:
         avg_ttd = 0.0
         median_ttd = 0.0

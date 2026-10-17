@@ -1,0 +1,30 @@
+{
+  "hgat_vs_random_forest": {
+    "comparison": "Proposed_HGAT vs Random_Forest",
+    "contingency_table": {
+      "both_correct_n11": 23690,
+      "both_wrong_n00": 374,
+      "Proposed_HGAT_correct_only_n10": 71,
+      "Random_Forest_correct_only_n01": 531
+    },
+    "total_discordant": 602,
+    "edwards_chi2": 349.968438538206,
+    "exact_p_value": 4.9841212550687767e-88,
+    "statistically_significant": true,
+    "significance_threshold": "p < 0.001"
+  },
+  "hgat_vs_logistic_regression": {
+    "comparison": "Proposed_HGAT vs Logistic_Regression",
+    "contingency_table": {
+      "both_correct_n11": 23084,
+      "both_wrong_n00": 439,
+      "Proposed_HGAT_correct_only_n10": 677,
+      "Logistic_Regression_correct_only_n01": 466
+    },
+    "total_discordant": 1143,
+    "edwards_chi2": 38.58267716535433,
+    "exact_p_value": 4.702423915837759e-10,
+    "statistically_significant": true,
+    "significance_threshold": "p < 0.001"
+  }
+}

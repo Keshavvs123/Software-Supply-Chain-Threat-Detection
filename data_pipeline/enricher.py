@@ -5,9 +5,25 @@ import json
 import re
 from datetime import datetime
 import ssl
+import time
 
 # Bypass SSL validation issues if any local cert configs are outdated
 ssl_context = ssl._create_unverified_context()
+
+def urlopen_with_retry(req, timeout=4, max_retries=3, backoff_factor=0.4, context=None):
+    """
+    Executes urllib.request.urlopen with automated retries and exponential backoff.
+    """
+    for attempt in range(max_retries):
+        try:
+            if context:
+                return urllib.request.urlopen(req, timeout=timeout, context=context)
+            else:
+                return urllib.request.urlopen(req, timeout=timeout)
+        except Exception as e:
+            if attempt == max_retries - 1:
+                raise e
+            time.sleep(backoff_factor * (2 ** attempt))
 
 DB_PATH = os.path.join("outputs", "cyber_intel_db.sqlite")
 
@@ -100,7 +116,7 @@ def fetch_github_metadata(repo_path):
         
     try:
         req = urllib.request.Request(url, headers=headers)
-        with urllib.request.urlopen(req, timeout=3, context=ssl_context) as response:
+        with urlopen_with_retry(req, timeout=3, context=ssl_context) as response:
             data = json.loads(response.read().decode())
             return {
                 "stars": data.get("stargazers_count", 0),
@@ -126,7 +142,7 @@ def fetch_openssf_scorecard(repo_path):
     url = f"https://api.securityscorecards.dev/projects/github.com/{repo_path}"
     try:
         req = urllib.request.Request(url, headers={"User-Agent": "SupplyChainThreatDetector"})
-        with urllib.request.urlopen(req, timeout=3, context=ssl_context) as response:
+        with urlopen_with_retry(req, timeout=3, context=ssl_context) as response:
             data = json.loads(response.read().decode())
             return data.get("score", 6.0)
     except Exception:
@@ -140,7 +156,7 @@ def fetch_pypi_metadata(package_name):
     url = f"https://pypi.org/pypi/{package_name}/json"
     try:
         req = urllib.request.Request(url, headers={"User-Agent": "SupplyChainThreatDetector"})
-        with urllib.request.urlopen(req, timeout=4, context=ssl_context) as response:
+        with urlopen_with_retry(req, timeout=4, context=ssl_context) as response:
             data = json.loads(response.read().decode())
             info = data.get("info", {})
             releases = data.get("releases", {})

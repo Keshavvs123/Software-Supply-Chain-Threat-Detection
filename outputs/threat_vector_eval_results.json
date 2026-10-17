@@ -1,0 +1,155 @@
+{
+  "total_samples": 10,
+  "intercepted": 10,
+  "coverage_rate_pct": 100.0,
+  "vector_counts": {
+    "T1": 2,
+    "T2": 2,
+    "T3": 2,
+    "T4": 1,
+    "T5": 2,
+    "T6": 1
+  },
+  "vector_expected": {
+    "T1": 2,
+    "T2": 2,
+    "T3": 2,
+    "T4": 1,
+    "T5": 2,
+    "T6": 1
+  },
+  "samples": [
+    {
+      "package": "reqeusts",
+      "advisory": "MAL-2022-5401",
+      "expected_vector": "T1",
+      "detected_vectors": [
+        "T1"
+      ],
+      "matched": true,
+      "threat_details": [
+        "Package name 'reqeusts' is suspiciously close to or combosquats popular library 'requests' (edit distance=2)."
+      ]
+    },
+    {
+      "package": "numpy-fake",
+      "advisory": "MAL-2022-8819",
+      "expected_vector": "T1",
+      "detected_vectors": [
+        "T1"
+      ],
+      "matched": true,
+      "threat_details": [
+        "Package name 'numpy-fake' is suspiciously close to or combosquats popular library 'numpy' (edit distance=5)."
+      ]
+    },
+    {
+      "package": "internal-auth-token",
+      "advisory": "MAL-2023-4019",
+      "expected_vector": "T2",
+      "detected_vectors": [
+        "T2"
+      ],
+      "matched": true,
+      "threat_details": [
+        "Package 'internal-auth-token' matches private/internal namespace patterns or lacks standard public PyPI provenance."
+      ]
+    },
+    {
+      "package": "corp-dev-tool",
+      "advisory": "MAL-2023-4022",
+      "expected_vector": "T2",
+      "detected_vectors": [
+        "T2"
+      ],
+      "matched": true,
+      "threat_details": [
+        "Package 'corp-dev-tool' matches private/internal namespace patterns or lacks standard public PyPI provenance."
+      ]
+    },
+    {
+      "package": "ctx",
+      "advisory": "MAL-2022-2011",
+      "expected_vector": "T3",
+      "detected_vectors": [
+        "T3",
+        "T6"
+      ],
+      "matched": true,
+      "threat_details": [
+        "Established package exhibits anomalous maintainer churn (0.65) combined with dropped commit activity.",
+        "Package surface code appears benign, but introduces high transitive dependency risk (70.0% propagated graph threat)."
+      ]
+    },
+    {
+      "package": "colorama-v2",
+      "advisory": "MAL-2022-2015",
+      "expected_vector": "T3",
+      "detected_vectors": [
+        "T1",
+        "T3",
+        "T6"
+      ],
+      "matched": true,
+      "threat_details": [
+        "Package name 'colorama-v2' is suspiciously close to or combosquats popular library 'colorama' (edit distance=3).",
+        "Established package exhibits anomalous maintainer churn (0.55) combined with dropped commit activity.",
+        "Package surface code appears benign, but introduces high transitive dependency risk (65.0% propagated graph threat)."
+      ]
+    },
+    {
+      "package": "pytz-ultra",
+      "advisory": "MAL-2024-0812",
+      "expected_vector": "T4",
+      "detected_vectors": [
+        "T1",
+        "T4"
+      ],
+      "matched": true,
+      "threat_details": [
+        "Package name 'pytz-ultra' is suspiciously close to or combosquats popular library 'pytz' (edit distance=6).",
+        "Release pattern deviates sharply from historical baseline (A_release=1.97, burstiness=0.82)."
+      ]
+    },
+    {
+      "package": "pyobfuscate-backdoor",
+      "advisory": "MAL-2023-7741",
+      "expected_vector": "T5",
+      "detected_vectors": [
+        "T5",
+        "T6"
+      ],
+      "matched": true,
+      "threat_details": [
+        "Detected high code entropy (6.85) and encoded string constructs (28.0%) suggesting packed or obfuscated payload.",
+        "Package surface code appears benign, but introduces high transitive dependency risk (85.0% propagated graph threat)."
+      ]
+    },
+    {
+      "package": "setup-cmdclass-backdoor",
+      "advisory": "MAL-2024-1923",
+      "expected_vector": "T5",
+      "detected_vectors": [
+        "T5",
+        "T6"
+      ],
+      "matched": true,
+      "threat_details": [
+        "Package 'setup-cmdclass-backdoor' contains suspicious setup.py/pyproject.toml build/install hooks executing unauthorized commands.",
+        "Package surface code appears benign, but introduces high transitive dependency risk (80.0% propagated graph threat)."
+      ]
+    },
+    {
+      "package": "deep-transit-exploit",
+      "advisory": "MAL-2023-9988",
+      "expected_vector": "T6",
+      "detected_vectors": [
+        "T6"
+      ],
+      "matched": true,
+      "threat_details": [
+        "Package surface code appears benign, but introduces high transitive dependency risk (68.0% propagated graph threat)."
+      ]
+    }
+  ]
+}

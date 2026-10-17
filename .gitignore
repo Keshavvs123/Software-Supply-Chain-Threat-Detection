@@ -26,4 +26,5 @@ outputs/pypi_cache/
 outputs/osv_pypi_all.zip
 outputs/cyber_intel_db.sqlite
 outputs/scan_temp/
+outputs/_analyzer_staging/
 outputs/dashboard.html

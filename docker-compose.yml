@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  gatekeeper:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: supply-chain-gatekeeper:latest
+    container_name: supply_chain_gatekeeper
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./outputs:/app/outputs
+      - ./graphs:/app/graphs
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped

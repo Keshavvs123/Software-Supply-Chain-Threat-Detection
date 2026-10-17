@@ -6,96 +6,6 @@ DocumentNamespace: http://spdx.org/spdxdocs/python-supply-chain-analysis-documen
 Creator: Tool: AI Software Supply Chain Threat Detector
 Created: 2026-06-11T12:00:00Z
 
-PackageName: warcio
-SPDXID: SPDXRef-Package-warcio
-PackageVersion: 1.8.1
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: Apache 2.0
-PackageLicenseDeclared: Apache 2.0
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-warcio DEPENDS_ON SPDXRef-Package-six
-Relationship: SPDXRef-Package-warcio DEPENDS_ON SPDXRef-Package-urllib3
-Relationship: SPDXRef-Package-warcio DEPENDS_ON SPDXRef-Package-pytest
-Relationship: SPDXRef-Package-warcio DEPENDS_ON SPDXRef-Package-pytest-cov
-Relationship: SPDXRef-Package-warcio DEPENDS_ON SPDXRef-Package-requests
-Relationship: SPDXRef-Package-warcio DEPENDS_ON SPDXRef-Package-Flask
-Relationship: SPDXRef-Package-warcio DEPENDS_ON SPDXRef-Package-fsspec
-Relationship: SPDXRef-Package-warcio DEPENDS_ON SPDXRef-Package-aiohttp
-
-PackageName: pyshorteners
-SPDXID: SPDXRef-Package-pyshorteners
-PackageVersion: 1.0.1
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: GPLv3
-PackageLicenseDeclared: GPLv3
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-pyshorteners DEPENDS_ON SPDXRef-Package-requests
-
-PackageName: six
-SPDXID: SPDXRef-Package-six
-PackageVersion: 1.16.0
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: MIT
-PackageLicenseDeclared: MIT
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-
-PackageName: urllib3
-SPDXID: SPDXRef-Package-urllib3
-PackageVersion: 2.2.2
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: Unknown
-PackageLicenseDeclared: Unknown
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-urllib3 DEPENDS_ON SPDXRef-Package-h2
-
-PackageName: pytest
-SPDXID: SPDXRef-Package-pytest
-PackageVersion: 8.4.2
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: MIT
-PackageLicenseDeclared: MIT
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-pytest DEPENDS_ON SPDXRef-Package-colorama
-Relationship: SPDXRef-Package-pytest DEPENDS_ON SPDXRef-Package-exceptiongroup
-Relationship: SPDXRef-Package-pytest DEPENDS_ON SPDXRef-Package-iniconfig
-Relationship: SPDXRef-Package-pytest DEPENDS_ON SPDXRef-Package-packaging
-Relationship: SPDXRef-Package-pytest DEPENDS_ON SPDXRef-Package-pluggy
-Relationship: SPDXRef-Package-pytest DEPENDS_ON SPDXRef-Package-Pygments
-Relationship: SPDXRef-Package-pytest DEPENDS_ON SPDXRef-Package-tomli
-Relationship: SPDXRef-Package-pytest DEPENDS_ON SPDXRef-Package-attrs
-Relationship: SPDXRef-Package-pytest DEPENDS_ON SPDXRef-Package-hypothesis
-Relationship: SPDXRef-Package-pytest DEPENDS_ON SPDXRef-Package-requests
-Relationship: SPDXRef-Package-pytest DEPENDS_ON SPDXRef-Package-setuptools
-
-PackageName: pytest-cov
-SPDXID: SPDXRef-Package-pytest-cov
-PackageVersion: 7.0.0
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: Unknown
-PackageLicenseDeclared: Unknown
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-pytest-cov DEPENDS_ON SPDXRef-Package-coverage
-Relationship: SPDXRef-Package-pytest-cov DEPENDS_ON SPDXRef-Package-pluggy
-Relationship: SPDXRef-Package-pytest-cov DEPENDS_ON SPDXRef-Package-pytest
-
 PackageName: requests
 SPDXID: SPDXRef-Package-requests
 PackageVersion: 2.32.3
@@ -112,9 +22,9 @@ Relationship: SPDXRef-Package-requests DEPENDS_ON SPDXRef-Package-urllib3
 Relationship: SPDXRef-Package-requests DEPENDS_ON SPDXRef-Package-certifi
 Relationship: SPDXRef-Package-requests DEPENDS_ON SPDXRef-Package-chardet
 
-PackageName: Flask
-SPDXID: SPDXRef-Package-Flask
-PackageVersion: 3.1.0
+PackageName: urllib3
+SPDXID: SPDXRef-Package-urllib3
+PackageVersion: 2.2.2
 PackageDownloadLocation: NOASSERTION
 FilesAnalyzed: false
 PackageLicenseConcluded: Unknown
@@ -122,109 +32,64 @@ PackageLicenseDeclared: Unknown
 PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
-Relationship: SPDXRef-Package-Flask DEPENDS_ON SPDXRef-Package-Werkzeug
-Relationship: SPDXRef-Package-Flask DEPENDS_ON SPDXRef-Package-Jinja2
-Relationship: SPDXRef-Package-Flask DEPENDS_ON SPDXRef-Package-itsdangerous
-Relationship: SPDXRef-Package-Flask DEPENDS_ON SPDXRef-Package-click
-Relationship: SPDXRef-Package-Flask DEPENDS_ON SPDXRef-Package-blinker
-Relationship: SPDXRef-Package-Flask DEPENDS_ON SPDXRef-Package-python-dotenv
+Relationship: SPDXRef-Package-urllib3 DEPENDS_ON SPDXRef-Package-h2
 
-PackageName: fsspec
-SPDXID: SPDXRef-Package-fsspec
-PackageVersion: 2025.7.0
+PackageName: Jinja2
+SPDXID: SPDXRef-Package-Jinja2
+PackageVersion: 3.1.4
 PackageDownloadLocation: NOASSERTION
 FilesAnalyzed: false
-PackageLicenseConcluded: BSD 3-Clause License
-
-Copyright (c) 2018, Martin Durant
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-* Redistributions of source code must retain the above copyright notice, this
-  list of conditions and the following disclaimer.
-
-* Redistributions in binary form must reproduce the above copyright notice,
-  this list of conditions and the following disclaimer in the documentation
-  and/or other materials provided with the distribution.
-
-* Neither the name of the copyright holder nor the names of its
-  contributors may be used to endorse or promote products derived from
-  this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-PackageLicenseDeclared: BSD 3-Clause License
-
-Copyright (c) 2018, Martin Durant
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-* Redistributions of source code must retain the above copyright notice, this
-  list of conditions and the following disclaimer.
-
-* Redistributions in binary form must reproduce the above copyright notice,
-  this list of conditions and the following disclaimer in the documentation
-  and/or other materials provided with the distribution.
-
-* Neither the name of the copyright holder nor the names of its
-  contributors may be used to endorse or promote products derived from
-  this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+PackageLicenseConcluded: Unknown
+PackageLicenseDeclared: Unknown
 PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
-Relationship: SPDXRef-Package-fsspec DEPENDS_ON SPDXRef-Package-pyarrow
-Relationship: SPDXRef-Package-fsspec DEPENDS_ON SPDXRef-Package-yarl
-Relationship: SPDXRef-Package-fsspec DEPENDS_ON SPDXRef-Package-requests
-Relationship: SPDXRef-Package-fsspec DEPENDS_ON SPDXRef-Package-aiohttp
-Relationship: SPDXRef-Package-fsspec DEPENDS_ON SPDXRef-Package-tqdm
-Relationship: SPDXRef-Package-fsspec DEPENDS_ON SPDXRef-Package-numpy
-Relationship: SPDXRef-Package-fsspec DEPENDS_ON SPDXRef-Package-pytest
-Relationship: SPDXRef-Package-fsspec DEPENDS_ON SPDXRef-Package-pytest-cov
-Relationship: SPDXRef-Package-fsspec DEPENDS_ON SPDXRef-Package-Jinja2
-Relationship: SPDXRef-Package-fsspec DEPENDS_ON SPDXRef-Package-notebook
-Relationship: SPDXRef-Package-fsspec DEPENDS_ON SPDXRef-Package-pandas
-Relationship: SPDXRef-Package-fsspec DEPENDS_ON SPDXRef-Package-urllib3
+Relationship: SPDXRef-Package-Jinja2 DEPENDS_ON SPDXRef-Package-MarkupSafe
+Relationship: SPDXRef-Package-Jinja2 DEPENDS_ON SPDXRef-Package-babel
 
-PackageName: aiohttp
-SPDXID: SPDXRef-Package-aiohttp
-PackageVersion: 3.13.5
+PackageName: charset-normalizer
+SPDXID: SPDXRef-Package-charset-normalizer
+PackageVersion: 3.3.2
 PackageDownloadLocation: NOASSERTION
 FilesAnalyzed: false
-PackageLicenseConcluded: Apache-2.0 AND MIT
-PackageLicenseDeclared: Apache-2.0 AND MIT
+PackageLicenseConcluded: MIT
+PackageLicenseDeclared: MIT
 PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
-Relationship: SPDXRef-Package-aiohttp DEPENDS_ON SPDXRef-Package-aiohappyeyeballs
-Relationship: SPDXRef-Package-aiohttp DEPENDS_ON SPDXRef-Package-aiosignal
-Relationship: SPDXRef-Package-aiohttp DEPENDS_ON SPDXRef-Package-attrs
-Relationship: SPDXRef-Package-aiohttp DEPENDS_ON SPDXRef-Package-frozenlist
-Relationship: SPDXRef-Package-aiohttp DEPENDS_ON SPDXRef-Package-multidict
-Relationship: SPDXRef-Package-aiohttp DEPENDS_ON SPDXRef-Package-propcache
-Relationship: SPDXRef-Package-aiohttp DEPENDS_ON SPDXRef-Package-yarl
+
+PackageName: idna
+SPDXID: SPDXRef-Package-idna
+PackageVersion: 3.7
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: Unknown
+PackageLicenseDeclared: Unknown
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+
+PackageName: certifi
+SPDXID: SPDXRef-Package-certifi
+PackageVersion: 2024.7.4
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: MPL-2.0
+PackageLicenseDeclared: MPL-2.0
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+
+PackageName: chardet
+SPDXID: SPDXRef-Package-chardet
+PackageVersion: 5.2.0
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: LGPL
+PackageLicenseDeclared: LGPL
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
 
 PackageName: h2
 SPDXID: SPDXRef-Package-h2
@@ -280,6 +145,184 @@ PackageSummary: Python library dependencies.
 
 Relationship: SPDXRef-Package-h2 DEPENDS_ON SPDXRef-Package-hyperframe
 Relationship: SPDXRef-Package-h2 DEPENDS_ON SPDXRef-Package-hpack
+
+PackageName: MarkupSafe
+SPDXID: SPDXRef-Package-MarkupSafe
+PackageVersion: 2.1.5
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: BSD-3-Clause
+PackageLicenseDeclared: BSD-3-Clause
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+
+PackageName: babel
+SPDXID: SPDXRef-Package-babel
+PackageVersion: 2.16.0
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: BSD-3-Clause
+PackageLicenseDeclared: BSD-3-Clause
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-babel DEPENDS_ON SPDXRef-Package-pytz
+Relationship: SPDXRef-Package-babel DEPENDS_ON SPDXRef-Package-pytest
+Relationship: SPDXRef-Package-babel DEPENDS_ON SPDXRef-Package-pytest-cov
+
+PackageName: hyperframe
+SPDXID: SPDXRef-Package-hyperframe
+PackageVersion: 6.1.0
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: The MIT License (MIT)
+
+Copyright (c) 2014 Cory Benfield
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+PackageLicenseDeclared: The MIT License (MIT)
+
+Copyright (c) 2014 Cory Benfield
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+
+PackageName: hpack
+SPDXID: SPDXRef-Package-hpack
+PackageVersion: 4.1.0
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: The MIT License (MIT)
+
+Copyright (c) 2014 Cory Benfield
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+PackageLicenseDeclared: The MIT License (MIT)
+
+Copyright (c) 2014 Cory Benfield
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+
+PackageName: pytz
+SPDXID: SPDXRef-Package-pytz
+PackageVersion: 2024.1
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: MIT
+PackageLicenseDeclared: MIT
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+
+PackageName: pytest
+SPDXID: SPDXRef-Package-pytest
+PackageVersion: 8.4.2
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: MIT
+PackageLicenseDeclared: MIT
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-pytest DEPENDS_ON SPDXRef-Package-colorama
+Relationship: SPDXRef-Package-pytest DEPENDS_ON SPDXRef-Package-exceptiongroup
+Relationship: SPDXRef-Package-pytest DEPENDS_ON SPDXRef-Package-iniconfig
+Relationship: SPDXRef-Package-pytest DEPENDS_ON SPDXRef-Package-packaging
+Relationship: SPDXRef-Package-pytest DEPENDS_ON SPDXRef-Package-pluggy
+Relationship: SPDXRef-Package-pytest DEPENDS_ON SPDXRef-Package-Pygments
+Relationship: SPDXRef-Package-pytest DEPENDS_ON SPDXRef-Package-tomli
+Relationship: SPDXRef-Package-pytest DEPENDS_ON SPDXRef-Package-attrs
+Relationship: SPDXRef-Package-pytest DEPENDS_ON SPDXRef-Package-hypothesis
+Relationship: SPDXRef-Package-pytest DEPENDS_ON SPDXRef-Package-requests
+Relationship: SPDXRef-Package-pytest DEPENDS_ON SPDXRef-Package-setuptools
+
+PackageName: pytest-cov
+SPDXID: SPDXRef-Package-pytest-cov
+PackageVersion: 7.0.0
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: Unknown
+PackageLicenseDeclared: Unknown
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-pytest-cov DEPENDS_ON SPDXRef-Package-coverage
+Relationship: SPDXRef-Package-pytest-cov DEPENDS_ON SPDXRef-Package-pluggy
+Relationship: SPDXRef-Package-pytest-cov DEPENDS_ON SPDXRef-Package-pytest
 
 PackageName: colorama
 SPDXID: SPDXRef-Package-colorama
@@ -431,83 +474,13 @@ PackageSummary: Python library dependencies.
 
 Relationship: SPDXRef-Package-coverage DEPENDS_ON SPDXRef-Package-tomli
 
-PackageName: charset-normalizer
-SPDXID: SPDXRef-Package-charset-normalizer
-PackageVersion: 3.3.2
+PackageName: sortedcontainers
+SPDXID: SPDXRef-Package-sortedcontainers
+PackageVersion: 2.4.0
 PackageDownloadLocation: NOASSERTION
 FilesAnalyzed: false
-PackageLicenseConcluded: MIT
-PackageLicenseDeclared: MIT
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-
-PackageName: idna
-SPDXID: SPDXRef-Package-idna
-PackageVersion: 3.7
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: Unknown
-PackageLicenseDeclared: Unknown
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-
-PackageName: certifi
-SPDXID: SPDXRef-Package-certifi
-PackageVersion: 2024.7.4
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: MPL-2.0
-PackageLicenseDeclared: MPL-2.0
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-
-PackageName: chardet
-SPDXID: SPDXRef-Package-chardet
-PackageVersion: 5.2.0
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: LGPL
-PackageLicenseDeclared: LGPL
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-
-PackageName: Werkzeug
-SPDXID: SPDXRef-Package-Werkzeug
-PackageVersion: 3.1.3
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: Unknown
-PackageLicenseDeclared: Unknown
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-Werkzeug DEPENDS_ON SPDXRef-Package-MarkupSafe
-Relationship: SPDXRef-Package-Werkzeug DEPENDS_ON SPDXRef-Package-watchdog
-
-PackageName: Jinja2
-SPDXID: SPDXRef-Package-Jinja2
-PackageVersion: 3.1.4
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: Unknown
-PackageLicenseDeclared: Unknown
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-Jinja2 DEPENDS_ON SPDXRef-Package-MarkupSafe
-Relationship: SPDXRef-Package-Jinja2 DEPENDS_ON SPDXRef-Package-babel
-
-PackageName: itsdangerous
-SPDXID: SPDXRef-Package-itsdangerous
-PackageVersion: 2.2.0
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: Unknown
-PackageLicenseDeclared: Unknown
+PackageLicenseConcluded: Apache 2.0
+PackageLicenseDeclared: Apache 2.0
 PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
@@ -524,9 +497,9 @@ PackageSummary: Python library dependencies.
 
 Relationship: SPDXRef-Package-click DEPENDS_ON SPDXRef-Package-colorama
 
-PackageName: blinker
-SPDXID: SPDXRef-Package-blinker
-PackageVersion: 1.9.0
+PackageName: black
+SPDXID: SPDXRef-Package-black
+PackageVersion: 25.9.0
 PackageDownloadLocation: NOASSERTION
 FilesAnalyzed: false
 PackageLicenseConcluded: Unknown
@@ -534,59 +507,52 @@ PackageLicenseDeclared: Unknown
 PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
+Relationship: SPDXRef-Package-black DEPENDS_ON SPDXRef-Package-click
+Relationship: SPDXRef-Package-black DEPENDS_ON SPDXRef-Package-packaging
+Relationship: SPDXRef-Package-black DEPENDS_ON SPDXRef-Package-pathspec
+Relationship: SPDXRef-Package-black DEPENDS_ON SPDXRef-Package-platformdirs
+Relationship: SPDXRef-Package-black DEPENDS_ON SPDXRef-Package-pytokens
+Relationship: SPDXRef-Package-black DEPENDS_ON SPDXRef-Package-tomli
+Relationship: SPDXRef-Package-black DEPENDS_ON SPDXRef-Package-colorama
+Relationship: SPDXRef-Package-black DEPENDS_ON SPDXRef-Package-aiohttp
+Relationship: SPDXRef-Package-black DEPENDS_ON SPDXRef-Package-ipython
 
-PackageName: python-dotenv
-SPDXID: SPDXRef-Package-python-dotenv
-PackageVersion: 1.2.2
+PackageName: rich
+SPDXID: SPDXRef-Package-rich
+PackageVersion: 14.1.0
 PackageDownloadLocation: NOASSERTION
 FilesAnalyzed: false
-PackageLicenseConcluded: BSD-3-Clause
-PackageLicenseDeclared: BSD-3-Clause
+PackageLicenseConcluded: MIT
+PackageLicenseDeclared: MIT
 PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
-Relationship: SPDXRef-Package-python-dotenv DEPENDS_ON SPDXRef-Package-click
+Relationship: SPDXRef-Package-rich DEPENDS_ON SPDXRef-Package-ipywidgets
+Relationship: SPDXRef-Package-rich DEPENDS_ON SPDXRef-Package-markdown-it-py
+Relationship: SPDXRef-Package-rich DEPENDS_ON SPDXRef-Package-Pygments
 
-PackageName: pyarrow
-SPDXID: SPDXRef-Package-pyarrow
-PackageVersion: 23.0.0
+PackageName: python-dateutil
+SPDXID: SPDXRef-Package-python-dateutil
+PackageVersion: 2.9.0.post0
 PackageDownloadLocation: NOASSERTION
 FilesAnalyzed: false
-PackageLicenseConcluded: Unknown
-PackageLicenseDeclared: Unknown
+PackageLicenseConcluded: Dual License
+PackageLicenseDeclared: Dual License
 PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
+Relationship: SPDXRef-Package-python-dateutil DEPENDS_ON SPDXRef-Package-six
 
-PackageName: yarl
-SPDXID: SPDXRef-Package-yarl
-PackageVersion: 1.22.0
+PackageName: lark
+SPDXID: SPDXRef-Package-lark
+PackageVersion: 1.3.1
 PackageDownloadLocation: NOASSERTION
 FilesAnalyzed: false
-PackageLicenseConcluded: Apache-2.0
-PackageLicenseDeclared: Apache-2.0
+PackageLicenseConcluded: MIT
+PackageLicenseDeclared: MIT
 PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
-Relationship: SPDXRef-Package-yarl DEPENDS_ON SPDXRef-Package-idna
-Relationship: SPDXRef-Package-yarl DEPENDS_ON SPDXRef-Package-multidict
-Relationship: SPDXRef-Package-yarl DEPENDS_ON SPDXRef-Package-propcache
-
-PackageName: tqdm
-SPDXID: SPDXRef-Package-tqdm
-PackageVersion: 4.67.1
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: MPL-2.0 AND MIT
-PackageLicenseDeclared: MPL-2.0 AND MIT
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-tqdm DEPENDS_ON SPDXRef-Package-colorama
-Relationship: SPDXRef-Package-tqdm DEPENDS_ON SPDXRef-Package-pytest
-Relationship: SPDXRef-Package-tqdm DEPENDS_ON SPDXRef-Package-pytest-cov
-Relationship: SPDXRef-Package-tqdm DEPENDS_ON SPDXRef-Package-requests
-Relationship: SPDXRef-Package-tqdm DEPENDS_ON SPDXRef-Package-ipywidgets
 
 PackageName: numpy
 SPDXID: SPDXRef-Package-numpy
@@ -2529,82 +2495,6 @@ PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
 
-PackageName: notebook
-SPDXID: SPDXRef-Package-notebook
-PackageVersion: 7.2.1
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: BSD 3-Clause License
-
-- Copyright (c) 2001-2015, IPython Development Team
-- Copyright (c) 2015-, Jupyter Development Team
-
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer.
-
-2. Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution.
-
-3. Neither the name of the copyright holder nor the names of its
-   contributors may be used to endorse or promote products derived from
-   this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-PackageLicenseDeclared: BSD 3-Clause License
-
-- Copyright (c) 2001-2015, IPython Development Team
-- Copyright (c) 2015-, Jupyter Development Team
-
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer.
-
-2. Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution.
-
-3. Neither the name of the copyright holder nor the names of its
-   contributors may be used to endorse or promote products derived from
-   this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-notebook DEPENDS_ON SPDXRef-Package-jupyterlab
-Relationship: SPDXRef-Package-notebook DEPENDS_ON SPDXRef-Package-tornado
-Relationship: SPDXRef-Package-notebook DEPENDS_ON SPDXRef-Package-ipykernel
-Relationship: SPDXRef-Package-notebook DEPENDS_ON SPDXRef-Package-pytest
-Relationship: SPDXRef-Package-notebook DEPENDS_ON SPDXRef-Package-requests
-
 PackageName: pandas
 SPDXID: SPDXRef-Package-pandas
 PackageVersion: 2.2.2
@@ -2691,248 +2581,8 @@ Relationship: SPDXRef-Package-pandas DEPENDS_ON SPDXRef-Package-beautifulsoup4
 Relationship: SPDXRef-Package-pandas DEPENDS_ON SPDXRef-Package-lxml
 Relationship: SPDXRef-Package-pandas DEPENDS_ON SPDXRef-Package-matplotlib
 Relationship: SPDXRef-Package-pandas DEPENDS_ON SPDXRef-Package-Jinja2
+Relationship: SPDXRef-Package-pandas DEPENDS_ON SPDXRef-Package-tabulate
 Relationship: SPDXRef-Package-pandas DEPENDS_ON SPDXRef-Package-QtPy
-
-PackageName: aiohappyeyeballs
-SPDXID: SPDXRef-Package-aiohappyeyeballs
-PackageVersion: 2.6.1
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: PSF-2.0
-PackageLicenseDeclared: PSF-2.0
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-
-PackageName: aiosignal
-SPDXID: SPDXRef-Package-aiosignal
-PackageVersion: 1.4.0
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: Apache 2.0
-PackageLicenseDeclared: Apache 2.0
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-aiosignal DEPENDS_ON SPDXRef-Package-frozenlist
-
-PackageName: frozenlist
-SPDXID: SPDXRef-Package-frozenlist
-PackageVersion: 1.8.0
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: Apache-2.0
-PackageLicenseDeclared: Apache-2.0
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-
-PackageName: multidict
-SPDXID: SPDXRef-Package-multidict
-PackageVersion: 6.7.0
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: Apache License 2.0
-PackageLicenseDeclared: Apache License 2.0
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-
-PackageName: propcache
-SPDXID: SPDXRef-Package-propcache
-PackageVersion: 0.4.1
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: Apache-2.0
-PackageLicenseDeclared: Apache-2.0
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-
-PackageName: hyperframe
-SPDXID: SPDXRef-Package-hyperframe
-PackageVersion: 6.1.0
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: The MIT License (MIT)
-
-Copyright (c) 2014 Cory Benfield
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
-PackageLicenseDeclared: The MIT License (MIT)
-
-Copyright (c) 2014 Cory Benfield
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-
-PackageName: hpack
-SPDXID: SPDXRef-Package-hpack
-PackageVersion: 4.1.0
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: The MIT License (MIT)
-
-Copyright (c) 2014 Cory Benfield
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
-PackageLicenseDeclared: The MIT License (MIT)
-
-Copyright (c) 2014 Cory Benfield
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-
-PackageName: sortedcontainers
-SPDXID: SPDXRef-Package-sortedcontainers
-PackageVersion: 2.4.0
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: Apache 2.0
-PackageLicenseDeclared: Apache 2.0
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-
-PackageName: black
-SPDXID: SPDXRef-Package-black
-PackageVersion: 25.9.0
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: Unknown
-PackageLicenseDeclared: Unknown
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-black DEPENDS_ON SPDXRef-Package-click
-Relationship: SPDXRef-Package-black DEPENDS_ON SPDXRef-Package-packaging
-Relationship: SPDXRef-Package-black DEPENDS_ON SPDXRef-Package-pathspec
-Relationship: SPDXRef-Package-black DEPENDS_ON SPDXRef-Package-platformdirs
-Relationship: SPDXRef-Package-black DEPENDS_ON SPDXRef-Package-pytokens
-Relationship: SPDXRef-Package-black DEPENDS_ON SPDXRef-Package-tomli
-Relationship: SPDXRef-Package-black DEPENDS_ON SPDXRef-Package-colorama
-Relationship: SPDXRef-Package-black DEPENDS_ON SPDXRef-Package-aiohttp
-Relationship: SPDXRef-Package-black DEPENDS_ON SPDXRef-Package-ipython
-
-PackageName: rich
-SPDXID: SPDXRef-Package-rich
-PackageVersion: 14.1.0
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: MIT
-PackageLicenseDeclared: MIT
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-rich DEPENDS_ON SPDXRef-Package-ipywidgets
-Relationship: SPDXRef-Package-rich DEPENDS_ON SPDXRef-Package-markdown-it-py
-Relationship: SPDXRef-Package-rich DEPENDS_ON SPDXRef-Package-Pygments
-
-PackageName: pytz
-SPDXID: SPDXRef-Package-pytz
-PackageVersion: 2024.1
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: MIT
-PackageLicenseDeclared: MIT
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-
-PackageName: python-dateutil
-SPDXID: SPDXRef-Package-python-dateutil
-PackageVersion: 2.9.0.post0
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: Dual License
-PackageLicenseDeclared: Dual License
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-python-dateutil DEPENDS_ON SPDXRef-Package-six
-
-PackageName: lark
-SPDXID: SPDXRef-Package-lark
-PackageVersion: 1.3.1
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: MIT
-PackageLicenseDeclared: MIT
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
 
 PackageName: tzdata
 SPDXID: SPDXRef-Package-tzdata
@@ -3008,9 +2658,53 @@ PackageSummary: Python library dependencies.
 Relationship: SPDXRef-Package-platformdirs DEPENDS_ON SPDXRef-Package-pytest-cov
 Relationship: SPDXRef-Package-platformdirs DEPENDS_ON SPDXRef-Package-pytest
 
-PackageName: MarkupSafe
-SPDXID: SPDXRef-Package-MarkupSafe
-PackageVersion: 2.1.5
+PackageName: pathspec
+SPDXID: SPDXRef-Package-pathspec
+PackageVersion: 0.12.1
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: Unknown
+PackageLicenseDeclared: Unknown
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+
+PackageName: pytokens
+SPDXID: SPDXRef-Package-pytokens
+PackageVersion: 0.1.10
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: MIT
+PackageLicenseDeclared: MIT
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-pytokens DEPENDS_ON SPDXRef-Package-black
+Relationship: SPDXRef-Package-pytokens DEPENDS_ON SPDXRef-Package-pytest
+Relationship: SPDXRef-Package-pytokens DEPENDS_ON SPDXRef-Package-pytest-cov
+Relationship: SPDXRef-Package-pytokens DEPENDS_ON SPDXRef-Package-setuptools
+
+PackageName: aiohttp
+SPDXID: SPDXRef-Package-aiohttp
+PackageVersion: 3.13.5
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: Apache-2.0 AND MIT
+PackageLicenseDeclared: Apache-2.0 AND MIT
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-aiohttp DEPENDS_ON SPDXRef-Package-aiohappyeyeballs
+Relationship: SPDXRef-Package-aiohttp DEPENDS_ON SPDXRef-Package-aiosignal
+Relationship: SPDXRef-Package-aiohttp DEPENDS_ON SPDXRef-Package-attrs
+Relationship: SPDXRef-Package-aiohttp DEPENDS_ON SPDXRef-Package-frozenlist
+Relationship: SPDXRef-Package-aiohttp DEPENDS_ON SPDXRef-Package-multidict
+Relationship: SPDXRef-Package-aiohttp DEPENDS_ON SPDXRef-Package-propcache
+Relationship: SPDXRef-Package-aiohttp DEPENDS_ON SPDXRef-Package-yarl
+
+PackageName: ipython
+SPDXID: SPDXRef-Package-ipython
+PackageVersion: 8.26.0
 PackageDownloadLocation: NOASSERTION
 FilesAnalyzed: false
 PackageLicenseConcluded: BSD-3-Clause
@@ -3018,20 +2712,28 @@ PackageLicenseDeclared: BSD-3-Clause
 PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
-
-PackageName: babel
-SPDXID: SPDXRef-Package-babel
-PackageVersion: 2.16.0
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: BSD-3-Clause
-PackageLicenseDeclared: BSD-3-Clause
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-babel DEPENDS_ON SPDXRef-Package-pytz
-Relationship: SPDXRef-Package-babel DEPENDS_ON SPDXRef-Package-pytest
-Relationship: SPDXRef-Package-babel DEPENDS_ON SPDXRef-Package-pytest-cov
+Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-decorator
+Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-jedi
+Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-matplotlib-inline
+Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-Pygments
+Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-stack-data
+Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-traitlets
+Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-exceptiongroup
+Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-colorama
+Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-black
+Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-ipykernel
+Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-matplotlib
+Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-setuptools
+Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-tomli
+Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-nbconvert
+Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-nbformat
+Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-ipywidgets
+Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-notebook
+Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-qtconsole
+Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-pytest
+Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-packaging
+Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-numpy
+Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-pandas
 
 PackageName: ipywidgets
 SPDXID: SPDXRef-Package-ipywidgets
@@ -3053,196 +2755,48 @@ Relationship: SPDXRef-Package-ipywidgets DEPENDS_ON SPDXRef-Package-pytest
 Relationship: SPDXRef-Package-ipywidgets DEPENDS_ON SPDXRef-Package-pytest-cov
 Relationship: SPDXRef-Package-ipywidgets DEPENDS_ON SPDXRef-Package-pytz
 
-PackageName: jupyterlab
-SPDXID: SPDXRef-Package-jupyterlab
-PackageVersion: 4.2.4
+PackageName: markdown-it-py
+SPDXID: SPDXRef-Package-markdown-it-py
+PackageVersion: 4.0.0
 PackageDownloadLocation: NOASSERTION
 FilesAnalyzed: false
-PackageLicenseConcluded: Copyright (c) 2015-2022 Project Jupyter Contributors
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer.
-
-2. Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution.
-
-3. Neither the name of the copyright holder nor the names of its
-   contributors may be used to endorse or promote products derived from
-   this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-Semver File License
-===================
-
-The semver.py file is from https://github.com/podhmo/python-semver
-which is licensed under the "MIT" license.  See the semver.py file for details.
-PackageLicenseDeclared: Copyright (c) 2015-2022 Project Jupyter Contributors
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer.
-
-2. Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution.
-
-3. Neither the name of the copyright holder nor the names of its
-   contributors may be used to endorse or promote products derived from
-   this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-Semver File License
-===================
-
-The semver.py file is from https://github.com/podhmo/python-semver
-which is licensed under the "MIT" license.  See the semver.py file for details.
+PackageLicenseConcluded: Unknown
+PackageLicenseDeclared: Unknown
 PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
-Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-async-lru
-Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-httpx
-Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-ipykernel
-Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-Jinja2
-Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-jupyter-lsp
-Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-packaging
-Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-setuptools
-Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-tomli
-Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-tornado
-Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-traitlets
-Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-coverage
-Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-pytest-cov
-Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-pytest
-Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-altair
-Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-ipython
-Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-ipywidgets
-Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-matplotlib
-Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-nbconvert
-Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-pandas
-Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-scipy
-Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-requests
-Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-pydantic
+Relationship: SPDXRef-Package-markdown-it-py DEPENDS_ON SPDXRef-Package-mdurl
+Relationship: SPDXRef-Package-markdown-it-py DEPENDS_ON SPDXRef-Package-psutil
+Relationship: SPDXRef-Package-markdown-it-py DEPENDS_ON SPDXRef-Package-pytest
+Relationship: SPDXRef-Package-markdown-it-py DEPENDS_ON SPDXRef-Package-mistune
+Relationship: SPDXRef-Package-markdown-it-py DEPENDS_ON SPDXRef-Package-mdit-py-plugins
+Relationship: SPDXRef-Package-markdown-it-py DEPENDS_ON SPDXRef-Package-PyYAML
+Relationship: SPDXRef-Package-markdown-it-py DEPENDS_ON SPDXRef-Package-ipykernel
+Relationship: SPDXRef-Package-markdown-it-py DEPENDS_ON SPDXRef-Package-coverage
+Relationship: SPDXRef-Package-markdown-it-py DEPENDS_ON SPDXRef-Package-pytest-cov
+Relationship: SPDXRef-Package-markdown-it-py DEPENDS_ON SPDXRef-Package-requests
 
-PackageName: tornado
-SPDXID: SPDXRef-Package-tornado
-PackageVersion: 6.4.1
+PackageName: six
+SPDXID: SPDXRef-Package-six
+PackageVersion: 1.16.0
 PackageDownloadLocation: NOASSERTION
 FilesAnalyzed: false
-PackageLicenseConcluded: Apache-2.0
-PackageLicenseDeclared: Apache-2.0
+PackageLicenseConcluded: MIT
+PackageLicenseDeclared: MIT
 PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
 
-PackageName: ipykernel
-SPDXID: SPDXRef-Package-ipykernel
-PackageVersion: 6.29.5
+PackageName: pyarrow
+SPDXID: SPDXRef-Package-pyarrow
+PackageVersion: 23.0.0
 PackageDownloadLocation: NOASSERTION
 FilesAnalyzed: false
-PackageLicenseConcluded: BSD 3-Clause License
-
-Copyright (c) 2015, IPython Development Team
-
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer.
-
-2. Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution.
-
-3. Neither the name of the copyright holder nor the names of its
-   contributors may be used to endorse or promote products derived from
-   this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-PackageLicenseDeclared: BSD 3-Clause License
-
-Copyright (c) 2015, IPython Development Team
-
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer.
-
-2. Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution.
-
-3. Neither the name of the copyright holder nor the names of its
-   contributors may be used to endorse or promote products derived from
-   this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+PackageLicenseConcluded: Unknown
+PackageLicenseDeclared: Unknown
 PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
-Relationship: SPDXRef-Package-ipykernel DEPENDS_ON SPDXRef-Package-comm
-Relationship: SPDXRef-Package-ipykernel DEPENDS_ON SPDXRef-Package-debugpy
-Relationship: SPDXRef-Package-ipykernel DEPENDS_ON SPDXRef-Package-ipython
-Relationship: SPDXRef-Package-ipykernel DEPENDS_ON SPDXRef-Package-matplotlib-inline
-Relationship: SPDXRef-Package-ipykernel DEPENDS_ON SPDXRef-Package-nest-asyncio
-Relationship: SPDXRef-Package-ipykernel DEPENDS_ON SPDXRef-Package-packaging
-Relationship: SPDXRef-Package-ipykernel DEPENDS_ON SPDXRef-Package-psutil
-Relationship: SPDXRef-Package-ipykernel DEPENDS_ON SPDXRef-Package-pyzmq
-Relationship: SPDXRef-Package-ipykernel DEPENDS_ON SPDXRef-Package-tornado
-Relationship: SPDXRef-Package-ipykernel DEPENDS_ON SPDXRef-Package-traitlets
-Relationship: SPDXRef-Package-ipykernel DEPENDS_ON SPDXRef-Package-coverage
-Relationship: SPDXRef-Package-ipykernel DEPENDS_ON SPDXRef-Package-matplotlib
-Relationship: SPDXRef-Package-ipykernel DEPENDS_ON SPDXRef-Package-pytest-cov
-Relationship: SPDXRef-Package-ipykernel DEPENDS_ON SPDXRef-Package-pytest
 
 PackageName: scipy
 SPDXID: SPDXRef-Package-scipy
@@ -5088,6 +4642,85 @@ Relationship: SPDXRef-Package-scipy DEPENDS_ON SPDXRef-Package-matplotlib
 Relationship: SPDXRef-Package-scipy DEPENDS_ON SPDXRef-Package-jupytext
 Relationship: SPDXRef-Package-scipy DEPENDS_ON SPDXRef-Package-typing_extensions
 
+PackageName: fsspec
+SPDXID: SPDXRef-Package-fsspec
+PackageVersion: 2025.7.0
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: BSD 3-Clause License
+
+Copyright (c) 2018, Martin Durant
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+* Neither the name of the copyright holder nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+PackageLicenseDeclared: BSD 3-Clause License
+
+Copyright (c) 2018, Martin Durant
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+* Neither the name of the copyright holder nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-fsspec DEPENDS_ON SPDXRef-Package-pyarrow
+Relationship: SPDXRef-Package-fsspec DEPENDS_ON SPDXRef-Package-yarl
+Relationship: SPDXRef-Package-fsspec DEPENDS_ON SPDXRef-Package-requests
+Relationship: SPDXRef-Package-fsspec DEPENDS_ON SPDXRef-Package-aiohttp
+Relationship: SPDXRef-Package-fsspec DEPENDS_ON SPDXRef-Package-tqdm
+Relationship: SPDXRef-Package-fsspec DEPENDS_ON SPDXRef-Package-numpy
+Relationship: SPDXRef-Package-fsspec DEPENDS_ON SPDXRef-Package-pytest
+Relationship: SPDXRef-Package-fsspec DEPENDS_ON SPDXRef-Package-pytest-cov
+Relationship: SPDXRef-Package-fsspec DEPENDS_ON SPDXRef-Package-Jinja2
+Relationship: SPDXRef-Package-fsspec DEPENDS_ON SPDXRef-Package-notebook
+Relationship: SPDXRef-Package-fsspec DEPENDS_ON SPDXRef-Package-pandas
+Relationship: SPDXRef-Package-fsspec DEPENDS_ON SPDXRef-Package-urllib3
+
 PackageName: openpyxl
 SPDXID: SPDXRef-Package-openpyxl
 PackageVersion: 3.1.5
@@ -5368,6 +5001,18 @@ Relationship: SPDXRef-Package-matplotlib DEPENDS_ON SPDXRef-Package-pyparsing
 Relationship: SPDXRef-Package-matplotlib DEPENDS_ON SPDXRef-Package-python-dateutil
 Relationship: SPDXRef-Package-matplotlib DEPENDS_ON SPDXRef-Package-setuptools
 
+PackageName: tabulate
+SPDXID: SPDXRef-Package-tabulate
+PackageVersion: 0.10.0
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: Unknown
+PackageLicenseDeclared: Unknown
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-tabulate DEPENDS_ON SPDXRef-Package-wcwidth
+
 PackageName: QtPy
 SPDXID: SPDXRef-Package-QtPy
 PackageVersion: 2.4.1
@@ -5381,86 +5026,6 @@ PackageSummary: Python library dependencies.
 Relationship: SPDXRef-Package-QtPy DEPENDS_ON SPDXRef-Package-packaging
 Relationship: SPDXRef-Package-QtPy DEPENDS_ON SPDXRef-Package-pytest
 Relationship: SPDXRef-Package-QtPy DEPENDS_ON SPDXRef-Package-pytest-cov
-
-PackageName: pathspec
-SPDXID: SPDXRef-Package-pathspec
-PackageVersion: 0.12.1
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: Unknown
-PackageLicenseDeclared: Unknown
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-
-PackageName: pytokens
-SPDXID: SPDXRef-Package-pytokens
-PackageVersion: 0.1.10
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: MIT
-PackageLicenseDeclared: MIT
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-pytokens DEPENDS_ON SPDXRef-Package-black
-Relationship: SPDXRef-Package-pytokens DEPENDS_ON SPDXRef-Package-pytest
-Relationship: SPDXRef-Package-pytokens DEPENDS_ON SPDXRef-Package-pytest-cov
-Relationship: SPDXRef-Package-pytokens DEPENDS_ON SPDXRef-Package-setuptools
-
-PackageName: ipython
-SPDXID: SPDXRef-Package-ipython
-PackageVersion: 8.26.0
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: BSD-3-Clause
-PackageLicenseDeclared: BSD-3-Clause
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-decorator
-Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-jedi
-Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-matplotlib-inline
-Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-Pygments
-Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-stack-data
-Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-traitlets
-Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-exceptiongroup
-Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-colorama
-Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-black
-Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-ipykernel
-Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-matplotlib
-Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-setuptools
-Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-tomli
-Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-nbconvert
-Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-nbformat
-Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-ipywidgets
-Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-notebook
-Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-qtconsole
-Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-pytest
-Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-packaging
-Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-numpy
-Relationship: SPDXRef-Package-ipython DEPENDS_ON SPDXRef-Package-pandas
-
-PackageName: markdown-it-py
-SPDXID: SPDXRef-Package-markdown-it-py
-PackageVersion: 4.0.0
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: Unknown
-PackageLicenseDeclared: Unknown
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-markdown-it-py DEPENDS_ON SPDXRef-Package-mdurl
-Relationship: SPDXRef-Package-markdown-it-py DEPENDS_ON SPDXRef-Package-psutil
-Relationship: SPDXRef-Package-markdown-it-py DEPENDS_ON SPDXRef-Package-pytest
-Relationship: SPDXRef-Package-markdown-it-py DEPENDS_ON SPDXRef-Package-mistune
-Relationship: SPDXRef-Package-markdown-it-py DEPENDS_ON SPDXRef-Package-mdit-py-plugins
-Relationship: SPDXRef-Package-markdown-it-py DEPENDS_ON SPDXRef-Package-PyYAML
-Relationship: SPDXRef-Package-markdown-it-py DEPENDS_ON SPDXRef-Package-ipykernel
-Relationship: SPDXRef-Package-markdown-it-py DEPENDS_ON SPDXRef-Package-coverage
-Relationship: SPDXRef-Package-markdown-it-py DEPENDS_ON SPDXRef-Package-pytest-cov
-Relationship: SPDXRef-Package-markdown-it-py DEPENDS_ON SPDXRef-Package-requests
 
 PackageName: PyYAML
 SPDXID: SPDXRef-Package-PyYAML
@@ -5486,14 +5051,122 @@ PackageSummary: Python library dependencies.
 Relationship: SPDXRef-Package-zipp DEPENDS_ON SPDXRef-Package-pytest
 Relationship: SPDXRef-Package-zipp DEPENDS_ON SPDXRef-Package-pytest-cov
 
-PackageName: comm
-SPDXID: SPDXRef-Package-comm
-PackageVersion: 0.2.2
+PackageName: aiohappyeyeballs
+SPDXID: SPDXRef-Package-aiohappyeyeballs
+PackageVersion: 2.6.1
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: PSF-2.0
+PackageLicenseDeclared: PSF-2.0
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+
+PackageName: aiosignal
+SPDXID: SPDXRef-Package-aiosignal
+PackageVersion: 1.4.0
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: Apache 2.0
+PackageLicenseDeclared: Apache 2.0
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-aiosignal DEPENDS_ON SPDXRef-Package-frozenlist
+
+PackageName: frozenlist
+SPDXID: SPDXRef-Package-frozenlist
+PackageVersion: 1.8.0
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: Apache-2.0
+PackageLicenseDeclared: Apache-2.0
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+
+PackageName: multidict
+SPDXID: SPDXRef-Package-multidict
+PackageVersion: 6.7.0
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: Apache License 2.0
+PackageLicenseDeclared: Apache License 2.0
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+
+PackageName: propcache
+SPDXID: SPDXRef-Package-propcache
+PackageVersion: 0.4.1
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: Apache-2.0
+PackageLicenseDeclared: Apache-2.0
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+
+PackageName: yarl
+SPDXID: SPDXRef-Package-yarl
+PackageVersion: 1.22.0
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: Apache-2.0
+PackageLicenseDeclared: Apache-2.0
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-yarl DEPENDS_ON SPDXRef-Package-idna
+Relationship: SPDXRef-Package-yarl DEPENDS_ON SPDXRef-Package-multidict
+Relationship: SPDXRef-Package-yarl DEPENDS_ON SPDXRef-Package-propcache
+
+PackageName: decorator
+SPDXID: SPDXRef-Package-decorator
+PackageVersion: 5.1.1
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: new BSD License
+PackageLicenseDeclared: new BSD License
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+
+PackageName: jedi
+SPDXID: SPDXRef-Package-jedi
+PackageVersion: 0.19.1
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: MIT
+PackageLicenseDeclared: MIT
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-parso
+Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-Jinja2
+Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-MarkupSafe
+Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-Pygments
+Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-babel
+Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-chardet
+Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-idna
+Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-packaging
+Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-pyparsing
+Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-pytz
+Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-requests
+Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-six
+Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-urllib3
+Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-attrs
+Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-colorama
+Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-pytest
+
+PackageName: matplotlib-inline
+SPDXID: SPDXRef-Package-matplotlib-inline
+PackageVersion: 0.1.7
 PackageDownloadLocation: NOASSERTION
 FilesAnalyzed: false
 PackageLicenseConcluded: BSD 3-Clause License
 
-Copyright (c) 2022, Jupyter
+Copyright (c) 2019-2022, IPython Development Team.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -5520,9 +5193,10 @@ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
 PackageLicenseDeclared: BSD 3-Clause License
 
-Copyright (c) 2022, Jupyter
+Copyright (c) 2019-2022, IPython Development Team.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -5549,11 +5223,26 @@ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
 PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
-Relationship: SPDXRef-Package-comm DEPENDS_ON SPDXRef-Package-traitlets
-Relationship: SPDXRef-Package-comm DEPENDS_ON SPDXRef-Package-pytest
+Relationship: SPDXRef-Package-matplotlib-inline DEPENDS_ON SPDXRef-Package-traitlets
+
+PackageName: stack-data
+SPDXID: SPDXRef-Package-stack-data
+PackageVersion: 0.6.3
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: MIT
+PackageLicenseDeclared: MIT
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-stack-data DEPENDS_ON SPDXRef-Package-executing
+Relationship: SPDXRef-Package-stack-data DEPENDS_ON SPDXRef-Package-asttokens
+Relationship: SPDXRef-Package-stack-data DEPENDS_ON SPDXRef-Package-pytest
+Relationship: SPDXRef-Package-stack-data DEPENDS_ON SPDXRef-Package-Pygments
 
 PackageName: traitlets
 SPDXID: SPDXRef-Package-traitlets
@@ -5625,103 +5314,60 @@ PackageSummary: Python library dependencies.
 
 Relationship: SPDXRef-Package-traitlets DEPENDS_ON SPDXRef-Package-pytest
 
-PackageName: widgetsnbextension
-SPDXID: SPDXRef-Package-widgetsnbextension
-PackageVersion: 4.0.11
+PackageName: ipykernel
+SPDXID: SPDXRef-Package-ipykernel
+PackageVersion: 6.29.5
 PackageDownloadLocation: NOASSERTION
 FilesAnalyzed: false
 PackageLicenseConcluded: BSD 3-Clause License
+
+Copyright (c) 2015, IPython Development Team
+
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 PackageLicenseDeclared: BSD 3-Clause License
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
 
+Copyright (c) 2015, IPython Development Team
 
-PackageName: jsonschema
-SPDXID: SPDXRef-Package-jsonschema
-PackageVersion: 4.25.1
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: Unknown
-PackageLicenseDeclared: Unknown
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-jsonschema DEPENDS_ON SPDXRef-Package-attrs
-Relationship: SPDXRef-Package-jsonschema DEPENDS_ON SPDXRef-Package-jsonschema-specifications
-Relationship: SPDXRef-Package-jsonschema DEPENDS_ON SPDXRef-Package-referencing
-Relationship: SPDXRef-Package-jsonschema DEPENDS_ON SPDXRef-Package-rpds-py
-Relationship: SPDXRef-Package-jsonschema DEPENDS_ON SPDXRef-Package-fqdn
-Relationship: SPDXRef-Package-jsonschema DEPENDS_ON SPDXRef-Package-idna
-Relationship: SPDXRef-Package-jsonschema DEPENDS_ON SPDXRef-Package-isoduration
-Relationship: SPDXRef-Package-jsonschema DEPENDS_ON SPDXRef-Package-jsonpointer
-Relationship: SPDXRef-Package-jsonschema DEPENDS_ON SPDXRef-Package-rfc3339-validator
-Relationship: SPDXRef-Package-jsonschema DEPENDS_ON SPDXRef-Package-uri-template
-Relationship: SPDXRef-Package-jsonschema DEPENDS_ON SPDXRef-Package-webcolors
-Relationship: SPDXRef-Package-jsonschema DEPENDS_ON SPDXRef-Package-rfc3986-validator
-Relationship: SPDXRef-Package-jsonschema DEPENDS_ON SPDXRef-Package-rfc3987-syntax
-
-PackageName: async-lru
-SPDXID: SPDXRef-Package-async-lru
-PackageVersion: 2.0.4
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: MIT License
-PackageLicenseDeclared: MIT License
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-
-PackageName: httpx
-SPDXID: SPDXRef-Package-httpx
-PackageVersion: 0.28.1
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: BSD-3-Clause
-PackageLicenseDeclared: BSD-3-Clause
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-httpx DEPENDS_ON SPDXRef-Package-anyio
-Relationship: SPDXRef-Package-httpx DEPENDS_ON SPDXRef-Package-certifi
-Relationship: SPDXRef-Package-httpx DEPENDS_ON SPDXRef-Package-httpcore
-Relationship: SPDXRef-Package-httpx DEPENDS_ON SPDXRef-Package-idna
-Relationship: SPDXRef-Package-httpx DEPENDS_ON SPDXRef-Package-click
-Relationship: SPDXRef-Package-httpx DEPENDS_ON SPDXRef-Package-Pygments
-Relationship: SPDXRef-Package-httpx DEPENDS_ON SPDXRef-Package-rich
-Relationship: SPDXRef-Package-httpx DEPENDS_ON SPDXRef-Package-h2
-
-PackageName: jupyter-lsp
-SPDXID: SPDXRef-Package-jupyter-lsp
-PackageVersion: 2.2.5
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: BSD-3-Clause
-PackageLicenseDeclared: BSD-3-Clause
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-
-PackageName: altair
-SPDXID: SPDXRef-Package-altair
-PackageVersion: 6.0.0
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: Copyright (c) 2015-2025, Vega-Altair Developers
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
 
-* Redistributions of source code must retain the above copyright notice, this
-  list of conditions and the following disclaimer.
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
 
-* Redistributions in binary form must reproduce the above copyright notice,
-  this list of conditions and the following disclaimer in the documentation
-  and/or other materials provided with the distribution.
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
 
-* Neither the name of vega-altair nor the names of its
-  contributors may be used to endorse or promote products derived from
-  this software without specific prior written permission.
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -5733,53 +5379,23 @@ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-PackageLicenseDeclared: Copyright (c) 2015-2025, Vega-Altair Developers
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-* Redistributions of source code must retain the above copyright notice, this
-  list of conditions and the following disclaimer.
-
-* Redistributions in binary form must reproduce the above copyright notice,
-  this list of conditions and the following disclaimer in the documentation
-  and/or other materials provided with the distribution.
-
-* Neither the name of vega-altair nor the names of its
-  contributors may be used to endorse or promote products derived from
-  this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
 PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
-Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-Jinja2
-Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-jsonschema
-Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-narwhals
-Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-packaging
-Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-numpy
-Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-pandas
-Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-pyarrow
-Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-ipykernel
-Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-ipython
-Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-mistune
-Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-pytest
-Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-pytest-cov
-Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-tomli
-Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-pillow
-Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-scipy
+Relationship: SPDXRef-Package-ipykernel DEPENDS_ON SPDXRef-Package-comm
+Relationship: SPDXRef-Package-ipykernel DEPENDS_ON SPDXRef-Package-debugpy
+Relationship: SPDXRef-Package-ipykernel DEPENDS_ON SPDXRef-Package-ipython
+Relationship: SPDXRef-Package-ipykernel DEPENDS_ON SPDXRef-Package-matplotlib-inline
+Relationship: SPDXRef-Package-ipykernel DEPENDS_ON SPDXRef-Package-nest-asyncio
+Relationship: SPDXRef-Package-ipykernel DEPENDS_ON SPDXRef-Package-packaging
+Relationship: SPDXRef-Package-ipykernel DEPENDS_ON SPDXRef-Package-psutil
+Relationship: SPDXRef-Package-ipykernel DEPENDS_ON SPDXRef-Package-pyzmq
+Relationship: SPDXRef-Package-ipykernel DEPENDS_ON SPDXRef-Package-tornado
+Relationship: SPDXRef-Package-ipykernel DEPENDS_ON SPDXRef-Package-traitlets
+Relationship: SPDXRef-Package-ipykernel DEPENDS_ON SPDXRef-Package-coverage
+Relationship: SPDXRef-Package-ipykernel DEPENDS_ON SPDXRef-Package-matplotlib
+Relationship: SPDXRef-Package-ipykernel DEPENDS_ON SPDXRef-Package-pytest-cov
+Relationship: SPDXRef-Package-ipykernel DEPENDS_ON SPDXRef-Package-pytest
 
 PackageName: nbconvert
 SPDXID: SPDXRef-Package-nbconvert
@@ -5870,9 +5486,258 @@ Relationship: SPDXRef-Package-nbconvert DEPENDS_ON SPDXRef-Package-ipywidgets
 Relationship: SPDXRef-Package-nbconvert DEPENDS_ON SPDXRef-Package-pytest
 Relationship: SPDXRef-Package-nbconvert DEPENDS_ON SPDXRef-Package-tornado
 
-PackageName: pydantic
-SPDXID: SPDXRef-Package-pydantic
-PackageVersion: 2.12.5
+PackageName: nbformat
+SPDXID: SPDXRef-Package-nbformat
+PackageVersion: 5.10.4
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: BSD 3-Clause License
+
+- Copyright (c) 2001-2015, IPython Development Team
+- Copyright (c) 2015-, Jupyter Development Team
+
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+PackageLicenseDeclared: BSD 3-Clause License
+
+- Copyright (c) 2001-2015, IPython Development Team
+- Copyright (c) 2015-, Jupyter Development Team
+
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-nbformat DEPENDS_ON SPDXRef-Package-fastjsonschema
+Relationship: SPDXRef-Package-nbformat DEPENDS_ON SPDXRef-Package-jsonschema
+Relationship: SPDXRef-Package-nbformat DEPENDS_ON SPDXRef-Package-traitlets
+Relationship: SPDXRef-Package-nbformat DEPENDS_ON SPDXRef-Package-pytest
+
+PackageName: notebook
+SPDXID: SPDXRef-Package-notebook
+PackageVersion: 7.2.1
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: BSD 3-Clause License
+
+- Copyright (c) 2001-2015, IPython Development Team
+- Copyright (c) 2015-, Jupyter Development Team
+
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+PackageLicenseDeclared: BSD 3-Clause License
+
+- Copyright (c) 2001-2015, IPython Development Team
+- Copyright (c) 2015-, Jupyter Development Team
+
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-notebook DEPENDS_ON SPDXRef-Package-jupyterlab
+Relationship: SPDXRef-Package-notebook DEPENDS_ON SPDXRef-Package-tornado
+Relationship: SPDXRef-Package-notebook DEPENDS_ON SPDXRef-Package-ipykernel
+Relationship: SPDXRef-Package-notebook DEPENDS_ON SPDXRef-Package-pytest
+Relationship: SPDXRef-Package-notebook DEPENDS_ON SPDXRef-Package-requests
+
+PackageName: qtconsole
+SPDXID: SPDXRef-Package-qtconsole
+PackageVersion: 5.5.2
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: BSD
+PackageLicenseDeclared: BSD
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-qtconsole DEPENDS_ON SPDXRef-Package-traitlets
+Relationship: SPDXRef-Package-qtconsole DEPENDS_ON SPDXRef-Package-Pygments
+Relationship: SPDXRef-Package-qtconsole DEPENDS_ON SPDXRef-Package-ipykernel
+Relationship: SPDXRef-Package-qtconsole DEPENDS_ON SPDXRef-Package-QtPy
+Relationship: SPDXRef-Package-qtconsole DEPENDS_ON SPDXRef-Package-pyzmq
+Relationship: SPDXRef-Package-qtconsole DEPENDS_ON SPDXRef-Package-packaging
+Relationship: SPDXRef-Package-qtconsole DEPENDS_ON SPDXRef-Package-pytest
+
+PackageName: comm
+SPDXID: SPDXRef-Package-comm
+PackageVersion: 0.2.2
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: BSD 3-Clause License
+
+Copyright (c) 2022, Jupyter
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+PackageLicenseDeclared: BSD 3-Clause License
+
+Copyright (c) 2022, Jupyter
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-comm DEPENDS_ON SPDXRef-Package-traitlets
+Relationship: SPDXRef-Package-comm DEPENDS_ON SPDXRef-Package-pytest
+
+PackageName: widgetsnbextension
+SPDXID: SPDXRef-Package-widgetsnbextension
+PackageVersion: 4.0.11
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: BSD 3-Clause License
+PackageLicenseDeclared: BSD 3-Clause License
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+
+PackageName: jsonschema
+SPDXID: SPDXRef-Package-jsonschema
+PackageVersion: 4.25.1
 PackageDownloadLocation: NOASSERTION
 FilesAnalyzed: false
 PackageLicenseConcluded: Unknown
@@ -5880,98 +5745,27 @@ PackageLicenseDeclared: Unknown
 PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
-Relationship: SPDXRef-Package-pydantic DEPENDS_ON SPDXRef-Package-annotated-types
-Relationship: SPDXRef-Package-pydantic DEPENDS_ON SPDXRef-Package-typing-inspection
-Relationship: SPDXRef-Package-pydantic DEPENDS_ON SPDXRef-Package-tzdata
+Relationship: SPDXRef-Package-jsonschema DEPENDS_ON SPDXRef-Package-attrs
+Relationship: SPDXRef-Package-jsonschema DEPENDS_ON SPDXRef-Package-jsonschema-specifications
+Relationship: SPDXRef-Package-jsonschema DEPENDS_ON SPDXRef-Package-referencing
+Relationship: SPDXRef-Package-jsonschema DEPENDS_ON SPDXRef-Package-rpds-py
+Relationship: SPDXRef-Package-jsonschema DEPENDS_ON SPDXRef-Package-fqdn
+Relationship: SPDXRef-Package-jsonschema DEPENDS_ON SPDXRef-Package-idna
+Relationship: SPDXRef-Package-jsonschema DEPENDS_ON SPDXRef-Package-isoduration
+Relationship: SPDXRef-Package-jsonschema DEPENDS_ON SPDXRef-Package-jsonpointer
+Relationship: SPDXRef-Package-jsonschema DEPENDS_ON SPDXRef-Package-rfc3339-validator
+Relationship: SPDXRef-Package-jsonschema DEPENDS_ON SPDXRef-Package-uri-template
+Relationship: SPDXRef-Package-jsonschema DEPENDS_ON SPDXRef-Package-webcolors
+Relationship: SPDXRef-Package-jsonschema DEPENDS_ON SPDXRef-Package-rfc3986-validator
+Relationship: SPDXRef-Package-jsonschema DEPENDS_ON SPDXRef-Package-rfc3987-syntax
 
-PackageName: debugpy
-SPDXID: SPDXRef-Package-debugpy
-PackageVersion: 1.8.5
+PackageName: mdurl
+SPDXID: SPDXRef-Package-mdurl
+PackageVersion: 0.1.2
 PackageDownloadLocation: NOASSERTION
 FilesAnalyzed: false
-PackageLicenseConcluded: MIT
-PackageLicenseDeclared: MIT
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-
-PackageName: matplotlib-inline
-SPDXID: SPDXRef-Package-matplotlib-inline
-PackageVersion: 0.1.7
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: BSD 3-Clause License
-
-Copyright (c) 2019-2022, IPython Development Team.
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer.
-
-2. Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution.
-
-3. Neither the name of the copyright holder nor the names of its
-   contributors may be used to endorse or promote products derived from
-   this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-PackageLicenseDeclared: BSD 3-Clause License
-
-Copyright (c) 2019-2022, IPython Development Team.
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer.
-
-2. Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution.
-
-3. Neither the name of the copyright holder nor the names of its
-   contributors may be used to endorse or promote products derived from
-   this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-matplotlib-inline DEPENDS_ON SPDXRef-Package-traitlets
-
-PackageName: nest-asyncio
-SPDXID: SPDXRef-Package-nest-asyncio
-PackageVersion: 1.6.0
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: BSD
-PackageLicenseDeclared: BSD
+PackageLicenseConcluded: Unknown
+PackageLicenseDeclared: Unknown
 PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
@@ -5988,75 +5782,31 @@ PackageSummary: Python library dependencies.
 
 Relationship: SPDXRef-Package-psutil DEPENDS_ON SPDXRef-Package-pywin32
 
-PackageName: pyzmq
-SPDXID: SPDXRef-Package-pyzmq
-PackageVersion: 26.1.0
+PackageName: mistune
+SPDXID: SPDXRef-Package-mistune
+PackageVersion: 3.0.2
 PackageDownloadLocation: NOASSERTION
 FilesAnalyzed: false
-PackageLicenseConcluded: BSD 3-Clause License
-
-Copyright (c) 2009-2012, Brian Granger, Min Ragan-Kelley
-
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer.
-
-2. Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution.
-
-3. Neither the name of the copyright holder nor the names of its
-   contributors may be used to endorse or promote products derived from
-   this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-PackageLicenseDeclared: BSD 3-Clause License
-
-Copyright (c) 2009-2012, Brian Granger, Min Ragan-Kelley
-
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer.
-
-2. Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution.
-
-3. Neither the name of the copyright holder nor the names of its
-   contributors may be used to endorse or promote products derived from
-   this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+PackageLicenseConcluded: BSD-3-Clause
+PackageLicenseDeclared: BSD-3-Clause
 PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
-Relationship: SPDXRef-Package-pyzmq DEPENDS_ON SPDXRef-Package-cffi
+
+PackageName: mdit-py-plugins
+SPDXID: SPDXRef-Package-mdit-py-plugins
+PackageVersion: 0.6.1
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: Unknown
+PackageLicenseDeclared: Unknown
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-mdit-py-plugins DEPENDS_ON SPDXRef-Package-markdown-it-py
+Relationship: SPDXRef-Package-mdit-py-plugins DEPENDS_ON SPDXRef-Package-coverage
+Relationship: SPDXRef-Package-mdit-py-plugins DEPENDS_ON SPDXRef-Package-pytest
+Relationship: SPDXRef-Package-mdit-py-plugins DEPENDS_ON SPDXRef-Package-pytest-cov
 
 PackageName: mpmath
 SPDXID: SPDXRef-Package-mpmath
@@ -6156,6 +5906,22 @@ PackageLicenseDeclared: Unknown
 PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
+
+PackageName: tqdm
+SPDXID: SPDXRef-Package-tqdm
+PackageVersion: 4.67.1
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: MPL-2.0 AND MIT
+PackageLicenseDeclared: MPL-2.0 AND MIT
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-tqdm DEPENDS_ON SPDXRef-Package-colorama
+Relationship: SPDXRef-Package-tqdm DEPENDS_ON SPDXRef-Package-pytest
+Relationship: SPDXRef-Package-tqdm DEPENDS_ON SPDXRef-Package-pytest-cov
+Relationship: SPDXRef-Package-tqdm DEPENDS_ON SPDXRef-Package-requests
+Relationship: SPDXRef-Package-tqdm DEPENDS_ON SPDXRef-Package-ipywidgets
 
 PackageName: greenlet
 SPDXID: SPDXRef-Package-greenlet
@@ -6532,20 +6298,9 @@ PackageSummary: Python library dependencies.
 
 Relationship: SPDXRef-Package-pyparsing DEPENDS_ON SPDXRef-Package-Jinja2
 
-PackageName: decorator
-SPDXID: SPDXRef-Package-decorator
-PackageVersion: 5.1.1
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: new BSD License
-PackageLicenseDeclared: new BSD License
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-
-PackageName: jedi
-SPDXID: SPDXRef-Package-jedi
-PackageVersion: 0.19.1
+PackageName: wcwidth
+SPDXID: SPDXRef-Package-wcwidth
+PackageVersion: 0.2.13
 PackageDownloadLocation: NOASSERTION
 FilesAnalyzed: false
 PackageLicenseConcluded: MIT
@@ -6553,26 +6308,10 @@ PackageLicenseDeclared: MIT
 PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
-Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-parso
-Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-Jinja2
-Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-MarkupSafe
-Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-Pygments
-Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-babel
-Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-chardet
-Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-idna
-Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-packaging
-Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-pyparsing
-Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-pytz
-Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-requests
-Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-six
-Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-urllib3
-Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-attrs
-Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-colorama
-Relationship: SPDXRef-Package-jedi DEPENDS_ON SPDXRef-Package-pytest
 
-PackageName: stack-data
-SPDXID: SPDXRef-Package-stack-data
-PackageVersion: 0.6.3
+PackageName: parso
+SPDXID: SPDXRef-Package-parso
+PackageVersion: 0.8.4
 PackageDownloadLocation: NOASSERTION
 FilesAnalyzed: false
 PackageLicenseConcluded: MIT
@@ -6580,20 +6319,68 @@ PackageLicenseDeclared: MIT
 PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
-Relationship: SPDXRef-Package-stack-data DEPENDS_ON SPDXRef-Package-executing
-Relationship: SPDXRef-Package-stack-data DEPENDS_ON SPDXRef-Package-asttokens
-Relationship: SPDXRef-Package-stack-data DEPENDS_ON SPDXRef-Package-pytest
-Relationship: SPDXRef-Package-stack-data DEPENDS_ON SPDXRef-Package-Pygments
+Relationship: SPDXRef-Package-parso DEPENDS_ON SPDXRef-Package-pytest
 
-PackageName: nbformat
-SPDXID: SPDXRef-Package-nbformat
-PackageVersion: 5.10.4
+PackageName: executing
+SPDXID: SPDXRef-Package-executing
+PackageVersion: 2.0.1
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: MIT
+PackageLicenseDeclared: MIT
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-executing DEPENDS_ON SPDXRef-Package-asttokens
+Relationship: SPDXRef-Package-executing DEPENDS_ON SPDXRef-Package-ipython
+Relationship: SPDXRef-Package-executing DEPENDS_ON SPDXRef-Package-pytest
+Relationship: SPDXRef-Package-executing DEPENDS_ON SPDXRef-Package-coverage
+Relationship: SPDXRef-Package-executing DEPENDS_ON SPDXRef-Package-rich
+
+PackageName: asttokens
+SPDXID: SPDXRef-Package-asttokens
+PackageVersion: 2.4.1
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: Apache 2.0
+PackageLicenseDeclared: Apache 2.0
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-asttokens DEPENDS_ON SPDXRef-Package-six
+Relationship: SPDXRef-Package-asttokens DEPENDS_ON SPDXRef-Package-astroid
+Relationship: SPDXRef-Package-asttokens DEPENDS_ON SPDXRef-Package-pytest
+
+PackageName: debugpy
+SPDXID: SPDXRef-Package-debugpy
+PackageVersion: 1.8.5
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: MIT
+PackageLicenseDeclared: MIT
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+
+PackageName: nest-asyncio
+SPDXID: SPDXRef-Package-nest-asyncio
+PackageVersion: 1.6.0
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: BSD
+PackageLicenseDeclared: BSD
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+
+PackageName: pyzmq
+SPDXID: SPDXRef-Package-pyzmq
+PackageVersion: 26.1.0
 PackageDownloadLocation: NOASSERTION
 FilesAnalyzed: false
 PackageLicenseConcluded: BSD 3-Clause License
 
-- Copyright (c) 2001-2015, IPython Development Team
-- Copyright (c) 2015-, Jupyter Development Team
+Copyright (c) 2009-2012, Brian Granger, Min Ragan-Kelley
 
 All rights reserved.
 
@@ -6623,8 +6410,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 PackageLicenseDeclared: BSD 3-Clause License
 
-- Copyright (c) 2001-2015, IPython Development Team
-- Copyright (c) 2015-, Jupyter Development Team
+Copyright (c) 2009-2012, Brian Granger, Min Ragan-Kelley
 
 All rights reserved.
 
@@ -6655,43 +6441,124 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
-Relationship: SPDXRef-Package-nbformat DEPENDS_ON SPDXRef-Package-fastjsonschema
-Relationship: SPDXRef-Package-nbformat DEPENDS_ON SPDXRef-Package-jsonschema
-Relationship: SPDXRef-Package-nbformat DEPENDS_ON SPDXRef-Package-traitlets
-Relationship: SPDXRef-Package-nbformat DEPENDS_ON SPDXRef-Package-pytest
+Relationship: SPDXRef-Package-pyzmq DEPENDS_ON SPDXRef-Package-cffi
 
-PackageName: qtconsole
-SPDXID: SPDXRef-Package-qtconsole
-PackageVersion: 5.5.2
+PackageName: tornado
+SPDXID: SPDXRef-Package-tornado
+PackageVersion: 6.4.1
 PackageDownloadLocation: NOASSERTION
 FilesAnalyzed: false
-PackageLicenseConcluded: BSD
-PackageLicenseDeclared: BSD
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-qtconsole DEPENDS_ON SPDXRef-Package-traitlets
-Relationship: SPDXRef-Package-qtconsole DEPENDS_ON SPDXRef-Package-Pygments
-Relationship: SPDXRef-Package-qtconsole DEPENDS_ON SPDXRef-Package-ipykernel
-Relationship: SPDXRef-Package-qtconsole DEPENDS_ON SPDXRef-Package-QtPy
-Relationship: SPDXRef-Package-qtconsole DEPENDS_ON SPDXRef-Package-pyzmq
-Relationship: SPDXRef-Package-qtconsole DEPENDS_ON SPDXRef-Package-packaging
-Relationship: SPDXRef-Package-qtconsole DEPENDS_ON SPDXRef-Package-pytest
-
-PackageName: mdurl
-SPDXID: SPDXRef-Package-mdurl
-PackageVersion: 0.1.2
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: Unknown
-PackageLicenseDeclared: Unknown
+PackageLicenseConcluded: Apache-2.0
+PackageLicenseDeclared: Apache-2.0
 PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
 
-PackageName: mistune
-SPDXID: SPDXRef-Package-mistune
-PackageVersion: 3.0.2
+PackageName: bleach
+SPDXID: SPDXRef-Package-bleach
+PackageVersion: 6.1.0
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: Apache Software License
+PackageLicenseDeclared: Apache Software License
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-bleach DEPENDS_ON SPDXRef-Package-six
+Relationship: SPDXRef-Package-bleach DEPENDS_ON SPDXRef-Package-webencodings
+Relationship: SPDXRef-Package-bleach DEPENDS_ON SPDXRef-Package-tinycss2
+
+PackageName: defusedxml
+SPDXID: SPDXRef-Package-defusedxml
+PackageVersion: 0.7.1
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: PSFL
+PackageLicenseDeclared: PSFL
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+
+PackageName: nbclient
+SPDXID: SPDXRef-Package-nbclient
+PackageVersion: 0.10.0
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: BSD 3-Clause License
+
+Copyright (c) 2020-, Jupyter Development Team
+
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+PackageLicenseDeclared: BSD 3-Clause License
+
+Copyright (c) 2020-, Jupyter Development Team
+
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-nbclient DEPENDS_ON SPDXRef-Package-nbformat
+Relationship: SPDXRef-Package-nbclient DEPENDS_ON SPDXRef-Package-traitlets
+Relationship: SPDXRef-Package-nbclient DEPENDS_ON SPDXRef-Package-ipykernel
+Relationship: SPDXRef-Package-nbclient DEPENDS_ON SPDXRef-Package-ipython
+Relationship: SPDXRef-Package-nbclient DEPENDS_ON SPDXRef-Package-ipywidgets
+Relationship: SPDXRef-Package-nbclient DEPENDS_ON SPDXRef-Package-nbconvert
+Relationship: SPDXRef-Package-nbclient DEPENDS_ON SPDXRef-Package-pytest-cov
+Relationship: SPDXRef-Package-nbclient DEPENDS_ON SPDXRef-Package-pytest
+
+PackageName: pandocfilters
+SPDXID: SPDXRef-Package-pandocfilters
+PackageVersion: 1.5.1
 PackageDownloadLocation: NOASSERTION
 FilesAnalyzed: false
 PackageLicenseConcluded: BSD-3-Clause
@@ -6700,9 +6567,9 @@ PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
 
-PackageName: mdit-py-plugins
-SPDXID: SPDXRef-Package-mdit-py-plugins
-PackageVersion: 0.6.1
+PackageName: tinycss2
+SPDXID: SPDXRef-Package-tinycss2
+PackageVersion: 1.3.0
 PackageDownloadLocation: NOASSERTION
 FilesAnalyzed: false
 PackageLicenseConcluded: Unknown
@@ -6710,10 +6577,120 @@ PackageLicenseDeclared: Unknown
 PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
-Relationship: SPDXRef-Package-mdit-py-plugins DEPENDS_ON SPDXRef-Package-markdown-it-py
-Relationship: SPDXRef-Package-mdit-py-plugins DEPENDS_ON SPDXRef-Package-coverage
-Relationship: SPDXRef-Package-mdit-py-plugins DEPENDS_ON SPDXRef-Package-pytest
-Relationship: SPDXRef-Package-mdit-py-plugins DEPENDS_ON SPDXRef-Package-pytest-cov
+Relationship: SPDXRef-Package-tinycss2 DEPENDS_ON SPDXRef-Package-webencodings
+Relationship: SPDXRef-Package-tinycss2 DEPENDS_ON SPDXRef-Package-pytest
+
+PackageName: fastjsonschema
+SPDXID: SPDXRef-Package-fastjsonschema
+PackageVersion: 2.20.0
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: BSD
+PackageLicenseDeclared: BSD
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-fastjsonschema DEPENDS_ON SPDXRef-Package-colorama
+Relationship: SPDXRef-Package-fastjsonschema DEPENDS_ON SPDXRef-Package-jsonschema
+Relationship: SPDXRef-Package-fastjsonschema DEPENDS_ON SPDXRef-Package-pylint
+Relationship: SPDXRef-Package-fastjsonschema DEPENDS_ON SPDXRef-Package-pytest
+
+PackageName: jupyterlab
+SPDXID: SPDXRef-Package-jupyterlab
+PackageVersion: 4.2.4
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: Copyright (c) 2015-2022 Project Jupyter Contributors
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+Semver File License
+===================
+
+The semver.py file is from https://github.com/podhmo/python-semver
+which is licensed under the "MIT" license.  See the semver.py file for details.
+PackageLicenseDeclared: Copyright (c) 2015-2022 Project Jupyter Contributors
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+Semver File License
+===================
+
+The semver.py file is from https://github.com/podhmo/python-semver
+which is licensed under the "MIT" license.  See the semver.py file for details.
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-async-lru
+Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-httpx
+Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-ipykernel
+Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-Jinja2
+Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-jupyter-lsp
+Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-packaging
+Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-setuptools
+Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-tomli
+Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-tornado
+Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-traitlets
+Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-coverage
+Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-pytest-cov
+Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-pytest
+Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-altair
+Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-ipython
+Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-ipywidgets
+Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-matplotlib
+Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-nbconvert
+Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-pandas
+Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-scipy
+Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-requests
+Relationship: SPDXRef-Package-jupyterlab DEPENDS_ON SPDXRef-Package-pydantic
 
 PackageName: jsonschema-specifications
 SPDXID: SPDXRef-Package-jsonschema-specifications
@@ -6844,238 +6821,6 @@ PackageSummary: Python library dependencies.
 Relationship: SPDXRef-Package-rfc3987-syntax DEPENDS_ON SPDXRef-Package-lark
 Relationship: SPDXRef-Package-rfc3987-syntax DEPENDS_ON SPDXRef-Package-pytest
 
-PackageName: anyio
-SPDXID: SPDXRef-Package-anyio
-PackageVersion: 4.13.0
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: Unknown
-PackageLicenseDeclared: Unknown
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-anyio DEPENDS_ON SPDXRef-Package-exceptiongroup
-Relationship: SPDXRef-Package-anyio DEPENDS_ON SPDXRef-Package-idna
-Relationship: SPDXRef-Package-anyio DEPENDS_ON SPDXRef-Package-typing_extensions
-
-PackageName: httpcore
-SPDXID: SPDXRef-Package-httpcore
-PackageVersion: 1.0.5
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: Unknown
-PackageLicenseDeclared: Unknown
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-httpcore DEPENDS_ON SPDXRef-Package-certifi
-Relationship: SPDXRef-Package-httpcore DEPENDS_ON SPDXRef-Package-h11
-Relationship: SPDXRef-Package-httpcore DEPENDS_ON SPDXRef-Package-anyio
-Relationship: SPDXRef-Package-httpcore DEPENDS_ON SPDXRef-Package-h2
-
-PackageName: narwhals
-SPDXID: SPDXRef-Package-narwhals
-PackageVersion: 2.16.0
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: MIT License
-
-Copyright (c) 2024, Marco Gorelli
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-PackageLicenseDeclared: MIT License
-
-Copyright (c) 2024, Marco Gorelli
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-narwhals DEPENDS_ON SPDXRef-Package-packaging
-Relationship: SPDXRef-Package-narwhals DEPENDS_ON SPDXRef-Package-rich
-Relationship: SPDXRef-Package-narwhals DEPENDS_ON SPDXRef-Package-pandas
-Relationship: SPDXRef-Package-narwhals DEPENDS_ON SPDXRef-Package-pyarrow
-
-PackageName: bleach
-SPDXID: SPDXRef-Package-bleach
-PackageVersion: 6.1.0
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: Apache Software License
-PackageLicenseDeclared: Apache Software License
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-bleach DEPENDS_ON SPDXRef-Package-six
-Relationship: SPDXRef-Package-bleach DEPENDS_ON SPDXRef-Package-webencodings
-Relationship: SPDXRef-Package-bleach DEPENDS_ON SPDXRef-Package-tinycss2
-
-PackageName: defusedxml
-SPDXID: SPDXRef-Package-defusedxml
-PackageVersion: 0.7.1
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: PSFL
-PackageLicenseDeclared: PSFL
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-
-PackageName: nbclient
-SPDXID: SPDXRef-Package-nbclient
-PackageVersion: 0.10.0
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: BSD 3-Clause License
-
-Copyright (c) 2020-, Jupyter Development Team
-
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer.
-
-2. Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution.
-
-3. Neither the name of the copyright holder nor the names of its
-   contributors may be used to endorse or promote products derived from
-   this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-PackageLicenseDeclared: BSD 3-Clause License
-
-Copyright (c) 2020-, Jupyter Development Team
-
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer.
-
-2. Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution.
-
-3. Neither the name of the copyright holder nor the names of its
-   contributors may be used to endorse or promote products derived from
-   this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-nbclient DEPENDS_ON SPDXRef-Package-nbformat
-Relationship: SPDXRef-Package-nbclient DEPENDS_ON SPDXRef-Package-traitlets
-Relationship: SPDXRef-Package-nbclient DEPENDS_ON SPDXRef-Package-ipykernel
-Relationship: SPDXRef-Package-nbclient DEPENDS_ON SPDXRef-Package-ipython
-Relationship: SPDXRef-Package-nbclient DEPENDS_ON SPDXRef-Package-ipywidgets
-Relationship: SPDXRef-Package-nbclient DEPENDS_ON SPDXRef-Package-nbconvert
-Relationship: SPDXRef-Package-nbclient DEPENDS_ON SPDXRef-Package-pytest-cov
-Relationship: SPDXRef-Package-nbclient DEPENDS_ON SPDXRef-Package-pytest
-
-PackageName: pandocfilters
-SPDXID: SPDXRef-Package-pandocfilters
-PackageVersion: 1.5.1
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: BSD-3-Clause
-PackageLicenseDeclared: BSD-3-Clause
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-
-PackageName: tinycss2
-SPDXID: SPDXRef-Package-tinycss2
-PackageVersion: 1.3.0
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: Unknown
-PackageLicenseDeclared: Unknown
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-tinycss2 DEPENDS_ON SPDXRef-Package-webencodings
-Relationship: SPDXRef-Package-tinycss2 DEPENDS_ON SPDXRef-Package-pytest
-
-PackageName: annotated-types
-SPDXID: SPDXRef-Package-annotated-types
-PackageVersion: 0.7.0
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: Unknown
-PackageLicenseDeclared: Unknown
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-
-PackageName: typing-inspection
-SPDXID: SPDXRef-Package-typing-inspection
-PackageVersion: 0.4.2
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: Unknown
-PackageLicenseDeclared: Unknown
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-
 PackageName: pywin32
 SPDXID: SPDXRef-Package-pywin32
 PackageVersion: 311
@@ -7086,18 +6831,6 @@ PackageLicenseDeclared: PSF
 PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
-
-PackageName: cffi
-SPDXID: SPDXRef-Package-cffi
-PackageVersion: 2.0.0
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: Unknown
-PackageLicenseDeclared: Unknown
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-cffi DEPENDS_ON SPDXRef-Package-pycparser
 
 PackageName: GitPython
 SPDXID: SPDXRef-Package-GitPython
@@ -7182,51 +6915,32 @@ Relationship: SPDXRef-Package-sympy DEPENDS_ON SPDXRef-Package-mpmath
 Relationship: SPDXRef-Package-sympy DEPENDS_ON SPDXRef-Package-pytest
 Relationship: SPDXRef-Package-sympy DEPENDS_ON SPDXRef-Package-hypothesis
 
-PackageName: parso
-SPDXID: SPDXRef-Package-parso
-PackageVersion: 0.8.4
+PackageName: astroid
+SPDXID: SPDXRef-Package-astroid
+PackageVersion: 3.3.11
 PackageDownloadLocation: NOASSERTION
 FilesAnalyzed: false
-PackageLicenseConcluded: MIT
-PackageLicenseDeclared: MIT
+PackageLicenseConcluded: Unknown
+PackageLicenseDeclared: Unknown
 PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
-Relationship: SPDXRef-Package-parso DEPENDS_ON SPDXRef-Package-pytest
 
-PackageName: executing
-SPDXID: SPDXRef-Package-executing
-PackageVersion: 2.0.1
+PackageName: cffi
+SPDXID: SPDXRef-Package-cffi
+PackageVersion: 2.0.0
 PackageDownloadLocation: NOASSERTION
 FilesAnalyzed: false
-PackageLicenseConcluded: MIT
-PackageLicenseDeclared: MIT
+PackageLicenseConcluded: Unknown
+PackageLicenseDeclared: Unknown
 PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
-Relationship: SPDXRef-Package-executing DEPENDS_ON SPDXRef-Package-asttokens
-Relationship: SPDXRef-Package-executing DEPENDS_ON SPDXRef-Package-ipython
-Relationship: SPDXRef-Package-executing DEPENDS_ON SPDXRef-Package-pytest
-Relationship: SPDXRef-Package-executing DEPENDS_ON SPDXRef-Package-coverage
-Relationship: SPDXRef-Package-executing DEPENDS_ON SPDXRef-Package-rich
+Relationship: SPDXRef-Package-cffi DEPENDS_ON SPDXRef-Package-pycparser
 
-PackageName: asttokens
-SPDXID: SPDXRef-Package-asttokens
-PackageVersion: 2.4.1
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: Apache 2.0
-PackageLicenseDeclared: Apache 2.0
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-Relationship: SPDXRef-Package-asttokens DEPENDS_ON SPDXRef-Package-six
-Relationship: SPDXRef-Package-asttokens DEPENDS_ON SPDXRef-Package-astroid
-Relationship: SPDXRef-Package-asttokens DEPENDS_ON SPDXRef-Package-pytest
-
-PackageName: fastjsonschema
-SPDXID: SPDXRef-Package-fastjsonschema
-PackageVersion: 2.20.0
+PackageName: webencodings
+SPDXID: SPDXRef-Package-webencodings
+PackageVersion: 0.5.1
 PackageDownloadLocation: NOASSERTION
 FilesAnalyzed: false
 PackageLicenseConcluded: BSD
@@ -7234,10 +6948,161 @@ PackageLicenseDeclared: BSD
 PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
-Relationship: SPDXRef-Package-fastjsonschema DEPENDS_ON SPDXRef-Package-colorama
-Relationship: SPDXRef-Package-fastjsonschema DEPENDS_ON SPDXRef-Package-jsonschema
-Relationship: SPDXRef-Package-fastjsonschema DEPENDS_ON SPDXRef-Package-pylint
-Relationship: SPDXRef-Package-fastjsonschema DEPENDS_ON SPDXRef-Package-pytest
+
+PackageName: pylint
+SPDXID: SPDXRef-Package-pylint
+PackageVersion: 3.3.9
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: Unknown
+PackageLicenseDeclared: Unknown
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-pylint DEPENDS_ON SPDXRef-Package-astroid
+Relationship: SPDXRef-Package-pylint DEPENDS_ON SPDXRef-Package-colorama
+Relationship: SPDXRef-Package-pylint DEPENDS_ON SPDXRef-Package-dill
+Relationship: SPDXRef-Package-pylint DEPENDS_ON SPDXRef-Package-isort
+Relationship: SPDXRef-Package-pylint DEPENDS_ON SPDXRef-Package-mccabe
+Relationship: SPDXRef-Package-pylint DEPENDS_ON SPDXRef-Package-platformdirs
+Relationship: SPDXRef-Package-pylint DEPENDS_ON SPDXRef-Package-tomli
+Relationship: SPDXRef-Package-pylint DEPENDS_ON SPDXRef-Package-tomlkit
+Relationship: SPDXRef-Package-pylint DEPENDS_ON SPDXRef-Package-GitPython
+
+PackageName: async-lru
+SPDXID: SPDXRef-Package-async-lru
+PackageVersion: 2.0.4
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: MIT License
+PackageLicenseDeclared: MIT License
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+
+PackageName: httpx
+SPDXID: SPDXRef-Package-httpx
+PackageVersion: 0.28.1
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: BSD-3-Clause
+PackageLicenseDeclared: BSD-3-Clause
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-httpx DEPENDS_ON SPDXRef-Package-anyio
+Relationship: SPDXRef-Package-httpx DEPENDS_ON SPDXRef-Package-certifi
+Relationship: SPDXRef-Package-httpx DEPENDS_ON SPDXRef-Package-httpcore
+Relationship: SPDXRef-Package-httpx DEPENDS_ON SPDXRef-Package-idna
+Relationship: SPDXRef-Package-httpx DEPENDS_ON SPDXRef-Package-click
+Relationship: SPDXRef-Package-httpx DEPENDS_ON SPDXRef-Package-Pygments
+Relationship: SPDXRef-Package-httpx DEPENDS_ON SPDXRef-Package-rich
+Relationship: SPDXRef-Package-httpx DEPENDS_ON SPDXRef-Package-h2
+
+PackageName: jupyter-lsp
+SPDXID: SPDXRef-Package-jupyter-lsp
+PackageVersion: 2.2.5
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: BSD-3-Clause
+PackageLicenseDeclared: BSD-3-Clause
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+
+PackageName: altair
+SPDXID: SPDXRef-Package-altair
+PackageVersion: 6.0.0
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: Copyright (c) 2015-2025, Vega-Altair Developers
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+* Neither the name of vega-altair nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+PackageLicenseDeclared: Copyright (c) 2015-2025, Vega-Altair Developers
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+* Neither the name of vega-altair nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-Jinja2
+Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-jsonschema
+Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-narwhals
+Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-packaging
+Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-numpy
+Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-pandas
+Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-pyarrow
+Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-ipykernel
+Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-ipython
+Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-mistune
+Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-pytest
+Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-pytest-cov
+Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-tomli
+Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-pillow
+Relationship: SPDXRef-Package-altair DEPENDS_ON SPDXRef-Package-scipy
+
+PackageName: pydantic
+SPDXID: SPDXRef-Package-pydantic
+PackageVersion: 2.12.5
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: Unknown
+PackageLicenseDeclared: Unknown
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-pydantic DEPENDS_ON SPDXRef-Package-annotated-types
+Relationship: SPDXRef-Package-pydantic DEPENDS_ON SPDXRef-Package-typing-inspection
+Relationship: SPDXRef-Package-pydantic DEPENDS_ON SPDXRef-Package-tzdata
 
 PackageName: arrow
 SPDXID: SPDXRef-Package-arrow
@@ -7254,39 +7119,6 @@ Relationship: SPDXRef-Package-arrow DEPENDS_ON SPDXRef-Package-types-python-date
 Relationship: SPDXRef-Package-arrow DEPENDS_ON SPDXRef-Package-pytest
 Relationship: SPDXRef-Package-arrow DEPENDS_ON SPDXRef-Package-pytest-cov
 Relationship: SPDXRef-Package-arrow DEPENDS_ON SPDXRef-Package-pytz
-
-PackageName: h11
-SPDXID: SPDXRef-Package-h11
-PackageVersion: 0.14.0
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: MIT
-PackageLicenseDeclared: MIT
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-
-PackageName: webencodings
-SPDXID: SPDXRef-Package-webencodings
-PackageVersion: 0.5.1
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: BSD
-PackageLicenseDeclared: BSD
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-
-PackageName: pycparser
-SPDXID: SPDXRef-Package-pycparser
-PackageVersion: 2.22
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: BSD-3-Clause
-PackageLicenseDeclared: BSD-3-Clause
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
 
 PackageName: gitdb
 SPDXID: SPDXRef-Package-gitdb
@@ -7348,9 +7180,137 @@ PackageSummary: Python library dependencies.
 
 Relationship: SPDXRef-Package-opentelemetry-proto DEPENDS_ON SPDXRef-Package-protobuf
 
-PackageName: astroid
-SPDXID: SPDXRef-Package-astroid
-PackageVersion: 3.3.11
+PackageName: pycparser
+SPDXID: SPDXRef-Package-pycparser
+PackageVersion: 2.22
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: BSD-3-Clause
+PackageLicenseDeclared: BSD-3-Clause
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+
+PackageName: dill
+SPDXID: SPDXRef-Package-dill
+PackageVersion: 0.4.0
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: BSD-3-Clause
+PackageLicenseDeclared: BSD-3-Clause
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+
+PackageName: mccabe
+SPDXID: SPDXRef-Package-mccabe
+PackageVersion: 0.7.0
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: Expat license
+PackageLicenseDeclared: Expat license
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+
+PackageName: tomlkit
+SPDXID: SPDXRef-Package-tomlkit
+PackageVersion: 0.13.3
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: MIT
+PackageLicenseDeclared: MIT
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+
+PackageName: anyio
+SPDXID: SPDXRef-Package-anyio
+PackageVersion: 4.13.0
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: Unknown
+PackageLicenseDeclared: Unknown
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-anyio DEPENDS_ON SPDXRef-Package-exceptiongroup
+Relationship: SPDXRef-Package-anyio DEPENDS_ON SPDXRef-Package-idna
+Relationship: SPDXRef-Package-anyio DEPENDS_ON SPDXRef-Package-typing_extensions
+
+PackageName: httpcore
+SPDXID: SPDXRef-Package-httpcore
+PackageVersion: 1.0.5
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: Unknown
+PackageLicenseDeclared: Unknown
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-httpcore DEPENDS_ON SPDXRef-Package-certifi
+Relationship: SPDXRef-Package-httpcore DEPENDS_ON SPDXRef-Package-h11
+Relationship: SPDXRef-Package-httpcore DEPENDS_ON SPDXRef-Package-anyio
+Relationship: SPDXRef-Package-httpcore DEPENDS_ON SPDXRef-Package-h2
+
+PackageName: narwhals
+SPDXID: SPDXRef-Package-narwhals
+PackageVersion: 2.16.0
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageLicenseConcluded: MIT License
+
+Copyright (c) 2024, Marco Gorelli
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+PackageLicenseDeclared: MIT License
+
+Copyright (c) 2024, Marco Gorelli
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+PackageCopyrightText: NOASSERTION
+PackageSummary: Python library dependencies.
+
+Relationship: SPDXRef-Package-narwhals DEPENDS_ON SPDXRef-Package-packaging
+Relationship: SPDXRef-Package-narwhals DEPENDS_ON SPDXRef-Package-rich
+Relationship: SPDXRef-Package-narwhals DEPENDS_ON SPDXRef-Package-pandas
+Relationship: SPDXRef-Package-narwhals DEPENDS_ON SPDXRef-Package-pyarrow
+
+PackageName: annotated-types
+SPDXID: SPDXRef-Package-annotated-types
+PackageVersion: 0.7.0
 PackageDownloadLocation: NOASSERTION
 FilesAnalyzed: false
 PackageLicenseConcluded: Unknown
@@ -7359,9 +7319,9 @@ PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
 
-PackageName: pylint
-SPDXID: SPDXRef-Package-pylint
-PackageVersion: 3.3.9
+PackageName: typing-inspection
+SPDXID: SPDXRef-Package-typing-inspection
+PackageVersion: 0.4.2
 PackageDownloadLocation: NOASSERTION
 FilesAnalyzed: false
 PackageLicenseConcluded: Unknown
@@ -7369,15 +7329,6 @@ PackageLicenseDeclared: Unknown
 PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
-Relationship: SPDXRef-Package-pylint DEPENDS_ON SPDXRef-Package-astroid
-Relationship: SPDXRef-Package-pylint DEPENDS_ON SPDXRef-Package-colorama
-Relationship: SPDXRef-Package-pylint DEPENDS_ON SPDXRef-Package-dill
-Relationship: SPDXRef-Package-pylint DEPENDS_ON SPDXRef-Package-isort
-Relationship: SPDXRef-Package-pylint DEPENDS_ON SPDXRef-Package-mccabe
-Relationship: SPDXRef-Package-pylint DEPENDS_ON SPDXRef-Package-platformdirs
-Relationship: SPDXRef-Package-pylint DEPENDS_ON SPDXRef-Package-tomli
-Relationship: SPDXRef-Package-pylint DEPENDS_ON SPDXRef-Package-tomlkit
-Relationship: SPDXRef-Package-pylint DEPENDS_ON SPDXRef-Package-GitPython
 
 PackageName: types-python-dateutil
 SPDXID: SPDXRef-Package-types-python-dateutil
@@ -7412,31 +7363,9 @@ PackageCopyrightText: NOASSERTION
 PackageSummary: Python library dependencies.
 
 
-PackageName: dill
-SPDXID: SPDXRef-Package-dill
-PackageVersion: 0.4.0
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: BSD-3-Clause
-PackageLicenseDeclared: BSD-3-Clause
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-
-PackageName: mccabe
-SPDXID: SPDXRef-Package-mccabe
-PackageVersion: 0.7.0
-PackageDownloadLocation: NOASSERTION
-FilesAnalyzed: false
-PackageLicenseConcluded: Expat license
-PackageLicenseDeclared: Expat license
-PackageCopyrightText: NOASSERTION
-PackageSummary: Python library dependencies.
-
-
-PackageName: tomlkit
-SPDXID: SPDXRef-Package-tomlkit
-PackageVersion: 0.13.3
+PackageName: h11
+SPDXID: SPDXRef-Package-h11
+PackageVersion: 0.14.0
 PackageDownloadLocation: NOASSERTION
 FilesAnalyzed: false
 PackageLicenseConcluded: MIT

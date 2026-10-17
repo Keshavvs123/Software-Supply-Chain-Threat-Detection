@@ -209,6 +209,58 @@ def run_bandit_scan(dir_path):
             os.remove(temp_json)
     return 0, 0, 0, 0
 
+def check_setup_hooks(target_path):
+    """
+    Scans setup.py, pyproject.toml, and setup.cfg for malicious install-time hooks,
+    custom cmdclass implementations, pre-install scripts, and unauthorized subprocess execution.
+    Returns: dict with 'has_hook': bool, 'details': list of suspicious findings.
+    """
+    findings = []
+    candidate_files = []
+    if os.path.isfile(target_path):
+        candidate_files.append(target_path)
+    elif os.path.isdir(target_path):
+        for root, _, files in os.walk(target_path):
+            for file in files:
+                if file in ("setup.py", "setup.cfg", "pyproject.toml"):
+                    candidate_files.append(os.path.join(root, file))
+
+    hook_patterns = [
+        (re.compile(r"cmdclass\s*=\s*\{"), "Custom cmdclass dictionary overriding build/install steps"),
+        (re.compile(r"class\s+\w+\((?:install|develop|build_py|egg_info|bdist_wheel)\)"), "Custom install/develop command class"),
+        (re.compile(r"(?:os\.system|subprocess\.(?:run|call|Popen)|urllib\.request|requests\.(?:get|post)|socket\.)"), "Network or subprocess execution inside packaging configuration"),
+        (re.compile(r"(?:base64\.b64decode|codecs\.decode|__import__\(['\"]builtins['\"])\.(?:eval|exec)"), "Obfuscated payload execution inside setup file")
+    ]
+
+    for file_path in candidate_files:
+        try:
+            with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
+                content = f.read()
+            for pattern, desc in hook_patterns:
+                if pattern.search(content):
+                    findings.append(f"{os.path.basename(file_path)}: {desc}")
+        except Exception:
+            pass
+
+    return {
+        "has_hook": len(findings) > 0,
+        "details": findings
+    }
+
+def run_differential_sast(current_findings, baseline_findings):
+    """
+    Computes new findings between current version and baseline version for differential SAST analysis.
+    """
+    curr_set = set(current_findings) if isinstance(current_findings, (list, set)) else set()
+    base_set = set(baseline_findings) if isinstance(baseline_findings, (list, set)) else set()
+    new_findings = list(curr_set - base_set)
+    return {
+        "total_current": len(curr_set),
+        "total_baseline": len(base_set),
+        "new_findings_count": len(new_findings),
+        "new_findings": new_findings
+    }
+
 def run_static_analysis(project_path, resolved_packages=None):
     print(f"\nRunning Static Analysis on: {project_path}...\n")
     os.makedirs("outputs", exist_ok=True)
@@ -231,8 +283,8 @@ def run_static_analysis(project_path, resolved_packages=None):
     import importlib.util
     import shutil
     
-    # 1. Create a clean scan temp staging directory inside outputs
-    scan_temp_dir = os.path.abspath(os.path.join("outputs", "scan_temp"))
+    # 1. Create a clean isolated analyzer staging directory inside outputs
+    scan_temp_dir = os.path.abspath(os.path.join("outputs", "_analyzer_staging"))
     if os.path.exists(scan_temp_dir):
         shutil.rmtree(scan_temp_dir, ignore_errors=True)
     os.makedirs(scan_temp_dir, exist_ok=True)
@@ -310,11 +362,13 @@ def run_static_analysis(project_path, resolved_packages=None):
                     os.makedirs(temp_dl, exist_ok=True)
                     
                     version_spec = f"{pkg_name}=={pkg_info['version']}" if pkg_info.get("version") and pkg_info["version"] != "Unknown" else pkg_name
-                    import sys
-                    subprocess.run(
-                        [sys.executable, "-m", "pip", "download", "--no-deps", "-d", temp_dl, version_spec],
-                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
-                    )
+                    try:
+                        subprocess.run(
+                            [sys.executable, "-m", "pip", "download", "--no-deps", "-d", temp_dl, version_spec],
+                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=15
+                        )
+                    except Exception as dl_err:
+                        print(f"[STATIC ANALYSIS] Download timed out or failed for {pkg_name}: {dl_err}", flush=True)
                     
                     # Search and extract archive safely
                     def is_safe_path(base_dir, path):
@@ -403,7 +457,9 @@ def run_static_analysis(project_path, resolved_packages=None):
                 "ast_complexity": 0,
                 "dynamic_imports": 0,
                 "files_count": 1,
-                "issue_density": 0.0
+                "issue_density": 0.0,
+                "setup_hook_detected": False,
+                "setup_hook_details": []
             }
     for pkg_name in package_paths_map.values():
         if pkg_name not in packages_stats:
@@ -423,7 +479,9 @@ def run_static_analysis(project_path, resolved_packages=None):
                 "ast_complexity": 0,
                 "dynamic_imports": 0,
                 "files_count": 1,
-                "issue_density": 0.0
+                "issue_density": 0.0,
+                "setup_hook_detected": False,
+                "setup_hook_details": []
             }
 
     # 1. AST scan on first_party project path
@@ -446,6 +504,13 @@ def run_static_analysis(project_path, resolved_packages=None):
         stats["encoded_string_ratio"] = p_ast.get("encoded_string_ratio", 0.0)
         stats["ast_complexity"] = p_ast.get("ast_complexity", 0)
         stats["dynamic_imports"] = p_ast.get("dynamic_imports", 0)
+        
+        # Check setup install hooks
+        hook_info = check_setup_hooks(pkg_dest_path)
+        stats["setup_hook_detected"] = hook_info["has_hook"]
+        stats["setup_hook_details"] = hook_info["details"]
+        if hook_info["has_hook"]:
+            stats["critical_findings"] += 1
 
     # 2. Bandit scan (and write to outputs/bandit.json)
     print("[STATIC ANALYSIS] Executing Bandit AST security vulnerability scanner...", flush=True)

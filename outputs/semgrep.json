@@ -1,1 +1,25 @@
-{"version":"1.157.0","results":[],"errors":[],"paths":{"scanned":["C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\first_party\\app.py","C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\scan_temp\\first_party\\dataset\\Supply_Chain_Risk_Dataset_v2.xlsx"]},"time":{"rules":[],"rules_parse_time":0.5598354339599609,"profiling_times":{"config_time":1.0866565704345703,"core_time":57.06451463699341,"ignores_time":0.0,"total_time":58.20539450645447},"fixpoint_timeouts":[],"targets":[],"total_bytes":0,"max_memory_bytes":262594240},"engine_requested":"OSS","skipped_rules":[],"profiling_results":[]}
+{
+  "version": "1.157.0",
+  "results": [],
+  "errors": [],
+  "paths": {
+    "scanned": []
+  },
+  "time": {
+    "rules": [],
+    "rules_parse_time": 0.40376710891723633,
+    "profiling_times": {
+      "config_time": 0.9805586338043213,
+      "core_time": 2.250814199447632,
+      "ignores_time": 0.0,
+      "total_time": 3.244316577911377
+    },
+    "fixpoint_timeouts": [],
+    "targets": [],
+    "total_bytes": 0,
+    "max_memory_bytes": 262315200
+  },
+  "engine_requested": "OSS",
+  "skipped_rules": [],
+  "profiling_results": []
+}

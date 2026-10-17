@@ -189,15 +189,33 @@ def monitor_runtime(script_path, package_names=None, timeout=5):
         with open(wrapper_path, "w", encoding="utf-8") as f:
             f.write(monitoring_code)
         
-        # Run wrapper script
-        # We pass a timeout to avoid hangs (e.g. from infinite loops or stdin reads)
+        # Run wrapper script in Docker sandbox if available, otherwise native isolated process
+        import shutil
+        docker_bin = shutil.which("docker")
+        if not docker_bin:
+            fallback_docker = os.path.expandvars(r"%LOCALAPPDATA%\Programs\DockerDesktop\resources\bin\docker.exe")
+            if os.path.exists(fallback_docker):
+                docker_bin = fallback_docker
+        docker_available = bool(docker_bin)
+
         try:
-            subprocess.run(
-                [sys.executable, wrapper_path],
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-                timeout=timeout
-            )
+            if docker_available and os.environ.get("USE_DOCKER_SANDBOX", "0") == "1":
+                print("[SANDBOX] Executing dynamic tracing inside isolated Docker container...")
+                cmd = [
+                    docker_bin, "run", "--rm",
+                    "-v", f"{os.path.dirname(wrapper_path)}:/sandbox",
+                    "-v", f"{os.path.abspath('outputs')}:/app/outputs",
+                    "python:3.12-slim",
+                    "python", f"/sandbox/{os.path.basename(wrapper_path)}"
+                ]
+                subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=timeout)
+            else:
+                subprocess.run(
+                    [sys.executable, wrapper_path],
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                    timeout=timeout
+                )
         except subprocess.TimeoutExpired:
             print("Runtime monitoring script execution timed out (graceful recovery).")
             

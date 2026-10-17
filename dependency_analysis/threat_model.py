@@ -1,5 +1,14 @@
+import os
 import re
 import math
+import pandas as pd
+
+try:
+    import config
+except ImportError:
+    import sys
+    sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    import config
 
 POPULAR_PYPI_PACKAGES = [
     "requests", "urllib3", "numpy", "pandas", "flask", "django", 
@@ -10,6 +19,38 @@ POPULAR_PYPI_PACKAGES = [
     "beautifulsoup4", "virtualenv", "pipenv", "torch", "transformers",
     "scikit-learn", "seaborn", "tornado", "aiohttp", "sqlalchemy"
 ]
+
+_DYNAMIC_POPULAR_PACKAGES_CACHE = None
+
+def get_popular_packages_pool():
+    """
+    Returns dynamically extracted popular packages from dataset or falls back to built-in list.
+    """
+    global _DYNAMIC_POPULAR_PACKAGES_CACHE
+    if _DYNAMIC_POPULAR_PACKAGES_CACHE is not None:
+        return _DYNAMIC_POPULAR_PACKAGES_CACHE
+
+    pool = set(POPULAR_PYPI_PACKAGES)
+    dataset_path = getattr(config, "DATASET_PATH", "dataset/Supply_Chain_Risk_Dataset_v2.xlsx")
+    
+    if os.path.exists(dataset_path):
+        try:
+            df = pd.read_excel(dataset_path, sheet_name="Packages", nrows=1000)
+            if "package_name" in df.columns:
+                # Rank by stars or blast radius if available
+                sort_col = "github_stars" if "github_stars" in df.columns else "in_degree_blast_radius"
+                if sort_col in df.columns:
+                    df = df.sort_values(by=sort_col, ascending=False)
+                top_pkgs = df["package_name"].dropna().astype(str).str.lower().head(250).tolist()
+                for p in top_pkgs:
+                    p_clean = p.strip()
+                    if len(p_clean) >= 3:
+                        pool.add(p_clean)
+        except Exception as e:
+            pass
+            
+    _DYNAMIC_POPULAR_PACKAGES_CACHE = list(pool)
+    return _DYNAMIC_POPULAR_PACKAGES_CACHE
 
 def levenshtein_distance(s1, s2):
     """
@@ -43,15 +84,21 @@ def evaluate_package_threats(pkg_name, pkg_data, metadata, static_info, runtime_
     # ========================================================
     # T1 — Typosquatting
     # ========================================================
-    for pop in POPULAR_PYPI_PACKAGES:
+    popular_pool = get_popular_packages_pool()
+    max_dist = getattr(config, "TYPOSQUAT_MAX_DISTANCE", 2)
+    min_len = getattr(config, "TYPOSQUAT_MIN_NAME_LEN", 4)
+    
+    for pop in popular_pool:
         if clean_name != pop:
             dist = levenshtein_distance(clean_name, pop)
-            if 0 < dist <= 2 and len(clean_name) >= 4:
+            is_combosquat = (clean_name.startswith(f"{pop}-") or clean_name.startswith(f"{pop}_") or 
+                             clean_name.endswith(f"-{pop}") or clean_name.endswith(f"_{pop}")) and len(clean_name) <= len(pop) + 7
+            if (0 < dist <= max_dist or is_combosquat) and len(clean_name) >= min_len:
                 threats.append({
                     "id": "T1",
                     "vector": "Typosquatting",
                     "severity": "HIGH",
-                    "detail": f"Package name '{pkg_name}' is suspiciously close to popular library '{pop}' (edit distance={dist})."
+                    "detail": f"Package name '{pkg_name}' is suspiciously close to or combosquats popular library '{pop}' (edit distance={dist})."
                 })
                 break
 
@@ -102,13 +149,21 @@ def evaluate_package_threats(pkg_name, pkg_data, metadata, static_info, runtime_
         })
 
     # ========================================================
-    # T5 — Obfuscated Payload
+    # T5 — Obfuscated Payload / Malicious Install-Hook
     # ========================================================
     entropy = static_info.get("shannon_entropy", 0.0)
     encoded_ratio = static_info.get("encoded_string_ratio", 0.0)
     eval_exec = static_info.get("eval_exec_usage", 0)
+    setup_hook = static_info.get("setup_hook_detected", False)
     
-    if entropy > 6.2 or encoded_ratio > 0.15 or (eval_exec > 0 and entropy > 5.5):
+    if setup_hook:
+        threats.append({
+            "id": "T5",
+            "vector": "Malicious Install-Hook Backdoor",
+            "severity": "CRITICAL",
+            "detail": f"Package '{pkg_name}' contains suspicious setup.py/pyproject.toml build/install hooks executing unauthorized commands."
+        })
+    elif entropy > 6.2 or encoded_ratio > 0.15 or (eval_exec > 0 and entropy > 5.5):
         threats.append({
             "id": "T5",
             "vector": "Obfuscated Payload",

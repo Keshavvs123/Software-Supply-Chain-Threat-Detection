@@ -90,11 +90,25 @@ def query_osv_vulnerabilities(package_name, version):
             headers={"Content-Type": "application/json", "User-Agent": "SupplyChainSecurityScanner/2.0"},
             method="POST"
         )
-        with urllib.request.urlopen(req, timeout=3) as response:
-            res_data = json.loads(response.read().decode("utf-8"))
-            vulns = res_data.get("vulns", [])
-            
-            load_vulnerability_dataset_cache()
+        # Automated HTTP retries with exponential backoff
+        response = None
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                response = urllib.request.urlopen(req, timeout=4)
+                break
+            except Exception as e:
+                if attempt == max_retries - 1:
+                    raise e
+                import time
+                time.sleep(0.3 * (2 ** attempt))
+
+        if response:
+            with response:
+                res_data = json.loads(response.read().decode("utf-8"))
+                vulns = res_data.get("vulns", [])
+                
+                load_vulnerability_dataset_cache()
             
             for v in vulns:
                 vuln_id = v.get("id")
@@ -181,6 +195,11 @@ def run_dependency_scan(project_path, resolved_packages=None):
     # Run pip-audit to get quick vulnerabilities
     pip_audit_vulns = {}
     requirements_file = os.path.join(project_path, "requirements.txt")
+    if not os.path.exists(requirements_file):
+        for candidate in [os.path.join("outputs", "last_requirements.txt"), os.path.join("outputs", "scan_temp", "requirements.txt")]:
+            if os.path.exists(candidate):
+                requirements_file = candidate
+                break
     if os.path.exists(requirements_file):
         try:
             result = subprocess.run(
