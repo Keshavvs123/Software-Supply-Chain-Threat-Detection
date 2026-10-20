@@ -622,12 +622,14 @@ class GatekeeperHandler(http.server.SimpleHTTPRequestHandler):
             try:
                 req_json = json.loads(post_data) if post_data else {}
                 app_id = int(req_json.get("app_id", 1))
+                target_type = str(req_json.get("target_type", "all")).lower()
             except Exception:
                 app_id = 1
+                target_type = "all"
                 
             selected_app = next((a for a in BENCHMARK_APPS if a["id"] == app_id), BENCHMARK_APPS[0])
             print("\n" + "="*60)
-            print(f"[GATEKEEPER] SCANNING BENCHMARK APPLICATION: {selected_app['name']}")
+            print(f"[GATEKEEPER] SCANNING BENCHMARK APPLICATION: {selected_app['name']} (Target: {target_type})")
             print(f" Source Directory: test_cases/{selected_app['dir']}")
             print("="*60)
             
@@ -637,12 +639,31 @@ class GatekeeperHandler(http.server.SimpleHTTPRequestHandler):
             os.makedirs("outputs/scan_temp", exist_ok=True)
             
             src_dir = os.path.join("test_cases", selected_app["dir"])
+            app_meta = selected_app.copy()
+            
             if os.path.exists(src_dir):
-                for fname in os.listdir(src_dir):
-                    s_path = os.path.join(src_dir, fname)
-                    d_path = os.path.join("outputs", "scan_temp", fname)
-                    if os.path.isfile(s_path):
-                        shutil.copy2(s_path, d_path)
+                if target_type == "requirements":
+                    req_path = os.path.join(src_dir, "requirements.txt")
+                    if os.path.exists(req_path):
+                        shutil.copy2(req_path, os.path.join("outputs", "scan_temp", "requirements.txt"))
+                    app_meta["name"] = f"{selected_app['name']} [requirements.txt only]"
+                    app_meta["code_files"] = "requirements.txt"
+                    app_meta["description"] = f"Dependency supply chain evaluation of {selected_app['name']} requirements manifest."
+                elif target_type == "code":
+                    copied_py = []
+                    for fname in os.listdir(src_dir):
+                        if fname.endswith(".py") and os.path.isfile(os.path.join(src_dir, fname)):
+                            shutil.copy2(os.path.join(src_dir, fname), os.path.join("outputs", "scan_temp", fname))
+                            copied_py.append(fname)
+                    app_meta["name"] = f"{selected_app['name']} [Python source only]"
+                    app_meta["code_files"] = ", ".join(copied_py) if copied_py else "Python Source"
+                    app_meta["description"] = f"Static AST & runtime sandbox evaluation of {selected_app['name']} source code."
+                else:
+                    for fname in os.listdir(src_dir):
+                        s_path = os.path.join(src_dir, fname)
+                        d_path = os.path.join("outputs", "scan_temp", fname)
+                        if os.path.isfile(s_path):
+                            shutil.copy2(s_path, d_path)
                         
             req_src = os.path.join("outputs", "scan_temp", "requirements.txt")
             if os.path.exists(req_src):
@@ -651,12 +672,65 @@ class GatekeeperHandler(http.server.SimpleHTTPRequestHandler):
                         wf.write(rf.read())
                         
             try:
-                response_payload = run_scan_pipeline_on_dir("outputs/scan_temp", app_meta=selected_app)
+                response_payload = run_scan_pipeline_on_dir("outputs/scan_temp", app_meta=app_meta)
                 self.send_response(200)
                 self.send_header("Content-Type", "application/json")
                 self.end_headers()
                 self.wfile.write(response_payload.encode('utf-8'))
-                print(f"[GATEKEEPER] Benchmark Application '{selected_app['name']}' scan complete.")
+                print(f"[GATEKEEPER] Benchmark Application '{selected_app['name']}' ({target_type}) scan complete.")
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+                self.send_response(500)
+                self.end_headers()
+                self.wfile.write(str(e).encode('utf-8'))
+
+        elif self.path == "/scan_file":
+            content_length = int(self.headers.get('Content-Length', 0))
+            post_data = self.rfile.read(content_length).decode('utf-8')
+            try:
+                req_json = json.loads(post_data) if post_data else {}
+                file_path = req_json.get("file_path", "").strip()
+            except Exception:
+                file_path = ""
+                
+            if not file_path or not os.path.exists(file_path) or not os.path.isfile(file_path):
+                self.send_response(400)
+                self.end_headers()
+                self.wfile.write(f"File path '{file_path}' does not exist or is not a valid file.".encode("utf-8"))
+                return
+                
+            print("\n" + "="*60)
+            print(f"[GATEKEEPER] SCANNING INDIVIDUAL FILE: {file_path}")
+            print("="*60)
+            
+            import shutil
+            if os.path.exists("outputs/scan_temp"):
+                shutil.rmtree("outputs/scan_temp", ignore_errors=True)
+            os.makedirs("outputs/scan_temp", exist_ok=True)
+            
+            filename = os.path.basename(file_path)
+            shutil.copy2(file_path, os.path.join("outputs", "scan_temp", filename))
+            
+            if filename == "requirements.txt" or filename.endswith(".txt"):
+                with open(file_path, "r", encoding="utf-8", errors="ignore") as rf:
+                    with open(last_requirements_path, "w", encoding="utf-8") as wf:
+                        wf.write(rf.read())
+                        
+            app_meta = {
+                "name": f"File: {filename}",
+                "category": "Single File Analysis",
+                "code_files": filename,
+                "description": f"Targeted static AST, runtime sandbox, or supply chain scan for individual file '{file_path}'."
+            }
+            
+            try:
+                response_payload = run_scan_pipeline_on_dir("outputs/scan_temp", app_meta=app_meta)
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self.end_headers()
+                self.wfile.write(response_payload.encode('utf-8'))
+                print(f"[GATEKEEPER] File '{file_path}' scan complete.")
             except Exception as e:
                 import traceback
                 traceback.print_exc()

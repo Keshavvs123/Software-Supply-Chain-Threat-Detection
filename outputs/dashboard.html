@@ -501,49 +501,84 @@
         <!-- Divider -->
         <div style="display: flex; align-items: center; gap: 16px; margin: 36px 0 24px 0;">
             <div style="flex: 1; height: 1px; background: rgba(255,255,255,0.08);"></div>
-            <span style="color: var(--text-muted); font-size: 12px; text-transform: uppercase; font-weight: 600; letter-spacing: 1px;">OR SCAN ANY APPLICATION FOLDER / FILES</span>
+            <span style="color: var(--text-muted); font-size: 12px; text-transform: uppercase; font-weight: 600; letter-spacing: 1px;">OR CHOOSE SCANNING MODE (FOLDER VS FILES)</span>
             <div style="flex: 1; height: 1px; background: rgba(255,255,255,0.08);"></div>
         </div>
 
-        <!-- Folder Path Scanner Box -->
-        <div style="max-width: 820px; margin: 0 auto 20px auto; background: rgba(18,20,31,0.75); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 18px 24px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
-                <span style="font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700; color: #ffffff; display: flex; align-items: center; gap: 8px;">
-                    <span>📁</span> Scan Project from Local Folder Path
-                </span>
-                <span style="font-size: 11px; color: var(--text-muted);">Scans all Python files, setup hooks & requirements inside folder</span>
+        <!-- Dual Mode Options Grid (Folder Scanner & File Scanner) -->
+        <div style="max-width: 1100px; margin: 0 auto 24px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(480px, 1fr)); gap: 18px;">
+            <!-- Option A: Scan Entire Project Folder -->
+            <div style="background: rgba(18,20,31,0.85); border: 1px solid rgba(99,102,241,0.25); border-radius: 14px; padding: 20px 24px; box-shadow: 0 8px 24px rgba(0,0,0,0.25);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <span style="font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700; color: #a5b4fc; display: flex; align-items: center; gap: 8px;">
+                        <span>📁</span> Option 1: Scan Full Project Folder
+                    </span>
+                    <button type="button" class="btn-action" style="padding: 6px 14px; font-size: 12px; background: rgba(99,102,241,0.2); color: #c7d2fe; border: 1px solid rgba(99,102,241,0.4);" onclick="document.getElementById('folderInput').click();">
+                        📁 Browse Folder
+                    </button>
+                </div>
+                <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px; line-height: 1.4;">
+                    Scans all files inside the folder: all <strong>.py</strong> source files, <strong>setup.py</strong> install hooks, and <strong>requirements.txt</strong>.
+                </div>
+                <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
+                    <input type="text" id="dirPathInput" placeholder="Enter folder path (e.g. test_cases/app_01_clean_calculator)..." style="flex: 1; padding: 10px 14px; border-radius: 8px; background: rgba(10,11,16,0.85); border: 1px solid rgba(255,255,255,0.12); color: #ffffff; font-family: monospace; font-size: 12px;">
+                    <button type="button" class="btn-action" style="background: var(--primary); color: #ffffff; padding: 10px 18px; font-size: 12px; white-space: nowrap;" onclick="scanLocalDirectory()">🔍 Scan Folder</button>
+                </div>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap; align-items: center;">
+                    <span style="font-size: 11px; color: var(--text-muted);">Quick Folders:</span>
+                    <button type="button" class="badge" style="background: rgba(16,185,129,0.15); color: #86efac; border: 1px solid rgba(16,185,129,0.3); cursor: pointer; padding: 3px 8px; font-size: 11px;" onclick="document.getElementById('dirPathInput').value='test_cases/app_01_clean_calculator'; scanLocalDirectory();">app_01 (Clean)</button>
+                    <button type="button" class="badge" style="background: rgba(239,68,68,0.15); color: #fca5a5; border: 1px solid rgba(239,68,68,0.3); cursor: pointer; padding: 3px 8px; font-size: 11px;" onclick="document.getElementById('dirPathInput').value='test_cases/app_07_backdoor_setup_hook_service'; scanLocalDirectory();">app_07 (Hook)</button>
+                    <button type="button" class="badge" style="background: rgba(239,68,68,0.15); color: #fca5a5; border: 1px solid rgba(239,68,68,0.3); cursor: pointer; padding: 3px 8px; font-size: 11px;" onclick="document.getElementById('dirPathInput').value='test_cases/app_08_obfuscated_crypto_service'; scanLocalDirectory();">app_08 (Obfuscated)</button>
+                </div>
             </div>
-            <div style="display: flex; gap: 10px; align-items: center;">
-                <input type="text" id="dirPathInput" placeholder="Enter folder path (e.g. test_cases/app_01_clean_calculator or full directory)..." style="flex: 1; padding: 12px 16px; border-radius: 8px; background: rgba(10,11,16,0.85); border: 1px solid rgba(255,255,255,0.12); color: #ffffff; font-family: monospace; font-size: 13px;">
-                <button type="button" class="btn-action" style="background: var(--primary); color: #ffffff; padding: 12px 22px; font-size: 13px; white-space: nowrap;" onclick="scanLocalDirectory()">🔍 Scan Folder</button>
-            </div>
-            <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; align-items: center;">
-                <span style="font-size: 11px; color: var(--text-muted);">Quick Local Folders:</span>
-                <button type="button" class="badge" style="background: rgba(16,185,129,0.15); color: #86efac; border: 1px solid rgba(16,185,129,0.3); cursor: pointer; padding: 4px 8px;" onclick="document.getElementById('dirPathInput').value='test_cases/app_01_clean_calculator'; scanLocalDirectory();">app_01 (Clean Calculator)</button>
-                <button type="button" class="badge" style="background: rgba(239,68,68,0.15); color: #fca5a5; border: 1px solid rgba(239,68,68,0.3); cursor: pointer; padding: 4px 8px;" onclick="document.getElementById('dirPathInput').value='test_cases/app_07_backdoor_setup_hook_service'; scanLocalDirectory();">app_07 (Backdoor Hook)</button>
-                <button type="button" class="badge" style="background: rgba(239,68,68,0.15); color: #fca5a5; border: 1px solid rgba(239,68,68,0.3); cursor: pointer; padding: 4px 8px;" onclick="document.getElementById('dirPathInput').value='test_cases/app_08_obfuscated_crypto_service'; scanLocalDirectory();">app_08 (Obfuscated Exec)</button>
+
+            <!-- Option B: Scan Individual File(s) -->
+            <div style="background: rgba(18,20,31,0.85); border: 1px solid rgba(14,165,233,0.25); border-radius: 14px; padding: 20px 24px; box-shadow: 0 8px 24px rgba(0,0,0,0.25);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <span style="font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700; color: #7dd3fc; display: flex; align-items: center; gap: 8px;">
+                        <span>📄</span> Option 2: Scan Specific File(s)
+                    </span>
+                    <button type="button" class="btn-action" style="padding: 6px 14px; font-size: 12px; background: rgba(14,165,233,0.2); color: #bae6fd; border: 1px solid rgba(14,165,233,0.4);" onclick="document.getElementById('fileInput').click();">
+                        📄 Browse File(s)
+                    </button>
+                </div>
+                <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px; line-height: 1.4;">
+                    Scans individual files: select any <strong>requirements.txt</strong> for supply-chain risk or <strong>.py</strong> code for AST security.
+                </div>
+                <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
+                    <input type="text" id="filePathInput" placeholder="Enter file path (e.g. test_cases/app_01_clean_calculator/calculator.py)..." style="flex: 1; padding: 10px 14px; border-radius: 8px; background: rgba(10,11,16,0.85); border: 1px solid rgba(255,255,255,0.12); color: #ffffff; font-family: monospace; font-size: 12px;">
+                    <button type="button" class="btn-action" style="background: #0284c7; color: #ffffff; padding: 10px 18px; font-size: 12px; white-space: nowrap;" onclick="scanLocalFile()">🔍 Scan File</button>
+                </div>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap; align-items: center;">
+                    <span style="font-size: 11px; color: var(--text-muted);">Quick Files:</span>
+                    <button type="button" class="badge" style="background: rgba(16,185,129,0.15); color: #86efac; border: 1px solid rgba(16,185,129,0.3); cursor: pointer; padding: 3px 8px; font-size: 11px;" onclick="scanLocalFile('test_cases/app_01_clean_calculator/requirements.txt')">app_01 reqs</button>
+                    <button type="button" class="badge" style="background: rgba(16,185,129,0.15); color: #86efac; border: 1px solid rgba(16,185,129,0.3); cursor: pointer; padding: 3px 8px; font-size: 11px;" onclick="scanLocalFile('test_cases/app_01_clean_calculator/calculator.py')">app_01 code</button>
+                    <button type="button" class="badge" style="background: rgba(239,68,68,0.15); color: #fca5a5; border: 1px solid rgba(239,68,68,0.3); cursor: pointer; padding: 3px 8px; font-size: 11px;" onclick="scanLocalFile('test_cases/app_05_typosquatting_currency_tool/requirements.txt')">app_05 typosquat</button>
+                    <button type="button" class="badge" style="background: rgba(239,68,68,0.15); color: #fca5a5; border: 1px solid rgba(239,68,68,0.3); cursor: pointer; padding: 3px 8px; font-size: 11px;" onclick="scanLocalFile('test_cases/app_07_backdoor_setup_hook_service/setup.py')">app_07 setup.py</button>
+                    <button type="button" class="badge" style="background: rgba(239,68,68,0.15); color: #fca5a5; border: 1px solid rgba(239,68,68,0.3); cursor: pointer; padding: 3px 8px; font-size: 11px;" onclick="scanLocalFile('test_cases/app_08_obfuscated_crypto_service/crypto_tool.py')">app_08 exec.py</button>
+                </div>
             </div>
         </div>
 
         <!-- Custom Upload Zone (Folder & Multi-File Drag & Drop) -->
-        <div class="upload-zone" id="dropZone" style="max-width: 820px; margin: 0 auto;">
+        <div class="upload-zone" id="dropZone" style="max-width: 1100px; margin: 0 auto; cursor: default;">
             <div class="upload-icon">📥</div>
             <div class="upload-title" style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; margin-bottom: 6px;">
-                Drag & Drop Project Folder or Files Here
+                Drag & Drop Project Folder OR Individual Files
             </div>
             <div class="upload-subtitle" style="font-size: 13px; margin-bottom: 16px;">
                 Drop an entire folder (e.g. app_01_clean_calculator) or multiple files (.py + requirements.txt)
             </div>
-            <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;" onclick="event.stopPropagation();">
-                <button type="button" class="btn-action" style="padding: 9px 20px; font-size: 13px; background: rgba(99,102,241,0.2); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.4);" onclick="document.getElementById('folderInput').click();">
+            <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+                <button type="button" class="btn-action" style="padding: 10px 22px; font-size: 13px; background: rgba(99,102,241,0.25); color: #c7d2fe; border: 1px solid rgba(99,102,241,0.45); font-weight: 600;" onclick="document.getElementById('folderInput').click();">
                     📁 Browse Project Folder
                 </button>
-                <button type="button" class="btn-action" style="padding: 9px 20px; font-size: 13px; background: rgba(148,163,184,0.15); color: #cbd5e1; border: 1px solid rgba(148,163,184,0.3);" onclick="document.getElementById('fileInput').click();">
+                <button type="button" class="btn-action" style="padding: 10px 22px; font-size: 13px; background: rgba(14,165,233,0.25); color: #bae6fd; border: 1px solid rgba(14,165,233,0.45); font-weight: 600;" onclick="document.getElementById('fileInput').click();">
                     📄 Browse Individual Files
                 </button>
             </div>
             <input type="file" id="folderInput" webkitdirectory directory multiple style="display: none;">
-            <input type="file" id="fileInput" accept=".txt,.py,.zip" multiple style="display: none;">
+            <input type="file" id="fileInput" multiple style="display: none;">
         </div>
     </div>
 
@@ -863,7 +898,7 @@
                         <div style="font-size: 11px; font-family: monospace; color: #38bdf8; margin-bottom: 6px;">
                             📄 ${escapeHtml(app.files)}
                         </div>
-                        <div style="font-size: 11px; color: var(--text-muted); line-height: 1.4; margin-bottom: 8px;">
+                        <div style="font-size: 11px; color: var(--text-muted); line-height: 1.4; margin-bottom: 10px;">
                             ${escapeHtml(app.desc)}
                         </div>
                     </div>
@@ -872,24 +907,41 @@
                             <span>Expected:</span>
                             <strong style="color: ${app.badge_color};">${escapeHtml(app.verdict)}</strong>
                         </div>
-                        <button class="btn-benchmark-scan" onclick="scanBenchmarkApp(${app.id})">
-                            <span>⚡</span> Scan Application
+                        <button class="btn-benchmark-scan" style="margin-bottom: 6px;" onclick="scanBenchmarkApp(${app.id}, 'all')" title="Scan whole application folder (all code + dependencies)">
+                            <span>📁</span> Scan Entire Folder
                         </button>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+                            <button type="button" class="btn-action" style="padding: 6px 4px; font-size: 11px; background: rgba(99,102,241,0.18); border: 1px solid rgba(99,102,241,0.35); color: #c7d2fe; text-align: center; border-radius: 6px;" onclick="scanBenchmarkApp(${app.id}, 'requirements')" title="Scan only requirements.txt manifest">
+                                📄 requirements
+                            </button>
+                            <button type="button" class="btn-action" style="padding: 6px 4px; font-size: 11px; background: rgba(14,165,233,0.18); border: 1px solid rgba(14,165,233,0.35); color: #bae6fd; text-align: center; border-radius: 6px;" onclick="scanBenchmarkApp(${app.id}, 'code')" title="Scan only Python source files (.py)">
+                                🐍 Python Code
+                            </button>
+                        </div>
                     </div>
                 `;
                 grid.appendChild(card);
             });
         }
 
-        function scanBenchmarkApp(appId) {
+        function scanBenchmarkApp(appId, targetType = 'all') {
             const targetApp = benchmarkApps.find(a => a.id === appId) || { name: `App ${appId}` };
             resetDashboardState(false);
-            showToast("Analyzing Application", `Evaluating full application "${escapeHtml(targetApp.name)}" (Python source code, AST, runtime sandbox, and dependencies)...`, false, false, "🔍");
+            let modeTitle = "Analyzing Application Folder";
+            let modeDetail = `Evaluating full application "${escapeHtml(targetApp.name)}" (Python source code, AST, runtime sandbox, and dependencies)...`;
+            if (targetType === "requirements") {
+                modeTitle = "Analyzing Requirements File";
+                modeDetail = `Evaluating dependencies in "${escapeHtml(targetApp.name)}" requirements.txt...`;
+            } else if (targetType === "code") {
+                modeTitle = "Analyzing Python Source Code";
+                modeDetail = `Evaluating Python source code in "${escapeHtml(targetApp.name)}" (AST injection, entropy, and dynamic execution)...`;
+            }
+            showToast(modeTitle, modeDetail, false, false, "🔍");
             
             fetch("/scan_benchmark_app", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ app_id: appId })
+                body: JSON.stringify({ app_id: appId, target_type: targetType })
             })
             .then(res => {
                 if (!res.ok) throw new Error("Application threat scan failed or backend returned error.");
@@ -961,6 +1013,8 @@
             if (folderInput) folderInput.value = "";
             const dirPathInput = document.getElementById("dirPathInput");
             if (dirPathInput) dirPathInput.value = "";
+            const filePathInput = document.getElementById("filePathInput");
+            if (filePathInput) filePathInput.value = "";
             const dropZone = document.getElementById("dropZone");
             if (dropZone) dropZone.classList.remove("dragover");
 
@@ -1080,6 +1134,41 @@
             });
         }
 
+        // Scan Local File from Path
+        function scanLocalFile(presetPath) {
+            const input = document.getElementById("filePathInput");
+            if (presetPath && input) input.value = presetPath;
+            const filePath = input ? input.value.trim() : (presetPath || "");
+            if (!filePath) {
+                alert("Please enter a local file path (e.g. test_cases/app_01_clean_calculator/calculator.py or requirements.txt).");
+                return;
+            }
+
+            resetDashboardState(false);
+            showToast("Scanning File", `Targeting and analyzing file "${escapeHtml(filePath)}"...`, false, false, "📄");
+
+            fetch("/scan_file", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ file_path: filePath })
+            })
+            .then(async res => {
+                if (!res.ok) {
+                    const err = await res.text();
+                    throw new Error(err || "Failed to scan file.");
+                }
+                return res.json();
+            })
+            .then(data => {
+                hideToast();
+                renderDashboard(data.predictions, data.graph);
+            })
+            .catch(err => {
+                resetDashboardState(false);
+                showToast("File Scan Error", err.message || "Could not analyze the file path.", true, true, "⚠️");
+            });
+        }
+
         // Multi-file and Project Folder uploader
         function handleUploadedFiles(fileList, folderName = "") {
             if (!fileList || fileList.length === 0) return;
@@ -1132,6 +1221,7 @@
         const fileInput = document.getElementById("fileInput");
         const folderInput = document.getElementById("folderInput");
         const dirPathInput = document.getElementById("dirPathInput");
+        const filePathInput = document.getElementById("filePathInput");
 
         if (dirPathInput) {
             dirPathInput.addEventListener("keydown", (e) => {
@@ -1142,7 +1232,14 @@
             });
         }
 
-        dropZone.addEventListener("click", () => folderInput.click());
+        if (filePathInput) {
+            filePathInput.addEventListener("keydown", (e) => {
+                if (e.key === "Enter") {
+                    e.preventDefault();
+                    scanLocalFile();
+                }
+            });
+        }
         dropZone.addEventListener("dragover", (e) => {
             e.preventDefault();
             dropZone.classList.add("dragover");
