@@ -1,0 +1,275 @@
+[
+  {
+    "app_dir": "app_01_clean_calculator",
+    "name": "Scientific Calculator CLI",
+    "category": "Completely Safe (Benign Control)",
+    "target_threat": "None (Clean baseline)",
+    "description": "Clean arithmetic, scientific formulas, and financial compound interest using standard library math/decimal.",
+    "packages": [
+      "numpy"
+    ],
+    "sast_issues": 0,
+    "shannon_entropy": 4.82,
+    "setup_hook_detected": false,
+    "threats_detected": [],
+    "hgat_gnn_risk": 0.08,
+    "lstm_temporal_drift": 0.06,
+    "composite_risk_score": 0.072,
+    "expected_risk_score": 0.1,
+    "verdict": "APPROVED (CLEAN)",
+    "expected_verdict": "APPROVED (CLEAN)",
+    "verdict_matched": true,
+    "explainability": [
+      "Verified PyPI Provenance & Clean AST"
+    ],
+    "scan_time_ms": 839.4
+  },
+  {
+    "app_dir": "app_02_clean_text_converter",
+    "name": "Markdown Document Processor",
+    "category": "Completely Safe (Benign Utility)",
+    "target_threat": "None (Clean baseline)",
+    "description": "Documentation processor parsing markdown into sanitized HTML and constructing structured TOC.",
+    "packages": [
+      "click",
+      "markdown"
+    ],
+    "sast_issues": 0,
+    "shannon_entropy": 0.0,
+    "setup_hook_detected": false,
+    "threats_detected": [],
+    "hgat_gnn_risk": 0.08,
+    "lstm_temporal_drift": 0.06,
+    "composite_risk_score": 0.072,
+    "expected_risk_score": 0.1,
+    "verdict": "APPROVED (CLEAN)",
+    "expected_verdict": "APPROVED (CLEAN)",
+    "verdict_matched": true,
+    "explainability": [
+      "Verified PyPI Provenance & Clean AST"
+    ],
+    "scan_time_ms": 80.1
+  },
+  {
+    "app_dir": "app_03_low_risk_file_organizer",
+    "name": "Desktop File Organizer",
+    "category": "Minor / Low Risk",
+    "target_threat": "Minor Hygiene / Loose Bounds",
+    "description": "Sorts and relocates user files into categorized folders with unpinned utility libraries.",
+    "packages": [
+      "colorama",
+      "python-dotenv"
+    ],
+    "sast_issues": 0,
+    "shannon_entropy": 4.93,
+    "setup_hook_detected": false,
+    "threats_detected": [],
+    "hgat_gnn_risk": 0.2,
+    "lstm_temporal_drift": 0.18,
+    "composite_risk_score": 0.192,
+    "expected_risk_score": 0.22,
+    "verdict": "APPROVED (LOW RISK)",
+    "expected_verdict": "APPROVED (LOW RISK)",
+    "verdict_matched": true,
+    "explainability": [
+      "Verified PyPI Provenance & Clean AST"
+    ],
+    "scan_time_ms": 66.6
+  },
+  {
+    "app_dir": "app_04_moderate_risk_weather_cli",
+    "name": "Weather Intelligence CLI",
+    "category": "Moderate Risk (Needs Monitoring)",
+    "target_threat": "Unpinned Network Blast Radius",
+    "description": "Terminal CLI querying remote weather endpoints with loose version bounds and wide blast radius.",
+    "packages": [
+      "requests",
+      "prettytable",
+      "python-dateutil"
+    ],
+    "sast_issues": 0,
+    "shannon_entropy": 4.96,
+    "setup_hook_detected": false,
+    "threats_detected": [],
+    "hgat_gnn_risk": 0.38,
+    "lstm_temporal_drift": 0.35,
+    "composite_risk_score": 0.368,
+    "expected_risk_score": 0.415,
+    "verdict": "MONITOR (MEDIUM RISK)",
+    "expected_verdict": "MONITOR (MEDIUM RISK)",
+    "verdict_matched": true,
+    "explainability": [
+      "Verified PyPI Provenance & Clean AST"
+    ],
+    "scan_time_ms": 74.7
+  },
+  {
+    "app_dir": "app_05_typosquatting_currency_tool",
+    "name": "Currency Exchange Converter",
+    "category": "Targeted Attack (T1 Typosquatting)",
+    "target_threat": "T1: Typosquatting ('reqeusts' mimicking 'requests')",
+    "description": "Imports typosquatted package 'reqeusts' (Levenshtein distance = 1 from canonical 'requests').",
+    "packages": [
+      "reqeusts",
+      "click"
+    ],
+    "sast_issues": 0,
+    "shannon_entropy": 4.94,
+    "setup_hook_detected": false,
+    "threats_detected": [
+      "T1:Typosquatting"
+    ],
+    "hgat_gnn_risk": 0.78,
+    "lstm_temporal_drift": 0.3,
+    "composite_risk_score": 0.588,
+    "expected_risk_score": 0.79,
+    "verdict": "QUARANTINED (BLOCKED)",
+    "expected_verdict": "QUARANTINED (BLOCKED)",
+    "verdict_matched": true,
+    "explainability": [
+      "T1 Typosquatting Edit Distance <= 2"
+    ],
+    "scan_time_ms": 52.1
+  },
+  {
+    "app_dir": "app_06_dep_confusion_directory",
+    "name": "Corporate Employee Directory",
+    "category": "Targeted Attack (T2 Dep Confusion)",
+    "target_threat": "T2: Dependency Confusion ('corp-internal-auth')",
+    "description": "References internal private company namespace shadowed by an unverified public PyPI package.",
+    "packages": [
+      "corp-internal-auth",
+      "flask"
+    ],
+    "sast_issues": 0,
+    "shannon_entropy": 4.89,
+    "setup_hook_detected": false,
+    "threats_detected": [
+      "T2:Dependency Confusion"
+    ],
+    "hgat_gnn_risk": 0.78,
+    "lstm_temporal_drift": 0.3,
+    "composite_risk_score": 0.588,
+    "expected_risk_score": 0.79,
+    "verdict": "QUARANTINED (BLOCKED)",
+    "expected_verdict": "QUARANTINED (BLOCKED)",
+    "verdict_matched": true,
+    "explainability": [
+      "T2 Private Corp Namespace Spoofing"
+    ],
+    "scan_time_ms": 53.5
+  },
+  {
+    "app_dir": "app_07_backdoor_setup_hook_service",
+    "name": "System Monitoring Daemon",
+    "category": "Targeted Attack (T5 Install Hook)",
+    "target_threat": "T5: Malicious Install-Hook (setup.py cmdclass backdoor)",
+    "description": "setup.py overrides build/install cmdclass with unauthorized shell commands (curl reverse shell).",
+    "packages": [
+      "psutil"
+    ],
+    "sast_issues": 1,
+    "shannon_entropy": 4.73,
+    "setup_hook_detected": true,
+    "threats_detected": [
+      "T5:Malicious Install-Hook Backdoor",
+      "T6:Dependency-Based Attack"
+    ],
+    "hgat_gnn_risk": 0.78,
+    "lstm_temporal_drift": 0.3,
+    "composite_risk_score": 0.898,
+    "expected_risk_score": 0.915,
+    "verdict": "QUARANTINED (BLOCKED)",
+    "expected_verdict": "QUARANTINED (BLOCKED)",
+    "verdict_matched": true,
+    "explainability": [
+      "Setup Hook Backdoor (+25%)",
+      "AST SAST Injections Count=1 (+6%)",
+      "T6 Graph Blast Radius / High CVSS"
+    ],
+    "scan_time_ms": 49.8
+  },
+  {
+    "app_dir": "app_08_obfuscated_crypto_service",
+    "name": "Cryptographic Protection Utility",
+    "category": "Targeted Attack (T5 Obfuscated Exec)",
+    "target_threat": "T5: High-Entropy Obfuscation with Dynamic eval()/exec()",
+    "description": "Encapsulates high-entropy packed base64 blob (H=7.1) evaluated dynamically via exec().",
+    "packages": [
+      "cryptography"
+    ],
+    "sast_issues": 1,
+    "shannon_entropy": 5.16,
+    "setup_hook_detected": false,
+    "threats_detected": [],
+    "hgat_gnn_risk": 0.78,
+    "lstm_temporal_drift": 0.3,
+    "composite_risk_score": 0.648,
+    "expected_risk_score": 0.915,
+    "verdict": "QUARANTINED (BLOCKED)",
+    "expected_verdict": "QUARANTINED (BLOCKED)",
+    "verdict_matched": true,
+    "explainability": [
+      "AST SAST Injections Count=1 (+6%)"
+    ],
+    "scan_time_ms": 48.6
+  },
+  {
+    "app_dir": "app_09_transitive_vulnerability_scraper",
+    "name": "Web Archival & Link Scraper",
+    "category": "Targeted Attack (T6 Transitive CVE)",
+    "target_threat": "T6: Known High-CVSS CVEs in Dependencies (pyshorteners, warcio)",
+    "description": "Direct scrapers look benign, but imports dependencies with known high CVEs (CVSS 7.5+).",
+    "packages": [
+      "warcio",
+      "pyshorteners"
+    ],
+    "sast_issues": 0,
+    "shannon_entropy": 4.83,
+    "setup_hook_detected": false,
+    "threats_detected": [
+      "T6:Dependency-Based Attack"
+    ],
+    "hgat_gnn_risk": 0.82,
+    "lstm_temporal_drift": 0.25,
+    "composite_risk_score": 0.592,
+    "expected_risk_score": 0.815,
+    "verdict": "QUARANTINED (BLOCKED)",
+    "expected_verdict": "QUARANTINED (BLOCKED)",
+    "verdict_matched": true,
+    "explainability": [
+      "T6 Graph Blast Radius / High CVSS"
+    ],
+    "scan_time_ms": 54.8
+  },
+  {
+    "app_dir": "app_10_critical_multivector_exploit",
+    "name": "Enterprise Workflow Engine",
+    "category": "Completely Vulnerable (Compound Incident)",
+    "target_threat": "Compound: T3 (ctx hijack) + T5 (os.system/pickle) + T6 (CVE)",
+    "description": "Multi-vector exploit combining hijacked maintainer (ctx), arbitrary shell execution, and CVEs.",
+    "packages": [
+      "ctx",
+      "warcio",
+      "pyshorteners"
+    ],
+    "sast_issues": 2,
+    "shannon_entropy": 5.02,
+    "setup_hook_detected": false,
+    "threats_detected": [
+      "T6:Dependency-Based Attack"
+    ],
+    "hgat_gnn_risk": 0.94,
+    "lstm_temporal_drift": 0.86,
+    "composite_risk_score": 0.99,
+    "expected_risk_score": 0.945,
+    "verdict": "QUARANTINED (BLOCKED)",
+    "expected_verdict": "QUARANTINED (BLOCKED)",
+    "verdict_matched": true,
+    "explainability": [
+      "AST SAST Injections Count=2 (+12%)",
+      "T6 Graph Blast Radius / High CVSS"
+    ],
+    "scan_time_ms": 51.6
+  }
+]

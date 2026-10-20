@@ -1,0 +1,11 @@
+# Application 03: File Organizer & Directory Cleaner
+- **Category**: Minor / Low Risk Stance
+- **Primary Function**: Sorts, classifies, and relocates user files into organized category directories.
+- **Security Posture**:
+  - Contains basic filesystem manipulation without strict sandbox boundaries.
+  - Dependencies are unpinned with loose bounds (`>=`), presenting minor non-critical supply-chain risk.
+  - No active malicious indicators or critical CVEs detected.
+- **Expected Ground Truth**:
+  - Risk Score: **Low to Mild (~18% - 25%)**
+  - Threat Vectors: **None critical (Standard Minor Hygiene)**
+  - Gatekeeper Verdict: **APPROVED (LOW RISK)**

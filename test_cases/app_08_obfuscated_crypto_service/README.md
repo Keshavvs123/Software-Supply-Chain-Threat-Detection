@@ -1,0 +1,12 @@
+# Application 08: Cryptographic Protection Utility (Obfuscated Exec)
+- **Category**: Obfuscated Malware & Dynamic Exec (T5)
+- **Primary Function**: Claims to provide encryption hashing services.
+- **Security Posture / Vulnerability Details**:
+  - Contains packed, multi-layer hex/base64 encoded blocks with high Shannon entropy ($H > 6.5$).
+  - Invokes `eval()` / `exec()` dynamically on decoded buffer without verification.
+  - AST security visitor flags `eval_exec_usage` and high encoded string ratio ($> 15\%$).
+- **Expected Ground Truth**:
+  - Risk Score: **Critical (85% - 95%)**
+  - Threat Vectors: **T5 (High-Entropy Obfuscated Payload)**
+  - Gatekeeper Verdict: **QUARANTINED (BLOCKED)**
+  - Automated Remediation: Reject payload; eliminate unverified dynamic evaluation primitives.

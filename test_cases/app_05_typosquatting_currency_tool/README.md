@@ -1,0 +1,12 @@
+# Application 05: Currency Converter (Typosquatting Attack)
+- **Category**: Malicious Supply-Chain Attack (T1 Typosquatting)
+- **Primary Function**: Conversion of international fiat currencies.
+- **Security Posture / Vulnerability Details**:
+  - The application imports `reqeusts` instead of the genuine `requests` package.
+  - Levenshtein distance: $\text{dist}(\text{"reqeusts"}, \text{"requests"}) = 1 \le 2$.
+  - The typosquatted package has zero legitimate downloads and lacks public provenance.
+- **Expected Ground Truth**:
+  - Risk Score: **High (75% - 85%)**
+  - Threat Vectors: **T1 (Typosquatting)**
+  - Gatekeeper Verdict: **QUARANTINED (BLOCKED)**
+  - Automated Remediation: Replace `reqeusts` with canonical verified `requests>=2.31.0`.

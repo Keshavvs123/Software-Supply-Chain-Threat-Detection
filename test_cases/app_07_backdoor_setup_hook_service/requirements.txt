@@ -1,0 +1,2 @@
+# System monitor dependencies
+psutil>=5.9.0

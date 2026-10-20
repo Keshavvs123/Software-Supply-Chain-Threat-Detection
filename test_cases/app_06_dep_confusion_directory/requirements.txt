@@ -1,0 +1,3 @@
+# ATTACK VECTOR: Dependency Confusion Namespace Shadowing
+corp-internal-auth==0.1.0
+flask>=2.0.0

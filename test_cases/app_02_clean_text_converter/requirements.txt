@@ -1,0 +1,3 @@
+# Established, well-reviewed standard documentation packages
+click>=8.1.7
+markdown>=3.6

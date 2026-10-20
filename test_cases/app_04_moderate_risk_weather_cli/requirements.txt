@@ -1,0 +1,4 @@
+# Unpinned network utilities with high blast radius
+requests
+prettytable
+python-dateutil

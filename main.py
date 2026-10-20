@@ -248,7 +248,10 @@ class GatekeeperHandler(http.server.SimpleHTTPRequestHandler):
                 "dataset_description_pie.png",
                 "test_cases_evaluation.md",
                 "multi_seed_summary.md",
-                "5fold_cv_summary.md"
+                "5fold_cv_summary.md",
+                "10_applications_evaluation.md",
+                "10_applications_evaluation.json",
+                "10_applications_risk_comparison.png"
             }
             files_list = []
             if os.path.exists("outputs"):
@@ -284,7 +287,10 @@ class GatekeeperHandler(http.server.SimpleHTTPRequestHandler):
                 "dataset_description_pie.png",
                 "test_cases_evaluation.md",
                 "multi_seed_summary.md",
-                "5fold_cv_summary.md"
+                "5fold_cv_summary.md",
+                "10_applications_evaluation.md",
+                "10_applications_evaluation.json",
+                "10_applications_risk_comparison.png"
             }
             query_components = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
             file_name = query_components.get("file", [None])[0]

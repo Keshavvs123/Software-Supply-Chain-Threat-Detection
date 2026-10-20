@@ -1,0 +1,12 @@
+# Application 07: System Monitoring Daemon (Install-Hook Backdoor)
+- **Category**: Malicious Packaging Hook Backdoor (T5)
+- **Primary Function**: System resource telemetry daemon.
+- **Security Posture / Vulnerability Details**:
+  - `setup.py` overrides `cmdclass={'install': ...}` to execute unauthorized `os.system` / curl command upon installation.
+  - The static AST hook detector flags the custom install class and unauthorized shell invocations.
+  - Bandit flags B605 / B607 (Starting process with shell).
+- **Expected Ground Truth**:
+  - Risk Score: **Critical (85% - 95%)**
+  - Threat Vectors: **T5 (Malicious Install Hook Backdoor)**
+  - Gatekeeper Verdict: **QUARANTINED (BLOCKED)**
+  - Automated Remediation: Reject wheel packaging build hook; purge unauthorized `cmdclass`.

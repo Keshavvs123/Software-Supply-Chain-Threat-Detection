@@ -1,0 +1,11 @@
+# Application 01: Clean Scientific Calculator
+- **Category**: Completely Safe (Benign Control Baseline)
+- **Primary Function**: Accurate arithmetic, scientific powers, roots, and compound financial interest.
+- **Security Posture**:
+  - Code contains zero dangerous functions (`eval`, `exec`, `subprocess`, `os.system`).
+  - AST Shannon entropy is standard ($H \approx 3.4$).
+  - Dependency is verified, reputable, high OpenSSF scorecard with zero known vulnerabilities.
+- **Expected Ground Truth**:
+  - Risk Score: **Low (< 15%)**
+  - Threat Vectors: **None (Clean)**
+  - Gatekeeper Verdict: **APPROVED (CLEAN)**

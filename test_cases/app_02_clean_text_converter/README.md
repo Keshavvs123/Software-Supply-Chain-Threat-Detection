@@ -1,0 +1,11 @@
+# Application 02: Clean Markdown Document Processor
+- **Category**: Completely Safe (Benign Utility Baseline)
+- **Primary Function**: Parses markdown documentation, constructs structured TOC, outputs valid HTML.
+- **Security Posture**:
+  - Safe memory-based string transformation.
+  - Zero filesystem modifications or subprocess invocations.
+  - Dependencies `click` and `markdown` are mature foundational Python community packages with zero active advisories.
+- **Expected Ground Truth**:
+  - Risk Score: **Low (< 15%)**
+  - Threat Vectors: **None (Clean)**
+  - Gatekeeper Verdict: **APPROVED (CLEAN)**

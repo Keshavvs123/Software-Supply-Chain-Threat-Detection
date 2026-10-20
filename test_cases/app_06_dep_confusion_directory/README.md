@@ -1,0 +1,12 @@
+# Application 06: Corporate Employee Directory
+- **Category**: Dependency Confusion Exploit (T2)
+- **Primary Function**: Internal employee directory and authentication querying.
+- **Security Posture / Vulnerability Details**:
+  - The requirements file specifies `corp-internal-auth==0.1.0`.
+  - Package matches internal company prefix pattern (`corp-`, `internal-`) without scoped namespace or private repository index flags (`--extra-index-url`).
+  - An adversary registered `corp-internal-auth` on public PyPI with higher version number, forcing build systems to pull rogue upstream package.
+- **Expected Ground Truth**:
+  - Risk Score: **High (70% - 85%)**
+  - Threat Vectors: **T2 (Dependency Confusion)**
+  - Gatekeeper Verdict: **QUARANTINED (BLOCKED)**
+  - Automated Remediation: Configure private PyPI index-url / scope pinning.

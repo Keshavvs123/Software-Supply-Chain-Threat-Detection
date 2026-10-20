@@ -1,0 +1,11 @@
+# Application 04: Weather Intelligence CLI
+- **Category**: Moderate Risk Profile (Needs Monitoring)
+- **Primary Function**: Queries remote endpoints to retrieve meteorological metrics and formats terminal reports.
+- **Security Posture**:
+  - Contains network requests without strict timeouts.
+  - Dependencies are unpinned, exposing the application to upstream version drift.
+  - Network blast radius and transitive tree depth warrant security logging.
+- **Expected Ground Truth**:
+  - Risk Score: **Moderate (~35% - 48%)**
+  - Threat Vectors: **Potential Upstream Drift Warning**
+  - Gatekeeper Verdict: **MONITOR (MEDIUM RISK)**
