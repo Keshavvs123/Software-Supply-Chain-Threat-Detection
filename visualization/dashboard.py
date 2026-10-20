@@ -544,6 +544,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     <!-- Gatekeeper Controls -->
     <div class="gatekeeper-actions" id="gatekeeperActions">
         <button class="btn-action btn-reject" onclick="abortInstallation()">Reject & Abort</button>
+        <button class="btn-action" style="background: rgba(148, 163, 184, 0.15); color: #cbd5e1; border: 1px solid rgba(148, 163, 184, 0.3);" onclick="resetAndUploadNew()">Scan New Project (Reset)</button>
         <button class="btn-action" style="background: rgba(99, 102, 241, 0.15); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.4);" onclick="window.location.href='/download_csv'">Download CSV Report</button>
         <button class="btn-action" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4);" onclick="openArtifactsExplorer()">Explore Output Artifacts</button>
         <button class="btn-action btn-approve" onclick="approveInstallation()">Approve & Run Local Installation</button>
@@ -575,17 +576,90 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
     <!-- Toast Notification Overlay -->
     <div class="toast-overlay" id="toastOverlay">
-        <div class="toast-content">
-            <h2 id="toastTitle" style="font-family: 'Space Grotesk', sans-serif;">Running Installation</h2>
-            <p id="toastMessage" style="color: var(--text-muted); font-size: 14px;">Please check host terminal logs for live progress...</p>
-            <button class="btn-action btn-reject" id="toastCloseBtn" style="display: none; align-self: center;" onclick="closeToast()">Close</button>
+        <div class="toast-content" style="max-width: 520px; width: 90%; text-align: center; display: flex; flex-direction: column; gap: 16px; padding: 32px 28px;">
+            <div id="toastIcon" style="font-size: 38px; line-height: 1;">🛡️</div>
+            <h2 id="toastTitle" style="font-family: 'Space Grotesk', sans-serif; font-size: 20px;">Running Installation</h2>
+            <p id="toastMessage" style="color: var(--text-muted); font-size: 14px; line-height: 1.5; margin: 0;">Please check host terminal logs for live progress...</p>
+            <div id="toastButtons" style="display: flex; gap: 12px; justify-content: center; align-items: center; margin-top: 8px; flex-wrap: wrap;">
+                <button class="btn-action btn-approve" id="toastContinueBtn" style="display: none; padding: 10px 22px; font-size: 13px;" onclick="continueAndUploadNew()">Continue & Upload New File</button>
+                <button class="btn-action btn-reject" id="toastCloseBtn" style="display: none; padding: 10px 22px; font-size: 13px;" onclick="closeToast()">Close</button>
+            </div>
         </div>
     </div>
 
     <script>
+        // Global D3 simulation reference
+        let currentSimulation = null;
+        let currentNodeSelection = null;
+
         // Data injected by python builder
         const graphData = {graph_data_json};
         const predictionData = {prediction_data_json};
+
+        // Complete dashboard state reset
+        function resetDashboardState(callBackend = true) {
+            // 1. Reset project risk badge in header
+            const riskText = document.getElementById("projectRiskText");
+            if (riskText) {
+                riskText.innerHTML = "-";
+                riskText.style.color = "var(--text-muted)";
+            }
+
+            // 2. Reset Early Warning KPI cards
+            const kpiLatency = document.getElementById("kpiLatency");
+            if (kpiLatency) kpiLatency.innerText = "-";
+            const kpiMedian = document.getElementById("kpiMedian");
+            if (kpiMedian) kpiMedian.innerText = "-";
+            const kpi24h = document.getElementById("kpi24h");
+            if (kpi24h) kpi24h.innerText = "-";
+            const kpiEdr = document.getElementById("kpiEdr");
+            if (kpiEdr) kpiEdr.innerText = "-";
+
+            // 3. Clear Risk Matrix table
+            const tableBody = document.getElementById("riskTableBody");
+            if (tableBody) tableBody.innerHTML = "";
+
+            // 4. Clear Explainable AI blocks
+            const xaiContainer = document.getElementById("xaiContainer");
+            if (xaiContainer) xaiContainer.innerHTML = "";
+
+            // 5. Clear Attack Propagation paths
+            const apContainer = document.getElementById("attackPathsContainer");
+            if (apContainer) apContainer.innerHTML = "";
+
+            // 6. Clear Automated Remediation recipes and badge
+            const remedContainer = document.getElementById("remediationContainer");
+            if (remedContainer) remedContainer.innerHTML = "";
+            const remedBadge = document.getElementById("remediationBadge");
+            if (remedBadge) remedBadge.innerText = "0 Actions";
+
+            // 7. Stop active D3 simulation and wipe SVG
+            if (currentSimulation) {
+                try { currentSimulation.stop(); } catch(e) {}
+                currentSimulation = null;
+            }
+            d3.select("#graphSvg").selectAll("*").remove();
+            currentNodeSelection = null;
+
+            // 8. Clear file input and drag styling
+            const fileInput = document.getElementById("fileInput");
+            if (fileInput) fileInput.value = "";
+            const dropZone = document.getElementById("dropZone");
+            if (dropZone) dropZone.classList.remove("dragover");
+
+            // 9. Show upload container and hide results/actions
+            const uploadContainer = document.getElementById("uploadContainer");
+            if (uploadContainer) uploadContainer.style.display = "block";
+            const resultsContainer = document.getElementById("resultsContainer");
+            if (resultsContainer) resultsContainer.style.display = "none";
+            const gatekeeperActions = document.getElementById("gatekeeperActions");
+            if (gatekeeperActions) gatekeeperActions.style.display = "none";
+
+            // 10. Call backend /reset endpoint to clean staging files
+            if (callBackend) {
+                fetch("/reset", { method: "POST" }).catch(() => {});
+            }
+        }
 
         // XSS sanitization helper
         function escapeHtml(str) {
@@ -624,7 +698,11 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         });
 
         function uploadRequirementsFile(file) {
-            showToast("Analyzing Requirements", "Staging, downloading, and scanning package dependencies pre-install...");
+            if (!file) return;
+
+            // Immediately reset all previous values so no stale data is shown
+            resetDashboardState(false);
+            showToast("Analyzing Requirements", 'Scanning "' + escapeHtml(file.name) + '" — staging packages and querying threat intelligence...', false, false, "🔍");
             
             const reader = new FileReader();
             reader.onload = function(event) {
@@ -635,7 +713,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                     body: fileContent
                 })
                 .then(res => {
-                    if (!res.ok) throw new Error("Threat scan failed");
+                    if (!res.ok) throw new Error("Threat scan failed or invalid requirements file.");
                     return res.json();
                 })
                 .then(data => {
@@ -643,15 +721,20 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                     renderDashboard(data.predictions, data.graph);
                 })
                 .catch(err => {
-                    showToast("Analysis Error", err.message, true);
+                    resetDashboardState(false);
+                    showToast("Analysis Error", err.message || "Failed to scan requirements.", true, true, "⚠️");
                 });
+            };
+            reader.onerror = function() {
+                resetDashboardState(false);
+                showToast("File Read Error", "Could not read the uploaded requirements file.", true, true, "⚠️");
             };
             reader.readAsText(file);
         }
 
         // Approve and Run pip install
         function approveInstallation() {
-            showToast("Running Local Installation", "Executing pip install on the host machine. Please look at the terminal for progress...");
+            showToast("Running Local Installation", "Executing pip install on the host machine. Please look at the terminal for progress...", false, false, "⏳");
             
             fetch("/install", { method: "POST" })
             .then(async res => {
@@ -662,10 +745,16 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                 return res.text();
             })
             .then(msg => {
-                showToast("Installation Success", "All dependency check packages have been installed successfully!", true);
+                showToast(
+                    "Installation Complete",
+                    "All approved packages have been installed successfully on the host! Would you like to continue and scan another project?",
+                    true,
+                    true,
+                    "✅"
+                );
             })
             .catch(err => {
-                showToast("Installation Error", err.message, true);
+                showToast("Installation Error", err.message, true, true, "⚠️");
             });
         }
 
@@ -721,14 +810,39 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         function abortInstallation() {
             fetch("/abort", { method: "POST" })
             .then(() => {
-                showToast("Scan Cancelled", "Dependencies installation aborted. You can scan another requirements.txt file.", true);
+                resetDashboardState(false);
+                showToast(
+                    "Project Rejected & Aborted",
+                    "Dependencies installation was aborted and staging files were cleared. Would you like to continue and scan another project?",
+                    true,
+                    true,
+                    "🛑"
+                );
+            })
+            .catch(() => {
+                resetDashboardState(false);
+                showToast(
+                    "Project Rejected",
+                    "Installation cancelled. You can now upload and scan another project.",
+                    true,
+                    true,
+                    "🛑"
+                );
             });
         }
 
-        function showToast(title, message, showClose = false) {
-            document.getElementById("toastTitle").innerText = title;
-            document.getElementById("toastMessage").innerText = message;
-            document.getElementById("toastCloseBtn").style.display = showClose ? "inline-block" : "none";
+        function showToast(title, message, showClose = false, showContinue = false, icon = "🛡️") {
+            const toastTitle = document.getElementById("toastTitle");
+            const toastMessage = document.getElementById("toastMessage");
+            const toastIcon = document.getElementById("toastIcon");
+            const toastCloseBtn = document.getElementById("toastCloseBtn");
+            const toastContinueBtn = document.getElementById("toastContinueBtn");
+
+            if (toastTitle) toastTitle.innerText = title;
+            if (toastMessage) toastMessage.innerText = message;
+            if (toastIcon) toastIcon.innerText = icon;
+            if (toastCloseBtn) toastCloseBtn.style.display = showClose ? "inline-block" : "none";
+            if (toastContinueBtn) toastContinueBtn.style.display = showContinue ? "inline-block" : "none";
             document.getElementById("toastOverlay").style.display = "flex";
         }
 
@@ -736,23 +850,27 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             document.getElementById("toastOverlay").style.display = "none";
         }
 
+        function continueAndUploadNew() {
+            hideToast();
+            resetDashboardState(true);
+        }
+
         function closeToast() {
             hideToast();
-            // Reset to upload screen if aborted or finished
-            const title = document.getElementById("toastTitle").innerText;
-            if (title === "Scan Cancelled" || title === "Installation Success") {
-                document.getElementById("uploadContainer").style.display = "block";
-                document.getElementById("resultsContainer").style.display = "none";
-                document.getElementById("gatekeeperActions").style.display = "none";
+            const title = document.getElementById("toastTitle") ? document.getElementById("toastTitle").innerText : "";
+            if (title.includes("Rejected") || title.includes("Success") || title.includes("Complete") || title.includes("Cancelled") || title.includes("Error")) {
+                resetDashboardState(true);
             }
+        }
+
+        function resetAndUploadNew() {
+            resetDashboardState(true);
         }
 
         // Main dashboard renderer
         function renderDashboard(predData, gData) {
             if (!predData || !predData.package_risks || Object.keys(predData.package_risks).length === 0) {
-                document.getElementById("uploadContainer").style.display = "block";
-                document.getElementById("resultsContainer").style.display = "none";
-                document.getElementById("gatekeeperActions").style.display = "none";
+                resetDashboardState(false);
                 return;
             }
             
@@ -929,13 +1047,23 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
         // Homogeneous force-directed graph renderer using D3.js
         function drawD3Graph(graphData, predictionData) {
+            if (currentSimulation) {
+                try { currentSimulation.stop(); } catch(e) {}
+                currentSimulation = null;
+            }
             d3.select("#graphSvg").selectAll("*").remove();
+            currentNodeSelection = null;
+
+            if (!graphData || !graphData.nodes || graphData.nodes.length === 0) {
+                return;
+            }
             
             const svg = d3.select("#graphSvg");
-            const width = document.querySelector(".graph-container").clientWidth;
+            const container = document.querySelector(".graph-container");
+            const width = container ? container.clientWidth : 800;
             const height = 500;
 
-            const simulation = d3.forceSimulation(graphData.nodes)
+            currentSimulation = d3.forceSimulation(graphData.nodes)
                 .force("link", d3.forceLink(graphData.links).id(d => d.id).distance(80))
                 .force("charge", d3.forceManyBody().strength(-60))
                 .force("collide", d3.forceCollide().radius(d => getNodeSize(d) + 15))
@@ -1008,8 +1136,10 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                     d.fx = null;
                     d.fy = null;
                     d3.select(this).attr("stroke", "#0a0b10").attr("stroke-width", 2);
-                    simulation.alpha(0.3).restart();
+                    if (currentSimulation) currentSimulation.alpha(0.3).restart();
                 });
+
+            currentNodeSelection = node;
 
             // Node labels
             const labels = svg.append("g")
@@ -1024,7 +1154,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                 .attr("pointer-events", "none");
 
             // Simulation update
-            simulation.on("tick", () => {
+            currentSimulation.on("tick", () => {
                 link
                     .attr("x1", d => d.source.x)
                     .attr("y1", d => d.source.y)
@@ -1047,7 +1177,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             });
 
             function dragstarted(event, d) {
-                if (!event.active) simulation.alphaTarget(0.3).restart();
+                if (!event.active && currentSimulation) currentSimulation.alphaTarget(0.3).restart();
                 d.fx = d.x;
                 d.fy = d.y;
             }
@@ -1058,18 +1188,19 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             }
 
             function dragended(event, d) {
-                if (!event.active) simulation.alphaTarget(0);
+                if (!event.active && currentSimulation) currentSimulation.alphaTarget(0);
                 d3.select(this).attr("stroke", "#ffffff").attr("stroke-width", 3);
             }
 
             // Global release pinned nodes function
             window.releaseAllNodes = function() {
-                node.each(d => {
+                if (!currentNodeSelection || !currentSimulation) return;
+                currentNodeSelection.each(d => {
                     d.fx = null;
                     d.fy = null;
                 });
-                node.attr("stroke", "#0a0b10").attr("stroke-width", 2);
-                simulation.alpha(0.3).restart();
+                currentNodeSelection.attr("stroke", "#0a0b10").attr("stroke-width", 2);
+                currentSimulation.alpha(0.3).restart();
             };
         }
 

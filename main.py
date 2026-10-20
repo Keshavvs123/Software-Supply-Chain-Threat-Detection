@@ -334,8 +334,12 @@ class GatekeeperHandler(http.server.SimpleHTTPRequestHandler):
             print("="*50)
             print(f"Content:\n{post_data}\n---")
             
-            # Save file to outputs/scan_temp/requirements.txt for scanner pipeline
+            # Purge any old remnants in outputs/scan_temp so no leftover packages or downloads linger
+            import shutil
+            if os.path.exists("outputs/scan_temp"):
+                shutil.rmtree("outputs/scan_temp", ignore_errors=True)
             os.makedirs("outputs/scan_temp", exist_ok=True)
+
             with open(os.path.join("outputs", "scan_temp", "requirements.txt"), "w", encoding="utf-8") as f:
                 f.write(post_data)
                 
@@ -520,11 +524,38 @@ class GatekeeperHandler(http.server.SimpleHTTPRequestHandler):
                 
         elif self.path == "/abort":
             print("\n[GATEKEEPER] User rejected/cancelled the installation scan.")
-            if os.path.exists(last_requirements_path):
-                os.remove(last_requirements_path)
+            try:
+                import shutil
+                if os.path.exists("outputs/scan_temp"):
+                    shutil.rmtree("outputs/scan_temp", ignore_errors=True)
+                if os.path.exists(last_requirements_path):
+                    os.remove(last_requirements_path)
+            except Exception as e:
+                print(f"[GATEKEEPER] Cleanup note during abort: {e}")
             self.send_response(200)
             self.end_headers()
             self.wfile.write(b"Aborted")
+
+        elif self.path == "/reset":
+            print("\n[GATEKEEPER] Dashboard reset requested. Clearing temporary staging files...")
+            try:
+                import shutil
+                if os.path.exists("outputs/scan_temp"):
+                    shutil.rmtree("outputs/scan_temp", ignore_errors=True)
+                if os.path.exists(last_requirements_path):
+                    try:
+                        os.remove(last_requirements_path)
+                    except Exception:
+                        pass
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self.end_headers()
+                self.wfile.write(b'{"status": "reset_successful"}')
+                print("[GATEKEEPER] Staging cleared and state reset.")
+            except Exception as e:
+                self.send_response(500)
+                self.end_headers()
+                self.wfile.write(str(e).encode('utf-8'))
 
 def main():
     print(ASCII_ART)
