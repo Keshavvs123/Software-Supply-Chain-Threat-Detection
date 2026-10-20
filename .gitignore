@@ -28,3 +28,5 @@ outputs/cyber_intel_db.sqlite
 outputs/scan_temp/
 outputs/_analyzer_staging/
 outputs/dashboard.html
+
+*.tar.gz
