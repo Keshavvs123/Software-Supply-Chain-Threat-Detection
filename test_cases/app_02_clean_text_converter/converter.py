@@ -39,7 +39,7 @@ def generate_table_of_contents(markdown_text: str) -> list:
     return toc
 
 def main():
-    sample_doc = \"\"\"
+    sample_doc = """
 # Project Documentation
 ## Introduction
 This is a clean, secure markdown documentation processor.
@@ -48,7 +48,7 @@ This is a clean, secure markdown documentation processor.
 - Zero dangerous shell invocations
 ## Conclusion
 All processing executes in pure memory.
-\"\"\"
+"""
     print("=== Markdown Processing Pipeline ===")
     toc = generate_table_of_contents(sample_doc)
     print(f"Extracted {len(toc)} Table of Contents items:")

@@ -496,5 +496,90 @@ def generate_comparison_chart(results: list):
     plt.savefig(graph_path2, dpi=300)
     plt.close()
 
+def print_single_app_report(res: dict, run_code: bool = False):
+    print("\n" + "=" * 70)
+    print(f"APPLICATION AUDIT: {res['name'].upper()}")
+    print("=" * 70)
+    print(f" Directory:        test_cases/{res['app_dir']}")
+    print(f" Category:         {res['category']}")
+    print(f" Target Threat:    {res['target_threat']}")
+    print(f" Description:      {res['description']}")
+    print(f" Dependencies:     {', '.join(res['packages'])}")
+    print("\n--- [1] Static AST & Code Analysis ---")
+    print(f" Shannon Entropy:  {res['shannon_entropy']} bits/char (Threshold: H > 6.2 is anomalous)")
+    print(f" AST Injections:   {res['sast_issues']} finding(s)")
+    print(f" Setup Hook Alert: {'DETECTED (MALICIOUS)' if res['setup_hook_detected'] else 'CLEAN (None)'}")
+    print("\n--- [2] Threat Intelligence & Threat Vectors ---")
+    threat_str = ", ".join(res["threats_detected"]) if res["threats_detected"] else "None (Clean baseline)"
+    print(f" Threats Flagged:  {threat_str}")
+    print("\n--- [3] Neural Risk Scoring & Gatekeeper Verdict ---")
+    print(f" HGAT GNN Risk:    {res['hgat_gnn_risk']*100:.1f}%")
+    print(f" LSTM Drift Risk:  {res['lstm_temporal_drift']*100:.1f}%")
+    print(f" Composite Risk:   {res['composite_risk_score']*100:.1f}% (Expected: ~{res['expected_risk_score']*100:.1f}%)")
+    print(f" Gatekeeper Action: {res['verdict']}")
+    print(f" Validation Check: {'[PASS] Matched Expected Ground Truth' if res['verdict_matched'] else '[FAIL] Mismatch'}")
+    print(f" Why This Score:   {', '.join(res['explainability'])}")
+    print("=" * 70)
+
+    if run_code:
+        print("\n>>> EXECUTING APPLICATION SOURCE CODE (LIVE DEMO) <<<")
+        app_path = os.path.join(PROJECT_ROOT, "test_cases", res["app_dir"])
+        py_files = [f for f in os.listdir(app_path) if f.endswith(".py") and f != "setup.py"]
+        if py_files:
+            target_script = os.path.join(app_path, py_files[0])
+            print(f"Running: python {os.path.relpath(target_script, PROJECT_ROOT)}")
+            print("-" * 50)
+            import subprocess
+            subprocess.run([sys.executable, target_script])
+            print("-" * 50)
+        print(">>> LIVE EXECUTION COMPLETE <<<\n")
+
+def list_all_applications():
+    print("\n" + "=" * 75)
+    print("AVAILABLE SAMPLE APPLICATIONS IN test_cases/")
+    print("=" * 75)
+    print(f"{'#':<3} | {'Application Name':<32} | {'Category':<24} | {'Target Threat'}")
+    print("-" * 75)
+    for i, spec in enumerate(APPLICATIONS_SPECS, 1):
+        print(f"{i:<3} | {spec['name']:<32} | {spec['category'][:24]:<24} | {spec['target_threat']}")
+    print("=" * 75)
+    print("\nTo run a specific application audit:")
+    print("  python scripts/run_10_applications_benchmark.py --app 1")
+    print("  python scripts/run_10_applications_benchmark.py --app 5 --run")
+    print("  python scripts/run_10_applications_benchmark.py --all\n")
+
 if __name__ == "__main__":
-    run_10_applications_evaluation()
+    import argparse
+    parser = argparse.ArgumentParser(description="Evaluate 10 sample applications for supply-chain risk.")
+    parser.add_argument("--app", type=str, help="Run audit on specific application by number (1-10) or keyword (e.g. calculator, typosquat)")
+    parser.add_argument("--run", action="store_true", help="Also execute the application's Python code in a live demonstration")
+    parser.add_argument("--list", action="store_true", help="List all 10 sample applications")
+    parser.add_argument("--all", action="store_true", help="Run full benchmark across all 10 applications (default)")
+    args = parser.parse_args()
+
+    if args.list:
+        list_all_applications()
+    elif args.app:
+        target_spec = None
+        # Check if number
+        try:
+            app_idx = int(args.app) - 1
+            if 0 <= app_idx < len(APPLICATIONS_SPECS):
+                target_spec = APPLICATIONS_SPECS[app_idx]
+        except ValueError:
+            # Check by keyword
+            query = args.app.lower()
+            for s in APPLICATIONS_SPECS:
+                if query in s["dir"].lower() or query in s["name"].lower():
+                    target_spec = s
+                    break
+
+        if target_spec:
+            res = evaluate_single_application(target_spec)
+            print_single_app_report(res, run_code=args.run)
+        else:
+            print(f"Error: Application '{args.app}' not found.")
+            list_all_applications()
+    else:
+        run_10_applications_evaluation()
+
