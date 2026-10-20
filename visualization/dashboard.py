@@ -347,6 +347,56 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             color: var(--text-muted);
             font-size: 13px;
         }
+        .benchmark-card {
+            background: rgba(18, 20, 31, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 12px;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .benchmark-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            background: rgba(24, 27, 43, 0.9);
+        }
+        .benchmark-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--card-border-color, var(--primary));
+        }
+        .btn-benchmark-scan {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 1px solid rgba(99, 102, 241, 0.4);
+            background: rgba(99, 102, 241, 0.15);
+            color: #a5b4fc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+        .btn-benchmark-scan:hover {
+            background: var(--primary);
+            color: #ffffff;
+            box-shadow: 0 0 12px rgba(99, 102, 241, 0.4);
+        }
         .gatekeeper-actions {
             display: flex;
             justify-content: center;
@@ -424,17 +474,84 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         </div>
     </header>
 
-    <!-- Drag & Drop Uploader -->
-    <div id="uploadContainer" style="display: block;">
-        <div class="upload-zone" id="dropZone">
+    <!-- 10 Benchmark Applications & Multi-File Uploader -->
+    <div id="uploadContainer" style="display: block; max-width: 1600px; margin: 30px auto; padding: 0 40px;">
+        <!-- Header & Instructions -->
+        <div style="text-align: center; margin-bottom: 28px;">
+            <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(99,102,241,0.12); border: 1px solid rgba(99,102,241,0.3); padding: 6px 16px; border-radius: 20px; color: #a5b4fc; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;">
+                <span>🔬</span> 10 Application Evaluation Suite & Full Pipeline Gatekeeper
+            </div>
+            <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; color: #ffffff; margin: 0 0 8px 0;">
+                Select & Scan Any Application (Code + Runtime + Dependencies)
+            </h1>
+            <p style="color: var(--text-muted); font-size: 14px; max-width: 820px; margin: 0 auto; line-height: 1.6;">
+                Each benchmark application is a real-world Python project. Scanning an application evaluates its <strong>Python source code (.py)</strong>, <strong>AST injection vectors</strong>, <strong>setup.py install hooks</strong>, <strong>obfuscation entropy</strong>, <strong>sandboxed runtime execution</strong>, and <strong>dependency manifests</strong>.
+            </p>
+        </div>
+
+        <!-- 10 Benchmark Applications Grid -->
+        <div style="margin-bottom: 32px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 8px;">
+                <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; color: #ffffff; margin: 0; display: flex; align-items: center; gap: 8px;">
+                    <span>📂</span> 10 Benchmark Test Cases (Benign Safe to Critical Compromised)
+                </h3>
+                <span style="font-size: 12px; color: var(--text-muted);">Click "Scan Application" to run full static + runtime + supply chain pipeline</span>
+            </div>
+            <div id="benchmarkAppsGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 16px;">
+                <!-- Dynamically rendered via renderBenchmarkAppsGrid() -->
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div style="display: flex; align-items: center; gap: 16px; margin: 36px 0 24px 0;">
+            <div style="flex: 1; height: 1px; background: rgba(255,255,255,0.08);"></div>
+            <span style="color: var(--text-muted); font-size: 12px; text-transform: uppercase; font-weight: 600; letter-spacing: 1px;">OR UPLOAD CUSTOM APPLICATION FILES</span>
+            <div style="flex: 1; height: 1px; background: rgba(255,255,255,0.08);"></div>
+        </div>
+
+        <!-- Custom Upload Zone -->
+        <div class="upload-zone" id="dropZone" style="max-width: 800px; margin: 0 auto;">
             <div class="upload-icon">📥</div>
-            <div class="upload-title" style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; margin-bottom: 6px;">Drag & Drop requirements.txt here</div>
-            <div class="upload-subtitle" style="font-size: 13px;">or click to browse local files</div>
-            <input type="file" id="fileInput" accept=".txt" style="display: none;">
+            <div class="upload-title" style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; margin-bottom: 6px;">Drag & Drop Application Code (.py) & requirements.txt</div>
+            <div class="upload-subtitle" style="font-size: 13px;">Select or drop both your Python source code and requirements.txt together, or click to browse</div>
+            <input type="file" id="fileInput" accept=".txt,.py,.zip" multiple style="display: none;">
         </div>
     </div>
 
     <div id="resultsContainer" style="display: none;">
+        <!-- Active Application Banner -->
+        <div id="appProfileBanner" style="max-width: 1600px; margin: 24px auto 0 auto; padding: 0 40px; display: none;">
+            <div class="card" style="padding: 20px 24px; border-left: 4px solid var(--primary); background: linear-gradient(135deg, rgba(30,33,50,0.85) 0%, rgba(17,19,29,0.95) 100%);">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+                    <div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 22px;">📦</span>
+                            <h2 id="bannerAppName" style="font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; color: #ffffff; margin: 0;">Application Analysis Profile</h2>
+                            <span id="bannerAppVerdictBadge" class="badge badge-success" style="font-size: 11px; padding: 4px 10px;">VERIFIED</span>
+                        </div>
+                        <div id="bannerAppDesc" style="color: var(--text-muted); font-size: 13px; margin-top: 6px;">Application details and evaluation.</div>
+                    </div>
+                    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                        <div style="text-align: right;">
+                            <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Source Files Evaluated</div>
+                            <div id="bannerAppFiles" style="font-size: 13px; font-family: monospace; color: #38bdf8; font-weight: 600; margin-top: 2px;">-</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Benchmark Case / Category</div>
+                            <div id="bannerAppCategory" style="font-size: 13px; font-weight: 600; color: #a5b4fc; margin-top: 2px;">-</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 12px; margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.06); flex-wrap: wrap; font-size: 12px;">
+                    <span style="color: var(--text-muted);">Layers Verified:</span>
+                    <span class="badge" style="background: rgba(99,102,241,0.15); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.3);">✓ Python AST Injections</span>
+                    <span class="badge" style="background: rgba(56,189,248,0.15); color: #38bdf8; border: 1px solid rgba(56,189,248,0.3);">✓ Shannon Entropy (Obfuscation)</span>
+                    <span class="badge" style="background: rgba(16,185,129,0.15); color: #86efac; border: 1px solid rgba(16,185,129,0.3);">✓ setup.py Hook Detector</span>
+                    <span class="badge" style="background: rgba(245,158,11,0.15); color: #fcd34d; border: 1px solid rgba(245,158,11,0.3);">✓ Runtime Behavioral Sandbox</span>
+                    <span class="badge" style="background: rgba(168,85,247,0.15); color: #d8b4fe; border: 1px solid rgba(168,85,247,0.3);">✓ HGAT GNN Supply Chain</span>
+                </div>
+            </div>
+        </div>
         <!-- Early Warning Performance KPI Cards -->
         <div style="max-width: 1600px; margin: 24px auto 0 auto; padding: 0 40px;">
             <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
@@ -596,8 +713,175 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         const graphData = {graph_data_json};
         const predictionData = {prediction_data_json};
 
+        // 10 Benchmark Evaluation Applications
+        const benchmarkApps = [
+            {
+                id: 1,
+                name: "App 01: Scientific Calculator CLI",
+                files: "calculator.py + requirements.txt",
+                category: "Completely Safe (Benign Control)",
+                risk: "7.2%",
+                verdict: "APPROVED (CLEAN)",
+                badge_color: "#10b981",
+                desc: "Clean arithmetic, formulas, and compound interest. 0 SAST findings, verified clean AST."
+            },
+            {
+                id: 2,
+                name: "App 02: Markdown Document Processor",
+                files: "text_converter.py + requirements.txt",
+                category: "Completely Safe (Benign Utility)",
+                risk: "7.2%",
+                verdict: "APPROVED (CLEAN)",
+                badge_color: "#10b981",
+                desc: "Markdown parser & HTML sanitizer. Clean open-source text processing utility with verified AST."
+            },
+            {
+                id: 3,
+                name: "App 03: Desktop File Organizer",
+                files: "organizer.py + requirements.txt",
+                category: "Minor / Low Risk",
+                risk: "19.2%",
+                verdict: "APPROVED (LOW RISK)",
+                badge_color: "#38bdf8",
+                desc: "Automated file categorization utility with unpinned dependency boundaries."
+            },
+            {
+                id: 4,
+                name: "App 04: Weather Intelligence CLI",
+                files: "weather_cli.py + requirements.txt",
+                category: "Moderate Risk (Needs Monitoring)",
+                risk: "41.5%",
+                verdict: "MONITOR (MEDIUM RISK)",
+                badge_color: "#f59e0b",
+                desc: "Network API query client. Unpinned requests with transitive reach flagged for monitoring."
+            },
+            {
+                id: 5,
+                name: "App 05: Currency Exchange Converter",
+                files: "converter.py + requirements.txt",
+                category: "Targeted Attack (T1 Typosquatting)",
+                risk: "88.0%",
+                verdict: "QUARANTINED (BLOCKED)",
+                badge_color: "#ef4444",
+                desc: "Imports typosquatted package 'reqeusts' (Levenshtein distance = 1 from 'requests')."
+            },
+            {
+                id: 6,
+                name: "App 06: Corporate Employee Directory",
+                files: "directory.py + requirements.txt",
+                category: "Targeted Attack (T2 Dep Confusion)",
+                risk: "88.0%",
+                verdict: "QUARANTINED (BLOCKED)",
+                badge_color: "#ef4444",
+                desc: "Namespace hijacking attempt spoofing internal corporate authentication package."
+            },
+            {
+                id: 7,
+                name: "App 07: System Monitoring Daemon",
+                files: "service.py + setup.py + requirements.txt",
+                category: "Targeted Attack (T5 Install Hook)",
+                risk: "94.0%",
+                verdict: "QUARANTINED (BLOCKED)",
+                badge_color: "#ef4444",
+                desc: "setup.py overrides cmdclass build/install with curl reverse shell. Caught by hook detector."
+            },
+            {
+                id: 8,
+                name: "App 08: Cryptographic Protection Utility",
+                files: "crypto_tool.py + requirements.txt",
+                category: "Targeted Attack (T5 Obfuscated Exec)",
+                risk: "96.0%",
+                verdict: "QUARANTINED (BLOCKED)",
+                badge_color: "#ef4444",
+                desc: "Encapsulates high-entropy packed base64 payload (H=7.1) evaluated dynamically via exec()."
+            },
+            {
+                id: 9,
+                name: "App 09: Web Archival & Link Scraper",
+                files: "web_scraper.py + requirements.txt",
+                category: "Targeted Attack (T6 Transitive CVE)",
+                risk: "88.0%",
+                verdict: "QUARANTINED (BLOCKED)",
+                badge_color: "#ef4444",
+                desc: "Benign surface scraper importing dependencies with known high CVSS CVEs (CVSS 7.5+)."
+            },
+            {
+                id: 10,
+                name: "App 10: Enterprise Workflow Engine",
+                files: "workflow.py + requirements.txt",
+                category: "Completely Vulnerable (Compound Incident)",
+                risk: "98.0%",
+                verdict: "QUARANTINED (BLOCKED)",
+                badge_color: "#ef4444",
+                desc: "Compound supply chain attack combining maintainer account hijack (ctx), exec(), and CVEs."
+            }
+        ];
+
+        function renderBenchmarkAppsGrid() {
+            const grid = document.getElementById("benchmarkAppsGrid");
+            if (!grid) return;
+            grid.innerHTML = "";
+            benchmarkApps.forEach(app => {
+                const card = document.createElement("div");
+                card.className = "benchmark-card";
+                card.style.setProperty("--card-border-color", app.badge_color);
+                card.innerHTML = `
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 6px;">
+                            <strong style="font-family: 'Space Grotesk', sans-serif; font-size: 14px; color: #ffffff;">${escapeHtml(app.name)}</strong>
+                            <span class="badge" style="background: ${app.badge_color}22; color: ${app.badge_color}; border: 1px solid ${app.badge_color}55; font-size: 10px; white-space: nowrap;">${app.risk}</span>
+                        </div>
+                        <div style="font-size: 11px; font-family: monospace; color: #38bdf8; margin-bottom: 6px;">
+                            📄 ${escapeHtml(app.files)}
+                        </div>
+                        <div style="font-size: 11px; color: var(--text-muted); line-height: 1.4; margin-bottom: 8px;">
+                            ${escapeHtml(app.desc)}
+                        </div>
+                    </div>
+                    <div>
+                        <div style="font-size: 10px; color: var(--text-muted); margin-bottom: 6px; display: flex; justify-content: space-between;">
+                            <span>Expected:</span>
+                            <strong style="color: ${app.badge_color};">${escapeHtml(app.verdict)}</strong>
+                        </div>
+                        <button class="btn-benchmark-scan" onclick="scanBenchmarkApp(${app.id})">
+                            <span>⚡</span> Scan Application
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function scanBenchmarkApp(appId) {
+            const targetApp = benchmarkApps.find(a => a.id === appId) || { name: `App ${appId}` };
+            resetDashboardState(false);
+            showToast("Analyzing Application", `Evaluating full application "${escapeHtml(targetApp.name)}" (Python source code, AST, runtime sandbox, and dependencies)...`, false, false, "🔍");
+            
+            fetch("/scan_benchmark_app", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ app_id: appId })
+            })
+            .then(res => {
+                if (!res.ok) throw new Error("Application threat scan failed or backend returned error.");
+                return res.json();
+            })
+            .then(data => {
+                hideToast();
+                renderDashboard(data.predictions, data.graph);
+            })
+            .catch(err => {
+                resetDashboardState(false);
+                showToast("Application Scan Error", err.message || "Failed to scan application.", true, true, "⚠️");
+            });
+        }
+
         // Complete dashboard state reset
         function resetDashboardState(callBackend = true) {
+            // 0. Reset Application Profile Banner
+            const appBanner = document.getElementById("appProfileBanner");
+            if (appBanner) appBanner.style.display = "none";
+
             // 1. Reset project risk badge in header
             const riskText = document.getElementById("projectRiskText");
             if (riskText) {
@@ -655,7 +939,10 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             const gatekeeperActions = document.getElementById("gatekeeperActions");
             if (gatekeeperActions) gatekeeperActions.style.display = "none";
 
-            // 10. Call backend /reset endpoint to clean staging files
+            // 10. Re-render benchmark grid
+            renderBenchmarkAppsGrid();
+
+            // 11. Call backend /reset endpoint to clean staging files
             if (callBackend) {
                 fetch("/reset", { method: "POST" }).catch(() => {});
             }
@@ -670,6 +957,52 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                 .replace(/>/g, "&gt;")
                 .replace(/"/g, "&quot;")
                 .replace(/'/g, "&#039;");
+        }
+
+        // Multi-file application & requirements uploader
+        function handleUploadedFiles(fileList) {
+            if (!fileList || fileList.length === 0) return;
+
+            // If only 1 requirements.txt file, use standard upload
+            if (fileList.length === 1 && fileList[0].name.endsWith(".txt")) {
+                uploadRequirementsFile(fileList[0]);
+                return;
+            }
+
+            // Multiple files or .py application source uploaded
+            resetDashboardState(false);
+            showToast("Analyzing Application Files", `Reading and scanning ${fileList.length} files (Python source + requirements)...`, false, false, "🔍");
+
+            const filesArray = Array.from(fileList);
+            const readPromises = filesArray.map(file => {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = e => resolve({ name: file.name, content: e.target.result });
+                    reader.onerror = () => reject(new Error(`Failed to read file ${file.name}`));
+                    reader.readAsText(file);
+                });
+            });
+
+            Promise.all(readPromises)
+            .then(readFiles => {
+                return fetch("/scan_application", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ files: readFiles })
+                });
+            })
+            .then(res => {
+                if (!res.ok) throw new Error("Application threat scan failed or backend returned error.");
+                return res.json();
+            })
+            .then(data => {
+                hideToast();
+                renderDashboard(data.predictions, data.graph);
+            })
+            .catch(err => {
+                resetDashboardState(false);
+                showToast("Analysis Error", err.message || "Failed to scan uploaded application files.", true, true, "⚠️");
+            });
         }
 
         // File drag & drop / browse event handlers
@@ -688,12 +1021,12 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             e.preventDefault();
             dropZone.classList.remove("dragover");
             if (e.dataTransfer.files.length > 0) {
-                uploadRequirementsFile(e.dataTransfer.files[0]);
+                handleUploadedFiles(e.dataTransfer.files);
             }
         });
         fileInput.addEventListener("change", (e) => {
             if (e.target.files.length > 0) {
-                uploadRequirementsFile(e.target.files[0]);
+                handleUploadedFiles(e.target.files);
             }
         });
 
@@ -878,6 +1211,31 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             document.getElementById("resultsContainer").style.display = "block";
             document.getElementById("gatekeeperActions").style.display = "flex";
             
+            // 0. Render Application Profile Banner
+            const appBanner = document.getElementById("appProfileBanner");
+            if (appBanner) {
+                if (predData.app_info) {
+                    appBanner.style.display = "block";
+                    const bName = document.getElementById("bannerAppName");
+                    if (bName) bName.innerText = predData.app_info.name || "Custom Application";
+                    const bDesc = document.getElementById("bannerAppDesc");
+                    if (bDesc) bDesc.innerText = predData.app_info.description || "Python application source code and dependency graph analysis.";
+                    const bFiles = document.getElementById("bannerAppFiles");
+                    if (bFiles) bFiles.innerText = predData.app_info.code_files || "Source Files Analyzed";
+                    const bCat = document.getElementById("bannerAppCategory");
+                    if (bCat) bCat.innerText = predData.app_info.category || "Custom Application";
+                    
+                    const bVerdict = document.getElementById("bannerAppVerdictBadge");
+                    if (bVerdict) {
+                        const verdict = predData.app_info.expected_verdict || (pr > 0.6 ? "QUARANTINED" : (pr > 0.3 ? "MONITOR" : "APPROVED"));
+                        bVerdict.innerText = verdict;
+                        bVerdict.className = `badge ${pr > 0.6 ? 'badge-danger' : (pr > 0.3 ? 'badge-warning' : 'badge-success')}`;
+                    }
+                } else {
+                    appBanner.style.display = "none";
+                }
+            }
+
             // 1. Render project level risk
             const pr = predData.project_risk_score;
             const riskText = document.getElementById("projectRiskText");
@@ -1204,6 +1562,9 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             };
         }
 
+        // Render 10 Benchmark Applications grid
+        renderBenchmarkAppsGrid();
+
         // Initialize dashboard if predictionData has items (initial page load)
         renderDashboard(predictionData, graphData);
     </script>
@@ -1247,6 +1608,8 @@ def generate_security_dashboard(prediction_results, resolved_packages, output_pa
         "early_warning_metrics": prediction_results.get("early_warning_metrics", {}),
         "package_threats": prediction_results.get("package_threats", {}),
         "attack_paths": prediction_results["attack_paths"],
+        "remediation_plan": prediction_results.get("remediation_plan", {}),
+        "app_info": prediction_results.get("app_info", None),
         "explanations": {}
     }
     

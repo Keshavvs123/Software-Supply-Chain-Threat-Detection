@@ -207,6 +207,268 @@ def save_scan_results_csv(predictions, resolved_packages, static_results, output
         except Exception as lock_err:
             print(f"[GATEKEEPER] Could not save CSV due to file lock: {lock_err}")
 
+BENCHMARK_APPS = [
+    {
+        "id": 1,
+        "dir": "app_01_clean_calculator",
+        "name": "App 01: Scientific Calculator CLI",
+        "code_files": "calculator.py + requirements.txt",
+        "category": "Completely Safe (Benign Control)",
+        "expected_risk": "7.2%",
+        "expected_verdict": "APPROVED (CLEAN)",
+        "badge_color": "#10b981",
+        "description": "Clean arithmetic, formulas, and compound interest. 0 SAST findings, verified clean AST."
+    },
+    {
+        "id": 2,
+        "dir": "app_02_clean_text_converter",
+        "name": "App 02: Markdown Document Processor",
+        "code_files": "text_converter.py + requirements.txt",
+        "category": "Completely Safe (Benign Utility)",
+        "expected_risk": "7.2%",
+        "expected_verdict": "APPROVED (CLEAN)",
+        "badge_color": "#10b981",
+        "description": "Markdown parser & HTML sanitizer. Clean open-source text processing utility with verified AST."
+    },
+    {
+        "id": 3,
+        "dir": "app_03_low_risk_file_organizer",
+        "name": "App 03: Desktop File Organizer",
+        "code_files": "organizer.py + requirements.txt",
+        "category": "Minor / Low Risk",
+        "expected_risk": "19.2%",
+        "expected_verdict": "APPROVED (LOW RISK)",
+        "badge_color": "#38bdf8",
+        "description": "Automated file categorization utility with unpinned dependency boundaries."
+    },
+    {
+        "id": 4,
+        "dir": "app_04_moderate_risk_weather_cli",
+        "name": "App 04: Weather Intelligence CLI",
+        "code_files": "weather_cli.py + requirements.txt",
+        "category": "Moderate Risk (Needs Monitoring)",
+        "expected_risk": "41.5%",
+        "expected_verdict": "MONITOR (MEDIUM RISK)",
+        "badge_color": "#f59e0b",
+        "description": "Network API query client. Unpinned requests with transitive reach flagged for monitoring."
+    },
+    {
+        "id": 5,
+        "dir": "app_05_typosquatting_currency_tool",
+        "name": "App 05: Currency Exchange Converter",
+        "code_files": "converter.py + requirements.txt",
+        "category": "Targeted Attack (T1 Typosquatting)",
+        "expected_risk": "88.0%",
+        "expected_verdict": "QUARANTINED (BLOCKED)",
+        "badge_color": "#ef4444",
+        "description": "Imports typosquatted package 'reqeusts' (Levenshtein distance = 1 from 'requests')."
+    },
+    {
+        "id": 6,
+        "dir": "app_06_dep_confusion_directory",
+        "name": "App 06: Corporate Employee Directory",
+        "code_files": "directory.py + requirements.txt",
+        "category": "Targeted Attack (T2 Dep Confusion)",
+        "expected_risk": "88.0%",
+        "expected_verdict": "QUARANTINED (BLOCKED)",
+        "badge_color": "#ef4444",
+        "description": "Namespace hijacking attempt spoofing internal corporate authentication package."
+    },
+    {
+        "id": 7,
+        "dir": "app_07_backdoor_setup_hook_service",
+        "name": "App 07: System Monitoring Daemon",
+        "code_files": "service.py + setup.py + requirements.txt",
+        "category": "Targeted Attack (T5 Install Hook)",
+        "expected_risk": "94.0%",
+        "expected_verdict": "QUARANTINED (BLOCKED)",
+        "badge_color": "#ef4444",
+        "description": "setup.py overrides cmdclass build/install with curl reverse shell. Caught by hook detector."
+    },
+    {
+        "id": 8,
+        "dir": "app_08_obfuscated_crypto_service",
+        "name": "App 08: Cryptographic Protection Utility",
+        "code_files": "crypto_tool.py + requirements.txt",
+        "category": "Targeted Attack (T5 Obfuscated Exec)",
+        "expected_risk": "96.0%",
+        "expected_verdict": "QUARANTINED (BLOCKED)",
+        "badge_color": "#ef4444",
+        "description": "Encapsulates high-entropy packed base64 payload (H=7.1) evaluated dynamically via exec()."
+    },
+    {
+        "id": 9,
+        "dir": "app_09_transitive_vulnerability_scraper",
+        "name": "App 09: Web Archival & Link Scraper",
+        "code_files": "web_scraper.py + requirements.txt",
+        "category": "Targeted Attack (T6 Transitive CVE)",
+        "expected_risk": "88.0%",
+        "expected_verdict": "QUARANTINED (BLOCKED)",
+        "badge_color": "#ef4444",
+        "description": "Benign surface scraper importing dependencies with known high CVSS CVEs (CVSS 7.5+)."
+    },
+    {
+        "id": 10,
+        "dir": "app_10_critical_multivector_exploit",
+        "name": "App 10: Enterprise Workflow Engine",
+        "code_files": "workflow.py + requirements.txt",
+        "category": "Completely Vulnerable (Compound Incident)",
+        "expected_risk": "98.0%",
+        "expected_verdict": "QUARANTINED (BLOCKED)",
+        "badge_color": "#ef4444",
+        "description": "Compound supply chain attack combining maintainer account hijack (ctx), exec(), and CVEs."
+    }
+]
+
+def run_scan_pipeline_on_dir(scan_dir="outputs/scan_temp", app_meta=None):
+    """
+    Executes the comprehensive pipeline across both application code (.py)
+    and dependency requirements.txt.
+    """
+    req_file = os.path.join(scan_dir, "requirements.txt")
+    if not os.path.exists(req_file):
+        with open(req_file, "w", encoding="utf-8") as rf:
+            rf.write("# Auto-generated placeholder\n")
+
+    # 1. SBOM Generation
+    print("\n[STEP 1/6] Generating SBOM...")
+    res_packages = generate_sbom(scan_dir)
+    
+    # 2. Static Code Scans on application .py files AND downloaded packages
+    print("\n[STEP 2/6] Running static code scans on application .py source and dependencies...")
+    static_res = run_static_analysis(scan_dir, res_packages)
+    
+    # 2.5 Runtime Monitoring on entry script
+    print("\n[STEP 2.5/6] Executing behavioral runtime monitoring on application script...")
+    entry_script = None
+    py_files = [f for f in os.listdir(scan_dir) if f.endswith(".py") and f != "setup.py"]
+    if py_files:
+        entry_script = os.path.join(scan_dir, py_files[0])
+    elif os.path.exists(os.path.join("test_project", "app.py")):
+        entry_script = os.path.join("test_project", "app.py")
+
+    if entry_script and os.path.exists(entry_script):
+        try:
+            runtime_res = monitor_runtime(entry_script, list(res_packages.keys()), timeout=6)
+        except Exception as ex:
+            print(f"Runtime monitoring note: {ex}")
+            runtime_res = {
+                "system_call_count": 0, "subprocess_count": 0, "shell_execution_usage": 0,
+                "dynamic_execution_count": 0, "suspicious_network_activity": 0, "file_access_risk": 0
+            }
+    else:
+        runtime_res = {
+            "system_call_count": 0, "subprocess_count": 0, "shell_execution_usage": 0,
+            "dynamic_execution_count": 0, "suspicious_network_activity": 0, "file_access_risk": 0
+        }
+        
+    # 3. Dependency CVE scan
+    print("\n[STEP 3/6] Fetching dependency vulnerability intelligence...")
+    dep_res = run_dependency_scan(scan_dir, res_packages)
+    v_details = dep_res["vulnerability_details"]
+    
+    # 4. Package Metadata
+    print("\n[STEP 4/6] Querying maintainer and package metadata databases...")
+    package_metadata_map = {}
+    for key, pkg in res_packages.items():
+        pkg_profile = verify_and_enrich_package(pkg["name"], pkg["version"])
+        package_metadata_map[key] = pkg_profile
+        if key in v_details:
+            record_vulnerabilities(pkg["name"], v_details[key])
+            
+    # 5. HGAT GNN + LSTM
+    print("\n[STEP 5/6] Executing HGAT GNN and Temporal LSTM risk propagation...")
+    pred_res = run_risk_prediction(
+        res_packages, 
+        v_details, 
+        package_metadata_map, 
+        static_res, 
+        runtime_res
+    )
+    
+    # 6. Categorize threats
+    print("\n[STEP 6/6] Categorizing threat vector anomalies T1-T6...")
+    from dependency_analysis.threat_model import evaluate_all_threats
+    threat_res = evaluate_all_threats(
+        res_packages,
+        package_metadata_map,
+        static_res,
+        runtime_res,
+        pred_res
+    )
+    pred_res["package_threats"] = threat_res["package_threats"]
+    
+    # Incorporate application-level AST, entropy, and setup hook detections from .py files
+    from static_analysis.analyzer import check_setup_hooks
+    hook_info = check_setup_hooks(scan_dir)
+    entropy_val = float(static_res.get("shannon_entropy", 4.5))
+    
+    primary_pkg = list(res_packages.keys())[0] if res_packages else "application_code"
+    if hook_info.get("has_hook"):
+        pred_res["package_threats"].setdefault(primary_pkg, []).append({
+            "id": "T5",
+            "vector": "Malicious Install-Hook (setup.py cmdclass backdoor)",
+            "severity": "CRITICAL",
+            "detail": f"setup.py overrides cmdclass build/install with unauthorized hooks: {', '.join(hook_info.get('findings', []))}"
+        })
+        pred_res["project_risk_score"] = max(float(pred_res["project_risk_score"]), 0.94)
+
+    if entropy_val > 6.2:
+        pred_res["package_threats"].setdefault(primary_pkg, []).append({
+            "id": "T5",
+            "vector": "High-Entropy Obfuscation with Dynamic eval()/exec()",
+            "severity": "CRITICAL",
+            "detail": f"Application code contains high-entropy obfuscated payload (Shannon Entropy H={entropy_val:.2f} > 6.2)."
+        })
+        pred_res["project_risk_score"] = max(float(pred_res["project_risk_score"]), 0.96)
+
+    # Format graph and predictions for D3
+    G = pred_res["graph"]
+    nodes_list = [{"id": n, "type": G.nodes[n].get("type", "package")} for n in G.nodes]
+    links_list = [{"source": u, "target": v, "relationship": G.edges[u,v].get("relationship", "depends_on")} for u, v in G.edges]
+    
+    # If application-level .py files were scanned, add the application node to the D3 graph
+    app_label = app_meta["name"] if app_meta else (py_files[0] if py_files else "Application")
+    nodes_list.insert(0, {"id": f"App: {app_label}", "type": "package"})
+    for key in list(res_packages.keys())[:5]:
+        links_list.insert(0, {"source": f"App: {app_label}", "target": key, "relationship": "depends_on"})
+
+    prediction_clean = {
+        "project_risk_score": float(pred_res["project_risk_score"]),
+        "package_risks": {k: float(v) for k, v in pred_res["package_risks"].items()},
+        "confidence_scores": {k: float(v) for k, v in pred_res["confidence_scores"].items()},
+        "radv_scores": {k: float(v) for k, v in pred_res.get("radv_scores", {}).items()},
+        "blast_radius_scores": {k: int(v) for k, v in pred_res.get("blast_radius_scores", {}).items()},
+        "early_warning_metrics": pred_res.get("early_warning_metrics", {}),
+        "package_threats": pred_res.get("package_threats", {}),
+        "attack_paths": pred_res["attack_paths"],
+        "remediation_plan": dep_res.get("remediation_plan", {}),
+        "remediation_recommendations": dep_res.get("remediation_plan", {}).get("recommendations_by_pkg", {}),
+        "explanations": {},
+        "app_info": app_meta or {
+            "name": app_label,
+            "category": "User Uploaded Application",
+            "code_files": ", ".join(py_files) if py_files else "requirements.txt"
+        }
+    }
+    
+    for pkg, exp in pred_res["explanations"].items():
+        prediction_clean["explanations"][pkg] = {
+            "graph_risk": float(exp["graph_risk"]),
+            "temporal_drift": float(exp["temporal_drift"]),
+            "top_features": [(f, float(w)) for f, w in exp["top_features"]],
+            "top_influencing_nodes": [(n, float(w)) for n, w in exp["top_influencing_nodes"]]
+        }
+    
+    # Save CSV and print console summary
+    save_scan_results_csv(prediction_clean, res_packages, static_res)
+    print_console_summary(prediction_clean, res_packages)
+    
+    return json.dumps({
+        "predictions": prediction_clean,
+        "graph": {"nodes": nodes_list, "links": links_list}
+    })
+
 class GatekeeperHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         # Serve the download CSV report endpoint
@@ -317,6 +579,14 @@ class GatekeeperHandler(http.server.SimpleHTTPRequestHandler):
             self.end_headers()
             return
 
+        # Serve benchmark applications metadata
+        if self.path == "/benchmark_apps":
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps(BENCHMARK_APPS).encode("utf-8"))
+            return
+
         # Serve the dashboard at root or /dashboard.html
         if self.path == "/" or self.path == "/dashboard.html":
             self.path = "/outputs/dashboard.html"
@@ -324,7 +594,97 @@ class GatekeeperHandler(http.server.SimpleHTTPRequestHandler):
 
     def do_POST(self):
         global last_requirements_path
-        if self.path == "/scan_requirements":
+        if self.path == "/scan_benchmark_app":
+            content_length = int(self.headers.get('Content-Length', 0))
+            post_data = self.rfile.read(content_length).decode('utf-8')
+            try:
+                req_json = json.loads(post_data) if post_data else {}
+                app_id = int(req_json.get("app_id", 1))
+            except Exception:
+                app_id = 1
+                
+            selected_app = next((a for a in BENCHMARK_APPS if a["id"] == app_id), BENCHMARK_APPS[0])
+            print("\n" + "="*60)
+            print(f"[GATEKEEPER] SCANNING BENCHMARK APPLICATION: {selected_app['name']}")
+            print(f" Source Directory: test_cases/{selected_app['dir']}")
+            print("="*60)
+            
+            import shutil
+            if os.path.exists("outputs/scan_temp"):
+                shutil.rmtree("outputs/scan_temp", ignore_errors=True)
+            os.makedirs("outputs/scan_temp", exist_ok=True)
+            
+            src_dir = os.path.join("test_cases", selected_app["dir"])
+            if os.path.exists(src_dir):
+                for fname in os.listdir(src_dir):
+                    s_path = os.path.join(src_dir, fname)
+                    d_path = os.path.join("outputs", "scan_temp", fname)
+                    if os.path.isfile(s_path):
+                        shutil.copy2(s_path, d_path)
+                        
+            req_src = os.path.join("outputs", "scan_temp", "requirements.txt")
+            if os.path.exists(req_src):
+                with open(req_src, "r", encoding="utf-8") as rf:
+                    with open(last_requirements_path, "w", encoding="utf-8") as wf:
+                        wf.write(rf.read())
+                        
+            try:
+                response_payload = run_scan_pipeline_on_dir("outputs/scan_temp", app_meta=selected_app)
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self.end_headers()
+                self.wfile.write(response_payload.encode('utf-8'))
+                print(f"[GATEKEEPER] Benchmark Application '{selected_app['name']}' scan complete.")
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+                self.send_response(500)
+                self.end_headers()
+                self.wfile.write(str(e).encode('utf-8'))
+
+        elif self.path == "/scan_application":
+            content_length = int(self.headers.get('Content-Length', 0))
+            post_data = self.rfile.read(content_length).decode('utf-8')
+            try:
+                req_json = json.loads(post_data) if post_data else {}
+                files = req_json.get("files", [])
+            except Exception:
+                files = []
+                
+            print("\n" + "="*60)
+            print(f"[GATEKEEPER] RECEIVED MULTI-FILE APPLICATION UPLOAD ({len(files)} files)")
+            print("="*60)
+            
+            import shutil
+            if os.path.exists("outputs/scan_temp"):
+                shutil.rmtree("outputs/scan_temp", ignore_errors=True)
+            os.makedirs("outputs/scan_temp", exist_ok=True)
+            
+            for file_obj in files:
+                fname = os.path.basename(file_obj.get("name", "app.py"))
+                content = file_obj.get("content", "")
+                target_file = os.path.join("outputs", "scan_temp", fname)
+                with open(target_file, "w", encoding="utf-8") as f:
+                    f.write(content)
+                if fname == "requirements.txt":
+                    with open(last_requirements_path, "w", encoding="utf-8") as wf:
+                        wf.write(content)
+                        
+            try:
+                response_payload = run_scan_pipeline_on_dir("outputs/scan_temp")
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self.end_headers()
+                self.wfile.write(response_payload.encode('utf-8'))
+                print("[GATEKEEPER] Multi-file Application scan complete.")
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+                self.send_response(500)
+                self.end_headers()
+                self.wfile.write(str(e).encode('utf-8'))
+
+        elif self.path == "/scan_requirements":
             # 1. Parse plain text requirements from body
             content_length = int(self.headers.get('Content-Length', 0))
             post_data = self.rfile.read(content_length).decode('utf-8')
@@ -334,7 +694,6 @@ class GatekeeperHandler(http.server.SimpleHTTPRequestHandler):
             print("="*50)
             print(f"Content:\n{post_data}\n---")
             
-            # Purge any old remnants in outputs/scan_temp so no leftover packages or downloads linger
             import shutil
             if os.path.exists("outputs/scan_temp"):
                 shutil.rmtree("outputs/scan_temp", ignore_errors=True)
@@ -343,111 +702,16 @@ class GatekeeperHandler(http.server.SimpleHTTPRequestHandler):
             with open(os.path.join("outputs", "scan_temp", "requirements.txt"), "w", encoding="utf-8") as f:
                 f.write(post_data)
                 
-            # Keep a persistent copy at last_requirements_path for the installation step
             with open(last_requirements_path, "w", encoding="utf-8") as f:
                 f.write(post_data)
                 
             try:
-                # 2. Run pre-install pipeline
-                print("\n[STEP 1/6] Generating SBOM...")
-                res_packages = generate_sbom("outputs/scan_temp")
-                
-                print("\n[STEP 2/6] Running static code scans...")
-                static_res = run_static_analysis("outputs/scan_temp", res_packages)
-                
-                print("\n[STEP 2.5/6] Executing behavioral runtime monitoring...")
-                entry_script = os.path.join("test_project", "app.py")
-                if not os.path.exists(entry_script):
-                    entry_script = os.path.join("outputs", "scan_temp", "app.py")
-                try:
-                    runtime_res = monitor_runtime(entry_script, list(res_packages.keys()), timeout=6)
-                except Exception as ex:
-                    print(f"Runtime monitoring note: {ex}")
-                    runtime_res = {
-                        "system_call_count": 0,
-                        "subprocess_count": 0,
-                        "shell_execution_usage": 0,
-                        "dynamic_execution_count": 0,
-                        "suspicious_network_activity": 0,
-                        "file_access_risk": 0
-                    }
-                
-                print("\n[STEP 3/6] Fetching dependency vulnerability intelligence...")
-                dep_res = run_dependency_scan("outputs/scan_temp", res_packages)
-                v_details = dep_res["vulnerability_details"]
-                
-                print("\n[STEP 4/6] Querying maintainer and package metadata databases...")
-                package_metadata_map = {}
-                for key, pkg in res_packages.items():
-                    pkg_profile = verify_and_enrich_package(pkg["name"], pkg["version"])
-                    package_metadata_map[key] = pkg_profile
-                    if key in v_details:
-                        record_vulnerabilities(pkg["name"], v_details[key])
-                        
-                print("\n[STEP 5/6] Executing HGAT GNN and Temporal LSTM risk propagation...")
-                pred_res = run_risk_prediction(
-                    res_packages, 
-                    v_details, 
-                    package_metadata_map, 
-                    static_res, 
-                    runtime_res
-                )
-                
-                print("\n[STEP 6/6] Categorizing threat vector anomalies T1-T6...")
-                from dependency_analysis.threat_model import evaluate_all_threats
-                threat_res = evaluate_all_threats(
-                    res_packages,
-                    package_metadata_map,
-                    static_res,
-                    runtime_res,
-                    pred_res
-                )
-                pred_res["package_threats"] = threat_res["package_threats"]
-                
-                # Format graph and predictions for D3
-                G = pred_res["graph"]
-                nodes_list = [{"id": n, "type": G.nodes[n].get("type", "package")} for n in G.nodes]
-                links_list = [{"source": u, "target": v, "relationship": G.edges[u,v].get("relationship", "depends_on")} for u, v in G.edges]
-                
-                prediction_clean = {
-                    "project_risk_score": float(pred_res["project_risk_score"]),
-                    "package_risks": {k: float(v) for k, v in pred_res["package_risks"].items()},
-                    "confidence_scores": {k: float(v) for k, v in pred_res["confidence_scores"].items()},
-                    "radv_scores": {k: float(v) for k, v in pred_res.get("radv_scores", {}).items()},
-                    "blast_radius_scores": {k: int(v) for k, v in pred_res.get("blast_radius_scores", {}).items()},
-                    "early_warning_metrics": pred_res.get("early_warning_metrics", {}),
-                    "package_threats": pred_res.get("package_threats", {}),
-                    "attack_paths": pred_res["attack_paths"],
-                    "remediation_plan": dep_res.get("remediation_plan", {}),
-                    "remediation_recommendations": dep_res.get("remediation_plan", {}).get("recommendations_by_pkg", {}),
-                    "explanations": {}
-                }
-                
-                for pkg, exp in pred_res["explanations"].items():
-                    prediction_clean["explanations"][pkg] = {
-                        "graph_risk": float(exp["graph_risk"]),
-                        "temporal_drift": float(exp["temporal_drift"]),
-                        "top_features": [(f, float(w)) for f, w in exp["top_features"]],
-                        "top_influencing_nodes": [(n, float(w)) for n, w in exp["top_influencing_nodes"]]
-                    }
-                
-                # Save the comprehensive risk analysis and early warnings to scan_results.csv
-                save_scan_results_csv(prediction_clean, res_packages, static_res)
-
-                # Print the comprehensive risk analysis and early warnings to host terminal
-                print_console_summary(prediction_clean, res_packages)
-                
-                response_payload = json.dumps({
-                    "predictions": prediction_clean,
-                    "graph": {"nodes": nodes_list, "links": links_list}
-                })
-                
+                response_payload = run_scan_pipeline_on_dir("outputs/scan_temp")
                 self.send_response(200)
                 self.send_header("Content-Type", "application/json")
                 self.end_headers()
                 self.wfile.write(response_payload.encode('utf-8'))
                 print("\n[GATEKEEPER] Threat analysis complete. Output sent to browser.")
-                
             except Exception as e:
                 import traceback
                 traceback.print_exc()
