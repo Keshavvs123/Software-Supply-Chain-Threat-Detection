@@ -599,9 +599,19 @@ class GatekeeperHandler(http.server.SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps(BENCHMARK_APPS).encode("utf-8"))
             return
 
-        # Serve the dashboard at root or /dashboard.html
-        if self.path == "/" or self.path == "/dashboard.html":
-            self.path = "/outputs/dashboard.html"
+        # Serve the dashboard at root or /dashboard.html with strict no-cache headers
+        if self.path in ("/", "/dashboard.html", "/outputs/dashboard.html"):
+            target_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "outputs", "dashboard.html")
+            if os.path.exists(target_path):
+                self.send_response(200)
+                self.send_header("Content-Type", "text/html; charset=utf-8")
+                self.send_header("Cache-Control", "no-cache, no-store, must-revalidate, max-age=0")
+                self.send_header("Pragma", "no-cache")
+                self.send_header("Expires", "0")
+                self.end_headers()
+                with open(target_path, "rb") as f:
+                    self.wfile.write(f.read())
+                return
         return super().do_GET()
 
     def do_POST(self):
