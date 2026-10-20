@@ -1356,6 +1356,9 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             document.getElementById("resultsContainer").style.display = "block";
             document.getElementById("gatekeeperActions").style.display = "flex";
             
+            // Project level risk score
+            const pr = predData.project_risk_score !== undefined ? Number(predData.project_risk_score) : 0;
+
             // 0. Render Application Profile Banner
             const appBanner = document.getElementById("appProfileBanner");
             if (appBanner) {
@@ -1381,8 +1384,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                 }
             }
 
-            // 1. Render project level risk
-            const pr = predData.project_risk_score;
+            // 1. Render project level risk in header
             const riskText = document.getElementById("projectRiskText");
             if (pr > 0.6) {
                 riskText.innerHTML = (pr * 100).toFixed(0) + "% - HIGH RISK";
