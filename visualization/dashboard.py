@@ -505,15 +505,48 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         <!-- Divider -->
         <div style="display: flex; align-items: center; gap: 16px; margin: 36px 0 24px 0;">
             <div style="flex: 1; height: 1px; background: rgba(255,255,255,0.08);"></div>
-            <span style="color: var(--text-muted); font-size: 12px; text-transform: uppercase; font-weight: 600; letter-spacing: 1px;">OR UPLOAD CUSTOM APPLICATION FILES</span>
+            <span style="color: var(--text-muted); font-size: 12px; text-transform: uppercase; font-weight: 600; letter-spacing: 1px;">OR SCAN ANY APPLICATION FOLDER / FILES</span>
             <div style="flex: 1; height: 1px; background: rgba(255,255,255,0.08);"></div>
         </div>
 
-        <!-- Custom Upload Zone -->
-        <div class="upload-zone" id="dropZone" style="max-width: 800px; margin: 0 auto;">
+        <!-- Folder Path Scanner Box -->
+        <div style="max-width: 820px; margin: 0 auto 20px auto; background: rgba(18,20,31,0.75); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 18px 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+                <span style="font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700; color: #ffffff; display: flex; align-items: center; gap: 8px;">
+                    <span>📁</span> Scan Project from Local Folder Path
+                </span>
+                <span style="font-size: 11px; color: var(--text-muted);">Scans all Python files, setup hooks & requirements inside folder</span>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <input type="text" id="dirPathInput" placeholder="Enter folder path (e.g. test_cases/app_01_clean_calculator or full directory)..." style="flex: 1; padding: 12px 16px; border-radius: 8px; background: rgba(10,11,16,0.85); border: 1px solid rgba(255,255,255,0.12); color: #ffffff; font-family: monospace; font-size: 13px;">
+                <button type="button" class="btn-action" style="background: var(--primary); color: #ffffff; padding: 12px 22px; font-size: 13px; white-space: nowrap;" onclick="scanLocalDirectory()">🔍 Scan Folder</button>
+            </div>
+            <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; align-items: center;">
+                <span style="font-size: 11px; color: var(--text-muted);">Quick Local Folders:</span>
+                <button type="button" class="badge" style="background: rgba(16,185,129,0.15); color: #86efac; border: 1px solid rgba(16,185,129,0.3); cursor: pointer; padding: 4px 8px;" onclick="document.getElementById('dirPathInput').value='test_cases/app_01_clean_calculator'; scanLocalDirectory();">app_01 (Clean Calculator)</button>
+                <button type="button" class="badge" style="background: rgba(239,68,68,0.15); color: #fca5a5; border: 1px solid rgba(239,68,68,0.3); cursor: pointer; padding: 4px 8px;" onclick="document.getElementById('dirPathInput').value='test_cases/app_07_backdoor_setup_hook_service'; scanLocalDirectory();">app_07 (Backdoor Hook)</button>
+                <button type="button" class="badge" style="background: rgba(239,68,68,0.15); color: #fca5a5; border: 1px solid rgba(239,68,68,0.3); cursor: pointer; padding: 4px 8px;" onclick="document.getElementById('dirPathInput').value='test_cases/app_08_obfuscated_crypto_service'; scanLocalDirectory();">app_08 (Obfuscated Exec)</button>
+            </div>
+        </div>
+
+        <!-- Custom Upload Zone (Folder & Multi-File Drag & Drop) -->
+        <div class="upload-zone" id="dropZone" style="max-width: 820px; margin: 0 auto;">
             <div class="upload-icon">📥</div>
-            <div class="upload-title" style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; margin-bottom: 6px;">Drag & Drop Application Code (.py) & requirements.txt</div>
-            <div class="upload-subtitle" style="font-size: 13px;">Select or drop both your Python source code and requirements.txt together, or click to browse</div>
+            <div class="upload-title" style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; margin-bottom: 6px;">
+                Drag & Drop Project Folder or Files Here
+            </div>
+            <div class="upload-subtitle" style="font-size: 13px; margin-bottom: 16px;">
+                Drop an entire folder (e.g. app_01_clean_calculator) or multiple files (.py + requirements.txt)
+            </div>
+            <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;" onclick="event.stopPropagation();">
+                <button type="button" class="btn-action" style="padding: 9px 20px; font-size: 13px; background: rgba(99,102,241,0.2); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.4);" onclick="document.getElementById('folderInput').click();">
+                    📁 Browse Project Folder
+                </button>
+                <button type="button" class="btn-action" style="padding: 9px 20px; font-size: 13px; background: rgba(148,163,184,0.15); color: #cbd5e1; border: 1px solid rgba(148,163,184,0.3);" onclick="document.getElementById('fileInput').click();">
+                    📄 Browse Individual Files
+                </button>
+            </div>
+            <input type="file" id="folderInput" webkitdirectory directory multiple style="display: none;">
             <input type="file" id="fileInput" accept=".txt,.py,.zip" multiple style="display: none;">
         </div>
     </div>
@@ -925,9 +958,13 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             d3.select("#graphSvg").selectAll("*").remove();
             currentNodeSelection = null;
 
-            // 8. Clear file input and drag styling
+            // 8. Clear file input, folder input, path input and drag styling
             const fileInput = document.getElementById("fileInput");
             if (fileInput) fileInput.value = "";
+            const folderInput = document.getElementById("folderInput");
+            if (folderInput) folderInput.value = "";
+            const dirPathInput = document.getElementById("dirPathInput");
+            if (dirPathInput) dirPathInput.value = "";
             const dropZone = document.getElementById("dropZone");
             if (dropZone) dropZone.classList.remove("dragover");
 
@@ -959,8 +996,96 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                 .replace(/'/g, "&#039;");
         }
 
-        // Multi-file application & requirements uploader
-        function handleUploadedFiles(fileList) {
+        // HTML5 Recursive Folder Traversal for Drag and Drop
+        async function readAllEntriesFromReader(reader) {
+            const entries = [];
+            while (true) {
+                const batch = await new Promise((resolve, reject) => {
+                    reader.readEntries(resolve, reject);
+                });
+                if (!batch || batch.length === 0) break;
+                entries.push(...batch);
+            }
+            return entries;
+        }
+
+        async function traverseFileSystemEntry(entry, path = "") {
+            const files = [];
+            if (entry.isFile) {
+                const file = await new Promise((resolve, reject) => entry.file(resolve, reject));
+                file.fullPath = (path ? path + "/" : "") + file.name;
+                files.push(file);
+            } else if (entry.isDirectory) {
+                const reader = entry.createReader();
+                const entries = await readAllEntriesFromReader(reader);
+                for (const child of entries) {
+                    const subFiles = await traverseFileSystemEntry(child, (path ? path + "/" : "") + entry.name);
+                    files.push(...subFiles);
+                }
+            }
+            return files;
+        }
+
+        async function extractFilesFromDataTransfer(dataTransfer) {
+            const files = [];
+            let folderName = "";
+            const items = dataTransfer.items;
+            if (items && items.length > 0 && items[0].webkitGetAsEntry) {
+                for (let i = 0; i < items.length; i++) {
+                    const entry = items[i].webkitGetAsEntry();
+                    if (entry) {
+                        if (entry.isDirectory && !folderName) {
+                            folderName = entry.name;
+                        }
+                        const traversed = await traverseFileSystemEntry(entry);
+                        files.push(...traversed);
+                    }
+                }
+            }
+            if (files.length === 0 && dataTransfer.files && dataTransfer.files.length > 0) {
+                for (let i = 0; i < dataTransfer.files.length; i++) {
+                    files.push(dataTransfer.files[i]);
+                }
+            }
+            return { files, folderName };
+        }
+
+        // Scan Local Project Directory from Path
+        function scanLocalDirectory() {
+            const input = document.getElementById("dirPathInput");
+            const dirPath = input ? input.value.trim() : "";
+            if (!dirPath) {
+                alert("Please enter a local project folder path (e.g. test_cases/app_01_clean_calculator).");
+                return;
+            }
+
+            resetDashboardState(false);
+            showToast("Scanning Project Folder", `Traversing and evaluating all files inside "${escapeHtml(dirPath)}"...`, false, false, "🔍");
+
+            fetch("/scan_directory", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ directory_path: dirPath })
+            })
+            .then(async res => {
+                if (!res.ok) {
+                    const err = await res.text();
+                    throw new Error(err || "Failed to scan folder.");
+                }
+                return res.json();
+            })
+            .then(data => {
+                hideToast();
+                renderDashboard(data.predictions, data.graph);
+            })
+            .catch(err => {
+                resetDashboardState(false);
+                showToast("Folder Scan Error", err.message || "Could not analyze the folder path.", true, true, "⚠️");
+            });
+        }
+
+        // Multi-file and Project Folder uploader
+        function handleUploadedFiles(fileList, folderName = "") {
             if (!fileList || fileList.length === 0) return;
 
             // If only 1 requirements.txt file, use standard upload
@@ -969,16 +1094,17 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                 return;
             }
 
-            // Multiple files or .py application source uploaded
             resetDashboardState(false);
-            showToast("Analyzing Application Files", `Reading and scanning ${fileList.length} files (Python source + requirements)...`, false, false, "🔍");
+            const dispName = folderName ? `folder "${escapeHtml(folderName)}" (${fileList.length} files)` : `${fileList.length} files`;
+            showToast("Analyzing Application Folder", `Reading and scanning ${dispName} — evaluating Python AST, setup hooks, and dependencies...`, false, false, "🔍");
 
             const filesArray = Array.from(fileList);
             const readPromises = filesArray.map(file => {
                 return new Promise((resolve, reject) => {
                     const reader = new FileReader();
-                    reader.onload = e => resolve({ name: file.name, content: e.target.result });
-                    reader.onerror = () => reject(new Error(`Failed to read file ${file.name}`));
+                    const fname = file.webkitRelativePath || file.fullPath || file.name;
+                    reader.onload = e => resolve({ name: fname, content: e.target.result });
+                    reader.onerror = () => reject(new Error(`Failed to read file ${fname}`));
                     reader.readAsText(file);
                 });
             });
@@ -988,7 +1114,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                 return fetch("/scan_application", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ files: readFiles })
+                    body: JSON.stringify({ files: readFiles, folder_name: folderName })
                 });
             })
             .then(res => {
@@ -1008,8 +1134,19 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         // File drag & drop / browse event handlers
         const dropZone = document.getElementById("dropZone");
         const fileInput = document.getElementById("fileInput");
+        const folderInput = document.getElementById("folderInput");
+        const dirPathInput = document.getElementById("dirPathInput");
 
-        dropZone.addEventListener("click", () => fileInput.click());
+        if (dirPathInput) {
+            dirPathInput.addEventListener("keydown", (e) => {
+                if (e.key === "Enter") {
+                    e.preventDefault();
+                    scanLocalDirectory();
+                }
+            });
+        }
+
+        dropZone.addEventListener("click", () => folderInput.click());
         dropZone.addEventListener("dragover", (e) => {
             e.preventDefault();
             dropZone.classList.add("dragover");
@@ -1017,16 +1154,24 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         dropZone.addEventListener("dragleave", () => {
             dropZone.classList.remove("dragover");
         });
-        dropZone.addEventListener("drop", (e) => {
+        dropZone.addEventListener("drop", async (e) => {
             e.preventDefault();
             dropZone.classList.remove("dragover");
-            if (e.dataTransfer.files.length > 0) {
-                handleUploadedFiles(e.dataTransfer.files);
+            const { files, folderName } = await extractFilesFromDataTransfer(e.dataTransfer);
+            if (files.length > 0) {
+                handleUploadedFiles(files, folderName);
             }
         });
         fileInput.addEventListener("change", (e) => {
             if (e.target.files.length > 0) {
-                handleUploadedFiles(e.target.files);
+                handleUploadedFiles(e.target.files, "");
+            }
+        });
+        folderInput.addEventListener("change", (e) => {
+            if (e.target.files.length > 0) {
+                const files = Array.from(e.target.files);
+                const folderName = files[0] && files[0].webkitRelativePath ? files[0].webkitRelativePath.split('/')[0] : "";
+                handleUploadedFiles(files, folderName);
             }
         });
 

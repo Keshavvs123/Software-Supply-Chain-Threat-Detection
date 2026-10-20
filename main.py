@@ -341,9 +341,20 @@ def run_scan_pipeline_on_dir(scan_dir="outputs/scan_temp", app_meta=None):
     # 2.5 Runtime Monitoring on entry script
     print("\n[STEP 2.5/6] Executing behavioral runtime monitoring on application script...")
     entry_script = None
-    py_files = [f for f in os.listdir(scan_dir) if f.endswith(".py") and f != "setup.py"]
-    if py_files:
-        entry_script = os.path.join(scan_dir, py_files[0])
+    all_py_files = []
+    for root, dirs, files in os.walk(scan_dir):
+        for f in files:
+            if f.endswith(".py"):
+                all_py_files.append(os.path.join(root, f))
+                
+    cand_scripts = [p for p in all_py_files if not os.path.basename(p).startswith("setup")]
+    if cand_scripts:
+        pref = next((p for p in cand_scripts if os.path.basename(p) in (
+            "main.py", "app.py", "calculator.py", "service.py", "weather_cli.py", 
+            "converter.py", "directory.py", "crypto_tool.py", "web_scraper.py", 
+            "workflow.py", "organizer.py", "text_converter.py"
+        )), cand_scripts[0])
+        entry_script = pref
     elif os.path.exists(os.path.join("test_project", "app.py")):
         entry_script = os.path.join("test_project", "app.py")
 
@@ -428,11 +439,12 @@ def run_scan_pipeline_on_dir(scan_dir="outputs/scan_temp", app_meta=None):
     links_list = [{"source": u, "target": v, "relationship": G.edges[u,v].get("relationship", "depends_on")} for u, v in G.edges]
     
     # If application-level .py files were scanned, add the application node to the D3 graph
-    app_label = app_meta["name"] if app_meta else (py_files[0] if py_files else "Application")
+    app_label = app_meta["name"] if app_meta else (os.path.basename(all_py_files[0]) if all_py_files else "Application")
     nodes_list.insert(0, {"id": f"App: {app_label}", "type": "package"})
     for key in list(res_packages.keys())[:5]:
         links_list.insert(0, {"source": f"App: {app_label}", "target": key, "relationship": "depends_on"})
 
+    rel_py_names = [os.path.basename(p) for p in all_py_files]
     prediction_clean = {
         "project_risk_score": float(pred_res["project_risk_score"]),
         "package_risks": {k: float(v) for k, v in pred_res["package_risks"].items()},
@@ -448,7 +460,7 @@ def run_scan_pipeline_on_dir(scan_dir="outputs/scan_temp", app_meta=None):
         "app_info": app_meta or {
             "name": app_label,
             "category": "User Uploaded Application",
-            "code_files": ", ".join(py_files) if py_files else "requirements.txt"
+            "code_files": ", ".join(rel_py_names) if rel_py_names else "requirements.txt"
         }
     }
     
@@ -642,17 +654,83 @@ class GatekeeperHandler(http.server.SimpleHTTPRequestHandler):
                 self.end_headers()
                 self.wfile.write(str(e).encode('utf-8'))
 
+        elif self.path == "/scan_directory":
+            content_length = int(self.headers.get('Content-Length', 0))
+            post_data = self.rfile.read(content_length).decode('utf-8')
+            try:
+                req_json = json.loads(post_data) if post_data else {}
+                dir_path = req_json.get("directory_path", "").strip()
+            except Exception:
+                dir_path = ""
+                
+            if not dir_path or not os.path.exists(dir_path) or not os.path.isdir(dir_path):
+                self.send_response(400)
+                self.end_headers()
+                self.wfile.write(f"Directory path '{dir_path}' does not exist or is not a valid folder.".encode("utf-8"))
+                return
+                
+            print("\n" + "="*60)
+            print(f"[GATEKEEPER] SCANNING PROJECT DIRECTORY: {dir_path}")
+            print("="*60)
+            
+            import shutil
+            if os.path.exists("outputs/scan_temp"):
+                shutil.rmtree("outputs/scan_temp", ignore_errors=True)
+            os.makedirs("outputs/scan_temp", exist_ok=True)
+            
+            # Recursively copy all files and subdirectories
+            shutil.copytree(dir_path, "outputs/scan_temp", dirs_exist_ok=True)
+            
+            req_file = os.path.join("outputs", "scan_temp", "requirements.txt")
+            if os.path.exists(req_file):
+                with open(req_file, "r", encoding="utf-8") as rf:
+                    with open(last_requirements_path, "w", encoding="utf-8") as wf:
+                        wf.write(rf.read())
+                        
+            folder_base = os.path.basename(os.path.normpath(dir_path))
+            matched_app = next((b for b in BENCHMARK_APPS if b["dir"] == folder_base or folder_base in b["dir"]), None)
+            
+            py_files = [f for root, _, files in os.walk(dir_path) for f in files if f.endswith(".py")]
+            all_files = [f for root, _, files in os.walk(dir_path) for f in files]
+            
+            if matched_app:
+                app_meta = matched_app.copy()
+                app_meta["code_files"] = f"{', '.join(all_files[:6])} ({len(all_files)} files total)"
+            else:
+                app_meta = {
+                    "name": f"Folder: {folder_base}",
+                    "category": "Project Directory",
+                    "code_files": f"{len(py_files)} Python source files ({', '.join(py_files[:4])}), {len(all_files)} total files",
+                    "description": f"Analyzed all {len(all_files)} files inside project folder '{dir_path}'."
+                }
+                
+            try:
+                response_payload = run_scan_pipeline_on_dir("outputs/scan_temp", app_meta=app_meta)
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self.end_headers()
+                self.wfile.write(response_payload.encode('utf-8'))
+                print(f"[GATEKEEPER] Folder '{dir_path}' scan complete.")
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+                self.send_response(500)
+                self.end_headers()
+                self.wfile.write(str(e).encode('utf-8'))
+
         elif self.path == "/scan_application":
             content_length = int(self.headers.get('Content-Length', 0))
             post_data = self.rfile.read(content_length).decode('utf-8')
             try:
                 req_json = json.loads(post_data) if post_data else {}
                 files = req_json.get("files", [])
+                folder_name = req_json.get("folder_name", "")
             except Exception:
                 files = []
+                folder_name = ""
                 
             print("\n" + "="*60)
-            print(f"[GATEKEEPER] RECEIVED MULTI-FILE APPLICATION UPLOAD ({len(files)} files)")
+            print(f"[GATEKEEPER] RECEIVED APPLICATION / FOLDER UPLOAD ({len(files)} files)")
             print("="*60)
             
             import shutil
@@ -661,22 +739,38 @@ class GatekeeperHandler(http.server.SimpleHTTPRequestHandler):
             os.makedirs("outputs/scan_temp", exist_ok=True)
             
             for file_obj in files:
-                fname = os.path.basename(file_obj.get("name", "app.py"))
+                raw_name = file_obj.get("name", "app.py")
+                safe_rel = os.path.normpath(raw_name).replace("\\", "/").lstrip("/")
                 content = file_obj.get("content", "")
-                target_file = os.path.join("outputs", "scan_temp", fname)
+                target_file = os.path.join("outputs", "scan_temp", safe_rel)
+                os.makedirs(os.path.dirname(target_file), exist_ok=True)
                 with open(target_file, "w", encoding="utf-8") as f:
                     f.write(content)
-                if fname == "requirements.txt":
+                if os.path.basename(safe_rel) == "requirements.txt":
                     with open(last_requirements_path, "w", encoding="utf-8") as wf:
                         wf.write(content)
                         
+            matched_app = next((b for b in BENCHMARK_APPS if folder_name and (b["dir"] == folder_name or folder_name in b["dir"])), None)
+            if matched_app:
+                app_meta = matched_app.copy()
+                app_meta["code_files"] = f"{', '.join([f.get('name', '') for f in files[:6]])} ({len(files)} files in folder)"
+            else:
+                py_count = sum(1 for f in files if f.get("name", "").endswith(".py"))
+                disp_title = f"Folder: {folder_name}" if folder_name else "Uploaded Application Code"
+                app_meta = {
+                    "name": disp_title,
+                    "category": "User Uploaded Project",
+                    "code_files": f"{py_count} Python files, {len(files)} total files in folder",
+                    "description": f"Scanned all {len(files)} files contained in the uploaded project directory."
+                }
+                        
             try:
-                response_payload = run_scan_pipeline_on_dir("outputs/scan_temp")
+                response_payload = run_scan_pipeline_on_dir("outputs/scan_temp", app_meta=app_meta)
                 self.send_response(200)
                 self.send_header("Content-Type", "application/json")
                 self.end_headers()
                 self.wfile.write(response_payload.encode('utf-8'))
-                print("[GATEKEEPER] Multi-file Application scan complete.")
+                print("[GATEKEEPER] Application folder scan complete.")
             except Exception as e:
                 import traceback
                 traceback.print_exc()
