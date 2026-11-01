@@ -24,7 +24,7 @@ jobs:
     - name: Install Analysis Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install torch networkx pandas openpyxl bandit semgrep pipdeptree scikit-learn scipy matplotlib pyyaml python-dotenv packaging
+        pip install torch torch-geometric networkx pandas openpyxl bandit semgrep pipdeptree scikit-learn scipy matplotlib pyyaml python-dotenv packaging requests jinja2
 
     - name: Run Supply Chain Threat Detection Scanner
       run: |

@@ -6595,16 +6595,7 @@
       "name": "beautifulsoup4",
       "version": "4.12.3",
       "purl": "pkg:pypi/beautifulsoup4@4.12.3",
-      "hashes": [
-        {
-          "alg": "SHA-256",
-          "content": "b80878c9f40111313e55da8ba20bdba06d8fa3969fc68304167741bbf9e082ed"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "74e3d1928edc070d21748185c46e3fb33490f22f52a3addee9aee0f4f7781051"
-        }
-      ],
+      "hashes": [],
       "licenses": [
         {
           "license": {
@@ -10939,16 +10930,7 @@
       "name": "qtconsole",
       "version": "5.5.2",
       "purl": "pkg:pypi/qtconsole@5.5.2",
-      "hashes": [
-        {
-          "alg": "SHA-256",
-          "content": "42d745f3d05d36240244a04e1e1ec2a86d5d9b6edb16dbdef582ccb629e87e0b"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "6b5fb11274b297463706af84dcbbd5c92273b1f619e6d25d08874b0a88516989"
-        }
-      ],
+      "hashes": [],
       "licenses": [
         {
           "license": {
@@ -10997,16 +10979,7 @@
       "name": "mistune",
       "version": "3.0.2",
       "purl": "pkg:pypi/mistune@3.0.2",
-      "hashes": [
-        {
-          "alg": "SHA-256",
-          "content": "71481854c30fdbc938963d3605b72501f5c10a9320ecd412c121c163a1c7d205"
-        },
-        {
-          "alg": "SHA-256",
-          "content": "fc7f93ded930c92394ef2cb6f04a8aabab4117a91449e72dcc8dfa646a508be8"
-        }
-      ],
+      "hashes": [],
       "licenses": [
         {
           "license": {
