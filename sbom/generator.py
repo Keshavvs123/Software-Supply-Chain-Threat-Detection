@@ -49,33 +49,63 @@ def get_package_hashes(pkg_name, version):
     except Exception:
         return []
 
+
 def get_installed_packages():
     """
-    Use importlib.metadata to get all installed packages and their details.
+    Use importlib.metadata to get installed packages and their details.
+    Safely skip distributions with missing or invalid package names.
     """
     packages = {}
     dists = importlib.metadata.distributions()
+
     for dist in dists:
-        name = dist.metadata["Name"]
-        version = dist.metadata["Version"]
-        license_info = dist.metadata.get("License", "Unknown")
-        maintainer = dist.metadata.get("Maintainer", dist.metadata.get("Author", "Unknown"))
-        
-        # Extract requires (dependencies)
-        requires = dist.requires or []
-        deps = []
-        for req in requires:
-            dep_name = clean_dependency_name(req)
-            if dep_name and dep_name != name.lower() and dep_name not in deps:
-                deps.append(dep_name)
-                
-        packages[name.lower()] = {
-            "name": name,
-            "version": version,
-            "license": license_info,
-            "maintainer": maintainer,
-            "dependencies": deps
-        }
+        try:
+            # Safely retrieve package name
+            name = dist.metadata.get("Name")
+
+            if not name or not isinstance(name, str):
+                continue
+
+            name = name.strip()
+
+            if not name:
+                continue
+
+            # Safely retrieve version and other metadata
+            version = dist.version or "Unknown"
+            license_info = dist.metadata.get("License") or "Unknown"
+            maintainer = (
+                dist.metadata.get("Maintainer")
+                or dist.metadata.get("Author")
+                or "Unknown"
+            )
+
+            # Extract dependencies
+            requires = dist.requires or []
+            deps = []
+
+            for req in requires:
+                dep_name = clean_dependency_name(req)
+
+                if (
+                    dep_name
+                    and dep_name != name.lower()
+                    and dep_name not in deps
+                ):
+                    deps.append(dep_name)
+
+            packages[name.lower()] = {
+                "name": name,
+                "version": version,
+                "license": license_info,
+                "maintainer": maintainer,
+                "dependencies": deps
+            }
+
+        except Exception as e:
+            print(f"[SBOM WARNING] Skipping invalid package metadata: {e}")
+            continue
+
     return packages
 
 _pypi_cache = {}

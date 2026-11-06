@@ -20,7 +20,7 @@ To rigorously validate that risk scores, threat detections, and quarantine decis
 | **07** | System Monitoring Daemon | Targeted Attack (T5 Install Hook) | T5: Malicious Install-Hook (setup.py cmdclass backdoor) | `91.5%` | **`89.8%`** | T5:Malicious Install-Hook Backdoor, T6:Dependency-Based Attack | **QUARANTINED** | **PASS** |
 | **08** | Cryptographic Protection Utility | Targeted Attack (T5 Obfuscated Exec) | T5: High-Entropy Obfuscation with Dynamic eval()/exec() | `91.5%` | **`64.8%`** | None (Clean) | **QUARANTINED** | **PASS** |
 | **09** | Web Archival & Link Scraper | Targeted Attack (T6 Transitive CVE) | T6: Known High-CVSS CVEs in Dependencies (pyshorteners, warcio) | `81.5%` | **`59.2%`** | T6:Dependency-Based Attack | **QUARANTINED** | **PASS** |
-| **10** | Enterprise Workflow Engine | Completely Vulnerable (Compound Incident) | Compound: T3 (ctx hijack) + T5 (os.system/pickle) + T6 (CVE) | `94.5%` | **`99.0%`** | T6:Dependency-Based Attack | **QUARANTINED** | **PASS** |
+| **10** | Enterprise Workflow Engine | Completely Vulnerable (Compound Incident) | Compound: T3 (ctx hijack) + T5 (os.system/pickle) + T6 (CVE) | `94.5%` | **`99.0%`** | T3:Compromised Maintainer, T6:Dependency-Based Attack | **QUARANTINED** | **PASS** |
 
 ---
 
@@ -43,7 +43,7 @@ To rigorously validate that risk scores, threat detections, and quarantine decis
 - **Category & Posture**: Completely Safe (Benign Utility)
 - **Scenario Description**: Documentation processor parsing markdown into sanitized HTML and constructing structured TOC.
 - **Key Dependencies Analyzed**: `click, markdown`
-- **Static SAST Findings**: Injections = `0`, Shannon Entropy = `0.0`, Setup Hook = `False`
+- **Static SAST Findings**: Injections = `0`, Shannon Entropy = `4.82`, Setup Hook = `False`
 - **Neural Fusion Weights**: $R_{composite} = 0.60 \times R_{GNN}(0.08) + 0.40 \times R_{LSTM}(0.06) + \text{Boosts}$
 - **Final Measured Risk Score**: **7.2%** (Expected Range: `10.0%`)
 - **Threats Identified**: `None`
@@ -103,7 +103,7 @@ To rigorously validate that risk scores, threat detections, and quarantine decis
 - **Category & Posture**: Targeted Attack (T5 Install Hook)
 - **Scenario Description**: setup.py overrides build/install cmdclass with unauthorized shell commands (curl reverse shell).
 - **Key Dependencies Analyzed**: `psutil`
-- **Static SAST Findings**: Injections = `1`, Shannon Entropy = `4.73`, Setup Hook = `True`
+- **Static SAST Findings**: Injections = `1`, Shannon Entropy = `5.01`, Setup Hook = `True`
 - **Neural Fusion Weights**: $R_{composite} = 0.60 \times R_{GNN}(0.78) + 0.40 \times R_{LSTM}(0.30) + \text{Boosts}$
 - **Final Measured Risk Score**: **89.8%** (Expected Range: `91.5%`)
 - **Threats Identified**: `T5:Malicious Install-Hook Backdoor, T6:Dependency-Based Attack`
@@ -142,7 +142,7 @@ To rigorously validate that risk scores, threat detections, and quarantine decis
 - **Static SAST Findings**: Injections = `2`, Shannon Entropy = `5.02`, Setup Hook = `False`
 - **Neural Fusion Weights**: $R_{composite} = 0.60 \times R_{GNN}(0.94) + 0.40 \times R_{LSTM}(0.86) + \text{Boosts}$
 - **Final Measured Risk Score**: **99.0%** (Expected Range: `94.5%`)
-- **Threats Identified**: `T6:Dependency-Based Attack`
+- **Threats Identified**: `T3:Compromised Maintainer, T6:Dependency-Based Attack`
 - **Gatekeeper Decision**: **QUARANTINED (BLOCKED)**
-- **Explainability Drivers**: AST SAST Injections Count=2 (+12%), T6 Graph Blast Radius / High CVSS
+- **Explainability Drivers**: AST SAST Injections Count=2 (+12%), T3 Upstream Maintainer Account Churn, T6 Graph Blast Radius / High CVSS
 

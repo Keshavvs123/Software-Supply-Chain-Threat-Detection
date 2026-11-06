@@ -485,7 +485,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                 Select & Scan Any Application (Code + Runtime + Dependencies)
             </h1>
             <p style="color: var(--text-muted); font-size: 14px; max-width: 820px; margin: 0 auto; line-height: 1.6;">
-                Each benchmark application is a real-world Python project. Scanning an application evaluates its <strong>Python source code (.py)</strong>, <strong>AST injection vectors</strong>, <strong>setup.py install hooks</strong>, <strong>obfuscation entropy</strong>, <strong>sandboxed runtime execution</strong>, and <strong>dependency manifests</strong>.
+                Each benchmark application is a real-world Python project. Scanning an application evaluates its <strong>Python source code (.py)</strong>, <strong>AST injection vectors</strong>, <strong>setup.py install hooks</strong>, <strong>obfuscation entropy</strong>, <strong>monitored runtime execution</strong>, and <strong>dependency manifests</strong>.
             </p>
         </div>
 
@@ -897,7 +897,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                     <div>
                         <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 6px;">
                             <strong style="font-family: 'Space Grotesk', sans-serif; font-size: 14px; color: #ffffff;">${escapeHtml(app.name)}</strong>
-                            <span class="badge" style="background: ${app.badge_color}22; color: ${app.badge_color}; border: 1px solid ${app.badge_color}55; font-size: 10px; white-space: nowrap;">${app.risk}</span>
+                            <span class="badge" style="background: ${app.badge_color}22; color: ${app.badge_color}; border: 1px solid ${app.badge_color}55; font-size: 10px; white-space: nowrap;">Expected ~${app.risk}</span>
                         </div>
                         <div style="font-size: 11px; font-family: monospace; color: #38bdf8; margin-bottom: 6px;">
                             📄 ${escapeHtml(app.files)}

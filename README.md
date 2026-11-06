@@ -8,17 +8,18 @@ The system combines a **Multi-Head Heterogeneous Graph Attention Network (HGAT G
 
 ## 👥 Project Team & Work Division
 
-* **Hamsa B K**: Dependency graph builder (`graph_intelligence/graph_builder.py`), NetworkX topological metrics (Blast Radius, PageRank), and Temporal LSTM anomaly detection (`ml_engine/temporal_model.py`).
-* **Keshav**: Pre-installation quarantine workflow, Multi-Head HGAT GNN modeling (`ml_engine/hgat_model.py`, `ml_engine/train_full_dataset.py`), Risk Fusion ($0.6\text{ GNN} + 0.4\text{ LSTM}$), RADV scoring, and HTTP Backend Server (`main.py`).
-* **Moeen (Moen)**: Static code & AST visitor (`PyASTSecurityVisitor`), Shannon Entropy obfuscation detector ($H > 4.5$), and Bandit & Semgrep SAST integration.
-* **Tejas**: CycloneDX / SPDX SBOM pipeline (`sbom/generator.py`, `sbom/npm_generator.py`), Local SQLite CVE database (`dependency_analysis/cve_db.py`), Automated Remediation engine (`dependency_analysis/remediator.py`), and Glassmorphic Dashboard (`visualization/dashboard.py`).
+* **Hamsa B K** (`hamsaradhakrishna14@gmail.com`): Dependency graph builder (`graph_intelligence/graph_builder.py`), NetworkX topological metrics (Blast Radius, PageRank), and Temporal LSTM anomaly detection (`ml_engine/temporal_model.py`).
+* **Keshav Vithal Sangonda** (`sangondakeshav@gmail.com`): Pre-installation quarantine workflow, Multi-Head HGAT GNN modeling (`ml_engine/hgat_model.py`, `ml_engine/train_full_dataset.py`), Risk Fusion ($0.6\text{ GNN} + 0.4\text{ LSTM}$), RADV scoring, and HTTP Backend Server (`main.py`).
+* **Mohin Nayumsab** (`shaikhmoeen271@gmail.com`): Static code & AST visitor (`PyASTSecurityVisitor`), Shannon Entropy obfuscation detector ($H > 6.2$), and Bandit & Semgrep SAST integration.
+* **Tejas U N** (`tejun8727@gmail.com`): CycloneDX / SPDX SBOM pipeline (`sbom/generator.py`, `sbom/npm_generator.py`), Local SQLite CVE database (`dependency_analysis/cve_db.py`), Automated Remediation engine (`dependency_analysis/remediator.py`), and Glassmorphic Dashboard (`visualization/dashboard.py`).
+* **Faculty Guide**: **Dr. S. Nagasundari** (`nagasundaris@pes.edu`), Department of Computer Science and Engineering, **PES University**, Bengaluru, India.
 ---
 
 ## 1. System Architecture & Multimodal Pipeline
 
 The framework analyzes software dependencies across 5 complementary security modalities:
 
-1. **Source Code (C)**: AST structural visitor (`eval`, `exec`, `os.system`), Shannon entropy obfuscation analysis ($H > 4.5$), and Bandit/Semgrep static analyzers.
+1. **Source Code (C)**: AST structural visitor (`eval`, `exec`, `os.system`), Shannon entropy obfuscation analysis ($H > 6.2$), and Bandit/Semgrep static analyzers.
 2. **Metadata & Reputation (M)**: Downloads, stars, OpenSSF scorecard, release intervals, and maintainer account churn.
 3. **Graph Topology (G)**: 4-Head HGAT GNN modeling transitive dependency trees across 79,741 edges and calculating reachability Blast Radius.
 4. **Behavioral Telemetry (B)**: Sandboxed quarantine tracing measuring dynamic function executions, system calls, subprocesses, and unauthorized network/file access.
@@ -91,6 +92,26 @@ The framework was trained and evaluated on **24,666 real-world packages and 79,7
 ### 2.3 Control Experiments
 
 `train_full_dataset.py` also trains (a) a logistic regression on dependency/degree counts only and (b) the same GNN on randomly rewired edges. If either comes close to the full GNN, the reported advantage is largely explained by degree/structure effects rather than meaningful graph propagation. Report both rows alongside the headline result.
+
+### 2.4 Benchmark Suite: 10 Concrete Real-World Attack Scenarios
+
+Run via `python scripts/run_10_applications_benchmark.py`:
+
+| App ID | Application Name | Category | Primary Threat Target | Measured Risk | Gatekeeper Verdict | Result |
+| :---: | :--- | :--- | :--- | :---: | :--- | :---: |
+| **01** | Scientific Calculator CLI | Completely Safe (Benign Control) | None (Clean baseline) | **`7.2%`** | **APPROVED (CLEAN)** | **PASS** |
+| **02** | Markdown Document Processor | Completely Safe (Benign Utility) | None (Clean baseline) | **`7.2%`** | **APPROVED (CLEAN)** | **PASS** |
+| **03** | Desktop File Organizer | Minor / Low Risk | Minor Hygiene / Loose Bounds | **`19.2%`** | **APPROVED (LOW RISK)** | **PASS** |
+| **04** | Weather Intelligence CLI | Moderate Risk (Needs Monitoring) | Unpinned Network Blast Radius | **`36.8%`** | **MONITOR (MEDIUM RISK)** | **PASS** |
+| **05** | Currency Exchange Converter | Targeted Attack (T1 Typosquatting) | T1: Typosquatting (`reqeusts`) | **`58.8%`** | **QUARANTINED (BLOCKED)** | **PASS** |
+| **06** | Corporate Employee Directory | Targeted Attack (T2 Dep Confusion) | T2: Dependency Confusion (`corp-internal-auth`) | **`58.8%`** | **QUARANTINED (BLOCKED)** | **PASS** |
+| **07** | System Monitoring Daemon | Targeted Attack (T5 Install Hook) | T5: Malicious Install Hook (reverse shell) | **`89.8%`** | **QUARANTINED (BLOCKED)** | **PASS** |
+| **08** | Cryptographic Protection Utility | Targeted Attack (T5 Obfuscated Exec) | T5: Obfuscation + Dynamic `exec()` | **`64.8%`** | **QUARANTINED (BLOCKED)** | **PASS** |
+| **09** | Web Archival & Link Scraper | Targeted Attack (T6 Transitive CVE) | T6: Known High-CVSS CVEs (`pyshorteners`) | **`59.2%`** | **QUARANTINED (BLOCKED)** | **PASS** |
+| **10** | Enterprise Workflow Engine | Completely Vulnerable (Compound) | Compound: T3 (`ctx`) + T5 (`os.system`) + T6 | **`99.0%`** | **QUARANTINED (BLOCKED)** | **PASS** |
+
+* **Ground-Truth Agreement**: **10/10 PASS (100.0%)** | **FPR: 0.0%** | **FNR: 0.0%**
+
 
 ---
 

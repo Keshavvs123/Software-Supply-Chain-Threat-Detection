@@ -13,6 +13,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import (
+    average_precision_score,
     accuracy_score, precision_score, recall_score, f1_score,
     roc_auc_score, precision_recall_curve, auc, roc_curve,
     matthews_corrcoef, confusion_matrix
@@ -117,6 +118,7 @@ def load_and_preprocess_dataset(excel_path="dataset/Supply_Chain_Risk_Dataset_v2
     indices = np.arange(num_nodes)
     train_idx, temp_idx, y_train, y_temp = train_test_split(indices, y_vec, test_size=0.30, random_state=random_state, stratify=y_vec)
     val_idx, test_idx, y_val, y_test = train_test_split(temp_idx, y_temp, test_size=0.50, random_state=random_state, stratify=y_temp)
+    train_idx, val_idx, test_idx = np.sort(train_idx), np.sort(val_idx), np.sort(test_idx)
     
     train_mask = torch.zeros(num_nodes, dtype=torch.bool)
     val_mask = torch.zeros(num_nodes, dtype=torch.bool)
@@ -266,7 +268,7 @@ def train_and_evaluate():
         f1 = f1_score(y_true, y_pred, zero_division=0)
         roc_auc = roc_auc_score(y_true, y_prob)
         p_curve, r_curve, _ = precision_recall_curve(y_true, y_prob)
-        pr_auc = auc(r_curve, p_curve)
+        pr_auc = average_precision_score(y_true, y_prob)
         mcc = matthews_corrcoef(y_true, y_pred)
         tn, fp, fn, tp = confusion_matrix(y_true, y_pred).ravel()
         fpr = fp / (fp + tn) if (fp + tn) > 0 else 0.0
@@ -323,7 +325,7 @@ def train_and_evaluate():
     n_nodes = x.size(0)
     shuf_edge_index = edge_index.clone()
     shuf_edge_index[1] = edge_index[1][torch.randperm(edge_index.size(1), generator=g)]
-    ctrl = FullHGAT(in_channels=12, hidden_channels=64, heads=4, dropout=0.2).to(device)
+    ctrl = FullHGAT(in_channels=x.size(1), hidden_channels=64, heads=4, dropout=0.2).to(device)
     c_opt = optim.AdamW(ctrl.parameters(), lr=0.005, weight_decay=1e-4)
     c_best, c_best_f1 = None, -1.0
     for _ in range(num_epochs):
@@ -461,7 +463,7 @@ def train_and_evaluate():
         "y_test_real": y_test_real
     }
 
-def run_multi_seed_evaluation(seeds=[42, 123, 456, 789, 1011], epochs_per_seed=25):
+def run_multi_seed_evaluation(seeds=[42, 123, 456, 789, 1011], epochs_per_seed=100):
     """
     Evaluates GNN, Random Forest, and Logistic Regression across 5 distinct random seeds,
     reporting mean ± std for publication rigor and reproducibility.

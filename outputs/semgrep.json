@@ -1,1 +1,1551 @@
-{"version":"1.157.0","results":[],"errors":[],"paths":{"scanned":["C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\_analyzer_staging\\first_party\\app.py","C:\\Users\\keshav\\OneDrive\\Documents\\caps_pjct\\project\\project\\outputs\\_analyzer_staging\\first_party\\dataset\\Supply_Chain_Risk_Dataset_v2.xlsx"]},"time":{"rules":[],"rules_parse_time":0.998786211013794,"profiling_times":{"config_time":1.5872077941894531,"core_time":91.83014822006226,"ignores_time":0.0009989738464355469,"total_time":93.4641444683075},"fixpoint_timeouts":[],"targets":[],"total_bytes":0,"max_memory_bytes":265181120},"engine_requested":"OSS","skipped_rules":[],"profiling_results":[]}
+{
+  "version": "1.136.0",
+  "results": [
+    {
+      "check_id": "python.lang.security.deserialization.pickle.avoid-pickle",
+      "path": "outputs/scan_temp/../../../../../../../Users/hamsabk/Documents/project/outputs/_analyzer_staging/first_party/app.py",
+      "start": {
+        "line": 33,
+        "col": 12,
+        "offset": 1166
+      },
+      "end": {
+        "line": 33,
+        "col": 45,
+        "offset": 1199
+      },
+      "extra": {
+        "message": "Avoid using `pickle`, which is known to lead to code execution vulnerabilities. When unpickling, the serialized data could be manipulated to run arbitrary code. Instead, consider serializing the relevant data as JSON or a similar text-based serialization format.",
+        "metadata": {
+          "owasp": [
+            "A08:2017 - Insecure Deserialization",
+            "A08:2021 - Software and Data Integrity Failures",
+            "A08:2025 - Software or Data Integrity Failures"
+          ],
+          "cwe": [
+            "CWE-502: Deserialization of Untrusted Data"
+          ],
+          "references": [
+            "https://docs.python.org/3/library/pickle.html"
+          ],
+          "category": "security",
+          "technology": [
+            "python"
+          ],
+          "cwe2022-top25": true,
+          "cwe2021-top25": true,
+          "subcategory": [
+            "audit"
+          ],
+          "likelihood": "LOW",
+          "impact": "MEDIUM",
+          "confidence": "LOW",
+          "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+          "vulnerability_class": [
+            "Insecure Deserialization "
+          ],
+          "source": "https://semgrep.dev/r/python.lang.security.deserialization.pickle.avoid-pickle",
+          "shortlink": "https://sg.run/OPwB"
+        },
+        "severity": "WARNING",
+        "fingerprint": "requires login",
+        "lines": "requires login",
+        "validation_state": "NO_VALIDATOR",
+        "engine_kind": "OSS"
+      }
+    },
+    {
+      "check_id": "python.lang.security.use-defused-xml.use-defused-xml",
+      "path": "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/formatters/xml.py",
+      "start": {
+        "line": 38,
+        "col": 1,
+        "offset": 990
+      },
+      "end": {
+        "line": 38,
+        "col": 40,
+        "offset": 1029
+      },
+      "extra": {
+        "message": "The Python documentation recommends using `defusedxml` instead of `xml` because the native Python `xml` library is vulnerable to XML External Entity (XXE) attacks. These attacks can leak confidential data and \"XML bombs\" can cause denial of service.",
+        "metadata": {
+          "owasp": [
+            "A04:2017 - XML External Entities (XXE)",
+            "A05:2021 - Security Misconfiguration",
+            "A02:2025 - Security Misconfiguration"
+          ],
+          "cwe": [
+            "CWE-611: Improper Restriction of XML External Entity Reference"
+          ],
+          "references": [
+            "https://docs.python.org/3/library/xml.html",
+            "https://github.com/tiran/defusedxml",
+            "https://owasp.org/www-community/vulnerabilities/XML_External_Entity_(XXE)_Processing"
+          ],
+          "category": "security",
+          "technology": [
+            "python"
+          ],
+          "cwe2022-top25": true,
+          "cwe2021-top25": true,
+          "subcategory": [
+            "audit"
+          ],
+          "likelihood": "LOW",
+          "impact": "MEDIUM",
+          "confidence": "LOW",
+          "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+          "vulnerability_class": [
+            "XML Injection"
+          ],
+          "source": "https://semgrep.dev/r/python.lang.security.use-defused-xml.use-defused-xml",
+          "shortlink": "https://sg.run/kX47"
+        },
+        "severity": "ERROR",
+        "fingerprint": "requires login",
+        "lines": "requires login",
+        "validation_state": "NO_VALIDATOR",
+        "engine_kind": "OSS"
+      }
+    },
+    {
+      "check_id": "python.cryptography.security.insecure-hash-algorithms.insecure-hash-algorithm-sha1",
+      "path": "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/_oid.py",
+      "start": {
+        "line": 134,
+        "col": 49,
+        "offset": 6640
+      },
+      "end": {
+        "line": 134,
+        "col": 53,
+        "offset": 6644
+      },
+      "extra": {
+        "message": "Detected SHA1 hash algorithm which is considered insecure. SHA1 is not collision resistant and is therefore not suitable as a cryptographic signature. Use SHA256 or SHA3 instead.",
+        "fix": "SHA256",
+        "metadata": {
+          "source-rule-url": "https://github.com/PyCQA/bandit/blob/d5f8fa0d89d7b11442fc6ec80ca42953974354c8/bandit/blacklists/calls.py#L59",
+          "cwe": [
+            "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+          ],
+          "owasp": [
+            "A03:2017 - Sensitive Data Exposure",
+            "A02:2021 - Cryptographic Failures",
+            "A04:2025 - Cryptographic Failures"
+          ],
+          "bandit-code": "B303",
+          "references": [
+            "https://cryptography.io/en/latest/hazmat/primitives/cryptographic-hashes/#sha-1",
+            "https://www.schneier.com/blog/archives/2012/10/when_will_we_se.html",
+            "https://www.trendmicro.com/vinfo/us/security/news/vulnerabilities-and-exploits/sha-1-collision-signals-the-end-of-the-algorithm-s-viability",
+            "http://2012.sharcs.org/slides/stevens.pdf",
+            "https://pycryptodome.readthedocs.io/en/latest/src/hash/sha3_256.html"
+          ],
+          "category": "security",
+          "technology": [
+            "cryptography"
+          ],
+          "subcategory": [
+            "vuln"
+          ],
+          "likelihood": "LOW",
+          "impact": "MEDIUM",
+          "confidence": "MEDIUM",
+          "functional-categories": [
+            "crypto::search::symmetric-algorithm::cryptography"
+          ],
+          "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+          "vulnerability_class": [
+            "Cryptographic Issues"
+          ],
+          "source": "https://semgrep.dev/r/python.cryptography.security.insecure-hash-algorithms.insecure-hash-algorithm-sha1",
+          "shortlink": "https://sg.run/J9Qy"
+        },
+        "severity": "WARNING",
+        "fingerprint": "requires login",
+        "lines": "requires login",
+        "validation_state": "NO_VALIDATOR",
+        "engine_kind": "OSS"
+      }
+    },
+    {
+      "check_id": "python.cryptography.security.insecure-hash-algorithms.insecure-hash-algorithm-sha1",
+      "path": "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/_oid.py",
+      "start": {
+        "line": 135,
+        "col": 50,
+        "offset": 6697
+      },
+      "end": {
+        "line": 135,
+        "col": 54,
+        "offset": 6701
+      },
+      "extra": {
+        "message": "Detected SHA1 hash algorithm which is considered insecure. SHA1 is not collision resistant and is therefore not suitable as a cryptographic signature. Use SHA256 or SHA3 instead.",
+        "fix": "SHA256",
+        "metadata": {
+          "source-rule-url": "https://github.com/PyCQA/bandit/blob/d5f8fa0d89d7b11442fc6ec80ca42953974354c8/bandit/blacklists/calls.py#L59",
+          "cwe": [
+            "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+          ],
+          "owasp": [
+            "A03:2017 - Sensitive Data Exposure",
+            "A02:2021 - Cryptographic Failures",
+            "A04:2025 - Cryptographic Failures"
+          ],
+          "bandit-code": "B303",
+          "references": [
+            "https://cryptography.io/en/latest/hazmat/primitives/cryptographic-hashes/#sha-1",
+            "https://www.schneier.com/blog/archives/2012/10/when_will_we_se.html",
+            "https://www.trendmicro.com/vinfo/us/security/news/vulnerabilities-and-exploits/sha-1-collision-signals-the-end-of-the-algorithm-s-viability",
+            "http://2012.sharcs.org/slides/stevens.pdf",
+            "https://pycryptodome.readthedocs.io/en/latest/src/hash/sha3_256.html"
+          ],
+          "category": "security",
+          "technology": [
+            "cryptography"
+          ],
+          "subcategory": [
+            "vuln"
+          ],
+          "likelihood": "LOW",
+          "impact": "MEDIUM",
+          "confidence": "MEDIUM",
+          "functional-categories": [
+            "crypto::search::symmetric-algorithm::cryptography"
+          ],
+          "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+          "vulnerability_class": [
+            "Cryptographic Issues"
+          ],
+          "source": "https://semgrep.dev/r/python.cryptography.security.insecure-hash-algorithms.insecure-hash-algorithm-sha1",
+          "shortlink": "https://sg.run/J9Qy"
+        },
+        "severity": "WARNING",
+        "fingerprint": "requires login",
+        "lines": "requires login",
+        "validation_state": "NO_VALIDATOR",
+        "engine_kind": "OSS"
+      }
+    },
+    {
+      "check_id": "python.cryptography.security.insecure-hash-algorithms.insecure-hash-algorithm-sha1",
+      "path": "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/_oid.py",
+      "start": {
+        "line": 144,
+        "col": 51,
+        "offset": 7251
+      },
+      "end": {
+        "line": 144,
+        "col": 55,
+        "offset": 7255
+      },
+      "extra": {
+        "message": "Detected SHA1 hash algorithm which is considered insecure. SHA1 is not collision resistant and is therefore not suitable as a cryptographic signature. Use SHA256 or SHA3 instead.",
+        "fix": "SHA256",
+        "metadata": {
+          "source-rule-url": "https://github.com/PyCQA/bandit/blob/d5f8fa0d89d7b11442fc6ec80ca42953974354c8/bandit/blacklists/calls.py#L59",
+          "cwe": [
+            "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+          ],
+          "owasp": [
+            "A03:2017 - Sensitive Data Exposure",
+            "A02:2021 - Cryptographic Failures",
+            "A04:2025 - Cryptographic Failures"
+          ],
+          "bandit-code": "B303",
+          "references": [
+            "https://cryptography.io/en/latest/hazmat/primitives/cryptographic-hashes/#sha-1",
+            "https://www.schneier.com/blog/archives/2012/10/when_will_we_se.html",
+            "https://www.trendmicro.com/vinfo/us/security/news/vulnerabilities-and-exploits/sha-1-collision-signals-the-end-of-the-algorithm-s-viability",
+            "http://2012.sharcs.org/slides/stevens.pdf",
+            "https://pycryptodome.readthedocs.io/en/latest/src/hash/sha3_256.html"
+          ],
+          "category": "security",
+          "technology": [
+            "cryptography"
+          ],
+          "subcategory": [
+            "vuln"
+          ],
+          "likelihood": "LOW",
+          "impact": "MEDIUM",
+          "confidence": "MEDIUM",
+          "functional-categories": [
+            "crypto::search::symmetric-algorithm::cryptography"
+          ],
+          "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+          "vulnerability_class": [
+            "Cryptographic Issues"
+          ],
+          "source": "https://semgrep.dev/r/python.cryptography.security.insecure-hash-algorithms.insecure-hash-algorithm-sha1",
+          "shortlink": "https://sg.run/J9Qy"
+        },
+        "severity": "WARNING",
+        "fingerprint": "requires login",
+        "lines": "requires login",
+        "validation_state": "NO_VALIDATOR",
+        "engine_kind": "OSS"
+      }
+    },
+    {
+      "check_id": "python.cryptography.security.insecure-hash-algorithms.insecure-hash-algorithm-sha1",
+      "path": "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/_oid.py",
+      "start": {
+        "line": 153,
+        "col": 49,
+        "offset": 7819
+      },
+      "end": {
+        "line": 153,
+        "col": 53,
+        "offset": 7823
+      },
+      "extra": {
+        "message": "Detected SHA1 hash algorithm which is considered insecure. SHA1 is not collision resistant and is therefore not suitable as a cryptographic signature. Use SHA256 or SHA3 instead.",
+        "fix": "SHA256",
+        "metadata": {
+          "source-rule-url": "https://github.com/PyCQA/bandit/blob/d5f8fa0d89d7b11442fc6ec80ca42953974354c8/bandit/blacklists/calls.py#L59",
+          "cwe": [
+            "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+          ],
+          "owasp": [
+            "A03:2017 - Sensitive Data Exposure",
+            "A02:2021 - Cryptographic Failures",
+            "A04:2025 - Cryptographic Failures"
+          ],
+          "bandit-code": "B303",
+          "references": [
+            "https://cryptography.io/en/latest/hazmat/primitives/cryptographic-hashes/#sha-1",
+            "https://www.schneier.com/blog/archives/2012/10/when_will_we_se.html",
+            "https://www.trendmicro.com/vinfo/us/security/news/vulnerabilities-and-exploits/sha-1-collision-signals-the-end-of-the-algorithm-s-viability",
+            "http://2012.sharcs.org/slides/stevens.pdf",
+            "https://pycryptodome.readthedocs.io/en/latest/src/hash/sha3_256.html"
+          ],
+          "category": "security",
+          "technology": [
+            "cryptography"
+          ],
+          "subcategory": [
+            "vuln"
+          ],
+          "likelihood": "LOW",
+          "impact": "MEDIUM",
+          "confidence": "MEDIUM",
+          "functional-categories": [
+            "crypto::search::symmetric-algorithm::cryptography"
+          ],
+          "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+          "vulnerability_class": [
+            "Cryptographic Issues"
+          ],
+          "source": "https://semgrep.dev/r/python.cryptography.security.insecure-hash-algorithms.insecure-hash-algorithm-sha1",
+          "shortlink": "https://sg.run/J9Qy"
+        },
+        "severity": "WARNING",
+        "fingerprint": "requires login",
+        "lines": "requires login",
+        "validation_state": "NO_VALIDATOR",
+        "engine_kind": "OSS"
+      }
+    },
+    {
+      "check_id": "python.cryptography.security.insecure-hash-algorithms.insecure-hash-algorithm-sha1",
+      "path": "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/serialization/ssh.py",
+      "start": {
+        "line": 1000,
+        "col": 35,
+        "offset": 31155
+      },
+      "end": {
+        "line": 1000,
+        "col": 39,
+        "offset": 31159
+      },
+      "extra": {
+        "message": "Detected SHA1 hash algorithm which is considered insecure. SHA1 is not collision resistant and is therefore not suitable as a cryptographic signature. Use SHA256 or SHA3 instead.",
+        "fix": "SHA256",
+        "metadata": {
+          "source-rule-url": "https://github.com/PyCQA/bandit/blob/d5f8fa0d89d7b11442fc6ec80ca42953974354c8/bandit/blacklists/calls.py#L59",
+          "cwe": [
+            "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+          ],
+          "owasp": [
+            "A03:2017 - Sensitive Data Exposure",
+            "A02:2021 - Cryptographic Failures",
+            "A04:2025 - Cryptographic Failures"
+          ],
+          "bandit-code": "B303",
+          "references": [
+            "https://cryptography.io/en/latest/hazmat/primitives/cryptographic-hashes/#sha-1",
+            "https://www.schneier.com/blog/archives/2012/10/when_will_we_se.html",
+            "https://www.trendmicro.com/vinfo/us/security/news/vulnerabilities-and-exploits/sha-1-collision-signals-the-end-of-the-algorithm-s-viability",
+            "http://2012.sharcs.org/slides/stevens.pdf",
+            "https://pycryptodome.readthedocs.io/en/latest/src/hash/sha3_256.html"
+          ],
+          "category": "security",
+          "technology": [
+            "cryptography"
+          ],
+          "subcategory": [
+            "vuln"
+          ],
+          "likelihood": "LOW",
+          "impact": "MEDIUM",
+          "confidence": "MEDIUM",
+          "functional-categories": [
+            "crypto::search::symmetric-algorithm::cryptography"
+          ],
+          "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+          "vulnerability_class": [
+            "Cryptographic Issues"
+          ],
+          "source": "https://semgrep.dev/r/python.cryptography.security.insecure-hash-algorithms.insecure-hash-algorithm-sha1",
+          "shortlink": "https://sg.run/J9Qy"
+        },
+        "severity": "WARNING",
+        "fingerprint": "requires login",
+        "lines": "requires login",
+        "validation_state": "NO_VALIDATOR",
+        "engine_kind": "OSS"
+      }
+    },
+    {
+      "check_id": "python.lang.security.insecure-hash-algorithms.insecure-hash-algorithm-sha1",
+      "path": "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/x509/extensions.py",
+      "start": {
+        "line": 72,
+        "col": 12,
+        "offset": 2202
+      },
+      "end": {
+        "line": 72,
+        "col": 30,
+        "offset": 2220
+      },
+      "extra": {
+        "message": "Detected SHA1 hash algorithm which is considered insecure. SHA1 is not collision resistant and is therefore not suitable as a cryptographic signature. Use SHA256 or SHA3 instead.",
+        "fix": "hashlib.sha256(data)",
+        "metadata": {
+          "source-rule-url": "https://github.com/PyCQA/bandit/blob/d5f8fa0d89d7b11442fc6ec80ca42953974354c8/bandit/blacklists/calls.py#L59",
+          "cwe": [
+            "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+          ],
+          "owasp": [
+            "A03:2017 - Sensitive Data Exposure",
+            "A02:2021 - Cryptographic Failures",
+            "A04:2025 - Cryptographic Failures"
+          ],
+          "bandit-code": "B303",
+          "asvs": {
+            "control_id": "6.2.2 Insecure Custom Algorithm",
+            "control_url": "https://github.com/OWASP/ASVS/blob/master/4.0/en/0x14-V6-Cryptography.md#v62-algorithms",
+            "section": "V6 Stored Cryptography Verification Requirements",
+            "version": "4"
+          },
+          "references": [
+            "https://www.schneier.com/blog/archives/2012/10/when_will_we_se.html",
+            "https://www.trendmicro.com/vinfo/us/security/news/vulnerabilities-and-exploits/sha-1-collision-signals-the-end-of-the-algorithm-s-viability",
+            "http://2012.sharcs.org/slides/stevens.pdf",
+            "https://pycryptodome.readthedocs.io/en/latest/src/hash/sha3_256.html"
+          ],
+          "category": "security",
+          "technology": [
+            "python"
+          ],
+          "subcategory": [
+            "vuln"
+          ],
+          "likelihood": "LOW",
+          "impact": "MEDIUM",
+          "confidence": "MEDIUM",
+          "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+          "vulnerability_class": [
+            "Cryptographic Issues"
+          ],
+          "source": "https://semgrep.dev/r/python.lang.security.insecure-hash-algorithms.insecure-hash-algorithm-sha1",
+          "shortlink": "https://sg.run/ydYx"
+        },
+        "severity": "WARNING",
+        "fingerprint": "requires login",
+        "lines": "requires login",
+        "validation_state": "NO_VALIDATOR",
+        "engine_kind": "OSS"
+      }
+    },
+    {
+      "check_id": "python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected",
+      "path": "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cvzone/cvzone/FaceDetectionModule.py",
+      "start": {
+        "line": 73,
+        "col": 13,
+        "offset": 1926
+      },
+      "end": {
+        "line": 76,
+        "col": 14,
+        "offset": 2031
+      },
+      "extra": {
+        "message": "Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib calls to ensure user data cannot control the URLs, or consider using the 'requests' library instead.",
+        "metadata": {
+          "cwe": [
+            "CWE-939: Improper Authorization in Handler for Custom URL Scheme"
+          ],
+          "owasp": "A01:2017 - Injection",
+          "source-rule-url": "https://github.com/PyCQA/bandit/blob/b1411bfb43795d3ffd268bef17a839dee954c2b1/bandit/blacklists/calls.py#L163",
+          "bandit-code": "B310",
+          "asvs": {
+            "control_id": "5.2.4 Dynamic Code Execution Features",
+            "control_url": "https://github.com/OWASP/ASVS/blob/master/4.0/en/0x13-V5-Validation-Sanitization-Encoding.md#v52-sanitization-and-sandboxing-requirements",
+            "section": "V5: Validation, Sanitization and Encoding Verification Requirements",
+            "version": "4"
+          },
+          "category": "security",
+          "technology": [
+            "python"
+          ],
+          "references": [
+            "https://cwe.mitre.org/data/definitions/939.html"
+          ],
+          "subcategory": [
+            "audit"
+          ],
+          "likelihood": "LOW",
+          "impact": "LOW",
+          "confidence": "LOW",
+          "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+          "vulnerability_class": [
+            "Improper Authorization"
+          ],
+          "source": "https://semgrep.dev/r/python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected",
+          "shortlink": "https://sg.run/dKZZ"
+        },
+        "severity": "WARNING",
+        "fingerprint": "requires login",
+        "lines": "requires login",
+        "validation_state": "NO_VALIDATOR",
+        "engine_kind": "OSS"
+      }
+    },
+    {
+      "check_id": "python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected",
+      "path": "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cvzone/cvzone/FaceMeshModule.py",
+      "start": {
+        "line": 62,
+        "col": 13,
+        "offset": 1669
+      },
+      "end": {
+        "line": 62,
+        "col": 72,
+        "offset": 1728
+      },
+      "extra": {
+        "message": "Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib calls to ensure user data cannot control the URLs, or consider using the 'requests' library instead.",
+        "metadata": {
+          "cwe": [
+            "CWE-939: Improper Authorization in Handler for Custom URL Scheme"
+          ],
+          "owasp": "A01:2017 - Injection",
+          "source-rule-url": "https://github.com/PyCQA/bandit/blob/b1411bfb43795d3ffd268bef17a839dee954c2b1/bandit/blacklists/calls.py#L163",
+          "bandit-code": "B310",
+          "asvs": {
+            "control_id": "5.2.4 Dynamic Code Execution Features",
+            "control_url": "https://github.com/OWASP/ASVS/blob/master/4.0/en/0x13-V5-Validation-Sanitization-Encoding.md#v52-sanitization-and-sandboxing-requirements",
+            "section": "V5: Validation, Sanitization and Encoding Verification Requirements",
+            "version": "4"
+          },
+          "category": "security",
+          "technology": [
+            "python"
+          ],
+          "references": [
+            "https://cwe.mitre.org/data/definitions/939.html"
+          ],
+          "subcategory": [
+            "audit"
+          ],
+          "likelihood": "LOW",
+          "impact": "LOW",
+          "confidence": "LOW",
+          "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+          "vulnerability_class": [
+            "Improper Authorization"
+          ],
+          "source": "https://semgrep.dev/r/python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected",
+          "shortlink": "https://sg.run/dKZZ"
+        },
+        "severity": "WARNING",
+        "fingerprint": "requires login",
+        "lines": "requires login",
+        "validation_state": "NO_VALIDATOR",
+        "engine_kind": "OSS"
+      }
+    },
+    {
+      "check_id": "python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected",
+      "path": "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cvzone/cvzone/HandTrackingModule.py",
+      "start": {
+        "line": 62,
+        "col": 13,
+        "offset": 1589
+      },
+      "end": {
+        "line": 62,
+        "col": 72,
+        "offset": 1648
+      },
+      "extra": {
+        "message": "Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib calls to ensure user data cannot control the URLs, or consider using the 'requests' library instead.",
+        "metadata": {
+          "cwe": [
+            "CWE-939: Improper Authorization in Handler for Custom URL Scheme"
+          ],
+          "owasp": "A01:2017 - Injection",
+          "source-rule-url": "https://github.com/PyCQA/bandit/blob/b1411bfb43795d3ffd268bef17a839dee954c2b1/bandit/blacklists/calls.py#L163",
+          "bandit-code": "B310",
+          "asvs": {
+            "control_id": "5.2.4 Dynamic Code Execution Features",
+            "control_url": "https://github.com/OWASP/ASVS/blob/master/4.0/en/0x13-V5-Validation-Sanitization-Encoding.md#v52-sanitization-and-sandboxing-requirements",
+            "section": "V5: Validation, Sanitization and Encoding Verification Requirements",
+            "version": "4"
+          },
+          "category": "security",
+          "technology": [
+            "python"
+          ],
+          "references": [
+            "https://cwe.mitre.org/data/definitions/939.html"
+          ],
+          "subcategory": [
+            "audit"
+          ],
+          "likelihood": "LOW",
+          "impact": "LOW",
+          "confidence": "LOW",
+          "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+          "vulnerability_class": [
+            "Improper Authorization"
+          ],
+          "source": "https://semgrep.dev/r/python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected",
+          "shortlink": "https://sg.run/dKZZ"
+        },
+        "severity": "WARNING",
+        "fingerprint": "requires login",
+        "lines": "requires login",
+        "validation_state": "NO_VALIDATOR",
+        "engine_kind": "OSS"
+      }
+    },
+    {
+      "check_id": "python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected",
+      "path": "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cvzone/cvzone/PoseModule.py",
+      "start": {
+        "line": 88,
+        "col": 13,
+        "offset": 2917
+      },
+      "end": {
+        "line": 88,
+        "col": 72,
+        "offset": 2976
+      },
+      "extra": {
+        "message": "Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib calls to ensure user data cannot control the URLs, or consider using the 'requests' library instead.",
+        "metadata": {
+          "cwe": [
+            "CWE-939: Improper Authorization in Handler for Custom URL Scheme"
+          ],
+          "owasp": "A01:2017 - Injection",
+          "source-rule-url": "https://github.com/PyCQA/bandit/blob/b1411bfb43795d3ffd268bef17a839dee954c2b1/bandit/blacklists/calls.py#L163",
+          "bandit-code": "B310",
+          "asvs": {
+            "control_id": "5.2.4 Dynamic Code Execution Features",
+            "control_url": "https://github.com/OWASP/ASVS/blob/master/4.0/en/0x13-V5-Validation-Sanitization-Encoding.md#v52-sanitization-and-sandboxing-requirements",
+            "section": "V5: Validation, Sanitization and Encoding Verification Requirements",
+            "version": "4"
+          },
+          "category": "security",
+          "technology": [
+            "python"
+          ],
+          "references": [
+            "https://cwe.mitre.org/data/definitions/939.html"
+          ],
+          "subcategory": [
+            "audit"
+          ],
+          "likelihood": "LOW",
+          "impact": "LOW",
+          "confidence": "LOW",
+          "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+          "vulnerability_class": [
+            "Improper Authorization"
+          ],
+          "source": "https://semgrep.dev/r/python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected",
+          "shortlink": "https://sg.run/dKZZ"
+        },
+        "severity": "WARNING",
+        "fingerprint": "requires login",
+        "lines": "requires login",
+        "validation_state": "NO_VALIDATOR",
+        "engine_kind": "OSS"
+      }
+    },
+    {
+      "check_id": "python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected",
+      "path": "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cvzone/cvzone/SelfiSegmentationModule.py",
+      "start": {
+        "line": 52,
+        "col": 13,
+        "offset": 1230
+      },
+      "end": {
+        "line": 55,
+        "col": 14,
+        "offset": 1335
+      },
+      "extra": {
+        "message": "Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib calls to ensure user data cannot control the URLs, or consider using the 'requests' library instead.",
+        "metadata": {
+          "cwe": [
+            "CWE-939: Improper Authorization in Handler for Custom URL Scheme"
+          ],
+          "owasp": "A01:2017 - Injection",
+          "source-rule-url": "https://github.com/PyCQA/bandit/blob/b1411bfb43795d3ffd268bef17a839dee954c2b1/bandit/blacklists/calls.py#L163",
+          "bandit-code": "B310",
+          "asvs": {
+            "control_id": "5.2.4 Dynamic Code Execution Features",
+            "control_url": "https://github.com/OWASP/ASVS/blob/master/4.0/en/0x13-V5-Validation-Sanitization-Encoding.md#v52-sanitization-and-sandboxing-requirements",
+            "section": "V5: Validation, Sanitization and Encoding Verification Requirements",
+            "version": "4"
+          },
+          "category": "security",
+          "technology": [
+            "python"
+          ],
+          "references": [
+            "https://cwe.mitre.org/data/definitions/939.html"
+          ],
+          "subcategory": [
+            "audit"
+          ],
+          "likelihood": "LOW",
+          "impact": "LOW",
+          "confidence": "LOW",
+          "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+          "vulnerability_class": [
+            "Improper Authorization"
+          ],
+          "source": "https://semgrep.dev/r/python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected",
+          "shortlink": "https://sg.run/dKZZ"
+        },
+        "severity": "WARNING",
+        "fingerprint": "requires login",
+        "lines": "requires login",
+        "validation_state": "NO_VALIDATOR",
+        "engine_kind": "OSS"
+      }
+    },
+    {
+      "check_id": "python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected",
+      "path": "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cvzone/cvzone/Utils.py",
+      "start": {
+        "line": 264,
+        "col": 20,
+        "offset": 10275
+      },
+      "end": {
+        "line": 264,
+        "col": 47,
+        "offset": 10302
+      },
+      "extra": {
+        "message": "Detected a dynamic value being used with urllib. urllib supports 'file://' schemes, so a dynamic value controlled by a malicious actor may allow them to read arbitrary files. Audit uses of urllib calls to ensure user data cannot control the URLs, or consider using the 'requests' library instead.",
+        "metadata": {
+          "cwe": [
+            "CWE-939: Improper Authorization in Handler for Custom URL Scheme"
+          ],
+          "owasp": "A01:2017 - Injection",
+          "source-rule-url": "https://github.com/PyCQA/bandit/blob/b1411bfb43795d3ffd268bef17a839dee954c2b1/bandit/blacklists/calls.py#L163",
+          "bandit-code": "B310",
+          "asvs": {
+            "control_id": "5.2.4 Dynamic Code Execution Features",
+            "control_url": "https://github.com/OWASP/ASVS/blob/master/4.0/en/0x13-V5-Validation-Sanitization-Encoding.md#v52-sanitization-and-sandboxing-requirements",
+            "section": "V5: Validation, Sanitization and Encoding Verification Requirements",
+            "version": "4"
+          },
+          "category": "security",
+          "technology": [
+            "python"
+          ],
+          "references": [
+            "https://cwe.mitre.org/data/definitions/939.html"
+          ],
+          "subcategory": [
+            "audit"
+          ],
+          "likelihood": "LOW",
+          "impact": "LOW",
+          "confidence": "LOW",
+          "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+          "vulnerability_class": [
+            "Improper Authorization"
+          ],
+          "source": "https://semgrep.dev/r/python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected",
+          "shortlink": "https://sg.run/dKZZ"
+        },
+        "severity": "WARNING",
+        "fingerprint": "requires login",
+        "lines": "requires login",
+        "validation_state": "NO_VALIDATOR",
+        "engine_kind": "OSS"
+      }
+    },
+    {
+      "check_id": "python.lang.security.audit.subprocess-shell-true.subprocess-shell-true",
+      "path": "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/commands/run.py",
+      "start": {
+        "line": 550,
+        "col": 57,
+        "offset": 20776
+      },
+      "end": {
+        "line": 550,
+        "col": 61,
+        "offset": 20780
+      },
+      "extra": {
+        "message": "Found 'subprocess' function 'Popen' with 'shell=True'. This is dangerous because this call will spawn the command using a shell process. Doing so propagates current shell settings and variables, which makes it much easier for a malicious actor to execute commands. Use 'shell=False' instead.",
+        "fix": "False",
+        "metadata": {
+          "source-rule-url": "https://bandit.readthedocs.io/en/latest/plugins/b602_subprocess_popen_with_shell_equals_true.html",
+          "owasp": [
+            "A01:2017 - Injection",
+            "A03:2021 - Injection",
+            "A05:2025 - Injection"
+          ],
+          "cwe": [
+            "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+          ],
+          "references": [
+            "https://stackoverflow.com/questions/3172470/actual-meaning-of-shell-true-in-subprocess",
+            "https://docs.python.org/3/library/subprocess.html"
+          ],
+          "category": "security",
+          "technology": [
+            "python"
+          ],
+          "cwe2022-top25": true,
+          "cwe2021-top25": true,
+          "subcategory": [
+            "secure default"
+          ],
+          "likelihood": "HIGH",
+          "impact": "LOW",
+          "confidence": "MEDIUM",
+          "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+          "vulnerability_class": [
+            "Command Injection"
+          ],
+          "source": "https://semgrep.dev/r/python.lang.security.audit.subprocess-shell-true.subprocess-shell-true",
+          "shortlink": "https://sg.run/J92w"
+        },
+        "severity": "ERROR",
+        "fingerprint": "requires login",
+        "lines": "requires login",
+        "validation_state": "NO_VALIDATOR",
+        "engine_kind": "OSS"
+      }
+    },
+    {
+      "check_id": "python.lang.security.audit.subprocess-shell-true.subprocess-shell-true",
+      "path": "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/test_processor.py",
+      "start": {
+        "line": 214,
+        "col": 19,
+        "offset": 8137
+      },
+      "end": {
+        "line": 214,
+        "col": 23,
+        "offset": 8141
+      },
+      "extra": {
+        "message": "Found 'subprocess' function 'Popen' with 'shell=True'. This is dangerous because this call will spawn the command using a shell process. Doing so propagates current shell settings and variables, which makes it much easier for a malicious actor to execute commands. Use 'shell=False' instead.",
+        "fix": "False",
+        "metadata": {
+          "source-rule-url": "https://bandit.readthedocs.io/en/latest/plugins/b602_subprocess_popen_with_shell_equals_true.html",
+          "owasp": [
+            "A01:2017 - Injection",
+            "A03:2021 - Injection",
+            "A05:2025 - Injection"
+          ],
+          "cwe": [
+            "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+          ],
+          "references": [
+            "https://stackoverflow.com/questions/3172470/actual-meaning-of-shell-true-in-subprocess",
+            "https://docs.python.org/3/library/subprocess.html"
+          ],
+          "category": "security",
+          "technology": [
+            "python"
+          ],
+          "cwe2022-top25": true,
+          "cwe2021-top25": true,
+          "subcategory": [
+            "secure default"
+          ],
+          "likelihood": "HIGH",
+          "impact": "LOW",
+          "confidence": "MEDIUM",
+          "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+          "vulnerability_class": [
+            "Command Injection"
+          ],
+          "source": "https://semgrep.dev/r/python.lang.security.audit.subprocess-shell-true.subprocess-shell-true",
+          "shortlink": "https://sg.run/J92w"
+        },
+        "severity": "ERROR",
+        "fingerprint": "requires login",
+        "lines": "requires login",
+        "validation_state": "NO_VALIDATOR",
+        "engine_kind": "OSS"
+      }
+    }
+  ],
+  "errors": [
+    {
+      "code": 3,
+      "level": "warn",
+      "type": "Syntax error",
+      "message": "Syntax error at line /Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/testresult/real.py:1774:\n `,` was unexpected",
+      "path": "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/testresult/real.py"
+    }
+  ],
+  "paths": {
+    "scanned": [
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/downloads/bandit/bandit-1.9.4-py3-none-any.whl",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/downloads/census/census-0.8.27-py3-none-any.whl",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/downloads/cvzone/cvzone-2.0.0-py3-none-any.whl",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/downloads/fixtures/fixtures-4.3.2-py3-none-any.whl",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/downloads/flake8/flake8-7.5.0-py2.py3-none-any.whl",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/downloads/fqdn/fqdn-1.6.0-py3-none-any.whl",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/downloads/jschema-to-python/jschema_to_python-1.2.3-py3-none-any.whl",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/downloads/pyyaml/pyyaml-6.0.3-cp312-cp312-macosx_11_0_arm64.whl",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/downloads/sarif-om/sarif_om-1.0.4-py3-none-any.whl",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/downloads/stestr/stestr-4.2.1-py3-none-any.whl",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/downloads/stevedore/stevedore-5.9.1-py3-none-any.whl",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/downloads/testscenarios/testscenarios-0.7.0-py3-none-any.whl",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/downloads/testtools/testtools-2.9.1-py3-none-any.whl",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/downloads/tomli/tomli-2.5.0-cp312-cp312-macosx_11_0_arm64.whl",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/first_party/app.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/first_party/requirements.txt",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/__main__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/blacklists/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/blacklists/calls.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/blacklists/imports.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/blacklists/utils.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/cli/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/cli/baseline.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/cli/config_generator.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/cli/main.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/core/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/core/blacklisting.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/core/config.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/core/constants.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/core/context.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/core/docs_utils.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/core/extension_loader.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/core/issue.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/core/manager.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/core/meta_ast.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/core/metrics.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/core/node_visitor.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/core/test_properties.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/core/test_set.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/core/tester.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/core/utils.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/formatters/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/formatters/csv.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/formatters/custom.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/formatters/html.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/formatters/json.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/formatters/sarif.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/formatters/screen.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/formatters/text.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/formatters/utils.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/formatters/xml.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/formatters/yaml.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/app_debug.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/asserts.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/crypto_request_no_cert_validation.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/django_sql_injection.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/django_xss.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/exec.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/general_bad_file_permissions.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/general_bind_all_interfaces.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/general_hardcoded_password.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/general_hardcoded_tmp.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/hashlib_insecure_functions.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/huggingface_unsafe_download.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/injection_paramiko.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/injection_shell.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/injection_sql.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/injection_wildcard.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/insecure_ssl_tls.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/jinja2_templates.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/logging_config_insecure_listen.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/mako_templates.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/markupsafe_markup_xss.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/pytorch_load.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/request_without_timeout.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/snmp_security_check.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/ssh_no_host_key_verification.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/tarfile_unsafe_members.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/trojansource.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/try_except_continue.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/try_except_pass.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/weak_cryptographic_key.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit/plugins/yaml_load.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit-1.9.4.data/data/share/man/man1/bandit.1",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit-1.9.4.dist-info/METADATA",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit-1.9.4.dist-info/RECORD",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit-1.9.4.dist-info/WHEEL",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit-1.9.4.dist-info/entry_points.txt",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit-1.9.4.dist-info/licenses/LICENSE",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit-1.9.4.dist-info/pbr.json",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/bandit/bandit-1.9.4.dist-info/top_level.txt",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/census/census/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/census/census/core.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/census/census-0.8.27.dist-info/METADATA",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/census/census-0.8.27.dist-info/RECORD",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/census/census-0.8.27.dist-info/WHEEL",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/census/census-0.8.27.dist-info/licenses/LICENSE",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/census/census-0.8.27.dist-info/top_level.txt",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/__about__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/cobblestone.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/exceptions.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/fernet.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/_oid.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/asn1/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/asn1/asn1.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/backends/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/backends/openssl/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/backends/openssl/backend.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/__init__.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/_openssl.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/asn1.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/cobblestone.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/declarative_asn1.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/exceptions.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/ocsp.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/openssl/__init__.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/openssl/aead.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/openssl/ciphers.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/openssl/cmac.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/openssl/dh.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/openssl/dsa.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/openssl/ec.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/openssl/ed25519.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/openssl/ed448.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/openssl/hashes.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/openssl/hmac.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/openssl/hpke.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/openssl/kdf.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/openssl/keys.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/openssl/keywrap.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/openssl/mldsa.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/openssl/mlkem.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/openssl/poly1305.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/openssl/rsa.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/openssl/x25519.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/openssl/x448.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/pkcs12.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/pkcs7.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/test_support.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/_rust/x509.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/openssl/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/openssl/_conditional.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/bindings/openssl/binding.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/decrepit/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/decrepit/ciphers/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/decrepit/ciphers/algorithms.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/decrepit/ciphers/modes.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/_asymmetric.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/_cipheralgorithm.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/_modes.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/_serialization.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/asymmetric/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/asymmetric/dh.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/asymmetric/dsa.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/asymmetric/ec.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/asymmetric/ed25519.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/asymmetric/ed448.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/asymmetric/mldsa.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/asymmetric/mlkem.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/asymmetric/padding.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/asymmetric/rsa.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/asymmetric/types.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/asymmetric/utils.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/asymmetric/x25519.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/asymmetric/x448.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/ciphers/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/ciphers/aead.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/ciphers/algorithms.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/ciphers/base.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/ciphers/modes.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/cmac.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/constant_time.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/hashes.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/hmac.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/hpke.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/kdf/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/kdf/argon2.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/kdf/concatkdf.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/kdf/hkdf.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/kdf/kbkdf.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/kdf/pbkdf2.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/kdf/scrypt.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/kdf/x963kdf.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/keywrap.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/padding.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/poly1305.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/serialization/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/serialization/base.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/serialization/pkcs12.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/serialization/pkcs7.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/serialization/ssh.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/twofactor/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/twofactor/hotp.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/hazmat/primitives/twofactor/totp.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/py.typed",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/utils.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/x509/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/x509/base.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/x509/certificate_transparency.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/x509/extensions.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/x509/general_name.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/x509/name.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/x509/ocsp.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/x509/oid.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography/x509/verification.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography-50.0.2.dist-info/METADATA",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography-50.0.2.dist-info/RECORD",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography-50.0.2.dist-info/WHEEL",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography-50.0.2.dist-info/licenses/LICENSE",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography-50.0.2.dist-info/licenses/LICENSE.APACHE",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography-50.0.2.dist-info/licenses/LICENSE.BSD",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography-50.0.2.dist-info/sboms/cryptography-rust.cyclonedx.json",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cryptography/cryptography-50.0.2.dist-info/sboms/sbom.json",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cvzone/cvzone/ClassificationModule.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cvzone/cvzone/ColorModule.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cvzone/cvzone/FPS.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cvzone/cvzone/FaceDetectionModule.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cvzone/cvzone/FaceMeshModule.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cvzone/cvzone/HandTrackingModule.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cvzone/cvzone/PIDModule.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cvzone/cvzone/PlotModule.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cvzone/cvzone/PoseModule.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cvzone/cvzone/SelfiSegmentationModule.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cvzone/cvzone/SerialModule.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cvzone/cvzone/Utils.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cvzone/cvzone/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cvzone/cvzone-2.0.0.dist-info/METADATA",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cvzone/cvzone-2.0.0.dist-info/RECORD",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cvzone/cvzone-2.0.0.dist-info/WHEEL",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cvzone/cvzone-2.0.0.dist-info/licenses/LICENSE.txt",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/cvzone/cvzone-2.0.0.dist-info/top_level.txt",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fixtures/fixtures/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fixtures/fixtures/_fixtures/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fixtures/fixtures/_fixtures/environ.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fixtures/fixtures/_fixtures/logger.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fixtures/fixtures/_fixtures/mockpatch.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fixtures/fixtures/_fixtures/monkeypatch.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fixtures/fixtures/_fixtures/packagepath.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fixtures/fixtures/_fixtures/popen.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fixtures/fixtures/_fixtures/pythonpackage.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fixtures/fixtures/_fixtures/pythonpath.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fixtures/fixtures/_fixtures/streams.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fixtures/fixtures/_fixtures/tempdir.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fixtures/fixtures/_fixtures/temphomedir.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fixtures/fixtures/_fixtures/timeout.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fixtures/fixtures/_fixtures/warnings.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fixtures/fixtures/_version.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fixtures/fixtures/callmany.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fixtures/fixtures/fixture.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fixtures/fixtures/py.typed",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fixtures/fixtures/testcase.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fixtures/fixtures-4.3.2.dist-info/METADATA",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fixtures/fixtures-4.3.2.dist-info/RECORD",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fixtures/fixtures-4.3.2.dist-info/WHEEL",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fixtures/fixtures-4.3.2.dist-info/licenses/AUTHORS",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fixtures/fixtures-4.3.2.dist-info/licenses/COPYING",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/__main__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/_compat.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/api/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/api/legacy.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/checker.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/defaults.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/discover_files.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/exceptions.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/formatting/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/formatting/_windows_color.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/formatting/base.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/formatting/default.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/main/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/main/application.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/main/cli.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/main/debug.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/main/options.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/options/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/options/aggregator.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/options/config.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/options/manager.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/options/parse_args.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/plugins/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/plugins/finder.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/plugins/pycodestyle.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/plugins/pyflakes.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/plugins/reporter.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/processor.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/statistics.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/style_guide.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/utils.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8/violation.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8-7.5.0.dist-info/METADATA",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8-7.5.0.dist-info/RECORD",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8-7.5.0.dist-info/WHEEL",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8-7.5.0.dist-info/entry_points.txt",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8-7.5.0.dist-info/licenses/LICENSE",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/flake8/flake8-7.5.0.dist-info/top_level.txt",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fqdn/fqdn/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fqdn/fqdn/__init__.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fqdn/fqdn/_compat.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fqdn/fqdn/py.typed",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fqdn/fqdn-1.6.0.dist-info/METADATA",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fqdn/fqdn-1.6.0.dist-info/RECORD",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fqdn/fqdn-1.6.0.dist-info/WHEEL",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fqdn/fqdn-1.6.0.dist-info/licenses/LICENSE",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/fqdn/fqdn-1.6.0.dist-info/top_level.txt",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/jschema-to-python/jschema_to_python/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/jschema-to-python/jschema_to_python/__main__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/jschema-to-python/jschema_to_python/class_generator.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/jschema-to-python/jschema_to_python/driver.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/jschema-to-python/jschema_to_python/init_file_generator.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/jschema-to-python/jschema_to_python/object_model_module_generator.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/jschema-to-python/jschema_to_python/python_file_generator.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/jschema-to-python/jschema_to_python/to_json.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/jschema-to-python/jschema_to_python/utilities.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/jschema-to-python/jschema_to_python-1.2.3.dist-info/AUTHORS",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/jschema-to-python/jschema_to_python-1.2.3.dist-info/LICENSE",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/jschema-to-python/jschema_to_python-1.2.3.dist-info/METADATA",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/jschema-to-python/jschema_to_python-1.2.3.dist-info/RECORD",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/jschema-to-python/jschema_to_python-1.2.3.dist-info/WHEEL",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/jschema-to-python/jschema_to_python-1.2.3.dist-info/pbr.json",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/jschema-to-python/jschema_to_python-1.2.3.dist-info/top_level.txt",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/pyyaml/_yaml/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/pyyaml/pyyaml-6.0.3.dist-info/METADATA",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/pyyaml/pyyaml-6.0.3.dist-info/RECORD",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/pyyaml/pyyaml-6.0.3.dist-info/WHEEL",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/pyyaml/pyyaml-6.0.3.dist-info/licenses/LICENSE",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/pyyaml/pyyaml-6.0.3.dist-info/top_level.txt",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/pyyaml/yaml/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/pyyaml/yaml/_yaml.cpython-312-darwin.so",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/pyyaml/yaml/composer.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/pyyaml/yaml/constructor.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/pyyaml/yaml/cyaml.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/pyyaml/yaml/dumper.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/pyyaml/yaml/emitter.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/pyyaml/yaml/error.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/pyyaml/yaml/events.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/pyyaml/yaml/loader.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/pyyaml/yaml/nodes.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/pyyaml/yaml/parser.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/pyyaml/yaml/reader.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/pyyaml/yaml/representer.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/pyyaml/yaml/resolver.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/pyyaml/yaml/scanner.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/pyyaml/yaml/serializer.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/pyyaml/yaml/tokens.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_address.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_artifact.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_artifact_change.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_artifact_content.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_artifact_location.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_attachment.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_code_flow.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_configuration_override.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_conversion.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_edge.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_edge_traversal.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_exception.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_external_properties.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_external_property_file_reference.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_external_property_file_references.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_fix.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_graph.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_graph_traversal.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_invocation.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_location.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_location_relationship.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_logical_location.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_message.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_multiformat_message_string.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_node.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_notification.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_physical_location.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_property_bag.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_rectangle.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_region.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_replacement.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_reporting_configuration.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_reporting_descriptor.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_reporting_descriptor_reference.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_reporting_descriptor_relationship.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_result.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_result_provenance.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_run.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_run_automation_details.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_sarif_log.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_special_locations.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_stack.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_stack_frame.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_suppression.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_thread_flow.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_thread_flow_location.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_tool.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_tool_component.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_tool_component_reference.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_translation_metadata.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_version_control_details.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_web_request.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om/_web_response.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om-1.0.4.dist-info/AUTHORS",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om-1.0.4.dist-info/LICENSE",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om-1.0.4.dist-info/METADATA",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om-1.0.4.dist-info/RECORD",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om-1.0.4.dist-info/WHEEL",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om-1.0.4.dist-info/pbr.json",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/sarif-om/sarif_om-1.0.4.dist-info/top_level.txt",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/__main__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/bisect_tests.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/cli.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/colorizer.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/commands/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/commands/failing.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/commands/history.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/commands/init.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/commands/last.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/commands/list.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/commands/load.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/commands/run.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/commands/slowest.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/config_file.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/output.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/repository/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/repository/abstract.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/repository/file.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/repository/memory.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/repository/util.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/results.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/scheduler.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/selection.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/subunit_runner/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/subunit_runner/program.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/subunit_runner/run.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/subunit_trace.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/test_processor.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/testlist.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/user_config.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr/utils.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr-4.2.1.dist-info/METADATA",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr-4.2.1.dist-info/RECORD",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr-4.2.1.dist-info/WHEEL",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr-4.2.1.dist-info/entry_points.txt",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stestr/stestr-4.2.1.dist-info/licenses/LICENSE",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore/_cache.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore/dispatch.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore/driver.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore/enabled.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore/example/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore/example/base.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore/example/load_as_driver.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore/example/load_as_extension.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore/example/pyproject.toml",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore/example/setup.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore/example/simple.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore/example2/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore/example2/fields.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore/example2/pyproject.toml",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore/example2/setup.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore/exception.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore/extension.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore/hook.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore/named.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore/py.typed",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore/sphinxext.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore-5.9.1.dist-info/METADATA",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore-5.9.1.dist-info/RECORD",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore-5.9.1.dist-info/WHEEL",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore-5.9.1.dist-info/entry_points.txt",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore-5.9.1.dist-info/licenses/AUTHORS",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore-5.9.1.dist-info/licenses/LICENSE",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore-5.9.1.dist-info/pbr.json",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/stevedore/stevedore-5.9.1.dist-info/top_level.txt",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testscenarios/testscenarios/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testscenarios/testscenarios/_version.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testscenarios/testscenarios/py.typed",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testscenarios/testscenarios/scenarios.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testscenarios/testscenarios/testcase.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testscenarios/testscenarios-0.7.0.dist-info/METADATA",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testscenarios/testscenarios-0.7.0.dist-info/RECORD",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testscenarios/testscenarios-0.7.0.dist-info/WHEEL",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testscenarios/testscenarios-0.7.0.dist-info/licenses/COPYING",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/_types.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/_version.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/_version.pyi",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/assertions.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/compat.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/content.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/content_type.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/helpers.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/matchers/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/matchers/_basic.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/matchers/_const.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/matchers/_datastructures.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/matchers/_dict.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/matchers/_doctest.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/matchers/_exception.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/matchers/_filesystem.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/matchers/_higherorder.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/matchers/_impl.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/matchers/_warnings.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/matchers/test.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/monkey.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/py.typed",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/run.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/runtest.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/tags.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/testcase.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/testresult/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/testresult/doubles.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/testresult/real.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/testsuite.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/twistedsupport/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/twistedsupport/_deferred.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/twistedsupport/_deferreddebug.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/twistedsupport/_matchers.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/twistedsupport/_runtest.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools/twistedsupport/_spinner.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools-2.9.1.dist-info/METADATA",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools-2.9.1.dist-info/RECORD",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools-2.9.1.dist-info/WHEEL",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/testtools/testtools-2.9.1.dist-info/licenses/LICENSE",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/tomli/c787785866c7b801238d__mypyc.cpython-312-darwin.so",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/tomli/tomli/__init__.cpython-312-darwin.so",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/tomli/tomli/__init__.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/tomli/tomli/_parser.cpython-312-darwin.so",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/tomli/tomli/_parser.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/tomli/tomli/_re.cpython-312-darwin.so",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/tomli/tomli/_re.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/tomli/tomli/_types.cpython-312-darwin.so",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/tomli/tomli/_types.py",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/tomli/tomli/py.typed",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/tomli/tomli-2.5.0.dist-info/METADATA",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/tomli/tomli-2.5.0.dist-info/RECORD",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/tomli/tomli-2.5.0.dist-info/WHEEL",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/tomli/tomli-2.5.0.dist-info/licenses/LICENSE",
+      "/Users/hamsabk/Documents/project/outputs/_analyzer_staging/packages/tomli/tomli-2.5.0.dist-info/top_level.txt"
+    ]
+  },
+  "time": {
+    "rules": [],
+    "rules_parse_time": 0.11774802207946777,
+    "profiling_times": {
+      "config_time": 0.38887691497802734,
+      "core_time": 1.6237571239471436,
+      "ignores_time": 0.0002009868621826172,
+      "total_time": 2.0131659507751465
+    },
+    "parsing_time": {
+      "total_time": 0.0,
+      "per_file_time": {
+        "mean": 0.0,
+        "std_dev": 0.0
+      },
+      "very_slow_stats": {
+        "time_ratio": 0.0,
+        "count_ratio": 0.0
+      },
+      "very_slow_files": []
+    },
+    "scanning_time": {
+      "total_time": 5.075932502746582,
+      "per_file_time": {
+        "mean": 0.00520608461820162,
+        "std_dev": 0.00016800512528547442
+      },
+      "very_slow_stats": {
+        "time_ratio": 0.0,
+        "count_ratio": 0.0
+      },
+      "very_slow_files": []
+    },
+    "matching_time": {
+      "total_time": 0.0,
+      "per_file_and_rule_time": {
+        "mean": 0.0,
+        "std_dev": 0.0
+      },
+      "very_slow_stats": {
+        "time_ratio": 0.0,
+        "count_ratio": 0.0
+      },
+      "very_slow_rules_on_files": []
+    },
+    "tainting_time": {
+      "total_time": 0.0,
+      "per_def_and_rule_time": {
+        "mean": 0.0,
+        "std_dev": 0.0
+      },
+      "very_slow_stats": {
+        "time_ratio": 0.0,
+        "count_ratio": 0.0
+      },
+      "very_slow_rules_on_defs": []
+    },
+    "fixpoint_timeouts": [],
+    "prefiltering": {
+      "project_level_time": 0.0,
+      "file_level_time": 0.0,
+      "rules_with_project_prefilters_ratio": 0.0,
+      "rules_with_file_prefilters_ratio": 0.9621196439660525,
+      "rules_selected_ratio": 0.05976284117455718,
+      "rules_matched_ratio": 0.05976284117455718
+    },
+    "targets": [],
+    "total_bytes": 0,
+    "max_memory_bytes": 291020992
+  },
+  "engine_requested": "OSS",
+  "skipped_rules": []
+}

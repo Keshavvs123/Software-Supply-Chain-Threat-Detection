@@ -1,8 +1,11 @@
 import os
+import sys
 import ast
 import json
 import subprocess
 import re
+import shutil
+import importlib.util
 
 class PyASTSecurityVisitor(ast.NodeVisitor):
     def __init__(self):
@@ -521,92 +524,98 @@ def run_static_analysis(project_path, resolved_packages=None):
     cwe_freq = {}
     
     bandit_output = os.path.join("outputs", "bandit.json")
-    try:
-        # Run bandit on scan paths staging folder, excluding test and documentation files
-        cmd = [
-            "bandit", "-r", scan_temp_dir,
-            "-x", "*/tests/*,*/test/*,*/testing/*,*/docs/*,*/examples/*",
-            "-f", "json", "-o", bandit_output
-        ]
-        subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=45)
-        if os.path.exists(bandit_output):
-            with open(bandit_output, "r", encoding="utf-8") as f:
-                data = json.load(f)
-            issues = data.get("results", [])
-            for issue in issues:
-                file_path = issue.get("filename", "")
-                sev = issue.get("issue_severity", "LOW")
-                associated_pkg = find_associated_package(file_path)
-                
-                if associated_pkg:
-                    stats = packages_stats[associated_pkg]
-                    stats["bandit_issue_count"] += 1
-                    if sev == "HIGH":
-                        stats["critical_findings"] += 1
-                else:
-                    bandit_issue_count += 1
-                    if sev == "HIGH":
-                        bandit_high += 1
-                    elif sev == "MEDIUM":
-                        bandit_medium += 1
-                    else:
-                        bandit_low += 1
+    if shutil.which("bandit"):
+        try:
+            # Run bandit on scan paths staging folder, excluding test and documentation files
+            cmd = [
+                "bandit", "-r", scan_temp_dir,
+                "-x", "*/tests/*,*/test/*,*/testing/*,*/docs/*,*/examples/*",
+                "-f", "json", "-o", bandit_output
+            ]
+            subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=45)
+            if os.path.exists(bandit_output):
+                with open(bandit_output, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                issues = data.get("results", [])
+                for issue in issues:
+                    file_path = issue.get("filename", "")
+                    sev = issue.get("issue_severity", "LOW")
+                    associated_pkg = find_associated_package(file_path)
                     
-                    cwe_meta = issue.get("ref", "")
-                    cwe_match = re.search(r"CWE-\d+", cwe_meta)
-                    cwe_id = cwe_match.group(0) if cwe_match else "CWE-Unknown"
-                    cwe_freq[cwe_id] = cwe_freq.get(cwe_id, 0) + 1
-            
-            # Restore paths inside bandit.json
-            for issue in issues:
-                issue["filename"] = restore_path(issue.get("filename", ""))
-            with open(bandit_output, "w", encoding="utf-8") as f:
-                json.dump(data, f, indent=2)
-    except Exception as e:
-        print(f"[STATIC ANALYSIS] Bandit note: {e}", flush=True)
+                    if associated_pkg:
+                        stats = packages_stats[associated_pkg]
+                        stats["bandit_issue_count"] += 1
+                        if sev == "HIGH":
+                            stats["critical_findings"] += 1
+                    else:
+                        bandit_issue_count += 1
+                        if sev == "HIGH":
+                            bandit_high += 1
+                        elif sev == "MEDIUM":
+                            bandit_medium += 1
+                        else:
+                            bandit_low += 1
+                        
+                        cwe_meta = issue.get("ref", "")
+                        cwe_match = re.search(r"CWE-\d+", cwe_meta)
+                        cwe_id = cwe_match.group(0) if cwe_match else "CWE-Unknown"
+                        cwe_freq[cwe_id] = cwe_freq.get(cwe_id, 0) + 1
+                
+                # Restore paths inside bandit.json
+                for issue in issues:
+                    issue["filename"] = restore_path(issue.get("filename", ""))
+                with open(bandit_output, "w", encoding="utf-8") as f:
+                    json.dump(data, f, indent=2)
+        except Exception as e:
+            print(f"[STATIC ANALYSIS] Bandit note: {e}", flush=True)
+    else:
+        print("[STATIC ANALYSIS] External CLI 'bandit' not in PATH; PyASTSecurityVisitor active.", flush=True)
 
     # 3. Semgrep scan (and write to outputs/semgrep.json)
     print("[STATIC ANALYSIS] Executing Semgrep taint and pattern security scanner...", flush=True)
     semgrep_issue_count = 0
     semgrep_output = os.path.join("outputs", "semgrep.json")
-    try:
-        cmd = ["semgrep", "--config=p/security-audit", "--json", "--no-git-ignore", scan_temp_dir, "-o", semgrep_output]
-        # Inject PYTHONUTF8 environment variable to prevent Cp1252 charmap encode crashes on Windows
-        env_vars = os.environ.copy()
-        env_vars["PYTHONUTF8"] = "1"
-        subprocess.run(cmd, env=env_vars, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=45)
-        if os.path.exists(semgrep_output):
-            with open(semgrep_output, "r", encoding="utf-8") as f:
-                data = json.load(f)
-            results = data.get("results", [])
-            for r in results:
-                file_path = r.get("path", "")
-                associated_pkg = find_associated_package(file_path)
-                
-                if associated_pkg:
-                    stats = packages_stats[associated_pkg]
-                    stats["semgrep_issue_count"] += 1
-                else:
-                    semgrep_issue_count += 1
-                    metadata = r.get("extra", {}).get("metadata", {})
-                    cwes = metadata.get("cwe", [])
-                    if isinstance(cwes, list):
-                        for c in cwes:
-                            c_match = re.search(r"CWE-\d+", c)
+    if shutil.which("semgrep"):
+        try:
+            cmd = ["semgrep", "--config=p/security-audit", "--json", "--no-git-ignore", scan_temp_dir, "-o", semgrep_output]
+            # Inject PYTHONUTF8 environment variable to prevent Cp1252 charmap encode crashes on Windows
+            env_vars = os.environ.copy()
+            env_vars["PYTHONUTF8"] = "1"
+            subprocess.run(cmd, env=env_vars, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=45)
+            if os.path.exists(semgrep_output):
+                with open(semgrep_output, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                results = data.get("results", [])
+                for r in results:
+                    file_path = r.get("path", "")
+                    associated_pkg = find_associated_package(file_path)
+                    
+                    if associated_pkg:
+                        stats = packages_stats[associated_pkg]
+                        stats["semgrep_issue_count"] += 1
+                    else:
+                        semgrep_issue_count += 1
+                        metadata = r.get("extra", {}).get("metadata", {})
+                        cwes = metadata.get("cwe", [])
+                        if isinstance(cwes, list):
+                            for c in cwes:
+                                c_match = re.search(r"CWE-\d+", c)
+                                if c_match:
+                                    cwe_freq[c_match.group(0)] = cwe_freq.get(c_match.group(0), 0) + 1
+                        elif isinstance(cwes, str):
+                            c_match = re.search(r"CWE-\d+", cwes)
                             if c_match:
                                 cwe_freq[c_match.group(0)] = cwe_freq.get(c_match.group(0), 0) + 1
-                    elif isinstance(cwes, str):
-                        c_match = re.search(r"CWE-\d+", cwes)
-                        if c_match:
-                            cwe_freq[c_match.group(0)] = cwe_freq.get(c_match.group(0), 0) + 1
-            
-            # Restore paths inside semgrep.json
-            for r in results:
-                r["path"] = restore_path(r.get("path", ""))
-            with open(semgrep_output, "w", encoding="utf-8") as f:
-                json.dump(data, f, indent=2)
-    except Exception as e:
-        print(f"[STATIC ANALYSIS] Semgrep note: {e}", flush=True)
+                
+                # Restore paths inside semgrep.json
+                for r in results:
+                    r["path"] = restore_path(r.get("path", ""))
+                with open(semgrep_output, "w", encoding="utf-8") as f:
+                    json.dump(data, f, indent=2)
+        except Exception as e:
+            print(f"[STATIC ANALYSIS] Semgrep note: {e}", flush=True)
+    else:
+        print("[STATIC ANALYSIS] External CLI 'semgrep' not in PATH; PyASTSecurityVisitor active.", flush=True)
 
     # Clean up the staging dir
     if os.path.exists(scan_temp_dir):

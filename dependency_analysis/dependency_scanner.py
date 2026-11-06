@@ -3,6 +3,7 @@ import json
 import subprocess
 import urllib.request
 import re
+import shutil
 import pandas as pd
 
 # Global CSV vulnerability dataset lookup cache
@@ -212,7 +213,7 @@ def run_dependency_scan(project_path, resolved_packages=None):
             if os.path.exists(candidate):
                 requirements_file = candidate
                 break
-    if os.path.exists(requirements_file):
+    if os.path.exists(requirements_file) and shutil.which("pip-audit"):
         try:
             result = subprocess.run(
                 ["pip-audit", "-r", requirements_file, "-f", "json"],

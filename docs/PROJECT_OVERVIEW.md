@@ -87,11 +87,11 @@ To evaluate the system, we performed a systematic **Ablation Study** across conf
 ## 5. Directory & Codebase Navigation
 
 When demonstrating or presenting the project codebase:
-* **[`main.py`](file:///c:/Users/keshav/OneDrive/Documents/caps_pjct/project/project/main.py)**: The central control hub. Handles HTTP request routes, scans uploaded requirements, triggers the prediction pipelines, and updates the local package installation database.
-* **[`dependency_analysis/`](file:///c:/Users/keshav/OneDrive/Documents/caps_pjct/project/project/dependency_analysis/)**: Parses dependencies, matches OSV caches, and prints the ASCII dependency risk tree inside the terminal.
-* **[`ml_engine/`](file:///c:/Users/keshav/OneDrive/Documents/caps_pjct/project/project/ml_engine/)**: Holds the neural architectures:
-  * [`hgat_model.py`](file:///c:/Users/keshav/OneDrive/Documents/caps_pjct/project/project/ml_engine/hgat_model.py): The PyTorch GNN implementation.
-  * [`temporal_model.py`](file:///c:/Users/keshav/OneDrive/Documents/caps_pjct/project/project/ml_engine/temporal_model.py): The LSTM sequence anomaly classifier.
-  * [`trainer.py`](file:///c:/Users/keshav/OneDrive/Documents/caps_pjct/project/project/ml_engine/trainer.py): The model training pipeline.
-* **[`visualization/dashboard.py`](file:///c:/Users/keshav/OneDrive/Documents/caps_pjct/project/project/visualization/dashboard.py)**: Generates the glassmorphic interactive security monitoring dashboard.
-* **[`graphs/`](file:///c:/Users/keshav/OneDrive/Documents/caps_pjct/project/project/graphs)** & **[`outputs/`](file:///c:/Users/keshav/OneDrive/Documents/caps_pjct/project/project/outputs)**: Directory housing model metrics, ROC/PR curves, and ablated early-warning plots.
+* **[`main.py`](../main.py)**: The central control hub. Handles HTTP request routes, scans uploaded requirements, triggers the prediction pipelines, and updates the local package installation database.
+* **[`dependency_analysis/`](../dependency_analysis/)**: Parses dependencies, matches OSV caches, and prints the ASCII dependency risk tree inside the terminal.
+* **[`ml_engine/`](../ml_engine/)**: Holds the neural architectures:
+  * [`hgat_model.py`](../ml_engine/hgat_model.py): The PyTorch GNN implementation.
+  * [`temporal_model.py`](../ml_engine/temporal_model.py): The LSTM sequence anomaly classifier.
+  * [`trainer.py`](../ml_engine/trainer.py): The model training pipeline.
+* **[`visualization/dashboard.py`](../visualization/dashboard.py)**: Generates the glassmorphic interactive security monitoring dashboard.
+* **[`graphs/`](../graphs/)** & **[`outputs/`](../outputs/)**: Directory housing model metrics, ROC/PR curves, and ablated early-warning plots.

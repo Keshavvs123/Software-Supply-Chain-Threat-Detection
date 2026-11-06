@@ -1,3 +1,4 @@
-# Clean, well-maintained mathematical computing dependency
-# Zero known CVEs, high OpenSSF scorecard, verified provenance
-numpy>=1.26.0
+# CRITICAL COMPOUND SUPPLY-CHAIN INCIDENT DEPENDENCIES
+ctx==0.1.2
+warcio
+pyshorteners==1.0.1
