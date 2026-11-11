@@ -1,4 +1,4 @@
-# Temporal Multimodal Software Supply-Chain Threat Detection Engine
+# ProTECTION: A Multi-Modal AI Framework for Proactive Software Supply Chain Threat Detection Using Heterogeneous Graph Attention Networks and Temporal LSTM
 
 An AI-driven pre-installation security gatekeeper that intercepts, evaluates, and neutralizes software supply chain threats (typosquatting, dependency confusion, malicious releases, transitive vulnerability cascades, and compromised maintainers) before packages reach developer machines.
 
